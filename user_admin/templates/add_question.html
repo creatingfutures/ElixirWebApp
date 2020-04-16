@@ -1,0 +1,249 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!doctype html>
+
+<style>
+body {background-color: lightgrey;}
+ ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+background-color: rgb(255,197,138);
+font-family: "Montserrat";
+font-size: 12px;
+
+}
+ ul.nav2 {
+     background: transparent;
+     list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+
+font-family: "Montserrat";
+font-size: 12px;
+      }
+
+
+li {
+float: left;
+}
+
+li a {
+display: block;
+color: black;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}
+
+li a:hover {
+background-color: rgb(255,165,74);
+}
+label{font-family: 'Montserrat';text-align: center; font-weight: 100; display: inline-block; width: 100px;font-size:14px; }
+ p.welcome{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute; bottom:640 ; right: 1390;color:white;}
+ .button1{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute;bottom:652 ; right: 20; background-color: Transparent;
+ background-repeat:no-repeat;
+ border: none;
+ cursor:pointer;
+ overflow: hidden;
+ outline:none;
+ text-decoration: underline;
+ color: white;}
+
+a.active{
+background-color: rgb(255,165,74) ;
+}
+
+#top {
+   top: 0;
+   background-color: orange;
+   height: 100px;
+}
+#box{
+   width:360px;
+   height:350px;
+   background: transparent;
+   margin:auto;
+   position: absolute;
+   top:0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   font-family: "Montserrat";
+}
+.button{
+ display: inline-block;
+ font-family: 'Montserrat';
+ background-color: orange;
+ border: none;
+ color: black;
+ padding: 12px 22px;
+ text-align: center;
+ text-decoration: none;
+ display: inline-block;
+ font-size: 14px;
+ margin: 4px 2px;
+ cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+   outline: none;
+
+}
+#container{
+   text-align: center;
+}
+
+
+</style>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+  <title>Add question</title>
+</head>
+
+<body>
+
+  <div id="top"><br>
+    <center><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></center>
+  </div>
+
+
+  <ul>
+    <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+    <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
+    <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
+    <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
+    <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
+    <li><a href="#reports">REPORTS</a></li>
+    <li style="float:right"><a href="#about">FAQs</a></li>
+    <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
+    <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
+  </ul>
+
+
+
+  <div style="position:relative;left:10%">
+    <h2>ERRORS</h2>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong> ( {{field.name}} ){{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>( {{field.name}} ){{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+  </div>
+
+</ul>
+    <br><br>
+
+    <div id="box">
+
+    <form method="POST" id="form1" enctype="multipart/form-data"  >
+
+      {% csrf_token %}
+        <p>
+        <label>Program:</label>
+        {{form.program_id}}</p>
+       <p>
+
+        <label>Module:</label>
+        {{form.module_id}}</p>
+        <p>
+        <label>Level:</label>
+        {{form.level_id}}</p>
+        <p>
+        <label>Type of question:</label>
+        {{form.question_type}}</p>
+        <p>
+        <label>Narrative:</label>
+        <input type="text" id="name"></p>
+
+        <p>
+        <label>Question:</label>
+        {{form.question}}</p>
+        <p>
+        <label>Option 1:</label>
+        {{form.option1}}</p>
+        <p>
+        <label>Option 2:</label>
+        {{form.option2}}</p>
+        <p>
+        <label>Option 3:</label>
+          {{form.option3}}</p>
+        <p>
+        <label>Option 4:</label>
+          {{form.option4}}</p>
+        <p>
+        <label>Answer:</label>
+          {{form.answer}}</p>
+        <p>
+
+          <br><br>
+              <input style="margin-left:120px;" type="submit" class="button" value="SUBMIT">&ensp;
+
+
+    </form>
+    </div>
+
+  <script
+			  src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+  <script>
+    $("#id_program_id").change(function() {
+      //var url = $("#form1").attr("data-modules-url");
+
+      var programId = $(this).val();
+      $("#1").html(programId); // get the selected country ID from the HTML input
+
+      $.ajax({ // initialize an AJAX request
+        url: '/ajax/load_modules/',
+        type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          program_id: programId, // add the country id to the GET parameters
+        },
+        success: function(data) { // `data` is the return of the `load_cities` view function
+          $("#id_module_id").html(data); // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+
+    $("#id_module_id").change(function() {
+      //var url = $("#form1").attr("data-modules-url");
+      var moduleId = $(this).val();
+      $("#1").html(moduleId); // get the selected country ID from the HTML input
+
+      $.ajax({ // initialize an AJAX request
+        url: '/ajax/load_levels/',
+        type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          module_id: moduleId, // add the country id to the GET parameters
+        },
+        success: function(data) { // `data` is the return of the `load_cities` view function
+          $("#id_level_id").html(data); // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+
+
+  </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<style>
+  #top {
+    top: 0;
+    background-color: orange;
+    height: 300px;
+  }
+
+
+  #box {
+    width: 300px;
+    height: 350px;
+    margin: auto;
+    position: absolute;
+    background-color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .button {
+    font-family: 'Montserrat';
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+
+  }
+</style>
+
+<html>
+
+<head>
+  <link rel="stylesheet" href="adminlogin.css">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <style>
+    body {
+      background-color: lightgrey;
+    }
+
+    h3 {
+      font-family: 'Montserrat';
+      text-align: center;
+      font-size: 30px;
+      color: darkorange;
+      font-weight: 100;
+    }
+
+    label {
+      font-family: 'Montserrat';
+      text-align: center;
+      font-weight: 100;
+      display: inline-block;
+      width: 100px;
+      font-size: 14px;
+    }
+
+    input[type=text] {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #000000;
+    }
+  </style>
+
+<body>
+
+
+
+  <div id="top"><br>
+    <center><img src="{% static 'elixir_logo.PNG' %}" width="120" height="120"></center>
+  </div>
+  <div id="box">
+      <br><br>
+    <h3 style="text-align:center; margin-top:70px;"><b><i>Logged out</i></b></h3>
+
+    <h3 style="text-align:Center;"><a class="button" href="{% url 'admin_login' %}">Login</a></h3>
+
+
+  </div>
+
+
+</body>
+</head>
+
+</html>

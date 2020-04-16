@@ -1,30 +1,116 @@
-
+{% load crispy_forms_tags %}
+{% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>HOME</title>
-  </head>
-  <body>
-
-
-<h1>Admin Login</h1>
-<br><br>
-<form method="POST">
-
-{% csrf_token %}
-  {{form}}
-
-<button type="submit">Login</button>
-</form>
+<style>
+  #top {
+    top: 0;
+    background-color: orange;
+    height: 300px;
+  }
 
 
+  #box {
+    width: 300px;
+    height: 350px;
+    margin: auto;
+    position: absolute;
+    background-color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+  .button {
+    font-family: 'Montserrat';
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+
+  }
+</style>
+
+<html>
+
+<head>
+  <link rel="stylesheet" href="adminlogin.css">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <style>
+    body {
+      background-color: lightgrey;
+    }
+
+    h3 {
+      font-family: 'Montserrat';
+      text-align: center;
+      font-size: 30px;
+      color: darkorange;
+      font-weight: 100;
+    }
+
+    label {
+      font-family: 'Montserrat';
+      text-align: center;
+      font-weight: 100;
+      display: inline-block;
+      width: 100px;
+      font-size: 14px;
+    }
+
+    input[type=text] {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #000000;
+    }
+  </style>
+
+<body>
+
+
+
+  <div id="top"><br>
+    <center><img src="{% static 'elixir_logo.PNG' %}" width="120" height="120"></center>
+  </div>
+  <div id="box">
+
+    {% if user.is_authenticated %}
+      <br><br>
+    <h3 style="text-align:center; margin-top:70px;"><b><i>Already Logged In</i></b></h3>
+
+    <h3 style="text-align:Center;"><a class="button" href="{% url 'home' %}">Home</a></h3>
+
+    {% else %}
+
+    <h3>ADMIN LOGIN</h3><br><br>
+    <form method="POST">
+      {% csrf_token %}
+      <p>
+        <label>Name:</label>
+        {{form.username}}</p>
+      <p>
+        <label>Password:</label>
+        {{form.password}}</p>
+
+        <center><input type="submit" class="button" value="LOGIN"></center>
+    </form>
+  {% endif %}
+    <br>
+  </div>
+
+
+</body>
+</head>
+
 </html>

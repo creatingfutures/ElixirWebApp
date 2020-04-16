@@ -1,0 +1,28 @@
+{% load user_tags %}
+
+{% if m|check1 %}
+
+<table align="center" style="width:97%;font-family: Montserrat">
+<tr>
+<th>FIRST NAME</th>
+<th>MOBILE NUMBER</th>
+<th>ACTION</th>
+</tr>
+{% for m1 in m %}
+<tr>
+<td>{{m1}}</td>
+<td>{{m1.mobile_number}}</td>
+
+<td><a href="{% url 'edit_student' m1.student_id %}">Edit</a></td>
+{% endfor %}
+</tr>
+
+</table>
+<br>
+
+{% else %}
+
+<p style="margin-left:21px">Student with that name does not exist</p>
+
+
+{% endif %}

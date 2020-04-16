@@ -1,0 +1,235 @@
+{% load user_tags %}
+{% load static %}
+
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body {background-color: lightgrey;}
+    {background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+
+#top {
+    top: 0;
+    background-color: orange;
+    height: 100px;
+}
+
+table, th, td {
+  border: 1px solid #696969;
+  border-collapse: collapse;
+  text-align: center;
+  background-color: #C4C4C4;
+  font-size: 12px;
+ }
+th, td {
+  padding: 15px;
+  }
+th {
+  background-color: #FFFFFF;
+  }
+
+body{
+  background: lightgrey;
+  font-family:Montserrat;
+  font-size:12px;
+}
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+
+.searchTerm {
+  width: 26.3+%;
+  border: 1px;
+  border-right: none;
+  padding: 25px;
+  height: 30px;
+  border-radius: 40px 0 0 40px;
+  outline: none;
+  color: #000000;
+  font-family:Montserrat;
+font-size:12px;
+}
+
+.searchTerm:focus{
+  color: #696969;
+  font-family:Montserrat;
+font-size:12px;
+}
+
+.searchButton {
+  width: 40px;
+  height: 50px;
+  border: 0px;
+  background: #FFFFFF;
+  text-align:center;
+  color: #696969;
+  border-radius: 0 40px 40px 0;
+  cursor: pointer;
+  font-size: 20px;
+  font-family:Montserrat;
+}
+
+ul.nav2 {
+        background: transparent;
+        list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  font-family: "Montserrat";
+  font-size: 17px;
+font-size:12px;
+         }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #FFD4AA;
+font-size:12px;
+}
+li.nav3 {
+  float: center;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: BLACK;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #FFBA77;
+}
+a.active{
+  background-color: #FFBA77;
+}
+.button{
+  display: inline-block;
+  font-family: 'Montserrat';
+  background-color: #FFA348;
+  border: none;
+  color: black;
+  padding: 12px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    outline: none;
+
+}
+#container{
+    text-align: center;
+}
+
+
+</style>
+
+
+<body>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+  <div id="top"><br>
+    <center><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></center>
+  </div>
+
+
+  <ul>
+    <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+    <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
+    <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
+    <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
+    <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
+    <li><a href="#reports">REPORTS</a></li>
+    <li style="float:right"><a href="#about">FAQs</a></li>
+    <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
+    <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
+  </ul>
+
+<br><br>
+
+<div class="row">
+
+
+  <div class="col-md-8">
+
+    {% if messages %}
+    {% for message in messages %}
+
+    <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
+
+      {{message}}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+<br><br>
+
+  <table align="center" style="width:80%;font-family: Montserrat">
+  <tr>
+    <th>PROGRAM NAME</th>
+    <th>MODULE</th>
+    <th>LEVEL</th>
+    <th>QUESTIONS</th>
+    <th>ACTION</th>
+  </tr>
+  {% for q1 in p %}
+  <tr>
+     <td>{{q1.program_id}}</td>
+    <td>{{q1.module_id}}</td>
+    <td>{{q1.level_id}}</td>
+    <td>{{q1.question}}</td>
+    <td><a href="{% url 'edit_question' q1.question_id %}">EDIT</a> <a href="{% url 'delete_question' q1.question_id %}">Delete</a</td>
+  </tr>
+{% endfor %}
+</table>
+
+<br>
+<div class="pagination" style="width:20%;position:absolute;left:40%">
+<ul style="position:absolute;left:10%">
+  {% if p.has_previous %}
+  <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+ {% endif %}
+ {% for pg in p.paginator.page_range %}
+ {% if p.number == pg %}
+ <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
+{% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+<li><a href="?page={{ pg }}">{{pg}}</a></li>
+{% endif %}
+{% endfor %}
+
+{% if p.has_next %}
+<li><a href="?page={{p.next_page_number}}">Next</a></li>
+{% endif %}
+</ul>
+
+</div>
+
+  <br><br><br><br>
+       <div style="position:absolute;left:10%;"id="">
+            <a class="button" href="{% url 'add_question' %}">ADD QUESTION</a>
+            <input type="button" class="button" value="BULK UPLOAD">
+       </div>
+
+    </body>
+</head>
+</html>

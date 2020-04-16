@@ -1,0 +1,36 @@
+{% load user_tags %}
+
+{% if m.count|check %}
+
+<table align="center" style="width:97%;font-family: Montserrat">
+<tr>
+<th>MODULE</th>
+<th>PROGRAM</th>
+<th>ACTION</th>
+</tr>
+{% for m1 in m %}
+<tr>
+<td>{{m1}}</td>
+<td>{{m1.program_id}}</td>
+
+<td><a href="{% url 'view_module' m1.program_id.program_id m1.module_id %}">Edit</a></td>
+{% endfor %}
+</tr>
+
+</table>
+<br>
+<a style="margin-left:21px" class='button' href="{% url 'add_module' p.program_id  %}">Add module</a>
+
+{% else %}
+
+<p style="margin-left:21px">Program does not have any modules yet</p>
+
+<a style="margin-left:21px" class='button' href="{% url 'add_module' p.program_id  %}">Add module</a>
+
+{% endif %}
+
+
+
+<script>
+
+</script>

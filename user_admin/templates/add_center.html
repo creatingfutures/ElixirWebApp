@@ -1,0 +1,211 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!doctype html>
+
+
+<html>
+<head>
+    <link rel="stylesheet" href="addfacilitator.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<style>
+    body {background-color: lightgrey;}
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(255,197,138);
+  font-family: "Montserrat";
+  font-size: 12px;
+
+}
+    ul.nav2 {
+        background: transparent;
+        list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  font-family: "Montserrat";
+  font-size: 12px;
+         }
+
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(255,165,74);
+}
+   label{font-family: 'Montserrat';text-align: center; font-weight: 100; display: inline-block; width: 100px;font-size:14px; }
+    p.welcome{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute; bottom:640 ; right: 1400;color:white;}
+    .button1{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute;bottom:652 ; right: 20; background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    text-decoration: underline;
+    color: white;}
+
+a.active{
+  background-color: rgb(255,165,74) ;
+}
+
+#top {
+    top: 0;
+    background-color: orange;
+    height: 100px;
+}
+#box{
+    width:300px;
+    height:350px;
+    background: transparent;
+    margin:auto;
+    position: absolute;
+
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-family: "Montserrat";
+}
+
+.button{
+  display: inline-block;
+  font-family: 'Montserrat';
+  background-color: orange;
+  border: none;
+  color: black;
+  padding: 12px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  outline: none;
+
+}
+#container{
+    text-align: center;
+}
+
+
+
+    </style>
+    <body>
+
+
+      <div id="top"><br>
+        <center><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></center>
+      </div>
+
+
+      <ul>
+        <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+        <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
+        <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
+        <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
+        <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
+        <li><a href="#reports">REPORTS</a></li>
+        <li style="float:right"><a href="#about">FAQs</a></li>
+        <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
+        <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
+      </ul>
+
+        <br><br>
+
+        <div style="position:relative;left:10%">
+          <h2>ERRORS</h2>
+          {% if form.errors %}
+              {% for field in form %}
+                  {% for error in field.errors %}
+                      <div class="alert alert-danger">
+                          <strong> ( {{field.name}} ){{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                  <div class="alert alert-danger">
+                      <strong>( {{field.name}} ){{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endif %}
+        </div>
+
+        <div id="box">
+
+        <form  method="POST" enctype="multipart/form-data">
+
+          {% csrf_token %}
+
+            <p>
+             <label>Center Name:</label>
+                {{form.center_name}}</p>
+            <p>
+            <label>Address Line 1:</label>
+            {{form.address_1}}</p>
+            <p>
+            <label>Address Line 2:</label>
+            {{form.address_2}}</p>
+            <p>
+            <label>Contact Person:</label>
+            {{form.contact_person}}</p>
+            <p>
+            <label>Mobile:</label>
+            {{form.mobile_number}}</p>
+            <p>
+            <label>Email ID:</label>
+            {{form.email_id}}</p>
+            <p>
+            <label>Center Type:</label>
+            {{form.center_type}}</p>
+            <p>
+            <label>Comments:</label>
+            {{form.comments}}</p>
+
+          <input style="margin-left:120px" type="submit" class="button" value="SUBMIT">&ensp;
+
+        </form>
+
+        <br><br>
+
+        </div>
+
+        </body>
+</head>
+</html>
+
+
+
+
+
+    <!-- <form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <div class="container mt-5 mb-5 pt-4 pl-5 pr-5 pb-3 ml-5 mr-5 bg-dark"
+    style="color:white;border:2px solid ridge;border-radius:5px;">
+    {{form|crispy}}
+
+    <div class="form-group">
+    <br>
+      <button class="btn btn-outline-info" type="submit">Submit</button>
+    </div>
+
+    </div>
+
+
+
+    </form> -->

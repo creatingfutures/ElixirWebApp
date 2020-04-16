@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user_admin',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,10 @@ USE_TZ = True
 LOGIN_REDIRECT_URL='home'
 
 LOGIN_URL='admin_login'
+
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL="/media/"
+
 
 
 # Static files (CSS, JavaScript, Images)
