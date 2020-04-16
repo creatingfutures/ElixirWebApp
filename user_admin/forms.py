@@ -95,7 +95,14 @@ class add_student_form(forms.ModelForm):
         if dob > datetime.date.today():
             raise forms.ValidationError("The date cannot be in the Future!")
         return dob
-
+    def clean_mobile_number(self):
+        mob = self.cleaned_data['mobile_number']
+        if re.match(r'[789]\d{9}$',mob):
+            pass
+        else:
+            raise forms.ValidationError("The Mobile Number is not Valid")
+        return mob
+        
 class add_batch_form(forms.ModelForm):
     class Meta:
         model=batch
@@ -129,7 +136,7 @@ class add_center_form(forms.ModelForm):
     class Meta:
         model = center
         fields=['center_name','address_1','address_2','contact_person','mobile_number','email_id','center_type','comments']
-        
+
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
         if re.match(r'[789]\d{9}$',mob):

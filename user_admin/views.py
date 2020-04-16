@@ -21,7 +21,7 @@ def home(request):
     programs = program.objects.all()
     modules=program_module.objects.all()
     module_count_dict={}
-    paginator=Paginator(programs,3)
+    paginator=Paginator(programs,1)
 
     try:
         page=int(request.GET.get('page','1'))
