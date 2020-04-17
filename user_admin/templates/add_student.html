@@ -124,23 +124,6 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
       <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
     </ul>
 
-    <div style="position:relative;left:10%">
-      <h2>ERRORS</h2>
-      {% if form.errors %}
-          {% for field in form %}
-              {% for error in field.errors %}
-                  <div class="alert alert-danger">
-                      <strong> ( {{field.name}} ){{ error|escape }}</strong>
-                  </div>
-              {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-              <div class="alert alert-danger">
-                  <strong>( {{field.name}} ){{ error|escape }}</strong>
-              </div>
-          {% endfor %}
-      {% endif %}
-    </div>
 
          <div id="box">
 
@@ -149,17 +132,16 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                {% csrf_token %}
                <p>
                <label>First Name:</label>
-               {{form.first_name}}</p>
+               {{form.first_name}}{{form.first_name.errors}}</p>
               <p>
                <label>Middle Name:</label>
-               {{form.middle_name}}</p>
+               {{form.middle_name}}{{form.middle_name.errors}}</p>
                <p>
                <label>Last Name:</label>
-               {{form.last_name}}</p>
+               {{form.last_name}}{{form.last_name.errors}}</p>
                <p>
                <label>DOB:</label>
-                   {{form.dob}}
-
+                   {{form.dob}}{{form.dob.errors}}
                <p>
                <label>Address Line 1:</label>
                {{form.address_1}}</p>
@@ -169,7 +151,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
                <p>
                <label>Mobile No:</label>
-               {{form.mobile_number}}</p>
+               {{form.mobile_number}}{{form.mobile_number.errors}}</p>
 
                <p>
                <label>Email ID:</label>
@@ -182,20 +164,20 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                {{form.password}}</p>
                <p>
                <label>Enrollment Date:</label>
-               {{form.enroll_date}}</p>
+               {{form.enroll_date}}{{form.enroll_date.errors}}</p>
                <p>
                <label>Photo Upload:</label>
                <br><br>
-               {{form.image}}</p>
+               {{form.image}}{{form.image.errors}}</p>
                <p>
                <label>Status:</label>
-               {{form.status}}</p>
+               {{form.status}}{{form.status.errors}}</p>
                <p>
                <label>Language Known:</label>
-               {{form.languages}}</p>
+               {{form.languages}}{{form.languages.errors}}</p>
                <p>
                <label>Comments:</label>
-               {{form.comments}}</p>
+               {{form.comments}}{{form.comments.errors}}</p>
 
 
                <div id="container">

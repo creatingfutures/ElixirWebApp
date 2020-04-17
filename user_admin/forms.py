@@ -9,6 +9,7 @@ class add_program_form(forms.ModelForm):
     class Meta:
         model=program
         fields=['program_name','prerequisite','comments']
+        widgets={'comments':forms.Textarea}
 
 class add_module_form(forms.ModelForm):
     class Meta:
@@ -26,6 +27,7 @@ class add_question_form(forms.ModelForm):
         fields=['question','answer','program_id'
         ,'module_id','level_id','question_type',
         'option1','option2','option3','option4','comments']
+        widgets={'comments':forms.Textarea}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -63,7 +65,8 @@ class add_facilitator_form(forms.ModelForm):
         'address_1','address_2','languages','enroll_date','specified_interests','status','comments','image']
         widgets = {
         'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),}
+        'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        'comments':forms.Textarea}
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
         if re.match(r'[789]\d{9}$',mob):
@@ -89,7 +92,8 @@ class add_student_form(forms.ModelForm):
         'address_1','address_2','languages','enroll_date','gender','status','comments','image']
         widgets = {
         'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),}
+        'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        'comments':forms.Textarea}
     def clean_dob(self):
         dob = self.cleaned_data['dob']
         if dob > datetime.date.today():
@@ -102,7 +106,7 @@ class add_student_form(forms.ModelForm):
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")
         return mob
-        
+
 class add_batch_form(forms.ModelForm):
     class Meta:
         model=batch
@@ -110,11 +114,12 @@ class add_batch_form(forms.ModelForm):
         ,'student_count','sessions_count','comments']
         widgets = {
         'start_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'end_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),}
+        'end_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        'comments':forms.Textarea}
     def clean_end_date(self):
         end_date = self.cleaned_data['end_date']
         start_date=self.cleaned_data['start_date']
-        if end_date > datetime.date.today():
+        if end_date < datetime.date.today():
             raise forms.ValidationError("The date cannot be in the Past!")
         elif end_date<=start_date:
             raise forms.ValidationError("The End_date cannot be before Start_Date")
@@ -136,6 +141,7 @@ class add_center_form(forms.ModelForm):
     class Meta:
         model = center
         fields=['center_name','address_1','address_2','contact_person','mobile_number','email_id','center_type','comments']
+        widgets={'comments':forms.Textarea,}
 
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']

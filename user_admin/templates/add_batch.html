@@ -135,23 +135,6 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
     <br><br>
 
-    <div style="position:relative;left:10%">
-      <h2>ERRORS</h2>
-      {% if form.errors %}
-          {% for field in form %}
-              {% for error in field.errors %}
-                  <div class="alert alert-danger">
-                      <strong> ( {{field.name}} ){{ error|escape }}</strong>
-                  </div>
-              {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-              <div class="alert alert-danger">
-                  <strong>( {{field.name}} ){{ error|escape }}</strong>
-              </div>
-          {% endfor %}
-      {% endif %}
-    </div>
 
           <br><br>
 
@@ -164,13 +147,13 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                   {{form.program_id}}</p>
               <p>
               <label>Batch Name:</label>
-              {{form.batch_name}}</p>
+              {{form.batch_name}}{{form.batch_name.errors}}</p>
               <p>
               <label>Start Date:</label>
                 {{form.start_date}}</p>
               <p>
               <label>End Date:</label>
-                {{form.end_date}}</p>
+                {{form.end_date}}{{form.end_date.errors}}</p>
               <label>Partner Org:</label>
                 {{form.partner_org}}</p>
               <p>

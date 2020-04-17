@@ -127,23 +127,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
 
 
-  <div style="position:relative;left:10%">
-    <h2>ERRORS</h2>
-    {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="alert alert-danger">
-                    <strong> ( {{field.name}} ){{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-            <div class="alert alert-danger">
-                <strong>( {{field.name}} ){{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endif %}
-  </div>
+
 
 </ul>
     <br><br>
@@ -172,7 +156,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
         <p>
         <label>Question:</label>
-        {{form.question}}</p>
+        {{form.question}}{{form.question.errors}}</p>
         <p>
         <label>Option 1:</label>
         {{form.option1}}</p>

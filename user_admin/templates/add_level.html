@@ -157,23 +157,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   </ul>
     <br><br>
 
-    <div style="position:relative;left:10%">
-      <h2>ERRORS</h2>
-      {% if form.errors %}
-          {% for field in form %}
-              {% for error in field.errors %}
-                  <div class="alert alert-danger">
-                      <strong> ( {{field.name}} ){{ error|escape }}</strong>
-                  </div>
-              {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-              <div class="alert alert-danger">
-                  <strong>( {{field.name}} ){{ error|escape }}</strong>
-              </div>
-          {% endfor %}
-      {% endif %}
-    </div>
+
     <div id="box">
 
       <form method="POST">
@@ -181,11 +165,11 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
             <p>
             <label>Level No. :</label>
-            {{form.level_number}}</p>
+            {{form.level_number}}{{form.level_number.errors}}</p>
             <p>
               <p>
               <label>Level description :</label>
-              {{form.level_description}}</p>
+              {{form.level_description}}{{form.level_description.errors}}</p>
               <p>
                 <p>
                 <p>

@@ -1,6 +1,6 @@
 {% load user_tags %}
 
-{% if m|check1 %}
+{% if n %}
 
 <table align="center" style="width:97%;font-family: Montserrat">
 <tr>
@@ -18,13 +18,8 @@
 </tr>
 
 </table>
+<br><br>
 <br>
-
-
-
-
-
-
 
 
 
@@ -32,6 +27,46 @@
 {% else %}
 
 <p style="margin-left:21px">Facilitator with that name does not exist</p>
+
+<div id=" ">
+  <table align="center" style="width:80%;font-family: Montserrat">
+    <tr>
+      <th>NAME</th>
+      <th>CONTACT</th>
+      <th>ACTION</th>
+    </tr>
+      {% for s1 in f %}
+    <tr>
+      <td>{{s1}}</td>
+      <td>{{s1.mobile_number}}</td>
+      <td><u><a href="{% url 'view_facilitator' s1.facilitator_id %}">click here</a></u> </td>
+    </tr>
+      {% endfor %}
+  </table>
+  <br>
+
+  <div class="pagination" style="width:20%;position:absolute;left:40%">
+  <ul style="position:absolute;left:10%">
+    {% if f.has_previous %}
+    <li><a href="?page2={{f.previous_page_number}}">Previous</a></li>
+   {% endif %}
+   {% for pg in f.paginator.page_range %}
+   {% if f.number == pg %}
+   <li class="active" style="background-color:orange;color:white;"><a href="?page2={{pg}}">{{pg}}</a></li>
+  {% elif pg > f.number|add:'-2' and pg < f.number|add:'2' %}
+  <li><a href="?page2={{ pg }}">{{pg}}</a></li>
+  {% endif %}
+  {% endfor %}
+
+  {% if f.has_next %}
+  <li><a href="?page2={{f.next_page_number}}">Next</a></li>
+  {% endif %}
+  </ul>
+
+  </div>
+
+</div>
+<br><br><br><br><br>
 
 
 {% endif %}

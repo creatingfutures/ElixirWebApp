@@ -20,11 +20,12 @@ fac_c=0
 def home(request):
     programs = program.objects.all()
     modules=program_module.objects.all()
+    facilitators=facilitator.objects.all()
     module_count_dict={}
-    paginator=Paginator(programs,1)
+    paginator=Paginator(programs,5)
 
     try:
-        page=int(request.GET.get('page','1'))
+        page=int(request.GET.get('page'))
     except:
         page=1
 
@@ -32,6 +33,28 @@ def home(request):
         programs1=paginator.page(page)
     except:
         programs1=paginator.page(paginator_num_pages)
+
+    paginator=Paginator(facilitators,5)
+    try:
+        page=int(request.GET.get('page2'))
+    except:
+        page=1
+
+    try:
+        facilitator1=paginator.page(page)
+    except:
+        facilitator1=paginator.page(paginator_num_pages)
+
+    paginator=Paginator(modules,5)
+    try:
+        page=int(request.GET.get('page3'))
+    except:
+        page=1
+
+    try:
+        modules1=paginator.page(page)
+    except:
+        modules1=paginator.page(paginator_num_pages)
 
     for i in programs:
         module_count=0
@@ -41,7 +64,7 @@ def home(request):
         module_count_dict[i]=module_count
 
     a={"p":programs1,
-    "pmc":module_count_dict,"p1":programs1}
+    "pmc":module_count_dict,"p1":programs1,"f":facilitator1,"m":modules1}
     return render(request,'home.html',a)
 
 
@@ -49,17 +72,50 @@ def home(request):
 def load_modules_home(request):
     program_id = request.GET.get('program_id')
     prog=program.objects.get(program_id=program_id)
+    moduless=program_module.objects.all()
     modules = program_module.objects.filter(program_id=program_id)
-    data = serializers.serialize("json",modules)
-    print(data)
-    return render(request,'ajax/module_dropdown_list_home.html',{"m": modules,"p":prog,"m2":data})
+
+    paginator=Paginator(moduless,5)
+    try:
+        page=int(request.GET.get('page3'))
+    except:
+        page=1
+
+    try:
+        modules1=paginator.page(page)
+    except:
+        modules1=paginator.page(paginator_num_pages)
+
+    if len(modules)==0:
+        not1=False
+    else:
+        not1=True
+
+    return render(request,'ajax/module_dropdown_list_home.html',{"m": modules1,"p":prog,"n":not1})
 
 def load_fac_home(request):
     fac_id = request.GET.get('facilitator_id')
     facs = facilitator.objects.all()
     fac_list = [i for i in facs if fac_id in i.first_name]
-    print(fac_list)
-    return render(request,'ajax/module_dropdown_fac_home.html',{"m": fac_list})
+
+    paginator=Paginator(facs,5)
+    try:
+        page=int(request.GET.get('page2'))
+    except:
+        page=1
+
+    try:
+        facilitator1=paginator.page(page)
+    except:
+        facilitator1=paginator.page(paginator_num_pages)
+
+    if len(fac_list)==0:
+        not1=False
+    else:
+        not1=True
+    return render(request,'ajax/module_dropdown_fac_home.html',{"m": fac_list,"n":not1,"f":facilitator1})
+
+
 
 def add_program(request):
     if request.method=="POST":

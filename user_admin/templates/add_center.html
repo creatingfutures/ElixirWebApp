@@ -126,23 +126,7 @@ a.active{
 
         <br><br>
 
-        <div style="position:relative;left:10%">
-          <h2>ERRORS</h2>
-          {% if form.errors %}
-              {% for field in form %}
-                  {% for error in field.errors %}
-                      <div class="alert alert-danger">
-                          <strong> ( {{field.name}} ){{ error|escape }}</strong>
-                      </div>
-                  {% endfor %}
-              {% endfor %}
-              {% for error in form.non_field_errors %}
-                  <div class="alert alert-danger">
-                      <strong>( {{field.name}} ){{ error|escape }}</strong>
-                  </div>
-              {% endfor %}
-          {% endif %}
-        </div>
+
 
         <div id="box">
 
@@ -152,7 +136,7 @@ a.active{
 
             <p>
              <label>Center Name:</label>
-                {{form.center_name}}</p>
+                {{form.center_name}}{{form.center_name.errors}}</p>
             <p>
             <label>Address Line 1:</label>
             {{form.address_1}}</p>
@@ -164,7 +148,7 @@ a.active{
             {{form.contact_person}}</p>
             <p>
             <label>Mobile:</label>
-            {{form.mobile_number}}</p>
+            {{form.mobile_number}}{{form.mobile_number.errors}}</p>
             <p>
             <label>Email ID:</label>
             {{form.email_id}}</p>
@@ -186,26 +170,3 @@ a.active{
         </body>
 </head>
 </html>
-
-
-
-
-
-    <!-- <form method="POST" enctype="multipart/form-data">
-
-    {% csrf_token %}
-
-    <div class="container mt-5 mb-5 pt-4 pl-5 pr-5 pb-3 ml-5 mr-5 bg-dark"
-    style="color:white;border:2px solid ridge;border-radius:5px;">
-    {{form|crispy}}
-
-    <div class="form-group">
-    <br>
-      <button class="btn btn-outline-info" type="submit">Submit</button>
-    </div>
-
-    </div>
-
-
-
-    </form> -->

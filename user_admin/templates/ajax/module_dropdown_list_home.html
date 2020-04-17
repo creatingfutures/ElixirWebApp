@@ -1,6 +1,6 @@
 {% load user_tags %}
 
-{% if m.count|check %}
+{% if n %}
 
 <table align="center" style="width:97%;font-family: Montserrat">
 <tr>
@@ -25,6 +25,45 @@
 
 <p style="margin-left:21px">Program does not have any modules yet</p>
 
+<div id="modnotdonedone">
+  <table align="center" style="width:80%;font-family: Montserrat">
+    <tr>
+      <th>NAME</th>
+      <th>PROGRAM ID</th>
+      <th>ACTION</th>
+    </tr>
+      {% for s1 in m %}
+    <tr>
+      <td>{{s1}}</td>
+      <td>{{s1.program_id}}</td>
+      <td><a href="{% url 'view_module' s1.program_id.program_id s1.module_id %}">Edit</a></td>
+    </tr>
+      {% endfor %}
+  </table>
+  <br>
+
+  <div class="pagination" style="width:20%;position:absolute;left:40%">
+  <ul style="position:absolute;left:10%">
+    {% if m.has_previous %}
+    <li><a href="?page3={{m.previous_page_number}}">Previous</a></li>
+   {% endif %}
+   {% for pg in m.paginator.page_range %}
+   {% if m.number == pg %}
+   <li class="active" style="background-color:orange;color:white;"><a href="?page3={{pg}}">{{pg}}</a></li>
+  {% elif pg > m.number|add:'-2' and pg < m.number|add:'2' %}
+  <li><a href="?page3={{ pg }}">{{pg}}</a></li>
+  {% endif %}
+  {% endfor %}
+
+  {% if m.has_next %}
+  <li><a href="?page3={{m.next_page_number}}">Next</a></li>
+  {% endif %}
+  </ul>
+
+  </div>
+
+</div>
+<br><br>
 <a style="margin-left:21px" class='button' href="{% url 'add_module' p.program_id  %}">Add module</a>
 
 {% endif %}
