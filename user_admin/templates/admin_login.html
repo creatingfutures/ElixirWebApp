@@ -102,12 +102,17 @@
       <p>
         <label>Password:</label>
         {{form.password}}</p>
-
         <center><input type="submit" class="button" value="LOGIN"></center>
+        {% if form.errors %}
+          <script>
+            window.alert("Please Enter Correct UserName and password");
+          </script>
+        {% endif %}
     </form>
   {% endif %}
     <br>
   </div>
+
 
 
 </body>

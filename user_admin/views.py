@@ -64,7 +64,7 @@ def home(request):
         module_count_dict[i]=module_count
 
     a={"p":programs1,
-    "pmc":module_count_dict,"p1":programs1,"f":facilitator1,"m":modules1}
+    "pmc":module_count_dict,"p1":programs,"f":facilitator1,"m":modules1}
     return render(request,'home.html',a)
 
 
@@ -77,7 +77,7 @@ def load_modules_home(request):
 
     paginator=Paginator(moduless,5)
     try:
-        page=int(request.GET.get('page3'))
+        page=int(request.GET.get('page4'))
     except:
         page=1
 
@@ -91,12 +91,12 @@ def load_modules_home(request):
     else:
         not1=True
 
-    return render(request,'ajax/module_dropdown_list_home.html',{"m": modules1,"p":prog,"n":not1})
+    return render(request,'ajax/module_dropdown_list_home.html',{"mm": modules1,"p":prog,"n":not1,"m11":modules})
 
 def load_fac_home(request):
     fac_id = request.GET.get('facilitator_id')
     facs = facilitator.objects.all()
-    fac_list = [i for i in facs if fac_id in i.first_name]
+    fac_list = [i for i in facs if fac_id.lower() in i.first_name]
 
     paginator=Paginator(facs,5)
     try:

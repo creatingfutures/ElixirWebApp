@@ -96,3 +96,6 @@ urlpatterns = [
 
 
 ]
+urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns+=static(settings.MEDIA_URL1,document_root=settings.MEDIA_ROOT)
+urlpatterns+=static(settings.MEDIA_URL2,document_root=settings.MEDIA_ROOT)

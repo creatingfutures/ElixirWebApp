@@ -8,7 +8,7 @@
 <th>PROGRAM</th>
 <th>ACTION</th>
 </tr>
-{% for m1 in m %}
+{% for m1 in m11 %}
 <tr>
 <td>{{m1}}</td>
 <td>{{m1.program_id}}</td>
@@ -23,7 +23,7 @@
 
 {% else %}
 
-<p style="margin-left:21px">Program does not have any modules yet</p>
+<p style="margin-left:21px;font-size:20px">Program does not have any modules yet</p>
 
 <div id="modnotdonedone">
   <table align="center" style="width:80%;font-family: Montserrat">
@@ -32,7 +32,7 @@
       <th>PROGRAM ID</th>
       <th>ACTION</th>
     </tr>
-      {% for s1 in m %}
+      {% for s1 in mm %}
     <tr>
       <td>{{s1}}</td>
       <td>{{s1.program_id}}</td>
@@ -44,19 +44,19 @@
 
   <div class="pagination" style="width:20%;position:absolute;left:40%">
   <ul style="position:absolute;left:10%">
-    {% if m.has_previous %}
-    <li><a href="?page3={{m.previous_page_number}}">Previous</a></li>
+    {% if mm.has_previous %}
+    <li><a href="?page3={{mm.previous_page_number}}">Previous</a></li>
    {% endif %}
-   {% for pg in m.paginator.page_range %}
-   {% if m.number == pg %}
+   {% for pg in mm.paginator.page_range %}
+   {% if mm.number == pg %}
    <li class="active" style="background-color:orange;color:white;"><a href="?page3={{pg}}">{{pg}}</a></li>
-  {% elif pg > m.number|add:'-2' and pg < m.number|add:'2' %}
+  {% elif pg > mm.number|add:'-2' and pg < mm.number|add:'2' %}
   <li><a href="?page3={{ pg }}">{{pg}}</a></li>
   {% endif %}
   {% endfor %}
 
-  {% if m.has_next %}
-  <li><a href="?page3={{m.next_page_number}}">Next</a></li>
+  {% if mm.has_next %}
+  <li><a href="?page3={{mm.next_page_number}}">Next</a></li>
   {% endif %}
   </ul>
 

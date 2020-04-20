@@ -103,7 +103,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
-  <title>Add question</title>
+    <title>Add/Edit Question</title>
 </head>
 
 <body>
@@ -149,7 +149,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
         {{form.level_id}}</p>
         <p>
         <label>Type of question:</label>
-        {{form.question_type}}</p>
+        {{form.question_type}}{{form.question_type.errors}}</p>
         <p>
         <label>Narrative:</label>
         <input type="text" id="name"></p>
@@ -159,19 +159,19 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
         {{form.question}}{{form.question.errors}}</p>
         <p>
         <label>Option 1:</label>
-        {{form.option1}}</p>
+        {{form.option1}}{{form.option1.errors}}</p>
         <p>
         <label>Option 2:</label>
-        {{form.option2}}</p>
+        {{form.option2}}{{form.option2.errors}}</p>
         <p>
         <label>Option 3:</label>
-          {{form.option3}}</p>
+          {{form.option3}}{{form.option3.errors}}</p>
         <p>
         <label>Option 4:</label>
-          {{form.option4}}</p>
+          {{form.option4}}{{form.option4.errors}}</p>
         <p>
         <label>Answer:</label>
-          {{form.answer}}</p>
+          {{form.answer}}{{form.answer.errors}}</p>
         <p>
 
           <br><br>

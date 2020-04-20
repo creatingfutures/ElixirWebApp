@@ -103,6 +103,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 <head>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <body>
+        <title>Add/Edit Facilitator</title>
 
       <div id="top"><br>
         <center><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></center>
@@ -123,17 +124,17 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
         <br><br>
 
-  
+
 
         <div id="box">
         <br>
           <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
               <label>First Name:</label>
-                  {{form.first_name}}</p>
+                  {{form.first_name}}{{form.first_name.errors}}</p>
               <p>
               <label>Last Name:</label>
-              {{form.last_name}}</p>
+              {{form.last_name}}{{form.last_name.errors}}</p>
               <p>
               <label>Email:</label>
               {{form.email_id}}</p>
@@ -145,22 +146,19 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               {{form.mobile_number}}{{form.mobile_number.errors}}</p>
               <p>
               <label>Occupation:</label>
-              {{form.occupation}}</p>
+              {{form.occupation}}{{form.occupation.errors}}</p>
               <p>
               <label>Languages Known:</label>
-              {{form.languages}}</p>
+              {{form.languages}}{{form.languages.errors}}</p>
               <p>
               <label>Enrollment Date:</label>
-            {{form.enroll_date}}</p>
+            {{form.enroll_date}}{{form.enroll_date.errors}}</p>
               <p>
                 <p>
                 <label>Adress Line 1:</label>
-                {{form.address_1}}</p>
-                <p>
-                <label>Adress Line 2:</label>
-                {{form.address_2}}</p>
+                {{form.address_1}}{{form.address_1.errors}}</p>
               <label>Specific Interest:</label>
-              {{form.specified_interests}}</p>
+              {{form.specified_interests}}{{form.specified_interests.errors}}</p>
               <p>
               <label>Status:</label>
               {{form.status}}
@@ -168,9 +166,11 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               <label>Password:</label>
               {{form.password}}</p>
               <label>Comments:</label>
-              {{form.comments}}</p>
-              <p>
-             <label>Image : </label>
+              {{form.comments}}{{form.comments.errors}}</p>
+                    <p>
+
+             <label>Image :</label>
+
               {{form.image}}</p>
 
 

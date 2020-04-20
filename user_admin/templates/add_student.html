@@ -102,7 +102,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <title>Add student</title>
+      <title>Add/Edit Student</title>
   </head>
   <body>
 
@@ -144,11 +144,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                    {{form.dob}}{{form.dob.errors}}
                <p>
                <label>Address Line 1:</label>
-               {{form.address_1}}</p>
-               <p>
-               <label>Address Line 2:</label>
-               {{form.address_2}}</p>
-
+               {{form.address_1}}{{form.address_1.errors}}</p>
                <p>
                <label>Mobile No:</label>
                {{form.mobile_number}}{{form.mobile_number.errors}}</p>

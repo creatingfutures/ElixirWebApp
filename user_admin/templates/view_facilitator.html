@@ -156,6 +156,17 @@ outline: none;
 
 }
 
+#box label
+{
+
+  font-size:20px;
+}
+
+#box p
+{
+  font-weight:bold;
+  font-size:15px;
+}
 </style>
 
 <html lang="en">
@@ -204,18 +215,59 @@ outline: none;
           {% endif %}
         </div>
       </div>
-      
+
 
 <div id="box">
 
-  <h1>Facilitator Name : {{f}}</h1>
+  <p>
+  <label>First Name:</label>
+      {{f.first_name}}]</p>
+  <p>
+  <label>Last Name:</label>
+  {{f.last_name}}</p>
+  <p>
+  <label>Email:</label>
+  {{f.email_id}}</p>
+  <p>
+  <label>Date Of Birth:</label>
+  {{f.dob}}</p>
+  <p>
+  <label>Mobile Number:</label>
+  {{f.mobile_number}}</p>
+  <p>
+  <label>Occupation:</label>
+  {{f.occupation}}</p>
+  <p>
+  <label>Languages Known:</label>
+  {{f.languages}}</p>
+  <p>
+  <label>Enrollment Date:</label>
+{{f.enroll_date}}</p>
+  <p>
+    <p>
+    <label>Adress Line 1:</label>
+    {{f.address_1}}</p>
+    <p>
+        <label>Specific Interest:</label>
+  {{f.specified_interests}}</p>
+  <p>
+  <label>Status:</label>
+  {{f.status}} </p>
+  <p>
+  <label>Password:</label>
+  {{f.password}}</p>
+  <p>
+  <label>Comments:</label>
+  {{f.comments}}</p>
+        <p>
 
-   <a class="button" href="{% url 'edit_facilitator' f.facilitator_id %}">EDIT</a>
-  <a class="button" href="{% url 'password_management_facilitator' f.facilitator_id %}">CHANGE PASSWORD</a>
+ <label>Image :</label>
+
+  <img src="media/{{f.image}}" wdith=150px height=150px alt="No image "></p>
 
 
 <br><br>
-<a class="button" href="{% url 'delete_facilitator' f.facilitator_id %}">DELETE FACILITATOR</a>
+<!-- <a class="button" href="{% url 'delete_facilitator' f.facilitator_id %}">DELETE FACILITATOR</a> -->
 
 </div>
 

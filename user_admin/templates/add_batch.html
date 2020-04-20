@@ -112,7 +112,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
 
-    <title>Add Center</title>
+    <title>Add/Edit Batch</title>
   </head>
   <body>
 
@@ -155,23 +155,23 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               <label>End Date:</label>
                 {{form.end_date}}{{form.end_date.errors}}</p>
               <label>Partner Org:</label>
-                {{form.partner_org}}</p>
+                {{form.partner_org}}}{{form.partner_org.errors}}</p>
               <p>
               <label>Batch Incharge Name:</label>
               {{form.batch_incharge_id}}</p>
               <label>Center Id</label>
               {{form.center_id}}</p>
               <label>No of Students:</label>
-                {{form.student_count}}
+                {{form.student_count}}{{form.student_count.errors}}
               <p>
               <label>No of Sessions:</label>
-              {{form.sessions_count}}</p>
+              {{form.sessions_count}}{{form.sessions_count.errors}}</p>
               <p>
               <label>Status:</label>
               {{form.status}}</p>
               <p>
               <label>Comments:</label>
-              {{form.comments}}</p>
+              {{form.comments}}{{form.comments.errors}}</p>
 
               <br><br>
                   <div id="container">

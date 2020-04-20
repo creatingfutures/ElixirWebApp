@@ -1,19 +1,24 @@
 from django.db import models
+from django.core.validators import MaxValueValidator,MinValueValidator
 
+
+def validate_not_spaces(value):
+    if isinstance(value, str) and value.strip() == '':
+        raise ValidationError(u"You must provide more than just whitespace.")
 
 class entity(models.Model):
     entity_name = models.CharField(primary_key=True,max_length=100,unique=True)
 
 class entity_status(models.Model):
     status = models.IntegerField(primary_key=True)
-    description = models.CharField(max_length=100,null=False,blank=False,unique=True)
+    description = models.CharField(max_length=100,null=False,blank=False,unique=True,validators=[validate_not_spaces])
     def __str__(self):
         return self.description
 
 class entity_type(models.Model):
     enitity=models.ForeignKey(entity,on_delete=models.CASCADE)
     entity_type_id = models.AutoField(primary_key=True)
-    description = models.CharField(max_length=100,null=False,blank=False,unique=True)
+    description = models.CharField(max_length=100,null=False,blank=False,unique=True,validators=[validate_not_spaces])
     def __str__(self):
         return self.description
 
@@ -21,7 +26,7 @@ class entity_type(models.Model):
 
 class student(models.Model):
     student_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=100,null=False,blank=False)
+    first_name = models.CharField(max_length=100,null=False,blank=False,validators=[validate_not_spaces])
     middle_name =  models.CharField(max_length=100,null=True,blank=True)
     last_name =  models.CharField(max_length=100,null=False,blank=False)
     password =  models.CharField(default="creatingfuturesS",max_length=100,null=False,blank=False)
@@ -33,10 +38,9 @@ class student(models.Model):
     enroll_date =  models.DateField(null=True, blank=True)
     dob = models.DateField(null=False,blank=False)
     address_1 = models.CharField(max_length=100,null=False,blank=False)
-    address_2 = models.CharField(max_length=100,null=False,blank=False)
     school = models.CharField(max_length=100,null=True,blank=True)
     languages = models.CharField(max_length=100)
-    comments = models.CharField(max_length=100,null=True,blank=True)
+    comments = models.CharField(max_length=500,null=True,blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
     created_by = models.CharField(max_length=100,null=True,blank=True)
@@ -66,9 +70,8 @@ class facilitator(models.Model):
     gender = models.CharField(max_length=1,null=False,blank=False)
     enroll_date =  models.DateField(null=True, blank=True)
     address_1 = models.CharField(max_length=100,null=False,blank=False)
-    address_2 = models.CharField(max_length=100,null=False,blank=False)
     languages = models.CharField(max_length=100)
-    comments = models.CharField(max_length=100,null=True,blank=True)
+    comments = models.CharField(max_length=500,null=True,blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
     created_by = models.CharField(max_length=100,null=True,blank=True)
@@ -85,7 +88,7 @@ class program(models.Model):
     program_id = models.AutoField(primary_key=True)
     program_name = models.CharField(max_length=100,null=False,blank=False,unique=True)
     prerequisite =  models.CharField(max_length=100,null=True,blank=True)
-    comments = models.CharField(max_length=100,null=True,blank=True)
+    comments = models.CharField(max_length=500,null=True,blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
     created_by = models.CharField(max_length=100,null=True,blank=True)
@@ -97,7 +100,6 @@ class center(models.Model):
     center_id = models.AutoField(primary_key=True)
     center_name = models.CharField(max_length=100,null=False,blank=False,unique=True)
     address_1 = models.CharField(max_length=100,null=False,blank=False)
-    address_2 = models.CharField(max_length=100,null=False,blank=False)
     comments = models.CharField(max_length=100,null=True,blank=True)
     landline_number =  models.CharField(max_length=100,null=True,blank=True)
     mobile_number = models.CharField(max_length=100,null=False,blank=False)
@@ -117,9 +119,9 @@ class batch(models.Model):
     batch_incharge_id = models.ForeignKey(facilitator,on_delete=models.CASCADE)
     partner_org = models.CharField(max_length=100,null=True,blank=True)
     center_id = models.ForeignKey(center,on_delete=models.CASCADE)
-    sessions_count = models.IntegerField(null=True,blank=True)
-    student_count = models.IntegerField(null=True,blank=True)
-    comments = models.CharField(max_length=100,null=True,blank=True)
+    sessions_count = models.IntegerField(null=True,blank=True,validators=[MinValueValidator(0)])
+    student_count = models.IntegerField(null=True,blank=True,validators=[MinValueValidator(0)])
+    comments = models.CharField(max_length=500,null=True,blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
     created_by = models.CharField(max_length=100,null=True,blank=True)
@@ -132,7 +134,7 @@ class batch(models.Model):
 
 class program_module(models.Model):
     module_id = models.AutoField(primary_key=True)
-    module_name = models.CharField(max_length=100,null=False,blank=False,unique=True)
+    module_name = models.CharField(max_length=100,null=False,blank=False)
     program_id = models.ForeignKey(program,on_delete=models.CASCADE)
     def __str__(self):
         return self.module_name
@@ -141,8 +143,8 @@ class program_module(models.Model):
 class module_level(models.Model):
     level_id = models.AutoField(primary_key=True)
     module_id = models.ForeignKey(program_module,on_delete=models.CASCADE)
-    level_number = models.IntegerField(null=False,blank=False,unique=True)
-    level_description = models.CharField(max_length=100,null=True,blank=True,unique=True)
+    level_number = models.IntegerField(null=False,blank=False,validators=[MinValueValidator(0)])
+    level_description = models.CharField(max_length=100,null=False,blank=False)
     def __str__(self):
         return self.level_description
 
@@ -159,7 +161,7 @@ class questions(models.Model):
     option2 = models.CharField(max_length=100,null=True,blank=True)
     option3 = models.CharField(max_length=100,null=True,blank=True)
     option4 = models.CharField(max_length=100,null=True,blank=True)
-    comments = models.CharField(max_length=100,null=True,blank=True)
+    comments = models.CharField(max_length=500,null=True,blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
     created_by = models.CharField(max_length=100,null=True,blank=True)

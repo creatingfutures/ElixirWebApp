@@ -5,6 +5,7 @@
 
 <html>
 <head>
+    <title>Add/Edit Center</title>
     <link rel="stylesheet" href="addfacilitator.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <style>
@@ -139,13 +140,10 @@ a.active{
                 {{form.center_name}}{{form.center_name.errors}}</p>
             <p>
             <label>Address Line 1:</label>
-            {{form.address_1}}</p>
-            <p>
-            <label>Address Line 2:</label>
-            {{form.address_2}}</p>
+            {{form.address_1}}{{form.address_1.errors}}</p>
             <p>
             <label>Contact Person:</label>
-            {{form.contact_person}}</p>
+            {{form.contact_person}}{{form.contact_person.errors}}</p>
             <p>
             <label>Mobile:</label>
             {{form.mobile_number}}{{form.mobile_number.errors}}</p>
@@ -157,7 +155,7 @@ a.active{
             {{form.center_type}}</p>
             <p>
             <label>Comments:</label>
-            {{form.comments}}</p>
+            {{form.comments}}{{form.comments.errors}}</p>
 
           <input style="margin-left:120px" type="submit" class="button" value="SUBMIT">&ensp;
 

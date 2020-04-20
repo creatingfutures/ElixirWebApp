@@ -180,23 +180,23 @@ text-align: center;
       </div>
     </div>
     <br>
-<h1>PROGRAM : {{p1}}</h1>
-<h2>MODULE : {{m}}</h2>
+<h1>PROGRAM NAME : {{p1}}</h1>
+<h2>MODULE NAME : {{m}}</h2>
+
+<h2>LEVELS :</h2>
 
 {% if check %}
 <table align="center" style="width:80%;font-family: Montserrat">
 <tr>
-  <th>LEVEL NAME</th>
   <th>LEVEL NUMBER</th>
-  <th>EDIT</th>
-  <th>VIEW</th>
+  <th>LEVEL NAME</th>
+  <th>ACTION</th>
 </tr>
 {% for c in l %}
 <tr>
-  <td>{{c}}</td>
   <td>{{c.level_number}}</td>
-  <td><a href="{% url 'edit_level' p1.program_id m.module_id c.level_id%}">EDIT</a></td>
-  <td> <a href="{% url 'view_level' p1.program_id m.module_id c.level_id %}">VIEW</a>
+  <td>{{c}}</td>
+  <td><a href="{% url 'edit_level' p1.program_id m.module_id c.level_id%}">EDIT</a> <a href="{% url 'delete_level' c.level_id %}">DELETE LEVEL</a></td>
 </td>
 </tr>
 {% endfor %}
@@ -211,15 +211,16 @@ text-align: center;
 
 <br><br>
 
- <a style="margin-left:150px" class="button" href="{% url 'edit_module' p1.program_id m.module_id %}">EDIT MODULE</a>
-<a style="margin-left:50px" class="button" href="{% url 'add_level' p1.program_id m.module_id %}">ADD LEVEL</a>
+<a style="margin-left:150px" class="button" href="{% url 'add_level' p1.program_id m.module_id %}">ADD LEVEL</a>
 
 <br><br>
 <a style="margin-left:150px" class="button" href="{% url 'delete_module' m.module_id %}">DELETE MODULE</a>
+ <a style="margin-left:50px" class="button" href="{% url 'edit_module' p1.program_id m.module_id %}">EDIT MODULE</a>
 
 <br><br>
 
-<h2>QUESTIONS</h2>
+
+<!-- <h2>QUESTIONS</h2>
 
 
 {% if check1 %}
@@ -272,7 +273,7 @@ text-align: center;
 <p style="margin-left:21px">Module Has no Questions Yet</p>
 
 
-{% endif %}
+{% endif %} -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

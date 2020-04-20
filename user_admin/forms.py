@@ -15,11 +15,43 @@ class add_module_form(forms.ModelForm):
     class Meta:
         model = program_module
         fields=['module_name']
+    def clean_module_name(self):
+        m=self.instance.program_id
+        l=self.cleaned_data['module_name']
+        ls=program_module.objects.filter(program_id=m)
+        for i in ls:
+            if i==self.instance:
+                continue
+            if l == i.module_name:
+                raise forms.ValidationError("A module with that name already exists for this program")
+        return l
 
 class add_level_form(forms.ModelForm):
     class Meta:
         model = module_level
         fields=['level_number','level_description']
+
+    def clean_level_number(self):
+        m=self.instance.module_id
+        l=self.cleaned_data['level_number']
+        ls=module_level.objects.filter(module_id=m)
+        for i in ls:
+            if i == self.instance:
+                continue
+            if l == i.level_number:
+                raise forms.ValidationError("A level with that number already exists for this module")
+        return l
+
+    def clean_level_description(self):
+        m=self.instance.module_id
+        l=self.cleaned_data['level_description']
+        ls=module_level.objects.filter(module_id=m)
+        for i in ls:
+            if i == self.instance:
+                continue
+            if l == i.level_description:
+                raise forms.ValidationError("A level with that description already exists for this module")
+        return l
 
 class add_question_form(forms.ModelForm):
     class Meta:
@@ -62,11 +94,11 @@ class add_facilitator_form(forms.ModelForm):
     class Meta:
         model=facilitator
         fields=['first_name','middle_name','last_name','email_id','dob','occupation','password','mobile_number',
-        'address_1','address_2','languages','enroll_date','specified_interests','status','comments','image']
+        'address_1','languages','enroll_date','specified_interests','status','comments','image']
         widgets = {
         'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'comments':forms.Textarea}
+        'comments':forms.Textarea,'address_1':forms.Textarea}
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
         if re.match(r'[789]\d{9}$',mob):
@@ -89,11 +121,11 @@ class add_student_form(forms.ModelForm):
     class Meta:
         model=student
         fields=['first_name','middle_name','last_name','email_id','dob','password','mobile_number',
-        'address_1','address_2','languages','enroll_date','gender','status','comments','image']
+        'address_1','languages','enroll_date','gender','status','comments','image']
         widgets = {
         'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'comments':forms.Textarea}
+        'comments':forms.Textarea,'address_1':forms.Textarea}
     def clean_dob(self):
         dob = self.cleaned_data['dob']
         if dob > datetime.date.today():
@@ -140,8 +172,8 @@ class add_center_form(forms.ModelForm):
     email_id = forms.EmailField()
     class Meta:
         model = center
-        fields=['center_name','address_1','address_2','contact_person','mobile_number','email_id','center_type','comments']
-        widgets={'comments':forms.Textarea,}
+        fields=['center_name','address_1','contact_person','mobile_number','email_id','center_type','comments']
+        widgets={'comments':forms.Textarea,'address_1':forms.Textarea}
 
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']

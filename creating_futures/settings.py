@@ -121,7 +121,8 @@ LOGIN_URL='admin_login'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL="/media/"
 
-
+MEDIA_URL1="edit_facilitator/media/"
+MEDIA_URL2="view_facilitator/media/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
