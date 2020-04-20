@@ -96,7 +96,12 @@ def load_modules_home(request):
 def load_fac_home(request):
     fac_id = request.GET.get('facilitator_id')
     facs = facilitator.objects.all()
-    fac_list = [i for i in facs if fac_id.lower() in i.first_name]
+    fac_list=[]
+    for i in facs:
+        if fac_id.lower() in i.first_name:
+            fac_list.append(i)
+        elif fac_id.lower() in i.last_name:
+            fac_list.append(i)
 
     paginator=Paginator(facs,5)
     try:
