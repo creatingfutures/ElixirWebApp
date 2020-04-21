@@ -63,17 +63,29 @@ a.active{
     height: 100px;
 }
 #box{
-    width:300px;
+    width:350px;
     height:350px;
     background: transparent;
     margin:auto;
     position: absolute;
 
-    top:0;
-    bottom: 0;
+    margin-top:0%;
     left: 0;
     right: 0;
     font-family: "Montserrat";
+}
+
+
+#box label{
+  left:0;
+  position:absolute;
+  width:50%;
+  text-align:left;
+}
+
+#box p{
+  text-align:left;
+  margin-left:50%;
 }
 .button{
   display: inline-block;
@@ -130,7 +142,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
         <br>
           <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-              <label>First Name:</label>
+              <p><label>First Name:</label>
                   {{form.first_name}}{{form.first_name.errors}}</p>
               <p>
               <label>Last Name:</label>
@@ -140,7 +152,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               {{form.email_id}}</p>
               <p>
               <label>Date Of Birth:</label>
-              {{form.dob}}{{form.dob.errors}}</p>
+              {{form.dob}} <p>{{f.dob}}</p>{{form.dob.errors}}</p>
               <p>
               <label>Mobile Number:</label>
               {{form.mobile_number}}{{form.mobile_number.errors}}</p>
@@ -152,12 +164,12 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               {{form.languages}}{{form.languages.errors}}</p>
               <p>
               <label>Enrollment Date:</label>
-            {{form.enroll_date}}{{form.enroll_date.errors}}</p>
+            {{form.enroll_date}} <p>{{f.enroll_date}}</p>{{form.enroll_date.errors}}</p>
               <p>
                 <p>
-                <label>Adress Line 1:</label>
+                <label>Adress</label>
                 {{form.address_1}}{{form.address_1.errors}}</p>
-              <label>Specific Interest:</label>
+              <p><label>Specific Interest:</label>
               {{form.specified_interests}}{{form.specified_interests.errors}}</p>
               <p>
               <label>Status:</label>
@@ -165,13 +177,13 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               <p>
               <label>Password:</label>
               {{form.password}}</p>
-              <label>Comments:</label>
+              <p><label>Comments:</label>
               {{form.comments}}{{form.comments.errors}}</p>
                     <p>
 
              <label>Image :</label>
 
-              {{form.image}}</p>
+              {{form.image}} <img src="{{form.instance.image.url}}"  width=150px height=150px  alt=" "></p>
 
 
           <div class="form-group">

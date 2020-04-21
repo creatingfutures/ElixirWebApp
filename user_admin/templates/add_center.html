@@ -68,17 +68,28 @@ a.active{
     height: 100px;
 }
 #box{
-    width:300px;
+    width:350px;
     height:350px;
     background: transparent;
     margin:auto;
     position: absolute;
 
-    top:0;
-    bottom: 0;
+    margin-top:0%;
     left: 0;
     right: 0;
     font-family: "Montserrat";
+}
+
+#box label{
+  left:0;
+  position:absolute;
+  width:50%;
+  text-align:left;
+}
+
+#box p{
+  text-align:left;
+  margin-left:50%;
 }
 
 .button{
@@ -139,7 +150,7 @@ a.active{
              <label>Center Name:</label>
                 {{form.center_name}}{{form.center_name.errors}}</p>
             <p>
-            <label>Address Line 1:</label>
+            <label>Address</label>
             {{form.address_1}}{{form.address_1.errors}}</p>
             <p>
             <label>Contact Person:</label>

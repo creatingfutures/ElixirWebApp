@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user_admin',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,8 @@ MEDIA_URL2="view_facilitator/media/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+CRISPY_TEMPLATE_PACK="bootstrap3"
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'

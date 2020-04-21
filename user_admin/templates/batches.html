@@ -199,7 +199,10 @@ a.active{
 
     <br><br>
 
+    <div id="bat_done">
 
+    </div>
+    <br><br>
 
       <table align="center" style="width:80%;font-family: Montserrat">
       <tr>
@@ -217,7 +220,7 @@ a.active{
         <td>{{s1.start_date}}</td>
         <td>{{s1.end_date}}</td>
         <td>{{s1.status}}</td>
-        <td><a href="{% url 'edit_batch' s1.batch_id %}">Edit</a>  <a href="{% url 'delete_batch' s1.batch_id %}">Delete</a></td>
+        <td><a href="{% url 'edit_batch' s1.batch_id %}">Edit</a></td>
       </tr>
       {% endfor %}
 
@@ -274,9 +277,7 @@ a.active{
            });
            </script>
 <br><br><br>
-           <div id="bat_done">
 
-           </div>
 
   </body>
 </html>

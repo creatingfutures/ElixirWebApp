@@ -243,17 +243,13 @@ body {background-color: lightgrey;}
 
   <tr>
     <th>PROGRAM NAME</th>
-    <th>NO OF MODULES</th>
     <th>PREREQUISITES</th>
-    <th>COMMENTS</th>
     <th>ACTION</th>
   </tr>
     {% for p1 in p %}
   <tr>
     <td>{{p1.program_name}}</td>
-    <td>{{pmc|index:p1}}</td>
     <td>{{p1.prerequisite}}</td>
-    <td>{{p1.comments}}</td>
 
     <td><a href="{% url 'edit_program' p1.program_id %}">Edit</a> </td>
     <!-- <a href="{% url 'delete_program' p1.program_id %}">Delete</a> -->
@@ -336,8 +332,8 @@ $("#module").change(function() {
 <div id="modulesnotdone">
   <table align="center" style="width:80%;font-family: Montserrat">
     <tr>
-      <th>NAME</th>
-      <th>PROGRAM ID</th>
+      <th>MODULE NAME</th>
+      <th>PROGRAM NAME</th>
       <th>ACTION</th>
     </tr>
       {% for s1 in m %}
@@ -427,7 +423,7 @@ $("#module").change(function() {
     </tr>
       {% for s1 in f %}
     <tr>
-      <td>{{s1}}</td>
+      <td>{{s1.first_name}} {{s1.last_name}}</td>
       <td>{{s1.mobile_number}}</td>
       <td><a href="{% url 'edit_facilitator' s1.facilitator_id %}">Edit</a> <a href="{% url 'view_facilitator' s1.facilitator_id %}">View</a></td>
     </tr>
@@ -463,6 +459,7 @@ $("#module").change(function() {
 
    </div>
 
+<br><br>
  <a class="button" style="margin-left:21px" href="{% url 'add_facilitator' %}">ADD FACILITATOR</a>
  <a class="button" style="margin-left:21px" href="{% url 'facilitators' %}">VIEW ALL FACILITATORS</a>
     </body>

@@ -2,21 +2,23 @@
 
 {% if m|check1 %}
 
-<table align="center" style="width:97%;font-family: Montserrat">
+<table align="center" style="width:80%;font-family: Montserrat">
 <tr>
-<th>FIRST NAME</th>
-<th>MOBILE NUMBER</th>
-<th>ACTION</th>
+  <th>NAME</th>
+  <th>MOBILE NUMBER</th>
+  <th>EMAIL</th>
+  <th>ENROLLENT DATE</th>
+  <th>EDIT</th>
 </tr>
-{% for m1 in m %}
+{% for s1 in m %}
 <tr>
-<td>{{m1}}</td>
-<td>{{m1.mobile_number}}</td>
-
-<td><a href="{% url 'edit_student' m1.student_id %}">Edit</a></td>
+  <td>{{s1.first_name}} {{s1.last_name}}</td>
+  <td>{{s1.mobile_number}}</td>
+  <td>{{s1.email_id}}</td>
+  <td>{{s1.enroll_date}}</td>
+  <td><a href="{% url 'edit_student' s1.student_id %}">Edit</a> <a href="{% url 'delete_student' s1.student_id %}">Delete</a></td>
+</tr>
 {% endfor %}
-</tr>
-
 </table>
 <br>
 

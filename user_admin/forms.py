@@ -4,6 +4,8 @@ from .models import program,program_module,facilitator,center
 from .models import student,module_level,questions,batch
 import datetime
 import re
+from django.contrib.admin.widgets import AdminDateWidget
+from crispy_forms.helper import FormHelper
 
 class add_program_form(forms.ModelForm):
     class Meta:
@@ -96,7 +98,7 @@ class add_facilitator_form(forms.ModelForm):
         fields=['first_name','middle_name','last_name','email_id','dob','occupation','password','mobile_number',
         'address_1','languages','enroll_date','specified_interests','status','comments','image']
         widgets = {
-        'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        'dob': forms.DateInput(format=('%m/%d/%Y'),attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'comments':forms.Textarea,'address_1':forms.Textarea}
     def clean_mobile_number(self):
@@ -114,10 +116,9 @@ class add_facilitator_form(forms.ModelForm):
             raise forms.ValidationError("The date cannot be in the Future!")
         return dob
 
-
+# 'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
 class add_student_form(forms.ModelForm):
     email_id = forms.EmailField()
-
     class Meta:
         model=student
         fields=['first_name','middle_name','last_name','email_id','dob','password','mobile_number',
@@ -138,6 +139,9 @@ class add_student_form(forms.ModelForm):
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")
         return mob
+    def __init__(self, *args, **kwargs):
+        super(add_student_form, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
 
 class add_batch_form(forms.ModelForm):
     class Meta:

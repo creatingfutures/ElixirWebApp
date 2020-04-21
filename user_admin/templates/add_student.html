@@ -63,16 +63,28 @@ background-color: rgb(255,165,74) ;
    height: 100px;
 }
 #box{
-   width:360px;
-   height:350px;
-   background: transparent;
-   margin:auto;
-   position: absolute;
-   top:0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   font-family: "Montserrat";
+    width:350px;
+    height:350px;
+    background: transparent;
+    margin:auto;
+    position: absolute;
+
+    margin-top:0%;
+    left: 0;
+    right: 0;
+    font-family: "Montserrat";
+}
+
+#box label{
+  left:0;
+  position:absolute;
+  width:50%;
+  text-align:left;
+}
+
+#box p{
+  text-align:left;
+  margin-left:50%;
 }
 .button{
  display: inline-block;
@@ -124,12 +136,13 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
       <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
     </ul>
 
-
+<br>
          <div id="box">
 
            <form  method="POST" enctype="multipart/form-data">
 
                {% csrf_token %}
+
                <p>
                <label>First Name:</label>
                {{form.first_name}}{{form.first_name.errors}}</p>
@@ -141,9 +154,9 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                {{form.last_name}}{{form.last_name.errors}}</p>
                <p>
                <label>DOB:</label>
-                   {{form.dob}}{{form.dob.errors}}
+                   {{form.dob}} <p>{{f.dob}}</p>{{form.dob.errors}}
                <p>
-               <label>Address Line 1:</label>
+               <label>Address</label>
                {{form.address_1}}{{form.address_1.errors}}</p>
                <p>
                <label>Mobile No:</label>
@@ -155,22 +168,26 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                <p>
                <label>Gender:</label>
                {{form.gender}}</p>
+
+               <p>
+               <label>Language Known:</label>
+               {{form.languages}}{{form.languages.errors}}</p>
+
                <p>
                <label>Password:</label>
                {{form.password}}</p>
                <p>
                <label>Enrollment Date:</label>
-               {{form.enroll_date}}{{form.enroll_date.errors}}</p>
-               <p>
-               <label>Photo Upload:</label>
-               <br><br>
+               {{form.enroll_date}}<p>{{f.enroll_date}}</p>{{form.enroll_date.errors}}</p>
+
+                 <p>
+                 <label>Status:</label>
+                 {{form.status}}{{form.status.errors}}</p>
+
+               <p><label>Photo Upload:</label>
                {{form.image}}{{form.image.errors}}</p>
-               <p>
-               <label>Status:</label>
-               {{form.status}}{{form.status.errors}}</p>
-               <p>
-               <label>Language Known:</label>
-               {{form.languages}}{{form.languages.errors}}</p>
+
+
                <p>
                <label>Comments:</label>
                {{form.comments}}{{form.comments.errors}}</p>

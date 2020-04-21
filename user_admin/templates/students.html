@@ -201,21 +201,24 @@ a.active{
 
 <br>
 <br>
+<div id="stud_done">
 
+</div>
+<br><br>
     <table align="center" style="width:80%;font-family: Montserrat">
     <tr>
       <th>NAME</th>
-      <th>PROGRAMS</th>
-      <th>BATCH</th>
-      <th>PASSWORD</th>
+      <th>MOBILE NUMBER</th>
+      <th>EMAIL</th>
+      <th>ENROLLENT DATE</th>
       <th>EDIT</th>
     </tr>
     {% for s1 in p %}
     <tr>
-      <td>{{s1.first_name}}</td>
-      <td>LIFESKILLS</td>
-      <td>GREAT HOPE</td>
-      <td><a href="{% url 'password_management_student' s1.student_id %}">Change</a></td>
+      <td>{{s1.first_name}} {{s1.last_name}}</td>
+      <td>{{s1.mobile_number}}</td>
+      <td>{{s1.email_id}}</td>
+      <td>{{s1.enroll_date}}</td>
       <td><a href="{% url 'edit_student' s1.student_id %}">Edit</a> <a href="{% url 'delete_student' s1.student_id %}">Delete</a></td>
     </tr>
     {% endfor %}
@@ -272,9 +275,7 @@ $("#student1").click(function() {
 </script>
 
 
-<div id="stud_done">
 
-</div>
     </body>
 </head>
 </html>

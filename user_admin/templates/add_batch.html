@@ -1,4 +1,4 @@
-
+{% load crispy_forms_tags %}
 {% load static %}
 <!doctype html>
 
@@ -68,14 +68,13 @@ a.active{
     height: 100px;
 }
 #box{
-    width:300px;
+    width:350px;
     height:350px;
     background: transparent;
     margin:auto;
     position: absolute;
 
-    top:0;
-    bottom: 0;
+    margin-top:0%;
     left: 0;
     right: 0;
     font-family: "Montserrat";
@@ -101,6 +100,17 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
+#box label{
+  left:0;
+  position:absolute;
+  width:50%;
+  text-align:left;
+}
+
+#box p{
+  text-align:left;
+  margin-left:50%;
+}
 
     </style>
 
@@ -136,33 +146,37 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     <br><br>
 
 
-          <br><br>
+          
 
           <div id="box">
 
           <form method="POST">
 
               {% csrf_token %}
-               <label>Program:</label>
-                  {{form.program_id}}</p>
-              <p>
-              <label>Batch Name:</label>
+
+
+                <p><label>Program:</label>{{form.program_id}}</p>
+
+              <p><label>Batch Name:</label>
               {{form.batch_name}}{{form.batch_name.errors}}</p>
               <p>
               <label>Start Date:</label>
-                {{form.start_date}}</p>
+                {{form.start_date}} <p>{{f.start_date}}</p>{{form.start_date.errors}}</p>
               <p>
               <label>End Date:</label>
-                {{form.end_date}}{{form.end_date.errors}}</p>
-              <label>Partner Org:</label>
-                {{form.partner_org}}}{{form.partner_org.errors}}</p>
+                {{form.end_date}}<p>{{f.start_date}}</p>{{form.end_date.errors}}</p>
+
+              <p><label>Partner Org:</label>
+                {{form.partner_org}}{{form.partner_org.errors}}</p>
               <p>
               <label>Batch Incharge Name:</label>
               {{form.batch_incharge_id}}</p>
-              <label>Center Id</label>
+
+              <p><label>Center Id</label>
               {{form.center_id}}</p>
-              <label>No of Students:</label>
-                {{form.student_count}}{{form.student_count.errors}}
+
+            <p> <label>No of Students:</label>
+                {{form.student_count}}{{form.student_count.errors}}</p>
               <p>
               <label>No of Sessions:</label>
               {{form.sessions_count}}{{form.sessions_count.errors}}</p>

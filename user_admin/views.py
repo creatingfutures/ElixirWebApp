@@ -19,7 +19,8 @@ fac_c=0
 @login_required
 def home(request):
     programs = program.objects.all()
-    modules=program_module.objects.all()
+    spok=program.objects.get(program_name="Spoken English")
+    modules=program_module.objects.filter(program_id=spok)
     facilitators=facilitator.objects.all()
     module_count_dict={}
     paginator=Paginator(programs,5)
@@ -373,7 +374,7 @@ def batch_search(request):
     bat = batch.objects.all()
     bat1=[]
     for i in bat:
-        if batch_id in i.batch_name:
+        if batch_id.lower() in i.batch_name:
             bat1.append(i)
     print(bat1)
     return render(request,'ajax/batch_search.html',{"m": bat1})
@@ -472,7 +473,7 @@ def edit_facilitator(request,pk):
     else:
         form=add_facilitator_form(instance=a)
 
-    return render(request,'add_facilitator.html',{"form":form})
+    return render(request,'add_facilitator.html',{"form":form,"f":a})
 
 def delete_facilitator(request,pk):
     a=get_object_or_404(facilitator,pk=pk)
@@ -512,7 +513,7 @@ def edit_student(request,pk):
     else:
         form=add_student_form(instance=a)
 
-    return render(request,'add_student.html',{"form":form})
+    return render(request,'add_student.html',{"form":form,"f":a})
 
 def delete_student(request,pk):
     a=get_object_or_404(student,pk=pk)
@@ -594,7 +595,7 @@ def edit_batch(request,pk):
     else:
         form=add_batch_form(instance=a)
 
-    return render(request,'add_batch.html',{"form":form})
+    return render(request,'add_batch.html',{"form":form,"f":a})
 
 def delete_batch(request,pk):
     a=get_object_or_404(batch,pk=pk)
