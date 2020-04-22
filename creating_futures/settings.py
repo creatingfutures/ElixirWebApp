@@ -126,9 +126,9 @@ MEDIA_URL2="view_facilitator/media/"
 MEDIA_URL3="edit_student/media/"
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoproject.com/en/3.0/howto/static-fssiles/
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'statics')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
