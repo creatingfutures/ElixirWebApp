@@ -1,4 +1,4 @@
-{% load crispy_forms_tags %}
+
 {% load static %}
 <!doctype html>
 
@@ -146,7 +146,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     <br><br>
 
 
-          
+
 
           <div id="box">
 
@@ -161,10 +161,10 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               {{form.batch_name}}{{form.batch_name.errors}}</p>
               <p>
               <label>Start Date:</label>
-                {{form.start_date}} <p>{{f.start_date}}</p>{{form.start_date.errors}}</p>
+                {{form.start_date}} <p><p>Format : yyyy-mm-dd</p></p>{{form.start_date.errors}}</p>
               <p>
               <label>End Date:</label>
-                {{form.end_date}}<p>{{f.start_date}}</p>{{form.end_date.errors}}</p>
+                {{form.end_date}}<p><p>Format : yyyy-mm-dd</p></p>{{form.end_date.errors}}</p>
 
               <p><label>Partner Org:</label>
                 {{form.partner_org}}{{form.partner_org.errors}}</p>

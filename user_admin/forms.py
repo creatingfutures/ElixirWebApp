@@ -4,8 +4,6 @@ from .models import program,program_module,facilitator,center
 from .models import student,module_level,questions,batch
 import datetime
 import re
-from django.contrib.admin.widgets import AdminDateWidget
-from crispy_forms.helper import FormHelper
 
 class add_program_form(forms.ModelForm):
     class Meta:
@@ -92,14 +90,13 @@ class add_question_form(forms.ModelForm):
 class add_facilitator_form(forms.ModelForm):
     email_id = forms.EmailField()
     first_name = forms.CharField(max_length=100,label="First name")
-
     class Meta:
         model=facilitator
         fields=['first_name','middle_name','last_name','email_id','dob','occupation','password','mobile_number',
-        'address_1','languages','enroll_date','specified_interests','status','comments','image']
+        'address_1','languages','enroll_date','specified_interests','status','comments','gender','image']
         widgets = {
-        'dob': forms.DateInput(format=('%m/%d/%Y'),attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        # 'dob': forms.DateInput(format=('%m/%d/%Y'),attrs={'placeholder':'Select a date', 'type':'date'}),
+        # 'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'comments':forms.Textarea,'address_1':forms.Textarea}
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
@@ -124,8 +121,8 @@ class add_student_form(forms.ModelForm):
         fields=['first_name','middle_name','last_name','email_id','dob','password','mobile_number',
         'address_1','languages','enroll_date','gender','status','comments','image']
         widgets = {
-        'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        # 'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        # 'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'comments':forms.Textarea,'address_1':forms.Textarea}
     def clean_dob(self):
         dob = self.cleaned_data['dob']
@@ -139,9 +136,6 @@ class add_student_form(forms.ModelForm):
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")
         return mob
-    def __init__(self, *args, **kwargs):
-        super(add_student_form, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
 
 class add_batch_form(forms.ModelForm):
     class Meta:
@@ -149,8 +143,8 @@ class add_batch_form(forms.ModelForm):
         fields=['program_id','batch_name','start_date','end_date','status','partner_org','batch_incharge_id','center_id'
         ,'student_count','sessions_count','comments']
         widgets = {
-        'start_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'end_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        # 'start_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        # 'end_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'comments':forms.Textarea}
     def clean_end_date(self):
         end_date = self.cleaned_data['end_date']

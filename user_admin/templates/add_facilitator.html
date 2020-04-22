@@ -152,10 +152,13 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               {{form.email_id}}</p>
               <p>
               <label>Date Of Birth:</label>
-              {{form.dob}} <p>{{f.dob}}</p>{{form.dob.errors}}</p>
+              {{form.dob}} <p><p>Format : yyyy-mm-dd</p></p>{{form.dob.errors}}</p>
               <p>
               <label>Mobile Number:</label>
               {{form.mobile_number}}{{form.mobile_number.errors}}</p>
+              <p>
+              <label>Gender:</label>
+              {{form.gender}}{{form.gender.errors}}</p>
               <p>
               <label>Occupation:</label>
               {{form.occupation}}{{form.occupation.errors}}</p>
@@ -164,7 +167,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               {{form.languages}}{{form.languages.errors}}</p>
               <p>
               <label>Enrollment Date:</label>
-            {{form.enroll_date}} <p>{{f.enroll_date}}</p>{{form.enroll_date.errors}}</p>
+            {{form.enroll_date}} <p> <p>Format : yyyy-mm-dd</p></p>{{form.enroll_date.errors}}</p>
               <p>
                 <p>
                 <label>Adress</label>
