@@ -198,7 +198,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
     <td>{{q1.module_id}}</td>
     <td>{{q1.level_id}}</td>
     <td>{{q1.question}}</td>
-    <td><a href="{% url 'edit_question' q1.question_id %}">EDIT</a> <a href="{% url 'delete_question' q1.question_id %}">Delete</a</td>
+    <td> <a href="{% url 'view_questions' q1.question_id %}">View</a> | <a href="{% url 'edit_question' q1.question_id %}">Edit</a> | <a href="{% url 'delete_question' q1.question_id %}">Delete</a></td>
   </tr>
 {% endfor %}
 </table>

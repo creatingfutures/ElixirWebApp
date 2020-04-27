@@ -124,7 +124,7 @@ MEDIA_URL="/media/"
 MEDIA_URL1="edit_facilitator/media/"
 MEDIA_URL2="view_facilitator/media/"
 MEDIA_URL3="edit_student/media/"
-
+MEDIA_URL4="view_student/media/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-fssiles/
 

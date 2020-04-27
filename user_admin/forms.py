@@ -100,7 +100,7 @@ class add_facilitator_form(forms.ModelForm):
         'comments':forms.Textarea,'address_1':forms.Textarea}
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
-        if re.match(r'[789]\d{9}$',mob):
+        if re.match(r'[6789]\d{9}$',mob):
             pass
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")
@@ -131,7 +131,7 @@ class add_student_form(forms.ModelForm):
         return dob
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
-        if re.match(r'[789]\d{9}$',mob):
+        if re.match(r'[6789]\d{9}$',mob):
             pass
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")
@@ -149,9 +149,9 @@ class add_batch_form(forms.ModelForm):
     def clean_end_date(self):
         end_date = self.cleaned_data['end_date']
         start_date=self.cleaned_data['start_date']
-        if end_date < datetime.date.today():
-            raise forms.ValidationError("The date cannot be in the Past!")
-        elif end_date<=start_date:
+        # if end_date < datetime.date.today():
+        #     raise forms.ValidationError("The date cannot be in the Past!")
+        if end_date<=start_date:
             raise forms.ValidationError("The End_date cannot be before Start_Date")
         return end_date
 
@@ -175,7 +175,7 @@ class add_center_form(forms.ModelForm):
 
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
-        if re.match(r'[789]\d{9}$',mob):
+        if re.match(r'[6789]\d{9}$',mob):
             pass
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")

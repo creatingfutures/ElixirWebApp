@@ -147,25 +147,25 @@ a.active{
           {% csrf_token %}
 
             <p>
-             <label>Center Name:</label>
+             <label>Center Name <span style="color:red">*</span> :</label>
                 {{form.center_name}}{{form.center_name.errors}}</p>
             <p>
-            <label>Address</label>
+            <label>Address <span style="color:red">*</span> :</label>
             {{form.address_1}}{{form.address_1.errors}}</p>
             <p>
-            <label>Contact Person:</label>
+            <label>Contact Person <span style="color:red">*</span> :</label>
             {{form.contact_person}}{{form.contact_person.errors}}</p>
             <p>
-            <label>Mobile:</label>
+            <label>Mobile <span style="color:red">*</span> :</label>
             {{form.mobile_number}}{{form.mobile_number.errors}}</p>
             <p>
-            <label>Email ID:</label>
+            <label>Email ID <span style="color:red">*</span> :</label>
             {{form.email_id}}</p>
             <p>
-            <label>Center Type:</label>
+            <label>Center Type <span style="color:red">*</span> :</label>
             {{form.center_type}}</p>
             <p>
-            <label>Comments:</label>
+            <label>Comments <span style="color:red">*</span> :</label>
             {{form.comments}}{{form.comments.errors}}</p>
 
           <input style="margin-left:120px" type="submit" class="button" value="SUBMIT">&ensp;

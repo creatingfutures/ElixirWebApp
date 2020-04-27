@@ -32,6 +32,11 @@ urlpatterns = [
     path('view_program/<int:pk>/add_module',views.add_module,name='add_module'),
     path('view_program/<int:pk>/add_module/<int:pk1>/add_level',views.add_level,name='add_level'),
 
+    path('view_student/<int:pk>',views.view_student,name='view_student'),
+    path('view_batch/<int:pk>',views.view_batch,name='view_batch'),
+    path('view_center/<int:pk>',views.view_center,name='view_center'),
+    path('view_questions/<int:pk>',views.view_questions,name='view_questions'),
+
     path('add_facilitator/',views.add_facilitator,name='add_facilitator'),
     path('add_center/',views.add_center,name='add_center'),
     path('add_student/',views.add_student,name='add_student'),
@@ -100,3 +105,4 @@ urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 urlpatterns+=static(settings.MEDIA_URL1,document_root=settings.MEDIA_ROOT)
 urlpatterns+=static(settings.MEDIA_URL2,document_root=settings.MEDIA_ROOT)
 urlpatterns+=static(settings.MEDIA_URL3,document_root=settings.MEDIA_ROOT)
+urlpatterns+=static(settings.MEDIA_URL4,document_root=settings.MEDIA_ROOT)

@@ -206,7 +206,7 @@ outline: none;
             {% csrf_token %}
 
             <p>
-            <label>Module Name :</label>
+            <label>Module Name <span style="color:red">*</span> :</label>
             {{form.module_name}}{{form.module_name.errors}}</p>
 
 

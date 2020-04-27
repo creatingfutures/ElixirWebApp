@@ -176,7 +176,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
             {% csrf_token %}
 
             <p>
-            <label>Program Name :</label>
+            <label>Program Name <span style="color:red">*</span> :</label>
             {{form.program_name}}{{form.program_name.errors}}</p>
             <p>
               <p>

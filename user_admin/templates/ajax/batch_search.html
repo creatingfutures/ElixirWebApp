@@ -18,7 +18,7 @@
   <td>{{s1.start_date}}</td>
   <td>{{s1.end_date}}</td>
   <td>{{s1.status}}</td>
-  <td><a href="{% url 'edit_batch' s1.batch_id %}">Edit</a></td>
+  <td><a href="{% url 'edit_batch' s1.batch_id %}">Edit</a> | <a href="{% url 'view_batch' s1.batch_id %}">View</a></td>
 </tr>
 {% endfor %}
 

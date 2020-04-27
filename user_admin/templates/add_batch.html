@@ -155,12 +155,12 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               {% csrf_token %}
 
 
-                <p><label>Program:</label>{{form.program_id}}</p>
+                <p><label>Program <span style="color:red">*</span> :</label>{{form.program_id}}</p>
 
-              <p><label>Batch Name:</label>
+              <p><label>Batch Name <span style="color:red">*</span> : </label>
               {{form.batch_name}}{{form.batch_name.errors}}</p>
               <p>
-              <label>Start Date:</label>
+              <label>Start Date <span style="color:red">*</span> :</label>
                 {{form.start_date}} <p><p>Format : yyyy-mm-dd</p></p>{{form.start_date.errors}}</p>
               <p>
               <label>End Date:</label>
@@ -169,10 +169,10 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               <p><label>Partner Org:</label>
                 {{form.partner_org}}{{form.partner_org.errors}}</p>
               <p>
-              <label>Batch Incharge Name:</label>
+              <label>Batch Incharge Name <span style="color:red">*</span> :</label>
               {{form.batch_incharge_id}}</p>
 
-              <p><label>Center Id</label>
+              <p><label>Center Id <span style="color:red">*</span> </label>
               {{form.center_id}}</p>
 
             <p> <label>No of Students:</label>
@@ -181,7 +181,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
               <label>No of Sessions:</label>
               {{form.sessions_count}}{{form.sessions_count.errors}}</p>
               <p>
-              <label>Status:</label>
+              <label>Status <span style="color:red">*</span> :</label>
               {{form.status}}</p>
               <p>
               <label>Comments:</label>

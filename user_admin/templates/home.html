@@ -425,7 +425,7 @@ $("#module").change(function() {
     <tr>
       <td>{{s1.first_name}} {{s1.last_name}}</td>
       <td>{{s1.mobile_number}}</td>
-      <td><a href="{% url 'edit_facilitator' s1.facilitator_id %}">Edit</a> <a href="{% url 'view_facilitator' s1.facilitator_id %}">View</a></td>
+      <td><a href="{% url 'edit_facilitator' s1.facilitator_id %}">Edit</a> | <a href="{% url 'view_facilitator' s1.facilitator_id %}">View</a></td>
     </tr>
       {% endfor %}
   </table>

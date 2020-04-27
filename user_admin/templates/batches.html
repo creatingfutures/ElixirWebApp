@@ -211,7 +211,7 @@ a.active{
     <th>START DATE</th>
         <th>END DATE</th>
         <th>STATUS</th>
-    <th>ACTIONS</th>
+    <th>ACTION</th>
       </tr>
       {% for s1 in p %}
       <tr>
@@ -220,7 +220,7 @@ a.active{
         <td>{{s1.start_date}}</td>
         <td>{{s1.end_date}}</td>
         <td>{{s1.status}}</td>
-        <td><a href="{% url 'edit_batch' s1.batch_id %}">Edit</a></td>
+        <td><a href="{% url 'edit_batch' s1.batch_id %}">Edit</a> | <a href="{% url 'view_batch' s1.batch_id %}">View</a></td>
       </tr>
       {% endfor %}
 

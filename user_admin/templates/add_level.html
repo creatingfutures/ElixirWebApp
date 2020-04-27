@@ -176,11 +176,11 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
             {% csrf_token %}
 
             <p>
-            <label>Level No. :</label>
+            <label>Level No <span style="color:red">*</span> :</label>
             {{form.level_number}}{{form.level_number.errors}}</p>
             <p>
               <p>
-              <label>Level description :</label>
+              <label>Level description <span style="color:red">*</span> :</label>
               {{form.level_description}}{{form.level_description.errors}}</p>
               <p>
                 <p>

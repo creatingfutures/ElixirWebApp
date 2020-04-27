@@ -21,6 +21,20 @@ background-color: orange;
 height: 100px;
 }
 
+#box{
+    width:350px;
+    height:350px;
+    background: transparent;
+    margin:auto;
+    position: absolute;
+
+    margin-top:0%;
+    left: 0;
+    right: 0;
+    font-family: "Montserrat";
+}
+
+
 table, th, td {
 border: 1px solid #696969;
 border-collapse: collapse;
@@ -141,14 +155,33 @@ outline: none;
 
 }
 
+#box label
+{
+
+  font-size:20px;
+  font-weight:bold;
+}
+
+#box p
+{
+
+  font-size:15px;
+}
+
+#container{
+  text-align:center;
+}
 </style>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <title>View Centers</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+    <title>View Student</title>
   </head>
+
   <body>
 
     <div id="top"><br>
@@ -165,7 +198,7 @@ outline: none;
       <li><a href="#reports">REPORTS</a></li>
       <li style="float:right"><a href="#about">FAQs</a></li>
       <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
-        <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
+      <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
     </ul>
       <br><br>
 
@@ -187,53 +220,55 @@ outline: none;
         </div>
       </div>
 
-<br><br><br><br>  <br>
-      <table align="center" style="width:80%;font-family: Montserrat">
-      <tr>
-        <th>CENTER NAME</th>
-        <th>CENTER TYPE</th>
-        <th>EMAIL ID</th>
-        <th>ACTION</th>
-      </tr>
-      {% for s1 in p %}
-      <tr>
-        <td>{{s1.center_name}}</td>
-        <td>{{s1.center_type}}</td>
-        <td>{{s1.email_id}}</td>
-        <td><a href="{% url 'view_center' s1.center_id %}">View</a> | <a href="{% url 'edit_center' s1.center_id %}">Edit</a>
-          {% if s1.batch_check %} {% else %} | <a href="{% url 'delete_center' s1.center_id %}">Delete</a> {% endif %}</td>
-      </tr>
-      {% endfor %}
-      </table>
-<br><br>
-<div class="pagination" style="width:20%;position:absolute;left:40%">
-<ul style="position:absolute;left:10%">
-  {% if p.has_previous %}
-  <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
- {% endif %}
- {% for pg in p.paginator.page_range %}
- {% if p.number == pg %}
- <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
-{% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
-<li><a href="?page={{ pg }}">{{pg}}</a></li>
-{% endif %}
-{% endfor %}
 
-{% if p.has_next %}
-<li><a href="?page={{p.next_page_number}}">Next</a></li>
-{% endif %}
-</ul>
+<div id="box">
+
+  <p>
+  <label>First Name:</label>
+      {{f.first_name}}</p>
+  <p>
+  <label>Last Name:</label>
+  {{f.last_name}}</p>
+  <p>
+  <label>Email:</label>
+  {{f.email_id}}</p>
+  <p>
+  <label>Date Of Birth:</label>
+  {{f.dob}}</p>
+  <p>
+  <label>Mobile Number:</label>
+  {{f.mobile_number}}</p>
+  <p>
+  <label>Languages Known:</label>
+  {{f.languages}}</p>
+  <p>
+  <label>Enrollment Date:</label>
+{{f.enroll_date}}</p>
+  <p>
+    <p>
+    <label>Adress Line 1:</label>
+    {{f.address_1}}</p>
+    <p>
+        <label>Gender :</label>
+  {{f.gender}}</p>
+  <p>
+  <label>Status:</label>
+  {{f.status}} </p>
+  <p>
+  <label>Password:</label>
+  {{f.password}}</p>
+  <p>
+  <label>Comments:</label>
+  {{f.comments}}</p>
+        <p>
+
+ <label>Image :</label>
+  <img src="media/{{f.image}}" wdith=150px height=150px alt="No image "></p>
+
+
+<br><br>
 
 </div>
-<br>
-      <div id="container">
-         <a style="margin-left:150px" class="button" href="{% url 'add_center' %}">ADD CENTER</a>
-      </div>
 
-
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

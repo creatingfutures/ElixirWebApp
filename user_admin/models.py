@@ -29,7 +29,7 @@ class student(models.Model):
     first_name = models.CharField(max_length=100,null=False,blank=False,validators=[validate_not_spaces])
     middle_name =  models.CharField(max_length=100,null=True,blank=True)
     last_name =  models.CharField(max_length=100,null=False,blank=False)
-    password =  models.CharField(default="creatingfuturesS",max_length=100,null=False,blank=False)
+    password =  models.CharField(max_length=100,null=True,blank=True)
     status = models.ForeignKey(entity_status,on_delete=models.CASCADE)
     landline_number =  models.CharField(max_length=100,null=True,blank=True)
     mobile_number = models.CharField(max_length=100,null=False,blank=False)
@@ -65,7 +65,7 @@ class facilitator(models.Model):
     dob = models.DateField(null=False,blank=False)
     occupation = models.CharField(max_length=100)
     specified_interests = models.CharField(max_length=100)
-    password =  models.CharField(max_length=100,default="creatingfuturesF",null=False,blank=False)
+    password =  models.CharField(max_length=100,null=True,blank=True)
     status = models.ForeignKey(entity_status,on_delete=models.CASCADE)
     landline_number =  models.CharField(max_length=100,null=True,blank=True)
     mobile_number = models.CharField(max_length=100,null=False,blank=False)
@@ -112,6 +112,7 @@ class center(models.Model):
     email_id = models.CharField(max_length=100,null=True,blank=True)
     contact_person = models.CharField(max_length=100,null=False,blank=False)
     center_type = models.ForeignKey(entity_type,on_delete=models.CASCADE)
+    batch_check=models.BooleanField(default=False)
     def __str__(self):
         return self.center_name
 
@@ -120,7 +121,7 @@ class batch(models.Model):
     program_id = models.ForeignKey(program,on_delete=models.CASCADE)
     batch_name = models.CharField(max_length=100,null=True,blank=True,unique=True)
     start_date  = models.DateField(null=False,blank=False)
-    end_date = models.DateField(null=False,blank=False)
+    end_date = models.DateField(null=True,blank=True)
     status = models.ForeignKey(entity_status,on_delete=models.CASCADE)
     batch_incharge_id = models.ForeignKey(facilitator,on_delete=models.CASCADE)
     partner_org = models.CharField(max_length=100,null=True,blank=True)
@@ -162,7 +163,7 @@ class questions(models.Model):
     program_id = models.ForeignKey(program,on_delete=models.CASCADE,null=False,blank=False)
     module_id = models.ForeignKey(program_module,on_delete=models.CASCADE,null=False,blank=False)
     type_choices = (
-    ('M', 'Multiple Choice'),
+    ('Multiple Choice', 'Multiple Choice'),
 )
     question_type = models.CharField(max_length=100,null=False,blank=False,choices=type_choices)
     narrative = models.CharField(max_length=100,null=True,blank=True)

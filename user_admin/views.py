@@ -292,6 +292,23 @@ def view_level(request,pk,pk1,pk2):
     return render(request,'view_level.html',{"l":level1,"p":questions11})
 
 
+def view_student(request,pk):
+    student1 = get_object_or_404(student,pk=pk)
+    return render(request,'view_student.html',{"f":student1})
+
+def view_batch(request,pk):
+    batch1= get_object_or_404(batch,pk=pk)
+    return render(request,'view_batch.html',{"f":batch1})
+
+def view_center(request,pk):
+    center1= get_object_or_404(center,pk=pk)
+    return render(request,'view_center.html',{"f":center1})
+
+def view_questions(request,pk):
+    question1= get_object_or_404(questions,pk=pk)
+    return render(request,'view_questions.html',{"f":question1})
+
+
 def students(request):
     students = student.objects.all()
     paginator=Paginator(students,5)
@@ -570,10 +587,11 @@ def delete_center(request,pk):
 @login_required
 def add_batch(request):
     if request.method=="POST":
-        print("ASD")
         form=add_batch_form(request.POST)
         if form.is_valid():
-            print("ASDASDASDASD")
+            check=form.cleaned_data.get('center_id')
+            centers=get_object_or_404(center,pk=check.center_id)
+            centers.batch_check=True
             a=form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request,f'Successfully edited {a}')
@@ -585,9 +603,21 @@ def add_batch(request):
 
 def edit_batch(request,pk):
     a=batch.objects.get(pk=pk)
+    center_b =get_object_or_404(center,pk=a.center_id.center_id)
     if request.method=="POST":
         form=add_batch_form(request.POST,instance=a)
         if form.is_valid():
+            check=form.cleaned_data.get('center_id')
+            centers=get_object_or_404(center,pk=check.center_id)
+            centers.batch_check=True
+            centers.save()
+            b=batch.objects.filter(center_id=center_b.center_id)
+            print(b,len(b))
+            if len(b)==1:
+                center_b.batch_check = False
+            else:
+                center_b.batch_check = True
+            center_b.save()
             a=form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request,f'Successfully edited {a}')
@@ -603,7 +633,17 @@ def delete_batch(request,pk):
         q=batch.objects.get(pk=pk)
         a1=q.batch_name
         messages.success(request,f'Successfully Deleted {a1}')
+
+        center_b =get_object_or_404(q,pk=a.center_id.center_id)
         q.delete()
+        b=batch.objects.filter(center_id=center_b.center_id)
+        print(b,len(b))
+        if len(b)==1:
+            center_b.batch_check = False
+        else:
+            center_b.batch_check = True
+        center_b.save()
+        
         return redirect('batches')
 
     return render(request,'delete_batch.html',{"a":a})

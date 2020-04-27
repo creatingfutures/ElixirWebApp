@@ -151,39 +151,39 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
       {% csrf_token %}
         <p>
-        <label>Program:</label>
+        <label>Program <span style="color:red">*</span> :</label>
         {{form.program_id}}</p>
        <p>
 
-        <label>Module:</label>
+        <label>Module <span style="color:red">*</span> :</label>
         {{form.module_id}}</p>
         <p>
-        <label>Level:</label>
+        <label>Level <span style="color:red">*</span> :</label>
         {{form.level_id}}</p>
         <p>
-        <label>Type of question:</label>
+        <label>Type of question <span style="color:red">*</span> :</label>
         {{form.question_type}}{{form.question_type.errors}}</p>
         <p>
         <label>Narrative:</label>
         <input type="text" id="name"></p>
 
         <p>
-        <label>Question:</label>
+        <label>Question <span style="color:red">*</span> :</label>
         {{form.question}}{{form.question.errors}}</p>
         <p>
-        <label>Option 1:</label>
+        <label>Option 1 <span style="color:red">*</span> :</label>
         {{form.option1}}{{form.option1.errors}}</p>
         <p>
-        <label>Option 2:</label>
+        <label>Option 2 <span style="color:red">*</span> :</label>
         {{form.option2}}{{form.option2.errors}}</p>
         <p>
-        <label>Option 3:</label>
+        <label>Option 3 <span style="color:red">*</span> :</label>
           {{form.option3}}{{form.option3.errors}}</p>
         <p>
-        <label>Option 4:</label>
+        <label>Option 4 <span style="color:red">*</span> :</label>
           {{form.option4}}{{form.option4.errors}}</p>
         <p>
-        <label>Answer:</label>
+        <label>Answer <span style="color:red">*</span> :</label>
           {{form.answer}}{{form.answer.errors}}</p>
         <p>
 

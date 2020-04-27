@@ -144,33 +144,33 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                {% csrf_token %}
 
                <p>
-               <label>First Name:</label>
+               <label>First Name <span style="color:red">*</span> :</label>
                {{form.first_name}}{{form.first_name.errors}}</p>
               <p>
-               <label>Middle Name:</label>
+               <label>Middle Name <span style="color:red">*</span> :</label>
                {{form.middle_name}}{{form.middle_name.errors}}</p>
                <p>
-               <label>Last Name:</label>
+               <label>Last Name <span style="color:red">*</span> :</label>
                {{form.last_name}}{{form.last_name.errors}}</p>
                <p>
-               <label>DOB:</label>
+               <label>DOB <span style="color:red">*</span> :</label>
                    {{form.dob}} <p><p>Format : yyyy-mm-dd</p></p>{{form.dob.errors}}
                <p>
-               <label>Address</label>
+               <label>Address <span style="color:red">*</span> :</label>
                {{form.address_1}}{{form.address_1.errors}}</p>
                <p>
-               <label>Mobile No:</label>
+               <label>Mobile No <span style="color:red">*</span> :</label>
                {{form.mobile_number}}{{form.mobile_number.errors}}</p>
 
                <p>
-               <label>Email ID:</label>
+               <label>Email ID <span style="color:red">*</span> :</label>
                {{form.email_id}}</p>
                <p>
-               <label>Gender:</label>
+               <label>Gender <span style="color:red">*</span> :</label>
                {{form.gender}}</p>
 
                <p>
-               <label>Language Known:</label>
+               <label>Language Known <span style="color:red">*</span> :</label>
                {{form.languages}}{{form.languages.errors}}</p>
 
                <p>
@@ -181,7 +181,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                {{form.enroll_date}}<p><p>Format : yyyy-mm-dd</p></p>{{form.enroll_date.errors}}</p>
 
                  <p>
-                 <label>Status:</label>
+                 <label>Status <span style="color:red">*</span> :</label>
                  {{form.status}}{{form.status.errors}}</p>
 
                <p><label>Photo Upload:</label>

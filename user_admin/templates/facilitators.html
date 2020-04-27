@@ -220,9 +220,9 @@
     </tr>
       {% for s1 in p %}
     <tr>
-      <td>{{s1}}</td>
+      <td>{{s1.first_name}} {{s1.last_name}}</td>
       <td>{{s1.mobile_number}}</td>
-      <td><u><a href="{% url 'view_facilitator' s1.facilitator_id %}">click here</a></u> </td>
+      <td><a href="{% url 'edit_facilitator' s1.facilitator_id %}">Edit</a> | <a href="{% url 'view_facilitator' s1.facilitator_id %}">View</a></td>
     </tr>
       {% endfor %}
   </table>
