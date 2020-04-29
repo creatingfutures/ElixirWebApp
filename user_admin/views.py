@@ -341,6 +341,11 @@ def student_search(request):
 
 def centers(request):
     centers=center.objects.all()
+    batches=batch.objects.all()
+    for i in centers:
+        for j in batches:
+            if i==j.center_id:
+                i.batch_check=True
     paginator=Paginator(centers,5)
 
     try:
@@ -589,9 +594,6 @@ def add_batch(request):
     if request.method=="POST":
         form=add_batch_form(request.POST)
         if form.is_valid():
-            check=form.cleaned_data.get('center_id')
-            centers=get_object_or_404(center,pk=check.center_id)
-            centers.batch_check=True
             a=form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request,f'Successfully edited {a}')
@@ -607,17 +609,6 @@ def edit_batch(request,pk):
     if request.method=="POST":
         form=add_batch_form(request.POST,instance=a)
         if form.is_valid():
-            check=form.cleaned_data.get('center_id')
-            centers=get_object_or_404(center,pk=check.center_id)
-            centers.batch_check=True
-            centers.save()
-            b=batch.objects.filter(center_id=center_b.center_id)
-            print(b,len(b))
-            if len(b)==1:
-                center_b.batch_check = False
-            else:
-                center_b.batch_check = True
-            center_b.save()
             a=form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request,f'Successfully edited {a}')
@@ -633,17 +624,6 @@ def delete_batch(request,pk):
         q=batch.objects.get(pk=pk)
         a1=q.batch_name
         messages.success(request,f'Successfully Deleted {a1}')
-
-        center_b =get_object_or_404(q,pk=a.center_id.center_id)
-        q.delete()
-        b=batch.objects.filter(center_id=center_b.center_id)
-        print(b,len(b))
-        if len(b)==1:
-            center_b.batch_check = False
-        else:
-            center_b.batch_check = True
-        center_b.save()
-        
         return redirect('batches')
 
     return render(request,'delete_batch.html',{"a":a})

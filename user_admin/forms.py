@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import program,program_module,facilitator,center
-from .models import student,module_level,questions,batch
+from .models import student,module_level,questions,batch,entity,entity_status
 import datetime
 import re
 
@@ -98,6 +98,11 @@ class add_facilitator_form(forms.ModelForm):
         # 'dob': forms.DateInput(format=('%m/%d/%Y'),attrs={'placeholder':'Select a date', 'type':'date'}),
         # 'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'comments':forms.Textarea,'address_1':forms.Textarea}
+
+    def __init__(self, *args, **kwargs):
+        super(add_facilitator_form, self).__init__(*args, **kwargs)
+        self.fields['status'].queryset = entity_status.objects.filter(entity="Facilitator")
+
     def clean_mobile_number(self):
         mob = self.cleaned_data['mobile_number']
         if re.match(r'[6789]\d{9}$',mob):
@@ -124,6 +129,9 @@ class add_student_form(forms.ModelForm):
         # 'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         # 'enroll_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'comments':forms.Textarea,'address_1':forms.Textarea}
+    def __init__(self, *args, **kwargs):
+        super(add_student_form, self).__init__(*args, **kwargs)
+        self.fields['status'].queryset = entity_status.objects.filter(entity="Student")    
     def clean_dob(self):
         dob = self.cleaned_data['dob']
         if dob > datetime.date.today():
@@ -146,6 +154,11 @@ class add_batch_form(forms.ModelForm):
         # 'start_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         # 'end_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         'comments':forms.Textarea}
+    def __init__(self, *args, **kwargs):
+        super(add_batch_form, self).__init__(*args, **kwargs)
+        self.fields['status'].queryset = entity_status.objects.filter(entity="Batch")
+        # if self.instance:
+        #     self.fields['status'].queryset = entity_status.objects.None()
     def clean_end_date(self):
         end_date = self.cleaned_data['end_date']
         start_date=self.cleaned_data['start_date']

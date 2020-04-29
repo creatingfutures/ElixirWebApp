@@ -8,10 +8,16 @@ def validate_not_spaces(value):
 
 class entity(models.Model):
     entity_name = models.CharField(primary_key=True,max_length=100,unique=True)
+    def __str__(self):
+        return self.entity_name
+
+def get_def():
+    return entity.objects.get(entity_name="Facilitator")
 
 class entity_status(models.Model):
+    entity=models.ForeignKey(entity,on_delete=models.CASCADE,null=False,blank=False,default=get_def)
     status = models.IntegerField(primary_key=True)
-    description = models.CharField(max_length=100,null=False,blank=False,unique=True,validators=[validate_not_spaces])
+    description = models.CharField(max_length=100,null=False,blank=False,validators=[validate_not_spaces])
     def __str__(self):
         return self.description
 
@@ -116,6 +122,7 @@ class center(models.Model):
     def __str__(self):
         return self.center_name
 
+
 class batch(models.Model):
     batch_id = models.AutoField(primary_key=True)
     program_id = models.ForeignKey(program,on_delete=models.CASCADE)
@@ -178,6 +185,22 @@ class questions(models.Model):
     updated_by = models.CharField(max_length=100,null=True,blank=True)
     def __str__(self):
         return self.question
+
+class student_status(models.Model):
+    student_id=models.ForeignKey(student,on_delete=models.CASCADE)
+    program_id=models.ForeignKey(program,on_delete=models.CASCADE)
+    module_id=models.ForeignKey(program_module,on_delete=models.CASCADE)
+    level_id=models.ForeignKey(module_level,on_delete=models.CASCADE)
+    batch_id=models.ForeignKey(batch,on_delete=models.CASCADE)
+    date_time = models.DateTimeField()
+    score=models.IntegerField(validators=[MinValueValidator(0)])
+    type_choices = (
+    ('Pass', 'Pass'),
+    ('Fail','Fail')
+)
+    status=models.CharField(max_length=100,choices=type_choices)
+
+
 
 class student_module_level(models.Model):
     student_student_id = models.ForeignKey(student,on_delete=models.CASCADE)
