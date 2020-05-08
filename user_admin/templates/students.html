@@ -207,6 +207,7 @@ a.active{
 <br><br>
     <table align="center" style="width:80%;font-family: Montserrat">
     <tr>
+      <th>ID</th>
       <th>NAME</th>
       <th>MOBILE NUMBER</th>
       <th>EMAIL</th>
@@ -215,6 +216,7 @@ a.active{
     </tr>
     {% for s1 in p %}
     <tr>
+      <td>{{s1.pk}}</td>
       <td>{{s1.first_name}} {{s1.last_name}}</td>
       <td>{{s1.mobile_number}}</td>
       <td>{{s1.email_id}}</td>

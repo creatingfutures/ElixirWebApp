@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from user_admin import views
+from user_student import views as s_views
 from django.contrib.auth import views as auth_views
 
 from django.conf import settings
@@ -95,10 +96,24 @@ urlpatterns = [
     path('password_management_facilitator/<int:pk>',views.password_management_facilitator,name='password_management_facilitator'),
     path('password_management_students',views.password_management_students,name='password_management_students'),
     path('password_management_student/<int:pk>',views.password_management_student,name='password_management_student'),
-
-    path('',views.LoginView1.as_view(),name='admin_login'),
+    path('admin_login',views.LoginView1.as_view(),name='admin_login'),
     path('logout/',views.LogoutView1.as_view(),name='admin_logout'),
 
+
+
+
+
+    path('',s_views.login,name='student_login'),
+    path('s_home/<int:pk>/batch/<int:pk1>',s_views.s_home,name="s_home"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>',s_views.spoken_english,name="spoken_english"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>',s_views.sentances,name="sentances"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/test',
+    s_views.sentances_level_1_test,name="sentances_level_1_test"),
+
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/test/ajax/check/',
+    s_views.ajax_check,name='check'),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/test/submit/',
+    s_views.sentances_test_submit,name="sentances_test_submit"),
 
 ]
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,96 @@
+{% load student_tag %}
+
+<h2 style="margin:20px">Question : {{q|index:i}}</h2>
+<ol type="A">
+    <li>  <input type="radio" name="options" value="{{q|index1:i}}">{{q|index1:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q|index2:i}}">{{q|index2:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q|index3:i}}">{{q|index3:i}}</li><br>
+    <li> <input type="radio" name="options" value="{{q|index4:i}}">{{q|index4:i}}</li><br>
+</ol>
+
+<input type="submit" id="submit" class="button" value="Submit">
+
+
+<br>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+
+<script>
+
+ // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+
+var done=0;
+
+$("#submit").click(function() {
+  //var url = $("#form1").attr("data-modules-url");
+  if($("input[name='options']:checked").val()==undefined)
+  {
+    alert("Please Select An option");
+  }
+
+  else {
+    var count = $(this).data("count") || 0;
+    $(this).data("count",++count)
+    console.log(count)
+
+    var question = $("#ques").html();
+    var option = $("input[name='options']:checked").val();
+    var answer = "{{q|index5:i}}"
+
+    if(option==answer)
+    {
+      alert("Right Answer");
+      if($(this).data("count")==1)
+      {
+        var str="True"
+        var score="{{score}}"
+        $.ajax({ // initialize an AJAX request
+          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test/ajax/check/',
+          type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            correct:str,
+            id:"{{i}}",
+            "score":score
+          },
+          success: function(data) {
+            $("#container").html(data) // `data` is the return of the `load_cities` view function
+          }
+        });
+
+      }
+
+      else {
+        {
+          var str="False"
+          var score="{{score}}"
+          $.ajax({ // initialize an AJAX request
+            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test/ajax/check/',
+            type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+              correct:str,
+              id:"{{i}}",
+              "score":score
+            },
+            success: function(data) {
+              $("#container").html(data) // `data` is the return of the `load_cities` view function
+            }
+          });
+
+        }
+      }
+
+    }
+
+    else {
+      {
+        alert("Incorrect Answer, Please Try Again");
+      }
+    }
+
+  }
+
+
+});
+
+</script>

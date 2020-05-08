@@ -1,0 +1,268 @@
+{% load static %}
+<style>
+  ul {
+list-style-type: none;
+margin-right: 0;
+padding: 0;
+overflow: hidden;
+background-color: white;
+font-size:16px;
+
+
+}
+li {
+float:left;
+}
+li a {
+display: block;
+color: BLACK;
+text-align: right;
+padding: 18px 14px;
+text-decoration: none;
+  float: right;
+
+}
+li a:hover {
+background-color: white;
+}
+
+.container
+{
+position: relative;
+  bottom:420;
+  left:460 ;
+  font-family: "Montserrat";
+  width: 600;
+
+
+}
+p{
+  font-family: "Montserrat";
+  font-size: 50;
+  position: relative;
+  bottom: 120;
+  left: 500;
+  color: white;
+  font-weight:100;
+}
+body
+{
+  background-color: lightgray;
+  overflow-x: hidden;
+}
+#box{
+  z-index: 1;
+  width:220px;
+  height:270px;
+  margin:auto;
+  position: absolute;
+
+  background-color: white;
+  top: 450;
+  left: 20;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#box1{
+  z-index: 1;
+  width:220px;
+  height:270px;
+  margin:auto;
+  position: absolute;
+
+  background-color: white;
+  top: 450;
+  left: 280;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#box2{
+  z-index: 1;
+  width:220px;
+  height:270px;
+  margin:auto;
+  position: absolute;
+
+  background-color: white;
+  top: 450;
+  left: 530;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#box3{
+  z-index: 1;
+  width:220px;
+  height:270px;
+  margin:auto;
+  position: absolute;
+
+  background-color: white;
+  top: 450;
+  left: 780;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#box4{
+  z-index: 1;
+  width:220px;
+  height:270px;
+  margin:auto;
+  position: absolute;
+
+  background-color: white;
+  top: 450;
+  left: 1030;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#box5{
+  z-index: 1;
+  width:220px;
+  height:270px;
+  margin:auto;
+  position: absolute;
+
+  background-color: white;
+  top: 450;
+  left: 1280;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+h3{
+  font-family: "Montserrat";
+  font-weight: 100;
+}
+h1{
+  font-family: "Montserrat";
+  font-weight: 100;
+  position: relative;
+  bottom: 250;
+  left: 700;
+}
+.button{
+font-family: 'Montserrat';
+background-color: orange;
+border: none;
+color: black;
+padding: 12px 22px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+margin: 4px 2px;
+cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  outline: none;
+
+}
+hr{
+  background-color: orange;
+  width: 10%;
+  align-content: center;
+  height: 1px;
+  color: orange;
+  border: none;
+}
+*{transition:all 0.3s ease-in-out;}
+
+.container{
+clear:both;
+overflow:auto;
+background: white;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  width: 1300;
+  bottom:400;
+  left:85;
+
+}
+
+nav{float:right;}
+
+.logo img{float:left; padding:8px;}
+
+ul li{
+display: inline-block; padding:10px;
+font-size:20px; font-family:"Montserrat";
+}
+
+ul li:hover{
+color:orange;
+
+}
+
+</style>
+
+
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <link rel="stylesheet" href="home.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+    <body>
+
+        <img src="{% static 'IMG_20191019_123545.jpg' %}" style="width:1520; height:300; object-fit: cover;">
+        <p>WELCOME STUDENT</p>
+           <div class="container">
+<div class="logo">
+  <img src="{% static 'elixir_logo.PNG' %}" alt="" width="60" height="60"/>
+  </div>
+<nav>
+  <ul>
+  <li>HOME</li>
+      <li>COURSES</li>
+  <li>ABOUT US</li>
+  <li>REPORTS</li>
+      <li><u>LOGOUT</u></li>
+  </ul>
+  </nav>
+</div>
+            <hr>
+            <h1> COURSES</h1>
+
+
+        <div id="box">
+            <center><h3>SPOKEN ENGLISH</h3></center>
+            <center><img src="{% static 'spokenenglish.jpg' %}" width="200" height="90"></center><br><br>
+            <center><a href="{% url 'spoken_english' pk pk1 p.program_id %}" class="button">GO TO COURSE</a></center>
+
+
+        </div>
+        <div id="box1">
+            <center><h3>CAREER GUIDANCE</h3></center>
+            <center><img src="{% static 'careerguidance.jpg' %}" width="200" height="90"></center><br><br>
+            <center><input type="button" class="button" value="GO TO COURSE"></center>
+
+
+        </div>
+        <div id="box2">
+            <center><h3>INTERVIEWING</h3></center>
+            <center><img src="{% static 'interviewing.png' %}" width="200" height="90"></center><br><br>
+            <center><input type="button" class="button" value="GO TO COURSE"></center>
+
+
+
+        </div>
+        <div id="box3">
+            <center><h3>APTITUDE TEST</h3></center>
+            <center><img src="{% static 'aptitudetest.jpg' %}" width="200" height="90"></center><br><br>
+            <center><input type="button" class="button" value="GO TO COURSE"></center>
+
+        </div>
+        <div id="box4">
+            <center><h3>RESUME WRITING</h3></center>
+            <center><img src="{% static 'resumewriting.jpg' %}" width="200" height="90"></center><br><br>
+            <center><input type="button" class="button" value="GO TO COURSE"></center>
+
+
+        </div>
+         <div id="box5">
+            <center><h3>MI</h3></center>
+             <center><img src="{% static 'mi.jpg' %}" width="200" height="90"></center><br><br>
+             <center><input type="button" class="button" value="GO TO COURSE"></center>
+
+
+
+        </div>
+
+
+
+    </body>
+</head>
+</html>

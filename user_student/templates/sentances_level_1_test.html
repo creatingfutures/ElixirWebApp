@@ -1,0 +1,226 @@
+{% load static %}
+{% load student_tag %}
+
+<style>
+  #top {
+  top: 0;
+  background-color: orange;
+  height: 100px;
+}
+body{
+background: #FFFFFF;
+font-family:Montserrat;
+font-size:12px;
+}
+
+*{transition:all 0.3s ease-in-out;}
+
+.container{
+clear:both;
+overflow:auto;
+background: white;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  width: 1300;
+  top:45;
+  left:95;
+
+}
+
+nav{float:right;}
+
+.logo img{float:left; padding:8px;}
+
+ul li{
+display: inline-block; padding:10px;
+font-size:20px; font-family:"Montserrat";
+}
+
+ul li:hover{
+color:orange;
+
+}
+.outer{
+  background: orange;
+  position: relative;
+  height: 150px;
+}
+hr{
+  background-color: orange;
+  width: 8%;
+
+  align-content: center;
+  height: 1px;
+  color: orange;
+  border: none;
+}
+h1{
+  font-family: "Montserrat";
+  font-weight: 100;
+
+ }
+ body {background-color: lightgrey;}
+
+ #box1{
+     z-index: 1;
+     width:320;
+     height:370;
+     margin:auto;
+     position: absolute;
+
+     background-color: white;
+     top: 350;
+     left: 580;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+ 
+
+.button{
+ font-family: 'Montserrat';
+ background-color: orange;
+ border: none;
+ color: black;
+ padding: 12px 22px;
+ text-align: center;
+ text-decoration: none;
+ display: inline-block;
+ font-size: 14px;
+ margin: 4px 2px;
+ cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+   outline: none;
+ }
+
+</style>
+
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+    <div class="outer">
+    <div class="container">
+    <div class="logo">
+    <img src="{% static 'elixir_logo.PNG' %}" alt="" width="60" height="60"/>
+    </div>
+<nav>
+  <ul>
+      <li>HOME</li>
+      <li><a class="active">COURSES</a></li>
+      <li>ABOUT US</li>
+      <li>REPORTS</li>
+      <li><u>LOGOUT</u></li>
+  </ul>
+</nav>
+</div>
+</div>
+<br>
+
+<h1 style="text-align:center"> EXERCISES ON SENTENCES - LEVEL 1 </h1>
+<br> <br>
+<div id="container">
+
+<h2 style="margin:20px">Question : {{q|index:i}}</h2>
+<ol type="A">
+    <li>  <input type="radio" name="options" value="{{q|index1:i}}">{{q|index1:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q|index2:i}}">{{q|index2:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q|index3:i}}">{{q|index3:i}}</li><br>
+    <li> <input type="radio" name="options" value="{{q|index4:i}}">{{q|index4:i}}</li><br>
+</ol>
+
+<input type="submit" id="submit" class="button" value="Submit">
+
+
+<br>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+
+<script>
+
+ // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+
+var done=0;
+
+$("#submit").click(function() {
+  //var url = $("#form1").attr("data-modules-url");
+  if($("input[name='options']:checked").val()==undefined)
+  {
+    alert("Please Select An option");
+  }
+
+  else {
+    var count = $(this).data("count") || 0;
+    $(this).data("count",++count)
+    console.log(count)
+
+    var question = $("#ques").html();
+    var option = $("input[name='options']:checked").val();
+    var answer = "{{q|index5:i}}"
+
+    if(option==answer)
+    {
+      alert("Right Answer");
+      if($(this).data("count")==1)
+      {
+        var str="True"
+        var score="{{score}}"
+        $.ajax({ // initialize an AJAX request
+          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test/ajax/check/',
+          type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            correct:str,
+            id:"{{i}}",
+            "score":score
+          },
+          success: function(data) {
+            $("#container").html(data) // `data` is the return of the `load_cities` view function
+          }
+        });
+
+      }
+
+      else {
+        {
+          var str="False"
+          var score="{{score}}"
+          $.ajax({ // initialize an AJAX request
+            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test/ajax/check/',
+            type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+              correct:str,
+              id:"{{i}}",
+              "score":score
+            },
+            success: function(data) {
+              $("#container").html(data) // `data` is the return of the `load_cities` view function
+            }
+          });
+
+        }
+      }
+
+    }
+
+    else {
+      {
+        alert("Incorrect Answer, Please Try Again");
+      }
+    }
+
+  }
+
+
+});
+
+</script>
+
+
+</div>
+</html>

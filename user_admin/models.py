@@ -186,20 +186,6 @@ class questions(models.Model):
     def __str__(self):
         return self.question
 
-class student_status(models.Model):
-    student_id=models.ForeignKey(student,on_delete=models.CASCADE)
-    program_id=models.ForeignKey(program,on_delete=models.CASCADE)
-    module_id=models.ForeignKey(program_module,on_delete=models.CASCADE)
-    level_id=models.ForeignKey(module_level,on_delete=models.CASCADE)
-    batch_id=models.ForeignKey(batch,on_delete=models.CASCADE)
-    date_time = models.DateTimeField()
-    score=models.IntegerField(validators=[MinValueValidator(0)])
-    type_choices = (
-    ('Pass', 'Pass'),
-    ('Fail','Fail')
-)
-    status=models.CharField(max_length=100,choices=type_choices)
-
 
 
 class student_module_level(models.Model):

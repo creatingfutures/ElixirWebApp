@@ -59,7 +59,8 @@ class add_question_form(forms.ModelForm):
         fields=['question','answer','program_id'
         ,'module_id','level_id','question_type',
         'option1','option2','option3','option4','comments']
-        widgets={'comments':forms.Textarea}
+        widgets={'comments':forms.Textarea,
+        'question':forms.Textarea,}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -131,7 +132,7 @@ class add_student_form(forms.ModelForm):
         'comments':forms.Textarea,'address_1':forms.Textarea}
     def __init__(self, *args, **kwargs):
         super(add_student_form, self).__init__(*args, **kwargs)
-        self.fields['status'].queryset = entity_status.objects.filter(entity="Student")    
+        self.fields['status'].queryset = entity_status.objects.filter(entity="Student")
     def clean_dob(self):
         dob = self.cleaned_data['dob']
         if dob > datetime.date.today():
