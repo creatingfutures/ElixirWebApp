@@ -1,0 +1,144 @@
+{% load static %}
+{% load student_tag %}
+
+<style>
+  #top {
+  top: 0;
+  background-color: orange;
+  height: 100px;
+}
+body{
+background: #FFFFFF;
+font-family:Montserrat;
+font-size:12px;
+}
+
+*{transition:all 0.3s ease-in-out;}
+
+.container{
+clear:both;
+overflow:auto;
+background: white;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  width: 1300;
+  top:45;
+  left:95;
+
+}
+
+nav{float:right;}
+
+.logo img{float:left; padding:8px;}
+
+ul li{
+display: inline-block; padding:10px;
+font-size:20px; font-family:"Montserrat";
+}
+
+ul li:hover{
+color:orange;
+
+}
+.outer{
+  background: orange;
+  position: relative;
+  height: 150px;
+}
+hr{
+  background-color: orange;
+  width: 8%;
+
+  align-content: center;
+  height: 1px;
+  color: orange;
+  border: none;
+}
+h1{
+  font-family: "Montserrat";
+  font-weight: 100;
+
+ }
+ body {background-color: lightgrey;}
+
+ #box1{
+     z-index: 1;
+     width:320;
+     height:370;
+     margin:auto;
+     position: absolute;
+
+     background-color: white;
+     top: 350;
+     left: 580;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+
+
+.button{
+ font-family: 'Montserrat';
+ background-color: orange;
+ border: none;
+ color: black;
+ padding: 12px 22px;
+ text-align: center;
+ text-decoration: none;
+ display: inline-block;
+ font-size: 14px;
+ margin: 4px 2px;
+ cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+   outline: none;
+ }
+
+</style>
+
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+    <div class="outer">
+    <div class="container">
+    <div class="logo">
+    <img src="{% static 'elixir_logo.PNG' %}" alt="" width="60" height="60"/>
+    </div>
+<nav>
+  <ul>
+  <li><a href="{% url 's_home' pk pk1 %}">HOME</a></li>
+  <li><a href="">ABOUT US</a></li>
+  <li><a href="">REPORTS</a></li>
+      <li><a href="">LOGOOUT</a></li>
+  </ul>
+</nav>
+</div>
+</div>
+<br>
+
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - LEVEL {{l.level_number}} </h1>
+<br> <br>
+<div id="container">
+
+<center><a href="{% url 'standard_test' pk pk1 pk2 pk3 pk4 %}" style="font-size:150%;" class="button">Assessment</a></center>
+<br>
+<center><a href="{% url 'image_test' pk pk1 pk2 pk3 pk4 %}" style="font-size:150%;" class="button">Image Test</a></center>
+<br>
+<center><a href="{% url 'av_test' pk pk1 pk2 pk3 pk4 %}"" style="font-size:150%;" class="button">Audio/Video Test</a></center>
+<br>
+<center><a href="" style="font-size:150%;" class="button">Crossword</a></center>
+<br>
+<center><a href="" style="font-size:150%;" class="button">Word Search</a></center>
+<br>
+
+
+
+<br>
+
+</div>
+</html>

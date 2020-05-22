@@ -1,0 +1,143 @@
+{% load student_tag %}
+
+<style>
+.div {
+  /* width: 350px;
+  height: 30px; */
+  width:100%;
+  padding:5px;
+  /* background-color: grey; */
+  color:black;
+  margin:20px;
+  font-size:150%;
+  border: 1px solid #aaaaaa;
+
+}
+
+#container1{
+display:flex;
+flex-direction:row;
+
+}
+</style>
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+
+  ev.preventDefault();
+  var src = document.getElementById(ev.dataTransfer.getData("text"));
+   var srcParent = src.parentNode;
+      var tgt = ev.currentTarget.firstElementChild;
+      ev.currentTarget.replaceChild(src, tgt);
+      srcParent.appendChild(tgt);
+
+
+}
+</script>
+</head>
+<body>
+
+
+<p style="font-size:200%"> <b>Jumbled Words</b></p>
+<p style="font-size:150%">Arrange Below words in proper Order To form sentences</p>
+
+
+<div  id="container1">
+  {% for i in len %}
+  <div class="div button" id="{{i}}" ondrop="drop(event)" done="1" ondragover="allowDrop(event)">
+    <p id="{{words|id:i}}" style=" cursor: pointer;"draggable="true" ondragstart="drag(event)">{{words|id:i|allcaps}}</p>
+    </div>
+  {% endfor %}
+
+</div>
+
+<br>
+
+<button class="button" onClick="show()">SUBMIT</button>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+
+<script>
+
+  function show()
+  {
+
+    var count = $(this).data("count") || 0;
+    $(this).data("count",++count)
+
+    var a=document.getElementById('container1').childNodes;
+    var ans="";
+    for(i=0;i<a.length;i++)
+      {
+          if(i%2!=0)
+          {
+        c=a[i].firstElementChild;
+        ans=ans+" "+c.innerHTML.toLowerCase();
+      }
+
+      }
+
+    var answer = "{{q|index5:i}}"
+    ans=ans.trim()
+    if(ans==answer)
+    {
+      alert("Right Answer");
+      if($(this).data("count")==1)
+      {
+        var str="True"
+        var score="{{score}}"
+        $.ajax({ // initialize an AJAX request
+          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/standard_test/ajax/test/',
+          type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            correct:str,
+            id:"{{i}}",
+            "score":score
+          },
+          success: function(data) {
+            $("#container").html(data) // `data` is the return of the `load_cities` view function
+          }
+        });
+
+      }
+
+      else {
+        {
+          var str="False"
+          var score="{{score}}"
+          $.ajax({ // initialize an AJAX request
+            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/standard_test/ajax/test/',
+            type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+              correct:str,
+              id:"{{i}}",
+              "score":score
+            },
+            success: function(data) {
+              $("#container").html(data) // `data` is the return of the `load_cities` view function
+            }
+          });
+
+        }
+      }
+
+    }
+
+    else {
+      {
+        alert("Incorrect Answer, Please Try Again");
+      }
+    }
+
+
+  }
+</script>

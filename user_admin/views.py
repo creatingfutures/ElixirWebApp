@@ -5,12 +5,14 @@ from django.contrib.auth import views as auth_views
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .models import program,program_module,facilitator,center,student,module_level,questions,batch
+from .models import program,program_module,facilitator,center,student,module_level,questions,batch,image_question,images_question
+from .models import av_question,av_sub_question
 import json
 from django.core import serializers
 
 from .forms import add_facilitator_form,add_center_form,password_facilitator_form,add_student_form,password_student_form
 from .forms import add_program_form,add_module_form,add_level_form,add_question_form,add_batch_form
+from .forms import add_image_question_form,add_images_question_form,add_av_question_form,add_av_sub_question_form
 # Create your views here.
 program_modules = {}
 facilitators={}
@@ -19,7 +21,7 @@ fac_c=0
 @login_required
 def home(request):
     programs = program.objects.all()
-    spok=program.objects.get(program_name="Spoken English")
+    spok=program.objects.get(program_name="spoken english")
     modules=program_module.objects.filter(program_id=spok)
     facilitators=facilitator.objects.all()
     module_count_dict={}
@@ -308,6 +310,24 @@ def view_questions(request,pk):
     question1= get_object_or_404(questions,pk=pk)
     return render(request,'view_questions.html',{"f":question1})
 
+def view_image_questions(request,pk):
+    question1= get_object_or_404(image_question,pk=pk)
+    return render(request,'view_image_questions.html',{"f":question1})
+
+def view_images_questions(request,pk):
+    question1= get_object_or_404(images_question,pk=pk)
+    return render(request,'view_images_questions.html',{"f":question1})
+
+def view_av_questions(request,pk):
+    question1= get_object_or_404(av_question,pk=pk)
+    questions2=av_sub_question.objects.filter(av=pk)
+    return render(request,'view_av_questions.html',{"f":question1,"f1":questions2})
+
+def view_av_sub_questions(request,pk,pk1):
+    question1= get_object_or_404(av_question,pk=pk)
+    questions2=av_sub_question.objects.get(pk=pk1)
+    return render(request,'view_av_sub_questions.html',{"f":questions2})
+
 
 def students(request):
     students = student.objects.all()
@@ -404,10 +424,12 @@ def batch_search(request):
 
 def questionss(request):
     questions1=questions.objects.all()
+    i_questions=image_question.objects.all()
+    i_1_question=images_question.objects.all()
+    av_question1=av_question.objects.all()
     paginator=Paginator(questions1,5)
-
     try:
-        page=int(request.GET.get('page','1'))
+        page=int(request.GET.get('page'))
     except:
         page=1
 
@@ -415,7 +437,44 @@ def questionss(request):
         questions11=paginator.page(page)
     except:
         questions11=paginator.page(paginator_num_pages)
-    return render(request,'questions.html',{"p":questions11})
+
+    paginator=Paginator(i_questions,5)
+
+    try:
+        page=int(request.GET.get('page2'))
+    except:
+        page=1
+
+    try:
+        i_questions11=paginator.page(page)
+    except:
+        i_questions11=paginator.page(paginator_num_pages)
+
+    paginator=Paginator(i_1_question,5)
+
+    try:
+        page=int(request.GET.get('page3'))
+    except:
+        page=1
+
+    try:
+        i_1_questions11=paginator.page(page)
+    except:
+        i_1_questions11=paginator.page(paginator_num_pages)
+
+    paginator=Paginator(av_question1,5)
+
+    try:
+        page=int(request.GET.get('page4'))
+    except:
+        page=1
+
+    try:
+        av_question11=paginator.page(page)
+    except:
+        av_question11=paginator.page(paginator_num_pages)
+
+    return render(request,'questions.html',{"p":questions11,"p1":i_questions11,"p2":i_1_questions11,"p3":av_question11})
 
 @login_required
 def add_question(request):
@@ -429,6 +488,61 @@ def add_question(request):
         form=add_question_form()
 
     return render(request,'add_question.html',{"form":form})
+
+@login_required
+def add_image_question(request):
+    if request.method=="POST":
+        form=add_image_question_form(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Added questions')
+            return redirect('questions')
+    else:
+        form=add_image_question_form()
+
+    return render(request,'add_image_question.html',{"form":form})
+
+@login_required
+def add_images_question(request):
+    if request.method=="POST":
+        form=add_images_question_form(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Added questions')
+            return redirect('questions')
+    else:
+        form=add_images_question_form()
+
+    return render(request,'add_images_question.html',{"form":form})
+
+@login_required
+def add_av_question(request):
+    if request.method=="POST":
+        form=add_av_question_form(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Added questions')
+            return redirect('questions')
+    else:
+        form=add_av_question_form()
+
+    return render(request,'add_av_question.html',{"form":form})
+
+@login_required
+def add_av_sub_question(request,pk):
+    av1=av_question.objects.get(pk=pk)
+    if request.method=="POST":
+        form=add_av_sub_question_form(request.POST,request.FILES)
+        form.instance.av=av1
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Added questions')
+            return redirect('view_av_questions',pk)
+    else:
+        form=add_av_sub_question_form()
+
+    return render(request,'add_av_sub_question.html',{"form":form})
+
 
 
 @login_required
@@ -445,6 +559,64 @@ def edit_question(request,pk):
 
     return render(request,'add_question.html',{"form":form})
 
+@login_required
+def edit_image_question(request,pk):
+    a=image_question.objects.get(pk=pk)
+    if request.method=="POST":
+        form=add_image_question_form(request.POST,request.FILES,instance=a)
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Edited questions')
+            return redirect('questions')
+    else:
+        form=add_image_question_form(instance=a)
+
+    return render(request,'add_image_question.html',{"form":form})
+
+@login_required
+def edit_images_question(request,pk):
+    a=images_question.objects.get(pk=pk)
+    if request.method=="POST":
+        form=add_images_question_form(request.POST,request.FILES,instance=a)
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Edited questions')
+            return redirect('questions')
+    else:
+        form=add_images_question_form(instance=a)
+
+    return render(request,'add_images_question.html',{"form":form})
+
+@login_required
+def edit_av_question(request,pk):
+    a=av_question.objects.get(pk=pk)
+    if request.method=="POST":
+        form=add_av_question_form(request.POST,request.FILES,instance=a)
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Edited questions')
+            return redirect('questions')
+    else:
+        form=add_av_question_form(instance=a)
+
+    return render(request,'add_av_question.html',{"form":form})
+
+@login_required
+def edit_av_sub_question(request,pk,pk1):
+    av1=av_question.objects.get(pk=pk)
+    a=av_sub_question.objects.get(pk=pk1)
+    if request.method=="POST":
+        form=add_av_sub_question_form(request.POST,request.FILES,instance=a)
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Successfully Added questions')
+            return redirect('view_av_questions',pk)
+    else:
+        form=add_av_sub_question_form(instance=a)
+
+    return render(request,'add_av_sub_question.html',{"form":form})
+
+
 def delete_question(request,pk):
     a=get_object_or_404(questions,pk=pk)
     if request.method=="POST":
@@ -452,8 +624,50 @@ def delete_question(request,pk):
         a1=q.question_id
         messages.success(request,f'Successfully Deleted {a1}')
         q.delete()
-        return redirect('home')
+        return redirect('questions')
     return render(request,'delete_question.html',{"a":a})
+
+def delete_image_question(request,pk):
+    a=get_object_or_404(image_question,pk=pk)
+    if request.method=="POST":
+        q=image_question.objects.get(pk=pk)
+        a1=q.question_id
+        messages.success(request,f'Successfully Deleted {a1}')
+        q.delete()
+        return redirect('questions')
+    return render(request,'delete_question.html',{"a":a})
+
+
+def delete_images_question(request,pk):
+    a=get_object_or_404(images_question,pk=pk)
+    if request.method=="POST":
+        q=images_question.objects.get(pk=pk)
+        a1=q.question_id
+        messages.success(request,f'Successfully Deleted {a1}')
+        q.delete()
+        return redirect('questions')
+    return render(request,'delete_question.html',{"a":a})
+
+def delete_av_question(request,pk):
+    a=get_object_or_404(av_question,pk=pk)
+    if request.method=="POST":
+        q=av_question.objects.get(pk=pk)
+        a1=q.question_id
+        messages.success(request,f'Successfully Deleted {a1}')
+        q.delete()
+        return redirect('questions')
+    return render(request,'delete_question.html',{"a":a})
+
+def delete_av_sub_question(request,pk,pk1):
+    a=get_object_or_404(av_sub_question,pk=pk1)
+    if request.method=="POST":
+        q=av_sub_question.objects.get(pk=pk1)
+        a1=q.question_id
+        messages.success(request,f'Successfully Deleted {a1}')
+        q.delete()
+        return redirect('view_av_questions',pk)
+    return render(request,'delete_question.html',{"a":a})
+    
 
 
 def load_modules(request):

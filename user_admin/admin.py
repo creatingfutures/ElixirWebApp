@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import entity,entity_type,entity_status
 from .models import student,facilitator,program,center
 from .models import batch,program_module,module_level,questions
-from .models import student_module_level,student_batch
+from .models import student_module_level,student_batch,image_question,images_question,av_question,av_sub_question
 
 admin.site.register(entity)
 admin.site.register(entity_type)
@@ -19,3 +19,8 @@ admin.site.register(module_level)
 admin.site.register(questions)
 admin.site.register(student_module_level)
 admin.site.register(student_batch)
+
+admin.site.register(image_question)
+admin.site.register(images_question)
+admin.site.register(av_question)
+admin.site.register(av_sub_question)

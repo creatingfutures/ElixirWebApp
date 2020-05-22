@@ -1,0 +1,109 @@
+{% load student_tag %}
+
+<div style="marting:10px;padding:10px">
+<p style="font-size:200%"><b>Listen to Audio and Answer Below Questions</b></p>
+
+<audio controls>
+ <source src="{{q|index_av:i}}" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+{% for j in r %}
+<form action="" onSubmit="return check(this)" id="{{j}}">
+<p style="font-size:200%"><b>Multiple Choice Question</b></p>
+<p style="font-size:150%">{{q1|index:j}}</p>
+<ol type="A">
+    <li>  <input type="radio" name="options" value="{{q1|index1:j}}">{{q1|index1:j}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q1|index2:j}}">{{q1|index2:j}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q1|index3:j}}">{{q1|index3:j}}</li><br>
+    <li> <input type="radio" name="options" value="{{q1|index4:j}}" >{{q1|index4:j}}</li><br>
+      <input type="text" name="ans" value="{{q1|index5:j}}" hidden>
+      <input type="text" name="c" value="0" hidden>
+</ol>
+<input type="submit" name="sub" class="button" value="Check">
+</form>
+
+{% endfor %}
+<br><br><br>
+
+<input type="submit" id="submit" class="button" value="Submit">
+
+</div>
+
+<br>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+
+<script>
+
+ // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+
+
+var len=parseInt("{{l}}");
+var solved=0
+var score=parseInt("{{score}}");
+
+function check(a)
+{
+  if(a.options.value=="")
+  {
+    alert("Please Select An option");
+
+  }
+
+  else {
+    a.c.value=(parseInt(a.c.value))+1
+    var answer = a.ans.value
+    var option = a.options.value
+    if(option==answer)
+    {
+      a.sub.disabled=true
+      solved=solved+1
+      alert("Right Answer");
+      if(a.c.value==1)
+      {
+        score=score+1
+      }
+
+    }
+
+    else {
+      alert("Incorrect Answer, Please Try Again")
+    }
+
+    console.log(len,score)
+  }
+
+  return false
+}
+
+$("#submit").click(function() {
+
+      if(solved==len)
+      {
+        alert("Solved all")
+        var str="av"
+        $.ajax({ // initialize an AJAX request
+          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/av_test/ajax/test/',
+          type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            correct:str,
+            id:"{{i}}",
+            "score":score
+          },
+          success: function(data) {
+            $("#container").html(data) // `data` is the return of the `load_cities` view function
+          }
+        });
+
+      }
+
+      else {
+
+              alert("Please Solve All Questions First")
+      }
+
+});
+
+</script>

@@ -9,8 +9,7 @@ body,html
 }
   #box{
   z-index: 1;
-  width:70%;
-  height:60%;
+  padding:10%;
   /* margin:auto; */
   /* position: absolute; */
   background-color: white;
@@ -96,9 +95,9 @@ border-bottom: 1px solid #000000;
   <div class="left">
   <img src="{% static 'IMG_20191019_123545.jpg' %}" style="width:100%;height:100%;">
   </div>
-
   <div class="right">
     <div id="box">
+      <center><a href="{% url 'admin_login' %}" >Admin Login</a></center>
       <div style="text-align:center;padding-top:5%;"><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></div>
         <h3>STUDENT LOGIN</h3>
 
@@ -112,8 +111,8 @@ border-bottom: 1px solid #000000;
             {% endfor %}
           </select></p>
             <p style="padding-top:10%;padding-bottom:10%;" >
-            <label>Student ID  <span style="color:red">*</span> :</label>
-                <input type="text" id="name" name="student"></p>
+            <label>Student ID<span style="color:red">*</span> :</label>
+                <input type="text" id="name" name="student" style="float:right;"></p>
                 <center><input type="submit" name="logbut" class="button" value="LOGIN"></center>
 
         </form>

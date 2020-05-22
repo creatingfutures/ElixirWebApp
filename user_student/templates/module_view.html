@@ -1,0 +1,181 @@
+{% load static %}
+{% load student_tag %}
+<style>
+  #top {
+  top: 0;
+  background-color: orange;
+  height: 100px;
+}
+body{
+background: #FFFFFF;
+font-family:Montserrat;
+font-size:12px;
+}
+
+*{transition:all 0.3s ease-in-out;}
+
+.container{
+clear:both;
+overflow:auto;
+background: white;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  width: 1300;
+  top:45;
+  left:95;
+
+}
+
+nav{float:right;}
+
+.logo img{float:left; padding:8px;}
+
+ul li{
+display: inline-block; padding:10px;
+font-size:20px; font-family:"Montserrat";
+}
+
+ul li:hover{
+color:orange;
+
+}
+.outer{
+  background: orange;
+  position: relative;
+  height: 150px;
+}
+hr{
+  background-color: orange;
+  width: 90%;
+
+  align-content: center;
+  height: 3px;
+  color: orange;
+  border: none;
+}
+h1{
+  font-family: "Montserrat";
+  font-weight: 100;
+
+ }
+#box{
+  z-index: 1;
+  padding:1%;
+  margin-top:20px;
+  margin-right:auto;
+  margin-left:auto;
+  margin-bottom:10px;
+  background-color: white;
+  /* top: 350;
+  left: 160; */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button{
+font-family: 'Montserrat';
+background-color: orange;
+border: none;
+color: black;
+padding: 12px 22px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+margin: 4px 2px;
+cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.container1{
+display:flex;
+flex-direction:row;
+flex-wrap:wrap;
+}
+
+#lesson{
+  height:0%;
+  z-index:10;
+}
+</style>
+
+
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <link rel="stylesheet" href="levels.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="serachbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body {background-color: lightgrey;}
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+
+
+</style>
+{% load static %}
+<body>
+
+    <div class="outer">
+    <div class="container">
+<div class="logo">
+  <img src="{% static 'elixir_logo.PNG' %}" alt="" width="60" height="60"/>
+  </div>
+<nav>
+  <ul>
+  <li><a href="{% url 's_home' pk pk1 %}">HOME</a></li>
+  <li><a href="">ABOUT US</a></li>
+  <li><a href="">REPORTS</a></li>
+      <li><a href="">LOGOOUT</a></li>
+  </ul>
+  </nav>
+</div>
+    </div>
+    <br><br>
+    <center><h1> {{m.module_name|allcaps}}</h1></center>
+
+
+<div class="container1">
+  {% for i in l %}
+   <div id="box">
+            <center><h3>LEVEL {{i.level_number}}</h3></center>
+           <center><p style="font-size: 400%; color: orangered;">{{i.level_number}}</p></center>
+
+           <center><a href="{% url 'standard_test' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;" >Assessment |</a>
+           <a href="{% url 'image_test' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;">Image Test |</a> </center>
+           <center><a href="{% url 'av_test' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;">Audio / Video Test |</a>
+           <a href="" style="font-size:150%;text-decoration:none;">CrossWord |</a></center>
+           <center><a href="" style="font-size:150%;text-decoration:none;">Word Search</a></center>
+            <br>
+           <hr>
+           <br>
+            <center><a href="{% url 'lesson' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;">GO TO LESSON | </a>
+          <a href="" style="font-size:150%;text-decoration:none;">GO TO EXAMPLE</a></center>
+
+
+        </div>
+      {% endfor %}
+</div>
+
+<div id="lesson">
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+
+
+
+    </body>
+</head>
+</html>
+
+
+<script>
+
+
+</script>

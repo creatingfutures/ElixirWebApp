@@ -35,3 +35,10 @@ def check1(list):
         return True;
     else:
         return False
+
+@register.filter
+def check_av(list):
+    if list=="Video":
+        return True
+    else:
+        return False

@@ -1,7 +1,7 @@
 from django import forms
 
-from .models import program,program_module,facilitator,center
-from .models import student,module_level,questions,batch,entity,entity_status
+from .models import program,program_module,facilitator,center,av_question,av_sub_question
+from .models import student,module_level,questions,batch,entity,entity_status,image_question,images_question
 import datetime
 import re
 
@@ -14,7 +14,8 @@ class add_program_form(forms.ModelForm):
 class add_module_form(forms.ModelForm):
     class Meta:
         model = program_module
-        fields=['module_name']
+        fields=['module_name','comments']
+        widgets={'comments':forms.Textarea}
     def clean_module_name(self):
         m=self.instance.program_id
         l=self.cleaned_data['module_name']
@@ -53,6 +54,7 @@ class add_level_form(forms.ModelForm):
                 raise forms.ValidationError("A level with that description already exists for this module")
         return l
 
+
 class add_question_form(forms.ModelForm):
     class Meta:
         model = questions
@@ -85,6 +87,108 @@ class add_question_form(forms.ModelForm):
         elif self.instance.pk:
             self.fields['level_id'].queryset = self.instance.module_id.module_level_set
 
+class add_image_question_form(forms.ModelForm):
+    class Meta:
+        model = image_question
+        fields=['question','answer','program_id'
+        ,'module_id','level_id','question_type','option1','option2','option3','option4',
+        'comments']
+        widgets={'comments':forms.Textarea,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['module_id'].queryset = program_module.objects.none()
+        self.fields['level_id'].queryset = module_level.objects.none()
+
+        if 'program_id' in self.data:
+            try:
+                program_id = int(self.data.get('program_id'))
+                self.fields['module_id'].queryset = program_module.objects.filter(program_id=program_id)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['module_id'].queryset = self.instance.program_id.program_module_set
+
+        if 'module_id' in self.data:
+            try:
+                module_id = int(self.data.get('module_id'))
+                self.fields['level_id'].queryset = module_level.objects.filter(module_id=module_id)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['level_id'].queryset = self.instance.module_id.module_level_set
+
+class add_images_question_form(forms.ModelForm):
+    class Meta:
+        model = images_question
+        fields=['question','answer','program_id'
+        ,'module_id','level_id','question_type','option1','option2','option3','option4',
+        'comments']
+        widgets={'comments':forms.Textarea,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['module_id'].queryset = program_module.objects.none()
+        self.fields['level_id'].queryset = module_level.objects.none()
+
+        if 'program_id' in self.data:
+            try:
+                program_id = int(self.data.get('program_id'))
+                self.fields['module_id'].queryset = program_module.objects.filter(program_id=program_id)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['module_id'].queryset = self.instance.program_id.program_module_set
+
+        if 'module_id' in self.data:
+            try:
+                module_id = int(self.data.get('module_id'))
+                self.fields['level_id'].queryset = module_level.objects.filter(module_id=module_id)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['level_id'].queryset = self.instance.module_id.module_level_set
+
+class add_av_question_form(forms.ModelForm):
+    class Meta:
+        model = av_question
+        fields=['question','program_id'
+        ,'module_id','level_id','question_type']
+        widgets={
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['module_id'].queryset = program_module.objects.none()
+        self.fields['level_id'].queryset = module_level.objects.none()
+
+        if 'program_id' in self.data:
+            try:
+                program_id = int(self.data.get('program_id'))
+                self.fields['module_id'].queryset = program_module.objects.filter(program_id=program_id)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['module_id'].queryset = self.instance.program_id.program_module_set
+
+        if 'module_id' in self.data:
+            try:
+                module_id = int(self.data.get('module_id'))
+                self.fields['level_id'].queryset = module_level.objects.filter(module_id=module_id)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['level_id'].queryset = self.instance.module_id.module_level_set
+
+class add_av_sub_question_form(forms.ModelForm):
+    class Meta:
+        model = av_sub_question
+        fields=['question','answer','question_type',
+        'option1','option2','option3','option4','comments']
+        widgets={'comments':forms.Textarea,
+        'question':forms.Textarea,}
 
 
 

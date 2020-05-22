@@ -15,8 +15,14 @@ class student_status(models.Model):
     date_time = models.DateTimeField()
     score=models.IntegerField(validators=[MinValueValidator(0)])
     type_choices = (
-    ('Pass', 'Pass'),
-    ('Fail','Fail')
+    ('S_Pass', 'S_Pass'),
+    ('S_Fail','S_Fail'),
+    ('I_Pass','I_Pass'),
+    ('I_Fail','I_Fail'),
+    ('AV_Pass','AV_Pass'),
+    ('AV_Fail','AV_Fail'),
+    ('C_Pass','C_Pass'),
+    ('C_Fail','C_Fail')
 )
     status=models.CharField(max_length=100,choices=type_choices)
     def __str__(self):
