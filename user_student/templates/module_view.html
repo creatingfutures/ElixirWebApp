@@ -61,7 +61,7 @@ h1{
  }
 #box{
   z-index: 1;
-  padding:1%;
+  padding:3%;
   margin-top:20px;
   margin-right:auto;
   margin-left:auto;
@@ -98,6 +98,37 @@ flex-wrap:wrap;
   height:0%;
   z-index:10;
 }
+
+.nav
+{
+  background-color:orange;
+  height:30%;
+  display:grid;
+  grid-template-rows:auto auto auto;
+  justify-content:center;
+  align-items:center;
+}
+
+.navig
+{
+  grid-row:2/3;
+  display:flex;
+  flex-wrap:nowrap;
+  background-color:white;
+  flex-direction:row;
+}
+
+.navv
+{
+  width:80%;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  margin:10px;
+}
+
+
 </style>
 
 
@@ -120,22 +151,21 @@ flex-wrap:wrap;
 {% load static %}
 <body>
 
-    <div class="outer">
-    <div class="container">
-<div class="logo">
-  <img src="{% static 'elixir_logo.PNG' %}" alt="" width="60" height="60"/>
-  </div>
-<nav>
-  <ul>
-  <li><a href="{% url 's_home' pk pk1 %}">HOME</a></li>
-  <li><a href="">ABOUT US</a></li>
-  <li><a href="">REPORTS</a></li>
-      <li><a href="{% url 'student_login' %}">LOGOOUT</a></li>
-  </ul>
-  </nav>
-</div>
+  <div class="nav">
+    <div class="navig">
+      <div>
+    <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;"/>
     </div>
-    <br><br>
+    <div class="navv">
+    <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+    <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+    <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
+    </div>
+    </div>
+  </div>
+
+
     <center><h1> {{m.module_name|allcaps}}</h1></center>
 
 

@@ -92,7 +92,7 @@ class add_image_question_form(forms.ModelForm):
         model = image_question
         fields=['question','answer','program_id'
         ,'module_id','level_id','question_type','option1','option2','option3','option4',
-        'comments']
+        'comments','question_text']
         widgets={'comments':forms.Textarea,
         }
 

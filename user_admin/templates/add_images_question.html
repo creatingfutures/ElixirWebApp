@@ -172,16 +172,28 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
           {{form.answer}}{{form.answer.errors}}</p>
           <p>
           <label>Option 1 <span style="color:red">*</span> :</label>
-          {{form.option1}}{{form.option1.errors}}<img src="{{form.instance.option1.url}}" style="width:100%;height:auto"  alt=" "></p>
+          {{form.option1}}{{form.option1.errors}}
+          {% if form.instance.option1 %}
+          <img src="{{form.instance.option1.url}}" style="width:100%;height:auto"  alt=" ">
+        {% endif %}</p>
           <p>
           <label>Option 2 <span style="color:red">*</span> :</label>
-          {{form.option2}}{{form.option2.errors}}<img src="{{form.instance.option2.url}}" style="width:100%;height:auto"  alt=" "></p>
+          {{form.option2}}{{form.option2.errors}}
+          {% if form.instance.option2 %}
+          <img src="{{form.instance.option2.url}}" style="width:100%;height:auto"  alt=" ">
+        {% endif %}</p>
           <p>
           <label>Option 3 <span style="color:red">*</span> :</label>
-            {{form.option3}}{{form.option3.errors}}<img src="{{form.instance.option3.url}}" style="width:100%;height:auto"  alt=" "></p>
+            {{form.option3}}{{form.option3.errors}}
+            {% if form.instance.option3 %}
+            <img src="{{form.instance.option3.url}}" style="width:100%;height:auto"  alt=" ">
+          {% endif %}</p>
           <p>
           <label>Option 4 <span style="color:red">*</span> :</label>
-            {{form.option4}}{{form.option4.errors}}<img src="{{form.instance.option4.url}}" style="width:100%;height:auto"  alt=" "></p>
+            {{form.option4}}{{form.option4.errors}}
+            {% if form.instance.option4 %}
+            <img src="{{form.instance.option4.url}}" style="width:100%;height:auto"  alt=" ">
+          {% endif %}</p>
 
 
           <br>  <div class="form-group">

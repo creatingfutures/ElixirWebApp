@@ -163,8 +163,11 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
         <p>
         <label>Type of question <span style="color:red">*</span> :</label>
         {{form.question_type}}{{form.question_type.errors}}</p>
-
         <p>
+         <label>Question Text <span style="color:red">*</span> :</label>
+         {{form.question_text}}</p>
+        <p>
+
         <label>Question <span style="color:red">*</span> :</label>
         {{form.question}}{{form.question.errors}} <img src="{{form.instance.question.url}}" style="width:100%;height:auto"  alt=" "></p>
         <p>

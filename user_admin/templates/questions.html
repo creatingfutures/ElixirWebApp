@@ -247,7 +247,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
           <td>{{q1.program_id}}</td>
          <td>{{q1.module_id}}</td>
          <td>{{q1.level_id}}</td>
-         <td>Choose Best Option Suiting Image</td>
+         <td>{{q1.question_text}}</td>
            <td> <a href="{% url 'view_image_questions' q1.question_id %}">View</a> | <a href="{% url 'edit_image_question' q1.question_id %}">Edit</a> | <a href="{% url 'delete_image_question' q1.question_id %}">Delete</a></td>
        </tr>
        {% endfor %}

@@ -37,32 +37,27 @@ position: relative;
 
 
 }
-p{
-  font-family: "Montserrat";
-  font-size: 50;
-  position: relative;
-  bottom: 120;
-  left: 500;
-  color: white;
-  font-weight:100;
-}
+
 body
 {
   background-color: lightgray;
   overflow-x: hidden;
 }
+
 #box{
   z-index: 1;
   width:220px;
   height:270px;
-  margin:auto;
-  position: absolute;
-
+  margin-top:20px;
+  margin-right:auto;
+  margin-left:auto;
+  margin-bottom:10px;
   background-color: white;
-  top: 450;
-  left: 20;
+  /* top: 350;
+  left: 160; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 #box1{
   z-index: 1;
   width:220px;
@@ -173,9 +168,13 @@ background: white;
 
 }
 
-nav{float:right;}
+.container1{
+display:flex;
+flex-direction:row;
+flex-wrap:wrap;
+}
 
-.logo img{float:left; padding:8px;}
+
 
 ul li{
 display: inline-block; padding:10px;
@@ -185,6 +184,37 @@ font-size:20px; font-family:"Montserrat";
 ul li:hover{
 color:orange;
 
+}
+
+.nav
+{
+  background:url("{% static 'IMG_20191019_123545.jpg' %}");
+  background-size:cover;
+   background-repeat: no-repeat;
+  height:50%;
+  display:grid;
+  grid-template-rows:auto auto auto;
+  justify-content:center;
+  align-items:center;
+}
+
+.navig
+{
+  grid-row:2/3;
+  display:flex;
+  flex-wrap:nowrap;
+  background-color:white;
+  flex-direction:row;
+}
+
+.navv
+{
+  width:80%;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  margin:10px;
 }
 
 </style>
@@ -198,25 +228,25 @@ color:orange;
 
     <body>
 
-        <img src="{% static 'IMG_20191019_123545.jpg' %}" style="width:1520; height:300; object-fit: cover;">
-        <p>WELCOME {{s.first_name|allcaps}}</p>
-           <div class="container">
-<div class="logo">
-  <img src="{% static 'elixir_logo.PNG' %}" alt="" width="60" height="60"/>
+<div class="nav">
+  <div class="navig">
+    <div>
+  <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;"/>
   </div>
-<nav>
-  <ul>
-  <li><a href="{% url 's_home' pk pk1 %}">HOME</a></li>
-  <li><a href="">ABOUT US</a></li>
-  <li><a href="">REPORTS</a></li>
-      <li><a href="{% url 'student_login' %}">LOGOOUT</a></li>
-  </ul>
-  </nav>
+  <div class="navv">
+  <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+  <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+  <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+      <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
+  </div>
+  </div>
+    <div style="grid-row:3/4;justify-items:center;align-items:center;text-align:center">
+      <p style="font-size:200%;margin:10px;color:white">WELCOME {{s.first_name|allcaps}}</p></div>
 </div>
-            <hr>
-            <h1> COURSES</h1>
 
-
+            <!-- <h1> COURSES</h1> -->
+<br><br>
+<div class="container1">
         <div id="box">
             <center><h3>SPOKEN ENGLISH</h3></center>
             <center><img src="{% static 'spokenenglish.jpg' %}" width="200" height="90"></center><br><br>
@@ -224,14 +254,14 @@ color:orange;
 
         </div>
 
-        <div id="box1">
+        <div id="box">
             <center><h3>CAREER GUIDANCE</h3></center>
             <center><img src="{% static 'careerguidance.jpg' %}" width="200" height="90"></center><br><br>
             <center><input type="button" class="button" value="GO TO COURSE"></center>
 
 
         </div>
-        <div id="box2">
+        <div id="box">
             <center><h3>INTERVIEWING</h3></center>
             <center><img src="{% static 'interviewing.png' %}" width="200" height="90"></center><br><br>
             <center><input type="button" class="button" value="GO TO COURSE"></center>
@@ -239,25 +269,27 @@ color:orange;
 
 
         </div>
-        <div id="box3">
+        <div id="box">
             <center><h3>APTITUDE TEST</h3></center>
             <center><img src="{% static 'aptitudetest.jpg' %}" width="200" height="90"></center><br><br>
             <center><input type="button" class="button" value="GO TO COURSE"></center>
 
         </div>
-        <div id="box4">
+        <div id="box">
             <center><h3>RESUME WRITING</h3></center>
             <center><img src="{% static 'resumewriting.jpg' %}" width="200" height="90"></center><br><br>
             <center><input type="button" class="button" value="GO TO COURSE"></center>
 
 
         </div>
-         <div id="box5">
+         <div id="box">
             <center><h3>MI</h3></center>
              <center><img src="{% static 'mi.jpg' %}" width="200" height="90"></center><br><br>
              <center><input type="button" class="button" value="GO TO COURSE"></center>
 
 
+
+        </div>
 
         </div>
 

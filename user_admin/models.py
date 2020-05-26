@@ -219,7 +219,7 @@ class questions(models.Model):
 class image_question(models.Model):
     question_id = models.AutoField(primary_key=True)
     question = models.ImageField(default="none.jpg",upload_to="question_image_1",null=False,blank=False)
-    question_text=models.CharField(max_length=500,null=True,blank=True)
+    question_text=models.CharField(max_length=500,null=False,blank=False)
     answer = models.CharField(max_length=500,null=False,blank=False)
     level_id = models.ForeignKey(module_level,on_delete=models.CASCADE,null=False,blank=False)
     program_id = models.ForeignKey(program,on_delete=models.CASCADE,null=False,blank=False)
@@ -231,10 +231,10 @@ class image_question(models.Model):
     comments = models.CharField(max_length=500,null=True,blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
-    option1 = models.CharField(max_length=100,null=False,blank=False,default="none")
-    option2 = models.CharField(max_length=100,null=False,blank=False,default="none")
-    option3 = models.CharField(max_length=100,null=False,blank=False,default="none")
-    option4 = models.CharField(max_length=100,null=False,blank=False,default="none")
+    option1 = models.CharField(max_length=100,null=False,blank=False)
+    option2 = models.CharField(max_length=100,null=False,blank=False)
+    option3 = models.CharField(max_length=100,null=False,blank=False)
+    option4 = models.CharField(max_length=100,null=False,blank=False)
     def __str__(self):
         return str(self.question_id)
     def save(self,*args,**kwargs):
@@ -257,10 +257,10 @@ class images_question(models.Model):
     ('Multiple Image', 'Multiple Image'),
 )
     question_type = models.CharField(max_length=100,null=False,blank=False,choices=type_choices)
-    option1 = models.ImageField(default="none.jpg",upload_to="question_image_2",null=False,blank=False)
-    option2 = models.ImageField(default="none.jpg",upload_to="question_image_2",null=False,blank=False)
-    option3 = models.ImageField(default="none.jpg",upload_to="question_image_2",null=False,blank=False)
-    option4 = models.ImageField(default="none.jpg",upload_to="question_image_2",null=False,blank=False)
+    option1 = models.ImageField(upload_to="question_image_2",null=False,blank=False)
+    option2 = models.ImageField(upload_to="question_image_2",null=False,blank=False)
+    option3 = models.ImageField(upload_to="question_image_2",null=False,blank=False)
+    option4 = models.ImageField(upload_to="question_image_2",null=False,blank=False)
     comments = models.CharField(max_length=500,null=True,blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
