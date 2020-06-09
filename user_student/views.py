@@ -13,6 +13,7 @@ from user_admin.models import student,facilitator,program,center
 from user_admin.models import batch,program_module,module_level,questions,av_question,av_sub_question
 from user_admin.models import student_module_level,student_batch,image_question,images_question
 import random
+import os
 
 def login(request):
     batches=batch.objects.all()
@@ -30,23 +31,37 @@ def login(request):
 
 
 def s_home(request,pk,pk1):
-    programs=program.objects.get(program_name="spoken english")
+    programs=program.objects.all()
     stud=student.objects.get(student_id=pk)
-    return render(request,'s_home.html',{"p":programs,"pk":pk,"pk1":pk1,"s":stud})
+    return render(request,'s_home.html',{"p1":programs,"pk":pk,"pk1":pk1,"s":stud})
 
 
 def spoken_english(request,pk,pk1,pk2):
-    modules=program_module.objects.all()
-    return render(request,"spoken_english.html",{"m":modules,"pk":pk,"pk1":pk1,"pk2":pk2})
+    modules=program_module.objects.filter(program_id=pk2)
+    program1=program.objects.get(pk=pk2)
+    return render(request,"spoken_english.html",{"m":modules,"pk":pk,"pk1":pk1,"pk2":pk2,"p":program1})
 
 def module_view(request,pk,pk1,pk2,pk3):
     levels=module_level.objects.filter(module_id=pk3).order_by('level_number')
     module=program_module.objects.get(module_id=pk3)
     return render(request,"module_view.html",{"l":levels,"pk":pk,"pk1":pk1,"pk2":pk2,"pk3":pk3,"m":module,"g":'https://www.google.com'})
 
-
-def video(request):
-    return render(request,"video.html")
+def crossword(request,pk,pk1,pk2,pk3,pk4):
+    module=program_module.objects.get(pk=pk3)
+    level=module_level.objects.get(pk=pk4)
+    try:
+        a="crossword/"+module.module_name+"/"+str(level.level_number)
+        b="user_student/templates/crossword/"+module.module_name+"/"+str(level.level_number)
+        c=os.getcwd()
+        b=c+"/"+b
+        length=len([name for name in os.listdir(b)])
+        rand=random.randrange(1,length)
+        a=a+"/crossword"+str(rand)+".html"
+        print(a)
+        return render(request,a,{"m":module,"l":level,"pk":pk,"pk1":pk1,"pk2":pk2,"pk3":pk3})
+    except:
+        messages.success(request,f'No Crossword for the level yet')
+        return redirect('module_view',pk,pk1,pk2,pk3)
 
 
 def lesson(request,pk,pk1,pk2,pk3,pk4):

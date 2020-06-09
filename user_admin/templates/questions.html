@@ -228,9 +228,15 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
   <br><br><br>
        <div style="position:absolute;left:10%;"id="">
             <a class="button" href="{% url 'add_question' %}">ADD QUESTION</a>
-            <input type="button" class="button" value="BULK UPLOAD">
+            <a class="button" onClick="func()" href="{% url 'questions_export' %}">EXPORT QUESTIONS</a>
        </div>
 
+<script>
+  function func()
+  {
+    alert("CSV File will Begin Downloading")
+  }
+</script>
 <br><br><br><br><br><br>
 
 <h1>Single Image Questions</h1>
@@ -276,7 +282,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 
           <br><br><br>
        <div style="position:absolute;left:10%;"id="">
-            <a href="{% url 'add_image_question' %}" class="button">ADD Image Questions</a>
+            <a href="{% url 'add_image_question' %}" class="button">ADD IMAGE QUESTIONS</a>
        </div>
 <br><br>
 <br><br>
@@ -326,7 +332,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 
           <br><br><br>
        <div style="position:absolute;left:10%;"id="">
-            <a href="{% url 'add_images_question' %}" class="button">ADD Images Questions</a>
+            <a href="{% url 'add_images_question' %}" class="button">ADD IMAGES QUESTIONS</a>
        </div>
 <br><br>
 <br><br>
@@ -375,7 +381,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 
           <br><br><br>
 <div style="position:absolute;left:10%;"id="">
-     <a href="{% url 'add_av_question' %}" class="button">ADD Audio/Video Questions</a>
+     <a href="{% url 'add_av_question' %}" class="button">ADD AUDIO/VIDEO QUESTIONS</a>
 </div>
     </body>
 </head>

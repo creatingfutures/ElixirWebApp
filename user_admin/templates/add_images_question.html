@@ -167,9 +167,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
         <p>
         <label>Question <span style="color:red">*</span> :</label>
         {{form.question}}{{form.question.errors}}</p>
-        <p>
-        <label>Answer <span style="color:red">*</span> :</label>
-          {{form.answer}}{{form.answer.errors}}</p>
+
           <p>
           <label>Option 1 <span style="color:red">*</span> :</label>
           {{form.option1}}{{form.option1.errors}}
@@ -195,10 +193,14 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
             <img src="{{form.instance.option4.url}}" style="width:100%;height:auto"  alt=" ">
           {% endif %}</p>
 
+          <p>
+          <label>Answer <span style="color:red">*</span> :</label>
+            {{form.answer}}{{form.answer.errors}}</p>
+
 
           <br>  <div class="form-group">
             <br>
-              <input style="margin-left:120px" type="submit" class="button" value="SUBMIT">&ensp;
+              <input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
             </div>
 
 

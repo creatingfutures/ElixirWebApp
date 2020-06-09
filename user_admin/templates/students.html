@@ -248,9 +248,15 @@ a.active{
 </div>
 
 <br>
-<a  style="margin-left:150px" class="button" href="{% url 'add_student' %}">Add student</a>
-<br><br><br>
+<a  style="margin-left:150px" class="button" href="{% url 'add_student' %}">ADD STUDENT</a>
+<a style="margin-left:30px" href="{% url 'student_export' %}" onClick="func()" class="button">EXPORT STUDENTS</a>
 
+<script>
+  function func()
+  {
+    alert("CSV File will Begin Downloading")
+  }
+</script>
 <script
       src="https://code.jquery.com/jquery-3.4.1.js"></script>
 

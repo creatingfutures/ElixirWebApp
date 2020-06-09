@@ -246,50 +246,31 @@ color:orange;
 
             <!-- <h1> COURSES</h1> -->
 <br><br>
+<div class="col-md-8">
+
+  {% if messages %}
+  {% for message in messages %}
+
+  <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
+
+    {{message}}
+  </div>
+
+  {% endfor %}
+  {% endif %}
+</div>
+<br>
+
 <div class="container1">
+
+  {% for p in p1 %}
         <div id="box">
-            <center><h3>SPOKEN ENGLISH</h3></center>
-            <center><img src="{% static 'spokenenglish.jpg' %}" width="200" height="90"></center><br><br>
+            <center><h3>{{p.program_name|allcaps}}</h3></center>
+            <center><img src="{% static p.program_name|str1 %}" width="200" height="90"></center><br><br>
             <center><a href="{% url 'spoken_english' pk pk1 p.program_id %}" class="button">GO TO COURSE</a></center>
 
         </div>
-
-        <div id="box">
-            <center><h3>CAREER GUIDANCE</h3></center>
-            <center><img src="{% static 'careerguidance.jpg' %}" width="200" height="90"></center><br><br>
-            <center><input type="button" class="button" value="GO TO COURSE"></center>
-
-
-        </div>
-        <div id="box">
-            <center><h3>INTERVIEWING</h3></center>
-            <center><img src="{% static 'interviewing.png' %}" width="200" height="90"></center><br><br>
-            <center><input type="button" class="button" value="GO TO COURSE"></center>
-
-
-
-        </div>
-        <div id="box">
-            <center><h3>APTITUDE TEST</h3></center>
-            <center><img src="{% static 'aptitudetest.jpg' %}" width="200" height="90"></center><br><br>
-            <center><input type="button" class="button" value="GO TO COURSE"></center>
-
-        </div>
-        <div id="box">
-            <center><h3>RESUME WRITING</h3></center>
-            <center><img src="{% static 'resumewriting.jpg' %}" width="200" height="90"></center><br><br>
-            <center><input type="button" class="button" value="GO TO COURSE"></center>
-
-
-        </div>
-         <div id="box">
-            <center><h3>MI</h3></center>
-             <center><img src="{% static 'mi.jpg' %}" width="200" height="90"></center><br><br>
-             <center><input type="button" class="button" value="GO TO COURSE"></center>
-
-
-
-        </div>
+        {% endfor %}
 
         </div>
 

@@ -155,8 +155,22 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     </div>
   </div>
 
-    <center><h1> SPOKEN ENGLISH</h1></center>
+    <center><h1> {{p.program_name|allcaps}}</h1></center>
 
+    <div class="col-md-8">
+
+      {% if messages %}
+      {% for message in messages %}
+
+      <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
+
+        {{message}}
+      </div>
+
+      {% endfor %}
+      {% endif %}
+    </div>
+    
 <div class="container1">
   {% for i in m %}
    <div id="box">

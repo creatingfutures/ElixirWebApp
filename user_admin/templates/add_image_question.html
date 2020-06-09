@@ -168,13 +168,11 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
          {{form.question_text}}</p>
         <p>
 
-        <label>Question <span style="color:red">*</span> :</label>
+        <label>Image <span style="color:red">*</span> :</label>
         {{form.question}}{{form.question.errors}} <img src="{{form.instance.question.url}}" style="width:100%;height:auto"  alt=" "></p>
         <p>
 
-        <p>
-        <label>Answer <span style="color:red">*</span> :</label>
-          {{form.answer}}{{form.answer.errors}}</p>
+
           <p>
           <label>Option 1 <span style="color:red">*</span> :</label>
           {{form.option1}}{{form.option1.errors}}</p>
@@ -188,10 +186,14 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
           <label>Option 4 <span style="color:red">*</span> :</label>
             {{form.option4}}{{form.option4.errors}}</p>
 
+            <p>
+            <label>Answer <span style="color:red">*</span> :</label>
+              {{form.answer}}{{form.answer.errors}}</p>
+
 
           <br>  <div class="form-group">
             <br>
-              <input style="margin-left:120px" type="submit" class="button" value="SUBMIT">&ensp;
+              <input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
             </div>
 
 

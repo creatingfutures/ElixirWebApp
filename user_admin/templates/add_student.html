@@ -147,7 +147,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                <label>First Name <span style="color:red">*</span> :</label>
                {{form.first_name}}{{form.first_name.errors}}</p>
               <p>
-               <label>Middle Name <span style="color:red">*</span> :</label>
+               <label>Middle Name :</label>
                {{form.middle_name}}{{form.middle_name.errors}}</p>
                <p>
                <label>Last Name <span style="color:red">*</span> :</label>
@@ -164,10 +164,10 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
                <p>
                <label>Email ID <span style="color:red">*</span> :</label>
-               {{form.email_id}}</p>
+               {{form.email_id}}{{form.email_id.errors}}</p>
                <p>
                <label>Gender <span style="color:red">*</span> :</label>
-               {{form.gender}}</p>
+               {{form.gender}}{{form.gender.errors}}</p>
 
                <p>
                <label>Language Known <span style="color:red">*</span> :</label>
@@ -175,7 +175,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
                <p>
                <label>Password:</label>
-               {{form.password}}</p>
+               {{form.password}}{{form.password.errors}}</p>
                <p>
                <label>Enrollment Date:</label>
                {{form.enroll_date}}<p><p>Format : yyyy-mm-dd</p></p>{{form.enroll_date.errors}}</p>
@@ -195,7 +195,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
 
                <div id="container">
-               <input type="submit" class="button" value="SUBMIT">&ensp;
+               <input type="submit" class="button" value="Submit">&ensp;
                </div>
 
            </form>

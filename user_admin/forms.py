@@ -223,7 +223,7 @@ class add_facilitator_form(forms.ModelForm):
             raise forms.ValidationError("The date cannot be in the Future!")
         return dob
 
-# 'dob': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+
 class add_student_form(forms.ModelForm):
     email_id = forms.EmailField()
     class Meta:
@@ -269,9 +269,10 @@ class add_batch_form(forms.ModelForm):
         start_date=self.cleaned_data['start_date']
         # if end_date < datetime.date.today():
         #     raise forms.ValidationError("The date cannot be in the Past!")
-        if end_date<=start_date:
-            raise forms.ValidationError("The End_date cannot be before Start_Date")
-        return end_date
+        if end_date:
+            if end_date<=start_date:
+                raise forms.ValidationError("The End_date cannot be before Start_Date")
+        return self.cleaned_data['end_date']
 
 
 class password_facilitator_form(forms.ModelForm):

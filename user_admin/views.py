@@ -6,18 +6,61 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .models import program,program_module,facilitator,center,student,module_level,questions,batch,image_question,images_question
-from .models import av_question,av_sub_question
+from .models import av_question,av_sub_question,entity_status
 import json
 from django.core import serializers
+from django import forms
 
 from .forms import add_facilitator_form,add_center_form,password_facilitator_form,add_student_form,password_student_form
 from .forms import add_program_form,add_module_form,add_level_form,add_question_form,add_batch_form
 from .forms import add_image_question_form,add_images_question_form,add_av_question_form,add_av_sub_question_form
 # Create your views here.
+import csv
 program_modules = {}
 facilitators={}
 mod_c=0
 fac_c=0
+
+def student_export(request):
+    response = HttpResponse(content_type='text/csv')
+
+    writer=csv.writer(response)
+    writer.writerow(['student_id','first_name','middle_name','last_name','mobile_number','email','gender','dob','address','status'])
+
+    for i in student.objects.all().values_list('student_id','first_name','middle_name','last_name','mobile_number','email_id','gender','dob','address_1','status'):
+        j=list(i)
+        id=j[len(j)-1]
+        status=entity_status.objects.get(pk=id)
+        j.pop(len(j)-1)
+        j.append(status.description)
+        writer.writerow(j)
+
+    response['Content-Disposition'] = 'attachment;filename="stuents.csv"'
+    return response
+
+def questions_export(request):
+    response = HttpResponse(content_type='text/csv')
+
+    writer=csv.writer(response)
+    writer.writerow(['question','narrative','answer','question_type','option1','option2','option3','option4','program','module','level'])
+
+    for i in questions.objects.all().values_list('question','narrative','answer','question_type','option1','option2','option3','option4','level_id','module_id','program_id'):
+        i=list(i)
+        program1=program.objects.get(pk=i[len(i)-1])
+        i.pop(len(i)-1)
+        module=program_module.objects.get(pk=i[len(i)-1])
+        i.pop(len(i)-1)
+        level=module_level.objects.get(pk=i[len(i)-1])
+        i.pop(len(i)-1)
+        i.append(program1.program_name)
+        i.append(module.module_name)
+        i.append(level.level_description)
+        writer.writerow(i)
+
+    response['Content-Disposition'] = 'attachment;filename="questions.csv"'
+
+    return response
+
 @login_required
 def home(request):
     programs = program.objects.all()
@@ -667,7 +710,7 @@ def delete_av_sub_question(request,pk,pk1):
         q.delete()
         return redirect('view_av_questions',pk)
     return render(request,'delete_question.html',{"a":a})
-    
+
 
 
 def load_modules(request):
@@ -808,6 +851,7 @@ def add_batch(request):
     if request.method=="POST":
         form=add_batch_form(request.POST)
         if form.is_valid():
+            form.end()
             a=form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request,f'Successfully edited {a}')
@@ -823,6 +867,9 @@ def edit_batch(request,pk):
     if request.method=="POST":
         form=add_batch_form(request.POST,instance=a)
         if form.is_valid():
+            # if not form.end():
+            #     form.add_error('end_date', forms.ValidationError("The End_date cannot be before Start_Date"))
+            #     return redirect('edit_batch',pk)
             a=form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request,f'Successfully edited {a}')

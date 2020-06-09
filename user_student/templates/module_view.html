@@ -168,6 +168,19 @@ flex-wrap:wrap;
 
     <center><h1> {{m.module_name|allcaps}}</h1></center>
 
+    <div class="col-md-8">
+
+      {% if messages %}
+      {% for message in messages %}
+
+      <div class="" style="font-size:150%;background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
+
+        {{message}}
+      </div>
+
+      {% endfor %}
+      {% endif %}
+    </div>
 
 <div class="container1">
   {% for i in l %}
@@ -178,7 +191,7 @@ flex-wrap:wrap;
            <center><a href="{% url 'standard_test' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;" >Assessment |</a>
            <a href="{% url 'image_test' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;">Image Test |</a> </center>
            <center><a href="{% url 'av_test' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;">Audio / Video Test |</a>
-           <a href="" style="font-size:150%;text-decoration:none;">CrossWord |</a></center>
+           <a href="{% url 'crossword' pk pk1 pk2 pk3 i.level_id %}" style="font-size:150%;text-decoration:none;">CrossWord |</a></center>
            <center><a href="" style="font-size:150%;text-decoration:none;">Word Search</a></center>
             <br>
            <hr>
