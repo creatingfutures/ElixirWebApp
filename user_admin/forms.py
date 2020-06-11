@@ -286,7 +286,7 @@ class password_student_form(forms.ModelForm):
         fields=['password']
 
 class add_center_form(forms.ModelForm):
-    email_id = forms.EmailField()
+    # email_id = forms.EmailField()
     class Meta:
         model = center
         fields=['center_name','address_1','contact_person','mobile_number','email_id','center_type','comments']
