@@ -139,6 +139,12 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
 </style>
 
+<script>
+  function cancelEditProgram(){
+    window.location = "/home"
+  }
+</script>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -192,6 +198,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
                             <div class="form-group">
                             <br>
                               <input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
+                              <input style="margin-left:10px" type="button" onclick="cancelEditProgram()" class="button" value="Cancel">
                             </div>
 
       </form>
