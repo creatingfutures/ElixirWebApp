@@ -1,5 +1,6 @@
 # cfApp
 
+
 Python >3.6 [3.7.6 preferred]
 
 django [ Install command in cmd : pip install django ]
