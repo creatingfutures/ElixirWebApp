@@ -1,0 +1,40 @@
+{% extends 'view_question/main.html' %}
+{% load static %}
+{% block sub_view %}
+<label>Video: </label>
+<video controls>
+    <source src="{% get_media_prefix %}{{f.question_content}}" />
+</video>
+
+<p>
+    <label>
+        Sub Questions:
+    </label>
+</p>
+
+
+{% for sub_question in f.sub_questions %}
+<label> Question {{ forloop.counter }}: </label>
+{{sub_question.question}}
+{% for option in sub_question.options %}
+<p>
+    <label>Option {{ forloop.counter }}:</label>
+    {{option}}
+</p>
+{% endfor %}
+
+<p>
+    {% if subquestion.answer %}
+    <label>Answer: </label>
+    {{sub_question.answer}}
+    {% endif %}
+
+</p>
+
+<p>
+    <label>Comments:</label>
+    {{f.comments}}
+</p>
+<br>
+{% endfor %}
+{% endblock sub_view %}

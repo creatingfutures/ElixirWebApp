@@ -1,75 +1,34 @@
-{% load user_tags %}
+{% load user_tags %} {% if n %}
 
-{% if n %}
+<table align="center" style="width: 97%; font-family: Montserrat;">
+  <tr>
+    <th>MODULE NAME</th>
+    <th>PROGRAM NAME</th>
+    <th>ACTION</th>
+  </tr>
+  {% for m1 in m11 %}
+  <tr>
+    <td>{{m1}}</td>
+    <td>{{m1.program}}</td>
 
-<table align="center" style="width:97%;font-family: Montserrat">
-<tr>
-<th>MODULE NAME</th>
-<th>PROGRAM NAME</th>
-<th>ACTION</th>
-</tr>
-{% for m1 in m11 %}
-<tr>
-<td>{{m1}}</td>
-<td>{{m1.program_id}}</td>
-
-<td><a href="{% url 'view_module' m1.program_id.program_id m1.module_id %}">Edit</a></td>
-{% endfor %}
-</tr>
-
+    <td>
+      <a href="{% url 'view_module' m1.program_id m1.module_id %}">Edit</a>
+    </td>
+    {% endfor %}
+  </tr>
 </table>
-<br>
-<a style="margin-left:21px" class='button' href="{% url 'add_module' p.program_id  %}">ADD MODULE</a>
+<br />
+<a style="margin-left: 21px;" class="button" href="{% url 'add_module' p.program_id  %}">ADD MODULE</a>
 
 {% else %}
 
-<p style="margin-left:21px;font-size:20px">Program does not have any modules yet</p>
+<p style="margin-left: 21px; font-size: 20px;">
+  Program does not have any modules yet
+</p>
 
-<div id="modnotdonedone">
-  <table align="center" style="width:80%;font-family: Montserrat">
-    <tr>
-      <th>NAME</th>
-      <th>PROGRAM ID</th>
-      <th>ACTION</th>
-    </tr>
-      {% for s1 in mm %}
-    <tr>
-      <td>{{s1}}</td>
-      <td>{{s1.program_id}}</td>
-      <td><a href="{% url 'view_module' s1.program_id.program_id s1.module_id %}">Edit</a></td>
-    </tr>
-      {% endfor %}
-  </table>
-  <br>
-
-  <div class="pagination" style="width:20%;position:absolute;left:40%">
-  <ul style="position:absolute;left:10%">
-    {% if mm.has_previous %}
-    <li><a href="?page3={{mm.previous_page_number}}">Previous</a></li>
-   {% endif %}
-   {% for pg in mm.paginator.page_range %}
-   {% if mm.number == pg %}
-   <li class="active" style="background-color:orange;color:white;"><a href="?page3={{pg}}">{{pg}}</a></li>
-  {% elif pg > mm.number|add:'-2' and pg < mm.number|add:'2' %}
-  <li><a href="?page3={{ pg }}">{{pg}}</a></li>
-  {% endif %}
-  {% endfor %}
-
-  {% if mm.has_next %}
-  <li><a href="?page3={{mm.next_page_number}}">Next</a></li>
-  {% endif %}
-  </ul>
-
-  </div>
-
-</div>
-<br><br>
-<a style="margin-left:21px" class='button' href="{% url 'add_module' p.program_id  %}">ADD MODULE</a>
+<br />
+<a style="margin-left: 21px;" class="button" href="{% url 'add_module' p.program_id  %}">ADD MODULE</a>
 
 {% endif %}
 
-
-
-<script>
-
-</script>
+<script></script>

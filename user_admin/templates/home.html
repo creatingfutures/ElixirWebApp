@@ -3,182 +3,211 @@
 {% load static %}
 
 <style>
+  select {
+    width: 40%;
+    padding: 12px 20px;
+    margin: 0px 0px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
 
-select {
-  width: 40%;
-  padding: 12px 20px;
-  margin: 0px 0px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
+  body {
+    background-color: lightgrey;
+  }
 
-body {background-color: lightgrey;}
-   {background: transparent;
-   border: none;
-   border-bottom: 1px solid #000000;
-}
- p.welcome{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute; bottom:640 ; right: 1400;color:white;}
-   .button1{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute;bottom:652 ; right: 20; background-color: Transparent;
-   background-repeat:no-repeat;
-   border: none;
-   cursor:pointer;
-   overflow: hidden;
-   outline:none;
-   text-decoration: underline;
-   color: white;}
+    {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+  }
 
-   #top {
-       top: 0;
-       background-color: orange;
-       height: 100px;
-   }
+  p.welcome {
+    font-family: 'Montserrat';
+    font-weight: 100;
+    font-size: 12px;
+    position: absolute;
+    bottom: 640;
+    right: 1400;
+    color: white;
+  }
 
-   table, th, td {
-     border: 1px solid #696969;
-     border-collapse: collapse;
-     text-align: center;
-     background-color: #C4C4C4;
-     font-size: 12px;
-     table-layout: fixed;
+  .button1 {
+    font-family: 'Montserrat';
+    font-weight: 100;
+    font-size: 12px;
+    position: absolute;
+    bottom: 652;
+    right: 20;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    text-decoration: underline;
+    color: white;
+  }
 
+  #top {
+    top: 0;
+    background-color: orange;
+    height: 100px;
+  }
 
-    }
-   th, td {
-     padding: 15px;
-     }
-   th {
-     background-color: #FFFFFF;
-     }
-
-   body{
-     background: lightgrey;
-     font-family:Montserrat;
-     font-size:12px;
-   }
-
-   .search {
-     width: 100%;
-     position: relative;
-     display: flex;
-   }
-
-   .searchTerm {
-     width: 25%;
-     border: 1px;
-     border-right: none;
-     padding: 10px;
-     height: 30px;
-     border-radius: 40px 0 0 40px;
-     outline: none;
-     color: #000000;
-     font-family:Montserrat;
-   font-size:12px;
-   }
-
-   .searchTerm:focus{
-     color: #696969;
-     font-family:Montserrat;
-   font-size:12px;
-   }
-
-   .searchButton {
-     width: 40px;
-     height: 50px;
-     border: 0px;
-     background: #FFFFFF;
-     text-align:center;
-     color: #696969;
-     border-radius: 0 40px 40px 0;
-     cursor: pointer;
-     font-size: 20px;
-     font-family:Montserrat;
-   }
-
-   ul.nav2 {
-           background: transparent;
-           list-style-type: none;
-     margin: 0;
-     padding: 0;
-     overflow: hidden;
-
-     font-family: "Montserrat";
-     font-size: 15px;
-
-            }
-   ul {
-     list-style-type: none;
-     margin: 0;
-     padding: 0;
-     overflow: hidden;
-     background-color: #FFD4AA;
-   font-size:12px;
+  table,
+  th,
+  td {
+    border: 1px solid #696969;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: #C4C4C4;
+    font-size: 12px;
+    table-layout: fixed;
 
 
-   }
-   li.nav3 {
-     float: center;
-   }
+  }
 
-   li {
-     float: left;
-   }
+  th,
+  td {
+    padding: 15px;
+  }
 
-   li a {
-     display: block;
-     color: BLACK;
-     text-align: center;
-     padding: 14px 16px;
-     text-decoration: none;
-   }
+  th {
+    background-color: #FFFFFF;
+  }
 
-   li a:hover {
-     background-color: #FFBA77;
-   }
-   a.active{
-     background-color: #FFBA77;
-   }
-   .button{
-     font-family: 'Montserrat';
-     background-color: orange;
-     border: none;
-     color: black;
-     padding: 12px 22px;
-     text-align: center;
-     text-decoration: none;
-     display: inline-block;
-     font-size: 14px;
-     margin: 4px 2px;
-     cursor: pointer;
+  body {
+    background: lightgrey;
+    font-family: Montserrat;
+    font-size: 12px;
+  }
 
-       outline: none;
-       }
+  .search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
 
-   #mainselection select {
-      border: 0;
-      color: black;
-       font-family: "Montserrat";
-      background:white;
-      font-size: 15px;
-      font-weight: 100;
-      padding: 2px 10px;
-      width: 375px;
-      *width: 350px;
-      *background: white;
-      -webkit-appearance: none;
-   }
-   #mainselection {
-      overflow:hidden;
-      width:350px;
-      -moz-border-radius: 9px 9px 9px 9px;
-      -webkit-border-radius: 9px 9px 9px 9px;
-      border-radius: 9px 9px 9px 9px;
+  .searchTerm {
+    width: 25%;
+    border: 1px;
+    border-right: none;
+    padding: 10px;
+    height: 30px;
+    border-radius: 40px 0 0 40px;
+    outline: none;
+    color: #000000;
+    font-family: Montserrat;
+    font-size: 12px;
+  }
+
+  .searchTerm:focus {
+    color: #696969;
+    font-family: Montserrat;
+    font-size: 12px;
+  }
+
+  .searchButton {
+    width: 40px;
+    height: 50px;
+    border: 0px;
+    background: #FFFFFF;
+    text-align: center;
+    color: #696969;
+    border-radius: 0 40px 40px 0;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: Montserrat;
+  }
+
+  ul.nav2 {
+    background: transparent;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    font-family: "Montserrat";
+    font-size: 15px;
+
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #FFD4AA;
+    font-size: 12px;
 
 
-   }
+  }
+
+  li.nav3 {
+    float: center;
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: BLACK;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  li a:hover {
+    background-color: #FFBA77;
+  }
+
+  a.active {
+    background-color: #FFBA77;
+  }
+
+  .button {
+    font-family: 'Montserrat';
+    background-color: orange;
+    border: none;
+    color: black;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+    outline: none;
+  }
+
+  #mainselection select {
+    border: 0;
+    color: black;
+    font-family: "Montserrat";
+    background: white;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 2px 10px;
+    width: 375px;
+    *width: 350px;
+    *background: white;
+    -webkit-appearance: none;
+  }
+
+  #mainselection {
+    overflow: hidden;
+    width: 350px;
+    -moz-border-radius: 9px 9px 9px 9px;
+    -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
 
 
+  }
 </style>
 
 <html lang="en">
@@ -199,7 +228,7 @@ body {background-color: lightgrey;}
 
 
   <ul>
-    <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+    <li><a href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
     <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
     <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
     <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
@@ -236,232 +265,232 @@ body {background-color: lightgrey;}
 
 
 
-<p style="font-family:'Montserrat'; font-size: 14px; ">PROGRAMS</p>
+  <p style="font-family:'Montserrat'; font-size: 14px; ">PROGRAMS</p>
 
-<br>
+  <br>
   <table align="center" style="width:97%;font-family: Montserrat">
 
-  <tr>
-    <th>PROGRAM NAME</th>
-    <th>PREREQUISITES</th>
-    <th>ACTION</th>
-  </tr>
-    {% for p1 in p %}
-  <tr>
-    <td>{{p1.program_name}}</td>
-    <td>{{p1.prerequisite}}</td>
-
-    <td><a href="{% url 'edit_program' p1.program_id %}">Edit</a> </td>
-    <!-- <a href="{% url 'delete_program' p1.program_id %}">Delete</a> -->
-    {% endfor %}
-  </tr>
-
-</table>
-<br>
-
-
-<div class="pagination" style="width:20%;position:absolute;left:40%">
-<ul style="position:absolute;left:10%">
-  {% if p.has_previous %}
-  <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
- {% endif %}
- {% for pg in p.paginator.page_range %}
- {% if p.number == pg %}
- <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
-{% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
-<li><a href="?page={{ pg }}">{{pg}}</a></li>
-{% endif %}
-{% endfor %}
-
-{% if p.has_next %}
-<li><a href="?page={{p.next_page_number}}">Next</a></li>
-{% endif %}
-</ul>
-
-</div>
-
-<br><br>
-<a class="button" style="margin-left:21px" href="{% url 'add_program' %}">ADD PROGRAM</a>
-
-
-<br><br>
-
-<p style="font-family:'Montserrat'; font-size: 14px; ">MODULES</p>
-
-
-<p>Choose a program</p>
-<br>
-<form method="GET">
-
-  <select name="module" id="module">
-    <option value="-------">-------</option>
-    {% for p11 in p1 %}
-    <option value="{{ p11.pk }}">{{p11}}</option>
-    {% endfor %}
-  </select>
-
-</form>
-<br><br>
-
-<script
-      src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
-<script>
-$("#module").change(function() {
-  //var url = $("#form1").attr("data-modules-url");
-
-  var programId = $(this).val();
-  console.log(programId)// get the selected country ID from the HTML input
-
-  $.ajax({ // initialize an AJAX request
-    url: '/ajax/load_modules_home/',
-    type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-    data: {
-      program_id: programId, // add the country id to the GET parameters
-    },
-    success: function(data) { // `data` is the return of the `load_cities` view function
-      $("#modulesDone").html(data);
-      $("#modulesnotdone").remove();
-// replace the contents of the city input with the data that came from the server
-    }
-  });
-
-});
-</script>
-
-<div id="modulesnotdone">
-  <table align="center" style="width:80%;font-family: Montserrat">
     <tr>
-      <th>MODULE NAME</th>
       <th>PROGRAM NAME</th>
+      <th>PREREQUISITES</th>
       <th>ACTION</th>
     </tr>
-      {% for s1 in m %}
+    {% for p1 in p %}
     <tr>
-      <td>{{s1}}</td>
-      <td>{{s1.program_id}}</td>
-      <td><a href="{% url 'view_module' s1.program_id.program_id s1.module_id %}">Edit</a></td>
-    </tr>
+      <td>{{p1.program_name}}</td>
+      <td>{{p1.prerequisite}}</td>
+
+      <td><a href="{% url 'edit_program' p1.program_id %}">Edit</a> </td>
+      <!-- <a href="{% url 'delete_program' p1.program_id %}">Delete</a> -->
       {% endfor %}
+    </tr>
+
   </table>
   <br>
 
-  <div class="pagination" style="width:20%;position:absolute;left:40%">
-  <ul style="position:absolute;left:10%">
-    {% if m.has_previous %}
-    <li><a href="?page3={{m.previous_page_number}}">Previous</a></li>
-   {% endif %}
-   {% for pg in m.paginator.page_range %}
-   {% if m.number == pg %}
-   <li class="active" style="background-color:orange;color:white;"><a href="?page3={{pg}}">{{pg}}</a></li>
-  {% elif pg > m.number|add:'-2' and pg < m.number|add:'2' %}
-  <li><a href="?page3={{ pg }}">{{pg}}</a></li>
-  {% endif %}
-  {% endfor %}
 
-  {% if m.has_next %}
-  <li><a href="?page3={{m.next_page_number}}">Next</a></li>
-  {% endif %}
-  </ul>
+  <div class="pagination" style="width:20%;position:absolute;left:40%">
+    <ul style="position:absolute;left:10%">
+      {% if p.has_previous %}
+      <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for pg in p.paginator.page_range %}
+      {% if p.number == pg %}
+      <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
+      {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+      <li><a href="?page={{ pg }}">{{pg}}</a></li>
+      {% endif %}
+      {% endfor %}
+
+      {% if p.has_next %}
+      <li><a href="?page={{p.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
 
   </div>
 
-</div>
-
-<div id="modulesDone">
-
-
-</div>
+  <br><br>
+  <a class="button" style="margin-left:21px" href="{% url 'add_program' %}">ADD PROGRAM</a>
 
 
+  <br><br>
+
+  <p style="font-family:'Montserrat'; font-size: 14px; ">MODULES</p>
+
+
+  <p>Choose a program</p>
+  <br>
+  <form method="GET">
+
+    <select name="module" id="module">
+      <option value="-------">-------</option>
+      {% for p11 in p1 %}
+      <option value="{{ p11.pk }}">{{p11}}</option>
+      {% endfor %}
+    </select>
+
+  </form>
+  <br><br>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+  <script>
+    $("#module").change(function () {
+      //var url = $("#form1").attr("data-modules-url");
+
+      var programId = $(this).val();
+      console.log(programId) // get the selected country ID from the HTML input
+
+      $.ajax({ // initialize an AJAX request
+        url: '/ajax/load_modules_home/',
+        type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          program_id: programId, // add the country id to the GET parameters
+        },
+        success: function (data) { // `data` is the return of the `load_cities` view function
+          $("#modulesDone").html(data);
+          $("#modulesnotdone").remove();
+          // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+  <div id="modulesnotdone">
+    <table align="center" style="width:80%;font-family: Montserrat">
+      <tr>
+        <th>MODULE NAME</th>
+        <th>PROGRAM NAME</th>
+        <th>ACTION</th>
+      </tr>
+      {% for s1 in m %}
+      <tr>
+        <td>{{s1}}</td>
+        <td>{{s1.program}}</td>
+        <td><a href="{% url 'view_module' s1.program_id s1.module_id %}">Edit</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br>
+
+    <div class="pagination" style="width:20%;position:absolute;left:40%">
+      <ul style="position:absolute;left:10%">
+        {% if m.has_previous %}
+        <li><a href="?page3={{m.previous_page_number}}">Previous</a></li>
+        {% endif %}
+        {% for pg in m.paginator.page_range %}
+        {% if m.number == pg %}
+        <li class="active" style="background-color:orange;color:white;"><a href="?page3={{pg}}">{{pg}}</a></li>
+        {% elif pg > m.number|add:'-2' and pg < m.number|add:'2' %}
+        <li><a href="?page3={{ pg }}">{{pg}}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if m.has_next %}
+        <li><a href="?page3={{m.next_page_number}}">Next</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+
+  </div>
+
+  <div id="modulesDone">
+
+
+  </div>
 
 
 
-<br><br>
 
-     <p style="font-family:'Montserrat'; font-size: 14px; ">FACILITATORS</p>
 
-    <div class="btn">
-   <div class="search">
-      <input id = "facilitator" type="text" class="searchTerm" placeholder="FACILITATOR">
+  <br><br>
+
+  <p style="font-family:'Montserrat'; font-size: 14px; ">FACILITATORS</p>
+
+  <div class="btn">
+    <div class="search">
+      <input id="facilitator" type="text" class="searchTerm" placeholder="FACILITATOR">
       <button id="facilitator1" type="submit" class="searchButton">
         <i class="fa fa-search"></i>
-     </button>
-   </div>
-   <br>
+      </button>
+    </div>
+    <br>
 
-   <script>
+    <script>
+      $("#facilitator1").click(function () {
+        //var url = $("#form1").attr("data-modules-url");
 
-   $("#facilitator1").click(function() {
-     //var url = $("#form1").attr("data-modules-url");
+        var facId = $('#facilitator').val();
+        console.log(facId) // get the selected country ID from the HTML input
 
-     var facId = $('#facilitator').val();
-     console.log(facId)// get the selected country ID from the HTML input
+        $.ajax({ // initialize an AJAX request
+          url: '/ajax/load_fac_home/',
+          type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            facilitator_id: facId, // add the country id to the GET parameters
+          },
+          success: function (data) { // `data` is the return of the `load_cities` view function
+            $("#facdone").html(data);
+            $("#facnotdone")
+              .remove(); // replace the contents of the city input with the data that came from the server
+          }
+        });
 
-     $.ajax({ // initialize an AJAX request
-       url: '/ajax/load_fac_home/',
-       type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-       data: {
-          facilitator_id: facId, // add the country id to the GET parameters
-       },
-       success: function(data) { // `data` is the return of the `load_cities` view function
-         $("#facdone").html(data);
-         $("#facnotdone").remove(); // replace the contents of the city input with the data that came from the server
-       }
-     });
+      });
+    </script>
+    <br><br>
 
-   });
-   </script>
-<br><br>
+    <div id="facnotdone">
+      <table align="center" style="width:80%;font-family: Montserrat">
+        <tr>
+          <th>NAME</th>
+          <th>CONTACT</th>
+          <th>ACTION</th>
+        </tr>
+        {% for s1 in f %}
+        <tr>
+          <td>{{s1.first_name}} {{s1.last_name}}</td>
+          <td>{{s1.mobile_number}}</td>
+          <td><a href="{% url 'edit_facilitator' s1.facilitator_id %}">Edit</a> | <a
+              href="{% url 'view_facilitator' s1.facilitator_id %}">View</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      <br>
 
-<div id="facnotdone">
-  <table align="center" style="width:80%;font-family: Montserrat">
-    <tr>
-      <th>NAME</th>
-      <th>CONTACT</th>
-      <th>ACTION</th>
-    </tr>
-      {% for s1 in f %}
-    <tr>
-      <td>{{s1.first_name}} {{s1.last_name}}</td>
-      <td>{{s1.mobile_number}}</td>
-      <td><a href="{% url 'edit_facilitator' s1.facilitator_id %}">Edit</a> | <a href="{% url 'view_facilitator' s1.facilitator_id %}">View</a></td>
-    </tr>
-      {% endfor %}
-  </table>
-  <br>
+      <div class="pagination" style="width:20%;position:absolute;left:40%">
+        <ul style="position:absolute;left:10%">
+          {% if f.has_previous %}
+          <li><a href="?page2={{f.previous_page_number}}">Previous</a></li>
+          {% endif %}
+          {% for pg in f.paginator.page_range %}
+          {% if f.number == pg %}
+          <li class="active" style="background-color:orange;color:white;"><a href="?page2={{pg}}">{{pg}}</a></li>
+          {% elif pg > f.number|add:'-2' and pg < f.number|add:'2' %}
+          <li><a href="?page2={{ pg }}">{{pg}}</a></li>
+          {% endif %}
+          {% endfor %}
 
-  <div class="pagination" style="width:20%;position:absolute;left:40%">
-  <ul style="position:absolute;left:10%">
-    {% if f.has_previous %}
-    <li><a href="?page2={{f.previous_page_number}}">Previous</a></li>
-   {% endif %}
-   {% for pg in f.paginator.page_range %}
-   {% if f.number == pg %}
-   <li class="active" style="background-color:orange;color:white;"><a href="?page2={{pg}}">{{pg}}</a></li>
-  {% elif pg > f.number|add:'-2' and pg < f.number|add:'2' %}
-  <li><a href="?page2={{ pg }}">{{pg}}</a></li>
-  {% endif %}
-  {% endfor %}
+          {% if f.has_next %}
+          <li><a href="?page2={{f.next_page_number}}">Next</a></li>
+          {% endif %}
+        </ul>
 
-  {% if f.has_next %}
-  <li><a href="?page2={{f.next_page_number}}">Next</a></li>
-  {% endif %}
-  </ul>
+      </div>
 
-  </div>
+    </div>
 
-</div>
-
-<br><br>
-   <div id="facdone">
+    <br><br>
+    <div id="facdone">
 
 
-   </div>
+    </div>
 
-<br><br>
- <a class="button" style="margin-left:21px" href="{% url 'add_facilitator' %}">ADD FACILITATOR</a>
- <a class="button" style="margin-left:21px" href="{% url 'facilitators' %}">VIEW ALL FACILITATORS</a>
-    </body>
+    <br><br>
+    <a class="button" style="margin-left:21px" href="{% url 'add_facilitator' %}">ADD FACILITATOR</a>
+    <a class="button" style="margin-left:21px" href="{% url 'facilitators' %}">VIEW ALL FACILITATORS</a>
+</body>
 
-    </html>
+</html>

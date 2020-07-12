@@ -2,146 +2,159 @@
 {% load static %}
 
 <html>
+
 <head>
   <title>Questions</title>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {background-color: lightgrey;}
-    {background: transparent;
-    border: none;
-    border-bottom: 1px solid #000000;
-}
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      background-color: lightgrey;
+    }
 
-#top {
-    top: 0;
-    background-color: orange;
-    height: 100px;
-}
+      {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #000000;
+    }
 
-table, th, td {
-  border: 1px solid #696969;
-  border-collapse: collapse;
-  text-align: center;
-  background-color: #C4C4C4;
-  font-size: 12px;
- }
-th, td {
-  padding: 15px;
-  }
-th {
-  background-color: #FFFFFF;
-  }
+    #top {
+      top: 0;
+      background-color: orange;
+      height: 100px;
+    }
 
-body{
-  background: lightgrey;
-  font-family:Montserrat;
-  font-size:12px;
-}
+    table,
+    th,
+    td {
+      border: 1px solid #696969;
+      border-collapse: collapse;
+      text-align: center;
+      background-color: #C4C4C4;
+      font-size: 12px;
+    }
 
-.search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
+    th,
+    td {
+      padding: 15px;
+    }
 
+    th {
+      background-color: #FFFFFF;
+    }
 
-.searchTerm {
-  width: 26.3+%;
-  border: 1px;
-  border-right: none;
-  padding: 25px;
-  height: 30px;
-  border-radius: 40px 0 0 40px;
-  outline: none;
-  color: #000000;
-  font-family:Montserrat;
-font-size:12px;
-}
+    body {
+      background: lightgrey;
+      font-family: Montserrat;
+      font-size: 12px;
+    }
 
-.searchTerm:focus{
-  color: #696969;
-  font-family:Montserrat;
-font-size:12px;
-}
-
-.searchButton {
-  width: 40px;
-  height: 50px;
-  border: 0px;
-  background: #FFFFFF;
-  text-align:center;
-  color: #696969;
-  border-radius: 0 40px 40px 0;
-  cursor: pointer;
-  font-size: 20px;
-  font-family:Montserrat;
-}
-
-ul.nav2 {
-        background: transparent;
-        list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-
-  font-family: "Montserrat";
-  font-size: 17px;
-font-size:12px;
-         }
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #FFD4AA;
-font-size:12px;
-}
-li.nav3 {
-  float: center;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: BLACK;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #FFBA77;
-}
-a.active{
-  background-color: #FFBA77;
-}
-.button{
-  display: inline-block;
-  font-family: 'Montserrat';
-  background-color: #FFA348;
-  border: none;
-  color: black;
-  padding: 12px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    outline: none;
-
-}
-#container{
-    text-align: center;
-}
+    .search {
+      width: 100%;
+      position: relative;
+      display: flex;
+    }
 
 
-</style>
+    .searchTerm {
+      width: 26.3+%;
+      border: 1px;
+      border-right: none;
+      padding: 25px;
+      height: 30px;
+      border-radius: 40px 0 0 40px;
+      outline: none;
+      color: #000000;
+      font-family: Montserrat;
+      font-size: 12px;
+    }
+
+    .searchTerm:focus {
+      color: #696969;
+      font-family: Montserrat;
+      font-size: 12px;
+    }
+
+    .searchButton {
+      width: 40px;
+      height: 50px;
+      border: 0px;
+      background: #FFFFFF;
+      text-align: center;
+      color: #696969;
+      border-radius: 0 40px 40px 0;
+      cursor: pointer;
+      font-size: 20px;
+      font-family: Montserrat;
+    }
+
+    ul.nav2 {
+      background: transparent;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+
+      font-family: "Montserrat";
+      font-size: 17px;
+      font-size: 12px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #FFD4AA;
+      font-size: 12px;
+    }
+
+    li.nav3 {
+      float: center;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: BLACK;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover {
+      background-color: #FFBA77;
+    }
+
+    a.active {
+      background-color: #FFBA77;
+    }
+
+    .button {
+      display: inline-block;
+      font-family: 'Montserrat';
+      background-color: #FFA348;
+      border: none;
+      color: black;
+      padding: 12px 22px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+      outline: none;
+
+    }
+
+    #container {
+      text-align: center;
+    }
+  </style>
 
 
 <body>
@@ -152,7 +165,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 
 
   <ul>
-    <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+    <li><a href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
     <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
     <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
     <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
@@ -163,226 +176,85 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
     <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
   </ul>
 
-<br><br>
+  <br><br>
 
-<div class="row">
+  <div class="row">
 
 
-  <div class="col-md-8">
+    <div class="col-md-8">
 
-    {% if messages %}
-    {% for message in messages %}
+      {% if messages %}
+      {% for message in messages %}
 
-    <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
+      <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
 
-      {{message}}
+        {{message}}
+      </div>
+
+      {% endfor %}
+      {% endif %}
     </div>
-
-    {% endfor %}
-    {% endif %}
   </div>
-</div>
-<br><br>
+  <br><br>
 
-<h1>Questions</h1>
+  <h1>Questions</h1>
   <table align="center" style="width:80%;font-family: Montserrat">
-  <tr>
-    <th>PROGRAM NAME</th>
-    <th>MODULE</th>
-    <th>LEVEL</th>
-    <th>QUESTION</th>
-    <th>ACTION</th>
-  </tr>
-  {% for q1 in p %}
-  <tr>
-     <td>{{q1.program_id}}</td>
-    <td>{{q1.module_id}}</td>
-    <td>{{q1.level_id}}</td>
-    <td>{{q1.question}}</td>
-    <td> <a href="{% url 'view_questions' q1.question_id %}">View</a> | <a href="{% url 'edit_question' q1.question_id %}">Edit</a> | <a href="{% url 'delete_question' q1.question_id %}">Delete</a></td>
-  </tr>
-{% endfor %}
-</table>
+    <tr>
+      <th>PROGRAM NAME</th>
+      <th>MODULE</th>
+      <th>LEVEL</th>
+      <th>QUESTION</th>
+      <th>ACTION</th>
+    </tr>
+    {% for q1 in p %}
+    <tr>
+      <td>{{q1.program}}</td>
+      <td>{{q1.module}}</td>
+      <td>{{q1.level}}</td>
+      <td>{{q1.question}}</td>
+      <td> <a href="{% url 'view_questions' q1.question_id %}">View</a> | <a
+          href="{% url 'edit_question' q1.question_id %}">Edit</a> | <a
+          href="{% url 'delete_question' q1.question_id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </table>
 
-<br>
-<div class="pagination" style="width:20%;position:absolute;left:40%">
-<ul style="position:absolute;left:10%">
-  {% if p.has_previous %}
-  <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
- {% endif %}
- {% for pg in p.paginator.page_range %}
- {% if p.number == pg %}
- <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
-{% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
-<li><a href="?page={{ pg }}">{{pg}}</a></li>
-{% endif %}
-{% endfor %}
+  <br>
+  <div class="pagination" style="width:20%;position:absolute;left:40%">
+    <ul style="position:absolute;left:10%">
+      {% if p.has_previous %}
+      <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for pg in p.paginator.page_range %}
+      {% if p.number == pg %}
+      <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
+      {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+      <li><a href="?page={{ pg }}">{{pg}}</a></li>
+      {% endif %}
+      {% endfor %}
 
-{% if p.has_next %}
-<li><a href="?page={{p.next_page_number}}">Next</a></li>
-{% endif %}
-</ul>
+      {% if p.has_next %}
+      <li><a href="?page={{p.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
 
-</div>
+  </div>
 
   <br><br><br>
-       <div style="position:absolute;left:10%;"id="">
-            <a class="button" href="{% url 'add_question' %}">ADD QUESTION</a>
-            <a class="button" onClick="func()" href="{% url 'questions_export' %}">EXPORT QUESTIONS</a>
-       </div>
+  <div style="position:absolute;left:10%;" id="">
+    <a class="button" href="{% url 'add_question' %}">ADD QUESTION</a>
+    <a class="button" onClick="func()" href="{% url 'questions_export' %}">EXPORT QUESTIONS</a>
+  </div>
 
-<script>
-  function func()
-  {
-    alert("CSV File will Begin Downloading")
-  }
-</script>
-<br><br><br><br><br><br>
-
-<h1>Single Image Questions</h1>
-       <table align="center" style="width:80%;font-family: Montserrat">
-       <tr>
-         <th>PROGRAM NAME</th>
-         <th>MODULE</th>
-         <th>LEVEL</th>
-         <th>QUESTION</th>
-         <th>ACTION</th>
-       </tr>
-       {% for q1 in p1 %}
-       <tr>
-          <td>{{q1.program_id}}</td>
-         <td>{{q1.module_id}}</td>
-         <td>{{q1.level_id}}</td>
-         <td>{{q1.question_text}}</td>
-           <td> <a href="{% url 'view_image_questions' q1.question_id %}">View</a> | <a href="{% url 'edit_image_question' q1.question_id %}">Edit</a> | <a href="{% url 'delete_image_question' q1.question_id %}">Delete</a></td>
-       </tr>
-       {% endfor %}
-       </table>
-
-       <br>
-       <div class="pagination" style="width:20%;position:absolute;left:40%">
-       <ul style="position:absolute;left:10%">
-       {% if p1.has_previous %}
-       <li><a href="?page2={{p1.previous_page_number}}">Previous</a></li>
-       {% endif %}
-       {% for pg in p1.paginator.page_range %}
-       {% if p1.number == pg %}
-       <li class="active" style="background-color:orange;color:white;"><a href="?page2={{pg}}">{{pg}}</a></li>
-       {% elif pg > p1.number|add:'-2' and pg < p1.number|add:'2' %}
-       <li><a href="?page2={{ pg }}">{{pg}}</a></li>
-       {% endif %}
-       {% endfor %}
-
-       {% if p1.has_next %}
-       <li><a href="?page2={{p1.next_page_number}}">Next</a></li>
-       {% endif %}
-       </ul>
-
-       </div>
-
-          <br><br><br>
-       <div style="position:absolute;left:10%;"id="">
-            <a href="{% url 'add_image_question' %}" class="button">ADD IMAGE QUESTIONS</a>
-       </div>
-<br><br>
-<br><br>
+  <script>
+    function func() {
+      alert("CSV File will Begin Downloading")
+    }
+  </script>
+  <br><br><br><br><br><br>
 
 
-<br><br><br><br><br><br>
-<h1>Multiple Image Questions</h1>
-       <table align="center" style="width:80%;font-family: Montserrat">
-       <tr>
-         <th>PROGRAM NAME</th>
-         <th>MODULE</th>
-         <th>LEVEL</th>
-         <th>QUESTION</th>
-         <th>ACTION</th>
-       </tr>
-       {% for q1 in p2 %}
-       <tr>
-          <td>{{q1.program_id}}</td>
-         <td>{{q1.module_id}}</td>
-         <td>{{q1.level_id}}</td>
-         <td>{{q1.question}}</td>
-           <td> <a href="{% url 'view_images_questions' q1.question_id %}">View</a> | <a href="{% url 'edit_images_question' q1.question_id %}">Edit</a> | <a href="{% url 'delete_images_question' q1.question_id %}">Delete</a></td>
-       </tr>
-       {% endfor %}
-       </table>
-
-       <br>
-       <div class="pagination" style="width:20%;position:absolute;left:40%">
-       <ul style="position:absolute;left:10%">
-       {% if p2.has_previous %}
-       <li><a href="?page3={{p2.previous_page_number}}">Previous</a></li>
-       {% endif %}
-       {% for pg in p2.paginator.page_range %}
-       {% if p2.number == pg %}
-       <li class="active" style="background-color:orange;color:white;"><a href="?page3={{pg}}">{{pg}}</a></li>
-       {% elif pg > p2.number|add:'-2' and pg < p2.number|add:'2' %}
-       <li><a href="?page3={{ pg }}">{{pg}}</a></li>
-       {% endif %}
-       {% endfor %}
-
-       {% if p2.has_next %}
-       <li><a href="?page3={{p2.next_page_number}}">Next</a></li>
-       {% endif %}
-       </ul>
-
-       </div>
-
-          <br><br><br>
-       <div style="position:absolute;left:10%;"id="">
-            <a href="{% url 'add_images_question' %}" class="button">ADD IMAGES QUESTIONS</a>
-       </div>
-<br><br>
-<br><br>
-
-<br><br><br><br><br><br>
-<h1>Audio/Video Questions</h1>
-       <table align="center" style="width:80%;font-family: Montserrat">
-       <tr>
-         <th>PROGRAM NAME</th>
-         <th>MODULE</th>
-         <th>LEVEL</th>
-         <th>QUESTION TYPE</th>
-         <th>ACTION</th>
-       </tr>
-       {% for q1 in p3 %}
-       <tr>
-          <td>{{q1.program_id}}</td>
-         <td>{{q1.module_id}}</td>
-         <td>{{q1.level_id}}</td>
-         <td>{{q1.question_type}}</td>
-           <td> <a href="{% url 'view_av_questions' q1.question_id %}">View</a> | <a href="{% url 'edit_av_question' q1.question_id %}">Edit</a> | <a href="{% url 'delete_av_question' q1.question_id %}">Delete</a></td>
-       </tr>
-       {% endfor %}
-       </table>
-
-       <br>
-       <div class="pagination" style="width:20%;position:absolute;left:40%">
-       <ul style="position:absolute;left:10%">
-       {% if p3.has_previous %}
-       <li><a href="?page4={{p3.previous_page_number}}">Previous</a></li>
-       {% endif %}
-       {% for pg in p3.paginator.page_range %}
-       {% if p3.number == pg %}
-       <li class="active" style="background-color:orange;color:white;"><a href="?page4={{pg}}">{{pg}}</a></li>
-       {% elif pg > p3.number|add:'-2' and pg < p3.number|add:'2' %}
-       <li><a href="?page4={{ pg }}">{{pg}}</a></li>
-       {% endif %}
-       {% endfor %}
-
-       {% if p3.has_next %}
-       <li><a href="?page4={{p3.next_page_number}}">Next</a></li>
-       {% endif %}
-       </ul>
-
-       </div>
-
-          <br><br><br>
-<div style="position:absolute;left:10%;"id="">
-     <a href="{% url 'add_av_question' %}" class="button">ADD AUDIO/VIDEO QUESTIONS</a>
-</div>
-    </body>
+</body>
 </head>
+
 </html>
