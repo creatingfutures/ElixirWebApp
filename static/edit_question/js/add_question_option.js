@@ -26,4 +26,4 @@ delete_option = () => {
 }
 
 $('.delete_option').click(delete_option);
-delete_option()
+if ($('.options .option').last().find('input[name$="option_description"]').val() == '') delete_option()
