@@ -1,0 +1,62 @@
+{% extends 'view_question/main.html' %}
+{% load static %}
+{% block sub_view %}
+<p>
+    <label>Text: </label>
+    {{f.question_content}}
+    <div class="textbox"></div>
+    <input type='text' class='textlink' value="{% get_media_prefix %}{{f.question_content}}" hidden />
+    <script>
+        $.ajax({
+            url: $('.textlink').val(),
+            type: 'GET',
+            success: data => $('.textbox').html(data)
+        });
+    </script>
+</p>
+
+<p>
+    <label>Content Id: </label>
+    {{f.question_content.pk}}
+</p>
+
+<p>
+    <label>
+        Sub Questions:
+    </label>
+</p>
+
+
+{% for sub_question in f.sub_questions %}
+<p>
+  <label>Narrative:</label>
+  {{sub_question.narrative}}
+</p>
+<label> Question {{ forloop.counter }}: </label>
+{{sub_question.question}}
+{% for option in sub_question.options %}
+<p>
+    <label>Option {{ forloop.counter }}:</label>
+    {{option}}
+</p>
+{% endfor %}
+
+<p>
+    {% if subquestion.answer %}
+    <label>Answer: </label>
+    {{sub_question.answer}}
+    {% endif %}
+
+</p>
+
+<p>
+    <label>Comments:</label>
+    {{sub_question.comments}}
+</p>
+<p>
+    <label>Hint:</label>
+    {{sub_question.hint}}
+</p>
+<br>
+{% endfor %}
+{% endblock sub_view %}

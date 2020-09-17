@@ -25,7 +25,7 @@ SECRET_KEY = 'p*m3lsa-q4f92-r6=#30+)$s%3lyp)^7%g7n#xsy0*47_q(em+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['abhishekthomas.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['abhishekthomas.pythonanywhere.com', '127.0.0.1', "localhost"]
 
 
 # Application definition
@@ -115,20 +115,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL='home'
+LOGIN_REDIRECT_URL = 'home'
 
-LOGIN_URL='admin_login'
+LOGIN_URL = 'admin_login'
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-MEDIA_URL="/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
 
 
-MEDIA_URL2="view_facilitator/media/"
-MEDIA_URL4="view_student/media/"
+MEDIA_URL2 = "view_facilitator/media/"
+MEDIA_URL4 = "view_student/media/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-fssiles/
 
-STATIC_ROOT = os.path.join(BASE_DIR,'statics')
+STATIC_ROOT = os.path.join(BASE_DIR, 'statics')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (

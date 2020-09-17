@@ -1,0 +1,53 @@
+{% load static %}
+<p>
+  <label>Question <span style="color: red">*</span> :</label>
+  {{form.question}}
+</p>
+
+<br />
+
+<div class="options">
+  {{option_formset.management_form}}
+  <button type="button" class="add_option">Add Option</button>
+  <button type="button" class="delete_option">Delete Option</button>
+  {% for option_form in option_formset%}
+  <div class="option">
+    <p>
+      <label
+        >{{option_form.option_description.label}} {{forloop.counter}}</label
+      >
+      <input
+        type="file"
+        name="form-{{forloop.counter|add:'-1'}}-option_description_file"
+        accept="image/*"
+        required=""
+      />
+    </p>
+    <p>
+      <label
+        >{{option_form.is_right_option.label}}<span style="color: red"
+          >*</span
+        ></label
+      >
+      {{option_form.is_right_option}}
+    </p>
+  </div>
+  {%endfor%}
+</div>
+<script src="{% static 'add_question/js/add_question_option.js' %}"></script>
+
+<div class="empty_form">
+  <label for="id_form-__prefix__-option_description">Option :</label
+  ><input
+    type="file"
+    name="form-__prefix__-option_description_file"
+    accept="image/*"
+    required=""
+  />
+  <label for="id_form-__prefix__-is_right_option">Answer:</label
+  ><input
+    type="checkbox"
+    name="form-__prefix__-is_right_option"
+    id="id_form-__prefix__-is_right_option"
+  />
+</div>

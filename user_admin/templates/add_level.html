@@ -1,4 +1,3 @@
-
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -86,56 +85,59 @@
   a.active {
     background-color: rgb(255, 165, 74);
   }
+
   #top {
     top: 0;
     background-color: orange;
     height: 100px;
-}
-#box{
-    width:350px;
-    height:350px;
+  }
+
+  #box {
+    width: 350px;
+    height: 350px;
     background: transparent;
-    margin:auto;
+    margin: auto;
     position: absolute;
 
-    margin-top:0%;
+    margin-top: 0%;
     left: 0;
     right: 0;
     font-family: "Montserrat";
-}
+  }
 
-#box label{
-  left:0;
-  position:absolute;
-  width:50%;
-  text-align:left;
-}
+  #box label {
+    left: 0;
+    position: absolute;
+    width: 50%;
+    text-align: left;
+  }
 
-#box p{
-  text-align:left;
-  margin-left:50%;
-}
-.button{
-  display: inline-block;
-  font-family: 'Montserrat';
-  background-color: orange;
-  border: none;
-  color: black;
-  padding: 12px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  #box p {
+    text-align: left;
+    margin-left: 50%;
+  }
+
+  .button {
+    display: inline-block;
+    font-family: 'Montserrat';
+    background-color: orange;
+    border: none;
+    color: black;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     outline: none;
 
-}
-#container{
-    text-align: center;
-}
+  }
 
+  #container {
+    text-align: center;
+  }
 </style>
 
 <head>
@@ -143,7 +145,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
-    <title>Add/Edit Level</title>
+  <title>Add/Edit Level</title>
 </head>
 
 <body>
@@ -157,7 +159,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
 
   <ul>
-    <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+    <li><a href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
     <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
     <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
     <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
@@ -167,37 +169,30 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
     <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
   </ul>
-    <br><br>
+  <br><br>
 
 
-    <div id="box">
+  <div id="box">
 
-      <form method="POST">
-            {% csrf_token %}
+    <form method="POST">
+      {% csrf_token %}
 
-            <p>
-            <label>Level No <span style="color:red">*</span> :</label>
-            {{form.level_number}}{{form.level_number.errors}}</p>
-            <p>
-              <p>
-              <label>Level description <span style="color:red">*</span> :</label>
-              {{form.level_description}}{{form.level_description.errors}}</p>
-              <p>
-                <p>
-                <p>
+      <p>
+        <label>Level description <span style="color:red">*</span> :</label>
+        {{form.level_description}}{{form.level_description.errors}}
+      </p>
 
-
-          <div class="form-group">
-          <br>
-            <input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
-          </div>
-
-      </form>
-
-      <br><br><br><br><br>
-      <div id="container">
+      <div class="form-group">
+        <br>
+        <input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
       </div>
+
+    </form>
+
+    <br><br><br><br><br>
+    <div id="container">
     </div>
+  </div>
 
 
 
