@@ -5,8 +5,12 @@ show_question_type_form = () => {
         data: {
             question_type
         },
-        success: (data) => $('.question_type_form').html(data)
+
+        success: (data) => {
+            $('.question_type_form').html(data.replace('Answer:', 'Answer <span style="color:red">*</span>'))
+        }
     })
     $('.form-group').css('display', 'block')
 }
+
 $("#id_question_type").change(show_question_type_form)

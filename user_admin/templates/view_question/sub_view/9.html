@@ -3,6 +3,7 @@
 {% block sub_view %}
 <p>
     <label>Text: </label>
+    {{f.question_content}}
     <div class="textbox"></div>
     <input type='text' class='textlink' value="{% get_media_prefix %}{{f.question_content}}" hidden />
     <script>
@@ -27,6 +28,10 @@
 
 
 {% for sub_question in f.sub_questions %}
+<p>
+  <label>Narrative:</label>
+  {{sub_question.narrative}}
+</p>
 <label> Question {{ forloop.counter }}: </label>
 {{sub_question.question}}
 {% for option in sub_question.options %}
@@ -46,7 +51,11 @@
 
 <p>
     <label>Comments:</label>
-    {{f.comments}}
+    {{sub_question.comments}}
+</p>
+<p>
+    <label>Hint:</label>
+    {{sub_question.hint}}
 </p>
 <br>
 {% endfor %}

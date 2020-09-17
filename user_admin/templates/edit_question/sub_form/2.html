@@ -11,7 +11,7 @@
     {% for option_form in option_formset%}
     <div class="option">
         <p>
-            <label>Answer: </label>
+            <label>{{option_form.is_right_option.label}}<span style="color:red">*</span></label>
             {{option_form.option_description}}
         </p>
     </div>

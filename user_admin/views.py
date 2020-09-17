@@ -13,6 +13,7 @@ from django import forms
 import django
 from .forms import *
 import re
+from django.db.models import Q
 
 # Create your views here.
 import csv
@@ -20,6 +21,7 @@ program_modules = {}
 facilitators = {}
 mod_c = 0
 fac_c = 0
+paginator_num_pages = 10
 
 
 def error(request):
@@ -78,7 +80,7 @@ def home(request):
 
     facilitators = facilitator.objects.all()
     module_count_dict = {}
-    paginator = Paginator(programs, 5)
+    paginator = Paginator(programs, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page'))
@@ -90,7 +92,7 @@ def home(request):
     except:
         programs1 = paginator.page(paginator_num_pages)
 
-    paginator = Paginator(facilitators, 5)
+    paginator = Paginator(facilitators, paginator_num_pages)
     try:
         page = int(request.GET.get('page2'))
     except:
@@ -101,7 +103,7 @@ def home(request):
     except:
         facilitator1 = paginator.page(paginator_num_pages)
 
-    paginator = Paginator(modules, 5)
+    paginator = Paginator(modules, paginator_num_pages)
     try:
         page = int(request.GET.get('page3'))
     except:
@@ -130,7 +132,7 @@ def load_modules_home(request):
     moduless = program_module.objects.all()
     modules = program_module.objects.filter(program_id=program_id)
 
-    paginator = Paginator(moduless, 5)
+    paginator = Paginator(moduless, paginator_num_pages)
     try:
         page = int(request.GET.get('page4'))
     except:
@@ -159,7 +161,7 @@ def load_fac_home(request):
         elif fac_id.lower() in i.last_name:
             fac_list.append(i)
 
-    paginator = Paginator(facs, 5)
+    paginator = Paginator(facs, paginator_num_pages)
     try:
         page = int(request.GET.get('page2'))
     except:
@@ -319,7 +321,7 @@ def view_module(request, pk, pk1):
     else:
         check1 = True
 
-    paginator = Paginator(questions1, 5)
+    paginator = Paginator(questions1, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -341,7 +343,7 @@ def view_facilitator(request, pk):
 def view_level(request, pk, pk1, pk2):
     level1 = module_level.objects.get(pk=pk2)
     questions1 = question.objects.filter(level_id=level1)
-    paginator = Paginator(questions1, 5)
+    paginator = Paginator(questions1, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -387,7 +389,7 @@ def view_questions(request, pk):
 
 def students(request):
     students = student.objects.all()
-    paginator = Paginator(students, 5)
+    paginator = Paginator(students, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -422,7 +424,7 @@ def centers(request):
         for j in batches:
             if i == j.center_id:
                 i.batch_check = True
-    paginator = Paginator(centers, 5)
+    paginator = Paginator(centers, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -439,7 +441,7 @@ def centers(request):
 
 def facilitators(request):
     facilitators = facilitator.objects.all()
-    paginator = Paginator(facilitators, 5)
+    paginator = Paginator(facilitators, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -455,7 +457,7 @@ def facilitators(request):
 
 def batches(request):
     batches = batch.objects.all()
-    paginator = Paginator(batches, 5)
+    paginator = Paginator(batches, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -482,7 +484,7 @@ def batch_search(request):
 
 def questionss(request):
     questions1 = question.objects.all()
-    paginator = Paginator(questions1, 5)
+    paginator = Paginator(questions1, paginator_num_pages)
     try:
         page = int(request.GET.get('page'))
     except:
@@ -575,6 +577,8 @@ def add_question(request):
     else:
         form = add_question_form()
         option_formset = add_option_formset()
+        form.fields['question_type'].queryset = question_type.objects.exclude(
+            Q(pk=1) | Q(pk=10) | Q(pk=11))
     return render(request, 'add_question/main.html', {"form": form, "option_formset": option_formset})
 
 
@@ -631,11 +635,6 @@ def edit_question(request, pk):
                 option_formset.data[f'form-{i}-option_description'] = i
 
         if form_question_type in [7, 8, 9]:
-            # if request.POST['question_content_id'] != '':
-            #     pk = int(request.POST['question_content_id'])
-            #     if len(question_content.objects.filter(pk=pk)):
-            #         form.instance.question_content = question_content.objects.get(
-            #             pk=pk)
             sub_questions = question.objects.filter(
                 question_content=a.question_content)
             if 'question_content' in request.FILES:
@@ -660,13 +659,16 @@ def edit_question(request, pk):
             return JsonResponse(data)
         else:
             data = {'ok': True}
-            if form_question_type == 6:
+            if form_question_type == 5:
+                form.cleaned_data['question_content'].save()
+
+            elif form_question_type == 6:
                 for i in range(len(option_formset)):
                     option_formset.option_contents[i].save()
                     option_formset[i].instance.option_description = str(
                         option_formset.option_contents[i])
 
-            elif form_question_type in [5, 7, 8, 9]:
+            elif form_question_type in [7, 8, 9]:
                 form.cleaned_data['question_content'].save()
                 for sub_question in sub_questions:
                     sub_question.question_content = form.cleaned_data['question_content']
@@ -894,7 +896,7 @@ def password(request):
 
 def password_management_facilitators(request):
     facilitators = facilitator.objects.all()
-    paginator = Paginator(facilitators, 5)
+    paginator = Paginator(facilitators, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -911,7 +913,7 @@ def password_management_facilitators(request):
 
 def password_management_students(request):
     students = student.objects.all()
-    paginator = Paginator(students, 5)
+    paginator = Paginator(students, paginator_num_pages)
 
     try:
         page = int(request.GET.get('page', '1'))

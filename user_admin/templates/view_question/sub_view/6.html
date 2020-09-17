@@ -1,27 +1,31 @@
-{% extends 'view_question/main.html' %}
-{% load static %}
-
-{% block sub_view %}
+{% extends 'view_question/main.html' %} {% load static %} {% block sub_view %}
 <p>
-    <label>Question: </label>
-    {{f.question}}
+  <label>Narrative:</label>
+  {{f.narrative}}
+</p>
+<p>
+  <label>Question: </label>
+  {{f.question}}
 </p>
 
 {% for option in f.options %}
 <p>
-    <label>Option {{ forloop.counter }}: </label>
-    <img src="{% get_media_prefix %}{{option}}" alt="">
+  <label>Option {{ forloop.counter }}: </label>
+  <img src="{% get_media_prefix %}{{option}}" alt="" />
 </p>
 {% endfor %}
 
 <p>
-    <label>Answer:</label>
-    <img src="{% get_media_prefix %}{{f.answer}}" alt="">
+  <label>Answer:</label>
+  <img src="{% get_media_prefix %}{{f.answer}}" alt="" />
 </p>
 
 <p>
-    <label>Comments:</label>
-    {{f.comments}}
+  <label>Comments:</label>
+  {{f.comments}}
 </p>
-
+<p>
+  <label>Hint:</label>
+  {{f.hint}}
+</p>
 {% endblock sub_view %}
