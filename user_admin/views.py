@@ -51,20 +51,20 @@ def questions_export(request):
     response = HttpResponse(content_type='text/csv')
 
     writer = csv.writer(response)
-    writer.writerow(['question', 'narrative', 'answer', 'question_type', 'option1',
-                     'option2', 'option3', 'option4', 'program', 'module', 'level'])
+    writer.writerow(['question_id', 'question', 'narrative',
+                     'question_type', 'program', 'module', 'level', 'options', 'answer'])
 
-    for i in question.objects.all().values_list('question', 'narrative', 'answer', 'question_type', 'option1', 'option2', 'option3', 'option4', 'level_id', 'module_id', 'program_id'):
+    for i in question.objects.all().values_list('question_id', 'question', 'narrative', 'question_type'):
         i = list(i)
-        program1 = program.objects.get(pk=i[len(i)-1])
-        i.pop(len(i)-1)
-        module = program_module.objects.get(pk=i[len(i)-1])
-        i.pop(len(i)-1)
-        level = module_level.objects.get(pk=i[len(i)-1])
-        i.pop(len(i)-1)
-        i.append(program1.program_name)
-        i.append(module.module_name)
-        i.append(level.level_description)
+        q = question.objects.get(pk=i[0])
+        i.append(q.program)
+        i.append(q.module)
+        i.append(q.level)
+        options = ""
+        for j in q.options:
+            options += f'<{j}>'
+        i.append(options)
+        i.append(q.answer)
         writer.writerow(i)
 
     response['Content-Disposition'] = 'attachment;filename="questions.csv"'

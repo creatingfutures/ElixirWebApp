@@ -280,7 +280,10 @@ class question(models.Model):
 
     @property
     def answer(self):
-        return question_option.objects.get(question=self, is_right_option=True)
+        try:
+            return question_option.objects.get(question=self, is_right_option=True)
+        except:
+            return "No Answer"
 
     def __str__(self):
         return self.question
