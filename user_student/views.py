@@ -83,7 +83,7 @@ def lesson(request, pk, pk1, pk2, pk3, pk4):
     level = module_level.objects.get(pk=pk4)
     str1 = str1+"/"+program1.program_name
     str1 = str1+"/"+module.module_name
-    str1 = str1+"/"+str(level.level_number)
+    str1 = str1+"/"+str(level.level_description)
     str1 = str1+".html"
     print(str1)
     return render(request, str1)

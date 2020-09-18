@@ -9,7 +9,8 @@
 <br>
 <p>
     <label>Current: </label>
-    <br>
+    
+    {{form.instance.question_content}}
     <div class="textbox"></div>
     <input type='text' class='textlink' value="{% get_media_prefix %}{{form.instance.question_content}}" hidden />
     <script>

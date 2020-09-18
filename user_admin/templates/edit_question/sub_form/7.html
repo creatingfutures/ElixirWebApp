@@ -3,9 +3,19 @@
 {% block question_type_form %}
 <p>
   <label> Question Audio: </label>
-  <input type="file" name="question_content" accept="audio/*" />
 </p>
 <br />
+<p>
+<label> Current: </label>
+{{form.instance.question_content}}
+<audio controls>
+  <source src="{% get_media_prefix %}{{form.instance.question_content}}" />
+</audio>
+</p>
+<p>
+<label>Change: </label>
+<input type="file" name="question_content" accept="audio/*" />
+</p>
 <p>
   <label>Question <span style="color: red">*</span> :</label>
   {{form.question}}
