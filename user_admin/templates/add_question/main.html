@@ -80,19 +80,19 @@
           <label>Comments: </label>
           {{form.comments}}{{form.comments.errors}}
         </p>
-        <div class="form-group" style="display: none">
-          <button style="margin-left: 120px" type="button" class="button">
+        <div class="form-group">
+          <button style="display: none;" type="button" class="button">
             Submit
           </button>
+          <button
+            type="button"
+            class="button"
+            onclick="back()"
+          >
+            Go Back
+          </button>
         </div>
-        <button
-          style="margin-left: 120px"
-          type="button"
-          class="button"
-          onclick="back()"
-        >
-          Go Back
-        </button>
+
         <script>
           back = () => window.history.back();
         </script>

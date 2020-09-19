@@ -82,6 +82,19 @@
       </p>
 
       {% block sub_view %} {% endblock sub_view %}
+      <div class="buttonouter" style="display: flex; justify-content: center;">
+        <button
+        type="button"
+        class="button"
+        onclick="back()"
+        >
+            Go Back
+        </button>
+      </div>
+
+      <script>
+        back = () => window.history.back();
+      </script>
     </div>
   </body>
 </html>
