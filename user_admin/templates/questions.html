@@ -220,7 +220,7 @@
   </table>
 
   <br>
-  <div class="pagination" style="width:20%;position:absolute;left:40%">
+  <div class="pagination" style="width:25%;position:absolute;left:40%">
     <ul style="position:absolute;left:10%">
       {% if p.has_previous %}
       <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
@@ -228,7 +228,7 @@
       {% for pg in p.paginator.page_range %}
       {% if p.number == pg %}
       <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
-      {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+      {% else %}
       <li><a href="?page={{ pg }}">{{pg}}</a></li>
       {% endif %}
       {% endfor %}
