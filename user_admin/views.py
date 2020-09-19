@@ -609,9 +609,9 @@ def edit_question(request, pk):
         option_formset = add_option_formset(request.POST)
         option_formset.data = option_formset.data.copy()
         form.data = form.data.copy()
-        form.data['level'] = a.level.pk
-        form.data['module'] = a.module.pk
-        form.data['program'] = a.program.pk
+        # form.data['level'] = a.level.pk
+        # form.data['module'] = a.module.pk
+        # form.data['program'] = a.program.pk
         form.data['question_type'] = form_question_type
 
         if form_question_type in [2, 4]:
@@ -671,6 +671,7 @@ def edit_question(request, pk):
             elif form_question_type in [7, 8, 9]:
                 form.cleaned_data['question_content'].save()
                 for sub_question in sub_questions:
+                    sub_question.level = form.cleaned_data['level']
                     sub_question.question_content = form.cleaned_data['question_content']
                     sub_question.save()
 
