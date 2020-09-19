@@ -1,166 +1,186 @@
-
 {% load static %}
 <!doctype html>
 
 <style>
+  body {
+    background: lightgrey;
+    font-family: Montserrat;
+    font-size: 12px;
+  }
 
-body{
-  background: lightgrey;
-  font-family:Montserrat;
-  font-size:12px;
-}
-
-    ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: rgb(255,197,138);
-  font-family: "Montserrat";
-  font-size: 12px;
-
-}
-    ul.nav2 {
-        background: transparent;
-        list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-
-  font-family: "Montserrat";
-  font-size: 12px;
-         }
-
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: rgb(255,165,74);
-}
-   label{font-family: 'Montserrat';text-align: center; font-weight: 100; display: inline-block; width: 100px;font-size:14px; }
-    p.welcome{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute; bottom:640 ; right: 1390;color:white;}
-    .button1{font-family: 'Montserrat';font-weight: 100;font-size:12px;position: absolute;bottom:652 ; right: 20; background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-    outline:none;
+    background-color: rgb(255, 197, 138);
+    font-family: "Montserrat";
+    font-size: 12px;
+
+  }
+
+  ul.nav2 {
+    background: transparent;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    font-family: "Montserrat";
+    font-size: 12px;
+  }
+
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  li a:hover {
+    background-color: rgb(255, 165, 74);
+  }
+
+  label {
+    font-family: 'Montserrat';
+    text-align: center;
+    font-weight: 100;
+    display: inline-block;
+    width: 100px;
+    font-size: 14px;
+  }
+
+  p.welcome {
+    font-family: 'Montserrat';
+    font-weight: 100;
+    font-size: 12px;
+    position: absolute;
+    bottom: 640;
+    right: 1390;
+    color: white;
+  }
+
+  .button1 {
+    font-family: 'Montserrat';
+    font-weight: 100;
+    font-size: 12px;
+    position: absolute;
+    bottom: 652;
+    right: 20;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
     text-decoration: underline;
-    color: white;}
+    color: white;
+  }
 
-a.active{
-  background-color: rgb(255,165,74) ;
-}
+  a.active {
+    background-color: rgb(255, 165, 74);
+  }
 
-#top {
+  #top {
     top: 0;
     background-color: orange;
     height: 100px;
-}
-#box{
-    width:350px;
-    height:350px;
+  }
+
+  #box {
+    width: 350px;
+    height: 350px;
     background: transparent;
-    margin:auto;
+    margin: auto;
     position: absolute;
 
-    margin-top:0%;
+    margin-top: 0%;
     left: 0;
     right: 0;
     font-family: "Montserrat";
-}
-.button{
-  display: inline-block;
-  font-family: 'Montserrat';
-  background-color: orange;
-  border: none;
-  color: black;
-  padding: 12px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .button {
+    display: inline-block;
+    font-family: 'Montserrat';
+    background-color: orange;
+    border: none;
+    color: black;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     outline: none;
 
-}
-#container{
+  }
+
+  #container {
     text-align: center;
-}
-
-
-    </style>
+  }
+</style>
 
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
-    <title>Delete Quetion</title>
-  </head>
-  <body>
+  <title>Delete Quetion</title>
+</head>
 
-    <div id="top"><br>
-      <center><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></center>
-    </div>
+<body>
+  <div id="top"><br>
+    <center><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></center>
+  </div>
 
+  <ul>
+    <li><a href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+    <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
+    <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
+    <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
+    <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
+    <li><a href="#reports">REPORTS</a></li>
+    <li style="float:right"><a href="#about">FAQs</a></li>
+    <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
+    <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
+  </ul>
 
-    <ul>
-      <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
-      <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
-      <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
-      <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
-      <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
-      <li><a href="#reports">REPORTS</a></li>
-      <li style="float:right"><a href="#about">FAQs</a></li>
-      <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
-      <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
-    </ul>
+  <br><br>
+  <br><br>
 
-    <br><br>
+  <div id="box">
+    <form method="POST">
+      {% csrf_token %}
+      <h3>Are you sure you want to delete the Question</h3>
+      <br><br>
+      <div id="container">
+        <input type="submit" class="button" value="Yes">
+        <a href="{% url 'questions' %}" class="button">No</a>
+      </div>
+    </form>
+  </div>
 
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+</body>
 
-
-          <br><br>
-
-          <div id="box">
-
-          <form method="POST">
-
-              {% csrf_token %}
-            <h3>Are you sure you want to delete the Question</h3>
-              <br><br>
-                  <div id="container">
-                  <input type="submit" class="button" value="Yes">
-                  <a href="{% url 'questions' %}" class="button">No</a>
-                  </div>
-
-
-          </form>
-
-</div>
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
 </html>
