@@ -15,6 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="{% static 'add_question/css/index.css' %}" />
     <title>Add/Edit Question</title>
+    <meta name="google" content="notranslate" />
   </head>
 
   <body>
@@ -79,11 +80,22 @@
           <label>Comments: </label>
           {{form.comments}}{{form.comments.errors}}
         </p>
-        <div class="form-group" style="display: none">
-          <button style="margin-left: 120px" type="button" class="button">
+        <div class="form-group">
+          <button style="display: none;" type="button" class="button">
             Submit
           </button>
+          <button
+            type="button"
+            class="button"
+            onclick="back()"
+          >
+            Go Back
+          </button>
         </div>
+
+        <script>
+          back = () => window.history.back();
+        </script>
         <script src="{% static 'add_question/js/submit_form.js' %}"></script>
       </form>
 
