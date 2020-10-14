@@ -39,18 +39,8 @@ def s_home(request, pk, pk1):
 
 def spoken_english(request, pk, pk1, pk2):
     modules = program_module.objects.filter(program_id=pk2)
-    
-    order = [4, 1, 0, 7, 3, 2, 6, 5]
-    modules = [modules[i] for i in order]
     program1 = program.objects.get(pk=pk2)
-    levels=[]
-    for i in modules:
-        levels.append(module_level.objects.filter(
-        module_id=i.module_id).order_by('level_description'))
-    
-    
-    
-    return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+    return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1})
 
 
 def module_view(request, pk, pk1, pk2, pk3):
@@ -70,7 +60,6 @@ def level_view(request, pk, pk1, pk2, pk3, pk4):
 def crossword(request, pk, pk1, pk2, pk3, pk4):
     module = program_module.objects.get(pk=pk3)
     level = module_level.objects.get(pk=pk4)
-    
     try:
         a = "crossword/"+module.module_name+"/"+str(level.level_number)
         b = "user_student/templates/crossword/" + \
@@ -85,8 +74,8 @@ def crossword(request, pk, pk1, pk2, pk3, pk4):
     except:
         messages.success(request, f'No Crossword for the level yet')
         return redirect('module_view', pk, pk1, pk2, pk3)
-    
-    
+
+
 def lesson(request, pk, pk1, pk2, pk3, pk4):
     str1 = "lesson"
     module = program_module.objects.get(pk=pk3)
