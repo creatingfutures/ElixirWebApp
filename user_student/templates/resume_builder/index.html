@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RESUME BUILDER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="components/bootstrap-4.4.1-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="components/jsGrid/jsgrid.css" />
+    <link rel="stylesheet" type="text/css" href="components/jsGrid/jsgrid-theme.css" />
+    <link rel="stylesheet" type="text/css" href="components/jquery-ui-1.12.1/jquery-ui.css" />
+    <script src="components/bootstrap-4.4.1-dist/js/bootstrap.js" type="text/javascript"></script>
+    <script src="components/jquery-ui-1.12.1/jquery-ui.js" type="text/javascript"></script>
+    <script type="text/javascript" src="components/jsGrid/jsgrid.js"></script>
+    <script type="text/javascript" src="components/html-docx-js/FileSaver.js"></script>
+    <script type="text/javascript" src="components/html-docx-js/html-docx.js"></script>
+    <script type="text/javascript" src="components/tinymce/js/tinymce.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            background-color: lightgrey;
+        }
+
+        #top {
+            top: 0;
+            background-color: orange;
+            height: 100px;
+        }
+
+        body {
+            background: lightgrey;
+        }
+
+        * {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .container {
+            clear: both;
+            overflow: auto;
+            background: white;
+
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            position: relative;
+            width: 1300;
+            top: 45;
+            left: 95;
+
+        }
+
+        nav {
+            float: right;
+        }
+
+        .logo img {
+            float: left;
+            padding: 8px;
+        }
+
+
+
+
+        .nav {
+            background-color: orange;
+            height: 30%;
+            display: grid;
+            grid-template-rows: auto auto auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navig {
+            grid-row: 2/3;
+            display: flex;
+            flex-wrap: nowrap;
+            background-color: white;
+            flex-direction: row;
+        }
+
+        .navv {
+            width: 80%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+    </style>
+
+    <!--<script src="datetimepicker.js" type="text/javascript"></script>-->
+    <script type="text/javascript">
+
+
+        function onResumePreview() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = $("#frmResumeEntry");
+            if (forms.length > 0) {
+                if (forms[0].checkValidity() == true) {
+                    ShowPreview();
+                }
+                forms[0].classList.add('was-validated');
+            }
+
+        }
+
+        function downloadResume() {
+            $(".container").wordExport();
+        }
+
+        function showEditResume() {
+            $("#frmResumeEntry").show();
+            $("#frmPreview").hide();
+
+
+        }
+
+        //function called to reset all entries to empty
+        function ResetForm() {
+            $("#divEducation").jsGrid("option", "data", []);
+            $("divAcademicProjects").jsGrid("option", "data", []);
+            $("divWorkProjects").jsGrid("option", "data", []);
+            $("divInternshipProjects").jsGrid("option", "data", []);
+            $("divVolunteeringProjects").jsGrid("option", "data", []);
+            $("divCertifications").jsGrid("option", "data", []);
+        }
+
+        //function called to show resume preview
+        function ShowPreview() {
+            var frmPreview = $("#frmPreview");
+            var frmResumeEntry = $("#frmResumeEntry");
+
+            var textboxes = $(frmResumeEntry).find("input[type='text'],input[type='email'], input[type='tel']");
+            //populate the preview form with values from each textbox and text area
+            $.each(textboxes, function (index, textbox) {
+                var id = $(this).attr("id");
+                var text = $(this).val();
+                if (id != undefined) {
+                    id = id.replace("txt", "lbl");
+                    var label = $(frmPreview).find("#" + id);
+                    label.text(text);
+
+
+                }
+            });
+            var textAreas = $(frmResumeEntry).find("textarea");
+            $.each(textAreas, function (index, textArea) {
+                var id = $(this).attr("id");
+                var text = $(this).val();
+                if (id != undefined) {
+                    id = id.replace("txt", "lbl");
+                    var label = $(frmPreview).find("#" + id);
+                    label.text(text);
+                }
+            });
+            //populate the tables from resume editing section into the preview section
+            var tables = $(frmResumeEntry).find(".jsgrid");
+            $.each(tables, function (index, table) {
+                var id = $(this).attr("id");
+                var html = $(this).html();
+                var previewTbl = $(frmPreview).find("#" + id);
+                var gridData = $("#" + id).jsGrid("option", "data");
+                var gridFields = $("#" + id).jsGrid("option", "fields");
+
+                var tblHtml = "<table style= 'border:1px solid rgb(187,187,187);'> ";
+                //construct the headers of the table
+                tblHtml = tblHtml.concat("<thead>");
+                tblHtml = tblHtml.concat("<tr>");
+
+                $.each(gridFields, function (i, v) {
+                    if (typeof v != "undefined" && typeof v.title != "undefined" && v.title != "" && v.title != null) {
+                        tblHtml = tblHtml.concat("<th  style= 'border:1px solid rgb(187,187,187);'>");
+                        tblHtml = tblHtml.concat(v.title);
+                        tblHtml = tblHtml.concat("</th>");
+                    }
+                });
+                tblHtml = tblHtml.concat("</tr>");
+                tblHtml = tblHtml.concat("</thead>");
+
+                //then construct the body
+                tblHtml = tblHtml.concat("<tbody>");
+
+                $.each(gridData, function (i, v) {
+                    tblHtml = tblHtml.concat("<tr>");
+                    $.each(gridFields, function (i, fieldName) {
+                        if (typeof fieldName != "undefined" && typeof fieldName.name != "undefined" && fieldName.name != "" && fieldName.name != null) {
+                            tblHtml = tblHtml.concat("<td  style= 'border:1px solid rgb(187,187,187);'>");
+                            if (v[fieldName.name] != null) {
+                                tblHtml = tblHtml.concat(v[fieldName.name]);
+                            }
+                            tblHtml = tblHtml.concat("</td>");
+                        }
+                    });
+                    tblHtml = tblHtml.concat("</tr>");
+
+                });
+                $(previewTbl).append(tblHtml);
+            });
+
+            tinymce.init({
+                selector: "#frmPreview > #divExport",
+                content_css: 'css/wordstyles.css',
+                toolbar: 'saveToDocx',
+                setup: function (editor) {
+                    editor.ui.registry.addButton('saveToDocx', {
+                        text: 'Save to Docx',
+                        onAction: function (_) {
+                            var contentDocument = tinymce.activeEditor.getDoc();
+                            var content = '<!DOCTYPE html>' + contentDocument.documentElement.outerHTML;
+                            var converted = htmlDocx.asBlob(content);
+                            saveAs(converted, 'resume.docx');
+                        }
+                    });
+                }
+            });
+            frmPreview.show();
+            frmResumeEntry.hide();
+
+            /*    $("#btnSubmit").hide();
+            $("#btnDownload").show();
+            $("#btnCancel").hide();
+            $("#btnBack").show();
+            var textboxes = $("input[type='text'],input[type='email'], input[type='tel']");
+            //hide the textboxes and show the readonly labels containing values during preview
+            $.each(textboxes, function (index, textbox) {
+            var id = $(this).attr("id");
+            var text = $(this).val();
+            if (id != undefined) {
+            id = id.replace("txt", "lbl");
+            var label = $("#" + id);
+            label.text(text);
+            // label.html(text);
+            label.show();
+            $(this).hide();
+            }
+            });
+            var textAreas = $("textarea");
+            $.each(textAreas, function (index, textArea) {
+            var id = $(this).attr("id");
+            var text = $(this).val();
+            if (id != undefined) {
+            id = id.replace("txt", "lbl");
+            var label = $("#" + id);
+            label.text(text);
+            label.html(text);
+            label.show();
+            $(this).hide();
+            }
+            });
+
+            var tables = $(".jsgrid-table");
+
+            $.each(tables, function (index, table) {
+            $(this).find("tr th:last-child").hide();
+
+            $(this).find("tr td:last-child").hide();
+
+            }
+            );*/
+
+
+        }
+
+
+
+
+
+
+        // A $( document ).ready() block.
+        $(document).ready(function () {
+            console.log("ready!");
+            //functions for the grids custom date time picker
+            var DateField = function (config) {
+                jsGrid.Field.call(this, config);
+            };
+
+            DateField.prototype = new jsGrid.Field({
+                sorter: function (date1, date2) {
+                    console.log('on sorting fild ' + date1 + ' ' + date2);
+                    return new Date(date1) - new Date(date2);
+                },
+
+                itemTemplate: function (value) {
+                    console.log('on init item template');
+                    if (value === null) {
+                        return '';
+                    }
+                    else {
+                        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        return new Date(value).toLocaleDateString("en-US", options);
+                    }
+                },
+
+                insertTemplate: function (value) {
+
+                    console.log('on init insert template ');
+                    var currentDate = new Date();
+                    this._insertPicker = $('<input>').datepicker({
+                        defaultDate: currentDate,
+                        dateFormat: "dd-M-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        widgetPositioning: {
+                            horizontal: 'auto',
+                            vertical: 'bottom'
+                        }
+                    });
+                    console.log('insert template created')
+                    this._insertPicker.datepicker("setDate", currentDate);
+                    return this._insertPicker;
+                },
+
+                editTemplate: function (value) {
+                    console.log('on init edit template');
+                    var currentDate = new Date();
+                    this._editPicker = $('<input>').datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd-M-yy",
+                        widgetPositioning: {
+                            horizontal: 'auto',
+                            vertical: 'bottom'
+                        }
+                    });
+
+                    if (value !== null) {
+                        this._editPicker.datepicker("option", "defaultDate", currentDate);
+                        this._editPicker.datepicker("setDate", currentDate);
+                    }
+                    return this._editPicker;
+                },
+
+                insertValue: function () {
+                    console.log('on get insert value');
+                    //var currentDate = new Date();
+                    var insertDate = this._insertPicker.datepicker("getDate");
+                    console.log('value: ' + insertDate);
+                    if (typeof insertDate !== 'undefined' && insertDate !== null) {
+                        //return insertDate.format('L LTS');
+                        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        return insertDate.toLocaleDateString("en-US", options);
+                    } else {
+                        return null;
+                    }
+                },
+
+                editValue: function () {
+                    console.log('on get edit value');
+                    var editDate = this._editPicker.datepicker("getDate");
+                    if (typeof editDate !== 'undefined' && editDate !== null) {
+                        //return editValue.format('L LTS');
+                        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        return editDate.toLocaleDateString("en-US", options);
+                    } else {
+                        return null;
+                    }
+                }
+            });
+
+
+
+            jsGrid.fields.DateField = DateField;
+
+            //this will contain the data of the education details
+            var eduData = [];
+            var eduQualificationData = [{ name: "" }, { name: "Post Graduation" }, { name: "Under Graduation" }, { name: "Diploma" }, { name: "ITI" }, { name: "Polytechnic" }, { name: "12th Standard" }, { name: "10th Standard" }, { name: "Less than 10th" }, { name: "Other" }];
+            var eduColumns =
+                [
+                    { title: "Qualification", name: "qualification", type: "select", validate: "required", items: eduQualificationData, valueField: "name", textField: "name" },
+                    { title: "School/College", name: "institute", type: "text", validate: "required" },
+                    { title: "University/Board", name: "university", type: "text" },
+                    { name: "year", title: "Year", type: "number", validate: { validator: "range", message: "year should be 1950 or greater", param: [1950, 2022] } },
+                    { title: "Stream/Degree Specialization", name: "stream", type: "text", validate: "required" },
+                    { title: "Score (%)", name: "score", type: "number" },
+                    { type: "control" }
+                ];
+
+            //academic project details
+            var academicData = [];
+            //work experience details
+            var workExData = [];
+            //internship details
+            var internshipData = [];
+            //certification details
+            var certificationData = [];
+            //volunteering data
+            var volunteeringData = [];
+
+            //academic project columns
+            var academicCols =
+                [
+                    { title: "Project Name", name: "projectname", type: "text", validate: "required" },
+                    {
+                        title: "From Date", name: "fromdate", type: "DateField", validate: "required"
+                        /*validate: [
+                        function (value, item) {
+                        return item != null;
+                        }
+                        ]*/
+                    },
+                    {
+                        title: "To Date", name: "todate", type: "DateField"
+                        /*validate: [
+                        function (value, item) {
+                        return item != null;
+                        }
+                        ]*/
+                    },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //internship columns
+            var internshipColumns =
+                [
+                    { title: "Company Name", name: "companyname", type: "text", validate: "required" },
+                    { title: "From Date", name: "fromdate", type: "DateField", validate: "required" },
+                    { title: "To Date", name: "todate", type: "DateField" },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //work experience columns
+            var workExColumns =
+                [
+                    { title: "Company Name", name: "companyname", type: "text", validate: "required" },
+                    { title: "From Date", name: "fromdate", type: "DateField", validate: "required" },
+                    { title: "To Date", name: "todate", type: "DateField" },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //volunteering columns
+            var volunteeringCols =
+                [
+                    { title: "Company Name", name: "companyname", type: "text", validate: "required" },
+                    { title: "From Date", name: "fromdate", type: "DateField", validate: "required" },
+                    { title: "To Date", name: "todate", type: "DateField" },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //certification columns
+            var certificationColumns =
+                [
+                    { title: "Certification Name", name: "certificationname", type: "text", validate: "required" },
+                    { type: "control" }
+                ];
+
+            //and finally create a table using the jsGrid component
+            var eduTable = $("#divEducation").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: eduData,
+                fields: eduColumns,
+                noDataContent: "No data added",
+
+
+            });
+
+            //initializing the academic projects table
+            var academicTable = $("#divAcademicProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: academicData,
+                fields: academicCols,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the internship projects table
+            var internshipTable = $("#divInternshipProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: internshipData,
+                fields: internshipColumns,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the Work Experience projects table
+            var workExTable = $("#divWorkProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: workExData,
+                fields: workExColumns,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the volunteering projects table
+            var volunteeringTable = $("#divVolunteeringProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: volunteeringData,
+                fields: volunteeringCols,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the certifications  table
+            var certificationsTable = $("#divCertifications").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: certificationData,
+                fields: certificationColumns,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+
+
+        });
+    </script>
+
+    <style>
+        /* #btnSubmit{
+        margin-right:20px;
+        }*/
+        #btnCancel {
+            margin-right: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .th {
+            color: rgb(33, 37, 41);
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .tg td {
+            border-color: #ccc;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+        }
+
+        .tg th {
+            border-color: #ccc;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+        }
+
+        .tg .tg-0lax {
+            text-align: left;
+            vertical-align: top
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+
+
+        /* Clear floats after the columns */
+        /*   .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }*/
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        /*  @media screen and (max-width: 600px) {
+        .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+        }
+        }*/
+    </style>
+
+
+</head>
+<div class="nav">
+    <div class="navig">
+        <div>
+            <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
+        </div>
+        <div class="navv">
+            <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+            <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+            <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+            <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
+        </div>
+    </div>
+</div>
+<br>
+
+
+<body>
+    <form onreset="ResetForm()" class="needs-validation" novalidate id="frmResumeEntry">
+
+        <h2> Resume Builder</h2>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-1">
+                    <label for="txtFname">NAME</label>
+                </div>
+
+                <div class="col-md-3">
+                    <input type="text" id="txtFName" name="txtFName" class="form-control editResume"
+                        placeholder="Enter your full name.." required>
+                    <label id="lblFName" class="viewResume"></label>
+                    <div class="invalid-feedback">
+                        Please enter a name.
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="txtNumber">MOBILE NUMBER</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="tel" class="form-control editResume" id="txtNumber" name="txtNumber"
+                        placeholder="Enter your mobile number.." required pattern="[0-9]{10}">
+                    <label id="lblNumber" class="viewResume"></label>
+                    <div class="invalid-feedback">
+                        Please enter a number.
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="txtEmail">EMAIL ID</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="email" id="txtEmail" name="txtEmail" placeholder="Enter your email id.." required
+                        class="form-control editResume">
+                    <label id="lblEmail" class="viewResume"></label>
+                    <div class="invalid-feedback">
+                        Please enter a valid e-mail id.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class=" col-md-2">
+                    <label for="txtAddress">ADDRESS</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtAddress" name="txtAddress" placeholder="Enter your address..." style="height:100px"
+                        maxlength="500" class="form-control editResume" required></textarea>
+                    <p id="lblAddress" class="viewResume"></p>
+                </div>
+                <div class="invalid-feedback">
+                    Please enter your address.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="txtObjective">OBJECTIVE</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtObjective" name="txtObjective" placeholder="Enter objective..."
+                        style="height:100px" maxlength="250" required spellcheck="true"
+                        class="form-control editResume"></textarea>
+                    <p id="lblObjective" class="viewResume"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="tblEducation">EDUCATION DETAILS</label>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="divEducation"></div>
+                </div>
+            </div>
+
+            <!--<div class="row">
+                <button type="button" id="but_add">Add New Row</button>
+            </div>-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtTechnicalStrengths">STRENGTHS - TECHNICAL </label>
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtTechnicalStrengths" name="txtTechnicalStrengths"
+                        placeholder="From a technical perspective, what skills do you have that will help effetively perform this job?"
+                        style="height:100px" required spellcheck="true"></textarea>
+                    <p id="lblTechnicalStrengths" class="viewResume"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtNonTechStrengths">STRENGTHS - NON TECHNICAL (DOMAIN /MANAGEMENT SKILLS)</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtNonTechStrengths" name="txtDomainStrengths"
+                        placeholder="From a domain perspectives, what skills do you have theditResumeat will help effetively perform this job?"
+                        style="height:100px" required spellcheck="true"></textarea>
+                    <p id="lblDomainStrengths" class="viewResume"></p>
+                </div>
+            </div>
+
+
+            <!--<div class="row">
+                <div class="col-md-12">
+                    <label for="txtStrengths">STRENGTHS - MANAGEMENT </label>
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtManagementStrengths" name="txtManagementStrengths" placeholder="From a management perspective, what skills do you have that will help effetively perform this job?" style="height:100px" required spellcheck="true"></textarea>
+                    <p id="lblManagementStrengths" class="viewResume"></p>
+                </div>
+            </div>-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtQualities"> QUALITIES & SOFT SKILLS</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtQualities" name="txtQualities"
+                        placeholder="Describe your softskills and qualities in a sentence here" style="height:100px"
+                        required spellcheck="true"></textarea>
+                    <p id="lblQualities"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtTechProjects"> ACADEMIC/TECHNICAL PROJECTS</label>
+                </div>
+
+                <!--<div class="col-50">
+                    <textarea id="txtTechProjects" name="txtTechProjects" placeholder="Enter academic / college project details" style="height:100px"></textarea>
+                </div>-->
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="divAcademicProjects"></div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtInternships"> INTERNSHIP EXPERIENCE </label>
+                </div>
+                <div class="col-50">
+                    <div class="col-md-12">
+                        <!-- <textarea id="txtInternships" name="txtInternships" placeholder="Enter internship details.." style="height:100px"></textarea>-->
+                        <div id="divInternshipProjects"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtVolunteering">VOLUNTEERING EXPERIENCE</label>
+                </div>
+                <div class="col-50">
+                    <!-- <textarea id="txtVolunteering" name="txtVolunteering" placeholder="Enter Volunteering Experience (if any)" style="height:100px"></textarea>-->
+                    <div class="col-md-12">
+                        <div id="divVolunteeringProjects"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtWorkEx">WORK EXPERIENCE</label>
+                </div>
+                <div class="col-50">
+                    <!--<textarea id="txtWorkEx" name="txtWorkEx" placeholder="Enter Work Experience.." style="height:100px"></textarea>-->
+                    <div class="col-md-12">
+                        <div id="divWorkProjects"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtCertifications">CERTIFICATIONS</label>
+                </div>
+                <div class="col-md-12">
+                    <!--<textarea id="txtCertifications" name="txtCertifications" placeholder="Enter Certifications" style="height:100px"></textarea>-->
+
+                    <div id="divCertifications"></div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtWebPresence"> WEB PRESENCE (IF ANY)</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtWebPresence" class="editResume" name="txtWebPresence"
+                        placeholder="If you have professional accounts in the web, enter those details (example - LinkedIn)"
+                        style="height:100px"></textarea>
+                    <p id="lblWebPresence" class="viewResume" name="lblWebPresence"></p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtInterests">INTERESTS</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtInterests" name="txtInterests"
+                        placeholder="Enter details about your hobbies and interests apart from work"
+                        style="height:100px" class="editResume"></textarea>
+                    <p id="lblInterests" name="lblInterests" class="viewResume"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtAwards"> AWARDS AND ACHIEVEMENTS </label>
+                </div>
+
+                <div class="col-md-12">
+                    <textarea id="txtAwards" name="txtAwards"
+                        placeholder="Describe any/all of your awards and achievements briefly" style="height:100px"
+                        class="editResume"></textarea>
+                    <p id="lblAwards" name="lblAwards" class="viewResume"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-1">
+                    <button type="button" id="btnSubmit" class="btn btn-success"
+                        onclick="onResumePreview();">Preview</button>
+                    <button type="button" id="btnDownload" class="btn btn-success" style="display:none"
+                        onclick="downloadResume();">Download Resume</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="reset" id="btnCancel" class="btn btn-light">Cancel</button>
+                    <button type="button" id="btnBack" class="btn-light" style="display:none"
+                        onclick="showEditResume();">Back</button>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </form>
+
+    <form id="frmPreview" style="display:none">
+        <link rel="stylesheet" type="text/css" href="css/wordstyles.css" />
+        <div id="divExport">
+            <header>
+                <div class="container" id="divResumePreview">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <label id="lblFName"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label id="lblNumber"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <label id="lblEmail"></label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <p id="lblAddress"></p>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </header>
+            <article>
+                <div class="container">
+                    <section>
+
+                        <div class="row">
+                            <!--<div class="col-md-12">
+                            <h3>OBJECTIVE</h3>
+                        </div>-->
+                            <div class="col-md-12">
+                                <p id="lblObjective"></p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>EDUCATION</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divEducation">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>TECHNICAL STRENGTHS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblTechnicalStrengths"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>NON TECHNICAL STRENGTHS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblNonTechStrengths"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>QUALITIES & SOFT SKILLS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblQualities"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>PROJECTS-ACADEMIC</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divAcademicProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>INTERNSHIP EXPERIENCE</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divInternshipProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>VOLUNTEERING EXPERIENCE</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divVolunteeringProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>WORK EXPERIENCE</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divWorkProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label id="lblPreviewHdrCertifications">CERTIFICATIONS</label>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divCertifications"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>INTERESTS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblInterests"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>AWARDS & ACHIEVEMENTS</h3>>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblAwards"></p>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+
+            </article>
+        </div>
+
+
+
+        </div>
+
+        </div>
+        <footer>
+            <button type="button" id="btnBack" class="btn-light" onclick="showEditResume();">Back</button>
+        </footer>
+
+    </form>
+
+</body>
+
+</html>

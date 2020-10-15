@@ -115,7 +115,8 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questions1 = []
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
-    print("QUERUBOI", questions1)
+    
+    print(questions1)
     i = int(request.GET.get('id'))
     c = (request.GET.get('correct'))
     s = int(request.GET.get('score'))
@@ -127,27 +128,28 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     if i == len(questions1):
         return render(request, "test_submit.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
-
-    if questions1[i].question_type == "Multiple Choice":
+    
+    if questions1[i].question_type.question_type == "Multiple choice":
         return render(request, "mcq.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
-
-    if questions1[i].question_type == "Fill Ups":
+                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})             
+    print(questions1[i].question_type.question_type)
+    
+    if questions1[i].question_type.question_type == "Fill in the blanks":
         return render(request, "fill_ups.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
-    if questions1[i].question_type == "Riddles":
+    if questions1[i].question_type.question_type == "Riddles":
         return render(request, "riddles.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
-    if questions1[i].question_type == "Jumbled Words":
+    if questions1[i].question_type.question_type == "Jumbled Words":
         str = questions1[i].question
         print(str.split())
         return render(request, "jumbled_words.html",
                       {"q": questions1, "len": range(0, len(str.split())), "words": str.split(),
                        "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
-
+   
 def image_test(request, pk, pk1, pk2, pk3, pk4):
     return redirect("error")
 
