@@ -7,6 +7,7 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="serachbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 <style>
     body {background-color: lightgrey;}
 
@@ -139,8 +140,8 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     </div>
   </div>
   <ul class="breadcrumb">
-    <li><a href="#">MODULES</a></li>
-    <li><a href="#">QUESTIONS</a></li>
+    <li><a href="#" >MODULES</a></li>
+    
     
     
   </ul>
@@ -153,31 +154,33 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
   
     {% for j in lev %}
   
+   
+     
+    <button class="collapsible"><h4>{{j.level_description|allcaps}}</h4><a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1150px;" > Score : XX</b></button>
+     
     
-    
-    <button class="collapsible"><h4>{{j.level_description|allcaps}}</h4><a href=""style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1150px;" > Score : XX</b></button>
      
     <div class="content">
   
    
     <table class="myTable" style="width:100%">
       <tr>
-        <td><a href="">General Assesment</a> </td>
+        <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
         <td><b style="color:red;">X </b> </td>
       
        </tr>
       <tr>
-        <td><a href="">Match the following</a> </td>
+        <td><a href="{% url 'match' pk pk1 pk2 i.pk j.pk%}">Match the following</a> </td>
          <td><b style="color:green;">Y </b> </td>
       
        </tr>
          <tr>
-       <td><a href="">Word Search</a> </td>
+       <td><a href="{% url 'word_find' pk pk1 pk2 i.pk j.pk%}">Word Search</a> </td>
          <td><b style="color:green;">Y </b> </td>
     
        </tr>
         <tr>
-       <td><a href="">Crossword</a> </td>
+       <td><a href="{% url 'crossword' pk pk1 pk2 i.pk j.pk %}">Crossword</a> </td>
          <td><b style="color:red;">X </b> </td>
       
        </tr>
@@ -210,7 +213,6 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
       {% endfor %}
       {% endfor %}
       
-  
     
     
   

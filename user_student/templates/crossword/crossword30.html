@@ -1,3 +1,6 @@
+{% load static %}
+{% load student_tag %}
+
 
 
 
@@ -8,8 +11,33 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="exercise.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-      
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css'%}">
+    <style>
+        ul.breadcrumb {
+      padding: 10px 16px;
+      list-style: none;
+      background-color:lightgray;
+    }
+    ul.breadcrumb li {
+      display: inline;
+      font-size: 18px;
+    }
+    ul.breadcrumb li+li:before {
+      padding: 8px;
+      color: black;
+      content: "/\00a0";
+    }
+    ul.breadcrumb li a {
+      color: darkblue;
+      text-decoration: none;
+    }
+    ul.breadcrumb li a:hover {
+      color: darkblue;
+      text-decoration: underline;
+    }
+    
+    </style>     
+          
 </head>
 
 
@@ -22,18 +50,24 @@
       <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
       <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
       <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
+          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
       </div>
       </div>
     </div>
-<br>
+    <ul class="breadcrumb">
+		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+		<li><a href="#">QUESTIONS</a></li>
+		
+		
+	  </ul>
+	
 
-<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - LEVEL {{l.level_number}} </h1>
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
 
 <h2 style="text-align:center"> CrossWord </h2>
 <br> <br>
 
-<script src="commonjs.js"></script>
+<script src="{% static 'commonjs.js' %}"></script>
 <script>
 
 //Globals
@@ -104,20 +138,30 @@ return items;
 			<td><strong>Horizontal:</strong></td><td><strong>Vertical:</strong></td>
 		</tr>
 		<tr>
-			<td>2.gr_ _d _ a</td><td>1.g_ _ _dm_</td>
+			<td>2.A ____ keeps us safe</td><td>1.A _____ looks after sick person/td>
 		</tr>
 		<tr>
-			<td>7.h_s_ _ _d</td><td>3.a_ _t</td>
+			<td>3.A postal worker works in a ______</td><td>6.A pilot works at the _____</td>
 		</tr>
 		<tr>
-			<td>9.s_s_ _r</td><td>4.f_th_r</td>
+			<td>5.A____ works in a school</td><td>7.A doctor and nurse work in the ______</td>
     </tr>
          <tr>
-			<td>10.un_ _ _</td><td>5.c_ _s_n</td>
+			<td>10.A chef and waiter work in a ____</td><td>8.A dentist works in a dental________</td>
 		</tr>
         <tr>
-			<td>11.w_f_</td><td>8.br_ _ _er</td>
+			<td>12.A____ serves food in a restaurant</td><td>9.A _____ helps doctor</td>
 		</tr>
+    <tr>
+			<td>13.A____ takes care of teeth</td><td>11.A____ flies planes</td>
+		</tr>
+    <tr>
+			<td>14.A teacher teaches students in a_____</td><td>15.A______ cooks food in a restaurant</td>
+		</tr>
+    <tr>
+			<td>16.A____ puts out fires</td><td></td>
+		</tr>
+      
       
 </table>
 

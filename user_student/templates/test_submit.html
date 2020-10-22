@@ -148,14 +148,14 @@
     //var url = $("#form1").attr("data-modules-url");
 
     $.ajax({ // initialize an AJAX request
-      url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test/submit/',
+      url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/test/submit/',
       type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
       data: {
         score:"{{score}}",
         test_name:"{{test_name}}"
       },
       success: function(data) {
-       location.replace('/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}})
+       location.replace('/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}})
 
       }
     });

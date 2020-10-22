@@ -41,7 +41,6 @@ $("#submit").click(function() {
     var question = $("#ques").html();
     var option = $("input[name='options']:checked").val();
     var answer = "{{q|index5:i}}"
-
     if(option==answer)
     {
       alert("Right Answer");
@@ -50,7 +49,7 @@ $("#submit").click(function() {
         var str="True"
         var score="{{score}}"
         $.ajax({ // initialize an AJAX request
-          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/standard_test/ajax/test/',
+          url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
           type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
           data: {
             correct:str,
@@ -69,7 +68,7 @@ $("#submit").click(function() {
           var str="False"
           var score="{{score}}"
           $.ajax({ // initialize an AJAX request
-            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/standard_test/ajax/test/',
+            url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
             type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
             data: {
               correct:str,

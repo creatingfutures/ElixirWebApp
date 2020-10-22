@@ -65,40 +65,52 @@ def level_view(request, pk, pk1, pk2, pk3, pk4):
                       'CrossWord', 'Word Search']
     level = module_level.objects.get(level_id=pk4)
     return render(request, "level_view.html", {"question_types": question_types, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, 'pk4': pk4, "l": level})
-
-
-def crossword(request, pk, pk1, pk2, pk3, pk4):
-    module = program_module.objects.get(pk=pk3)
-    level = module_level.objects.get(pk=pk4)
+def word_find(request,pk,pk1,pk2,m,l):
+    module = program_module.objects.get(pk=m)
+    level = module_level.objects.get(pk=l)
+   
+    return render(request,"wordsearch/wordfind%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+def match(request,pk,pk1,pk2,m,l):
+    module = program_module.objects.get(pk=m)
+    level = module_level.objects.get(pk=l)
+   
+    return render(request,"match/match%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+def crossword(request, pk, pk1, pk2, m, l):
     
-    try:
-        a = "crossword/"+module.module_name+"/"+str(level.level_number)
-        b = "user_student/templates/crossword/" + \
-            module.module_name+"/"+str(level.level_number)
-        c = os.getcwd()
-        b = c+"/"+b
-        length = len([name for name in os.listdir(b)])
-        rand = random.randrange(1, length)
-        a = a+"/crossword"+str(rand)+".html"
-        print(a)
-        return render(request, a, {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
-    except:
-        messages.success(request, f'No Crossword for the level yet')
-        return redirect('module_view', pk, pk1, pk2, pk3)
+    module = program_module.objects.get(pk=m)
+    level = module_level.objects.get(pk=l)
     
+    # try:
+    #     a = "crossword/"+module.module_name+"/"+str(level.level_number)
+    #     b = "user_student/templates/crossword/" + \
+    #         module.module_name+"/"+str(level.level_number)
+    #     c = os.getcwd()
+    #     b = c+"/"+b
+    #     length = len([name for name in os.listdir(b)])
+    #     rand = random.randrange(1, length)
+    #     a = a+"/crossword"+str(rand)+".html"
+    #     print(a)
+    #     return render(request, a, {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
+    # except:
+    #     messages.success(request, f'No Crossword for the level yet')
+    #     return redirect('module_view', pk, pk1, pk2, pk3)
+    
+    
+    return render(request,"crossword/crossword%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
     
 def lesson(request, pk, pk1, pk2, pk3, pk4):
-    str1 = "lesson"
-    module = program_module.objects.get(pk=pk3)
-    program1 = program.objects.get(pk=pk2)
-    level = module_level.objects.get(pk=pk4)
-    str1 = str1+"/"+program1.program_name
-    str1 = str1+"/"+module.module_name
-    str1 = str1+"/"+str(level.level_description)
-    str1 = str1+".html"
-    print(str1)
-    return render(request, str1)
-
+     str1 = "help"
+     module = program_module.objects.get(pk=pk3)
+     program1 = program.objects.get(pk=pk2)
+     level = module_level.objects.get(pk=pk4)
+     str1 = str1+"/"+program1.program_name
+     str1 = str1+"/"+module.module_name
+     str1 = str1+"/"+str(level.level_description)
+     str1 = str1+".html"
+     
+     
+     return render(request, str1)
+    
 
 def before_test(request, pk, pk1, pk2, pk3, pk4):
     module1 = program_module.objects.get(pk=pk3)
@@ -127,6 +139,7 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
     print("QUERUBOI", questions1)
+    
     i = int(request.GET.get('id'))
     c = (request.GET.get('correct'))
     s = int(request.GET.get('score'))
@@ -135,23 +148,30 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     elif c == "False":
         s = s+0
     i += 1
+    
     if i == len(questions1):
         return render(request, "test_submit.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
 
-    if questions1[i].question_type == "Multiple Choice":
+    if questions1[i].question_type.question_type == "Multiple Choice":
         return render(request, "mcq.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
-    if questions1[i].question_type == "Fill Ups":
+    if questions1[i].question_type.question_type == "Fill in the blanks":
         return render(request, "fill_ups.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
-    if questions1[i].question_type == "Riddles":
+    if questions1[i].question_type.question_type == "Riddles":
         return render(request, "riddles.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
-
-    if questions1[i].question_type == "Jumbled Words":
+    if questions1[i].question_type.question_type == "Multiple image based question":
+        return render(request, "images.html",
+                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+    if questions1[i].question_type.question_type == "Single image based question":
+        return render(request, "image.html",
+                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+    
+    if questions1[i].question_type.question_type == "Unscramble":
         str = questions1[i].question
         print(str.split())
         return render(request, "jumbled_words.html",

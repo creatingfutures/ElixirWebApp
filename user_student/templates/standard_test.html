@@ -120,7 +120,29 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
    align-items:center;
    margin:10px;
  }
-
+ ul.breadcrumb {
+padding: 10px 16px;
+list-style: none;
+background-color:lightgray;
+}
+ul.breadcrumb li {
+display: inline;
+font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+padding: 8px;
+color: black;
+content: "/\00a0";
+}
+ul.breadcrumb li a {
+color: darkblue;
+text-decoration: none;
+font-family: 'Montserrat';
+}
+ul.breadcrumb li a:hover {
+color: darkblue;
+text-decoration: underline;
+}
 
 </style>
 
@@ -143,13 +165,19 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
       <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
       <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
       <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
+          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
       </div>
       </div>
     </div>
-<br>
+    <ul class="breadcrumb">
+      <li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+      <li><a href="#">QUESTIONS</a></li>
+      
+      
+      </ul>
+  
 
-<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - LEVEL {{l.level_number}} </h1>
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
 <br>
 <h2 style="text-align:center"> Standard Test </h2>
 <br> <br>
@@ -170,7 +198,7 @@ var done=0;
 
 $("#submit").click(function() {
   $.ajax({ // initialize an AJAX request
-    url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/standard_test/ajax/test/',
+    url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
     type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
     data: {
       questions:"{{q}}",
