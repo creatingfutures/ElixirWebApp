@@ -38,10 +38,35 @@ def s_home(request, pk, pk1):
 
 
 def spoken_english(request, pk, pk1, pk2):
-    modules = program_module.objects.filter(program_id=pk2)
-    program1 = program.objects.get(pk=pk2)
-    return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1})
-
+     if pk2 == 3:
+        modules = program_module.objects.filter(program_id=pk2)
+        program1 = program.objects.get(pk=pk2)
+        levels=[]
+        for i in modules:
+            levels.append(module_level.objects.filter(
+            module_id=i.module_id).order_by('level_description'))
+    
+        return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+     else:
+          modules = program_module.objects.filter(program_id=pk2)
+          order = [4, 1, 0, 7, 3, 2, 6, 5]
+          modules = [modules[i] for i in order]
+          program1 = program.objects.get(pk=pk2)
+          levels=[]
+          for i in modules:
+              levels.append(module_level.objects.filter(
+              module_id=i.module_id).order_by('level_description'))
+    
+          return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+     
+def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
+    module = program_module.objects.get(pk=pk3)
+    if pk3 == 20:
+       level = module_level.objects.get(pk=pk4)
+       return render(request, "resume_builder/index.html", {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
+    else:
+         level = module_level.objects.get(pk=pk4)
+         return redirect('standard_test',pk,pk1,pk2,pk3,pk4)   
 
 def module_view(request, pk, pk1, pk2, pk3):
     levels = module_level.objects.filter(
@@ -129,10 +154,10 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
         return render(request, "test_submit.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
     
-    if questions1[i].question_type.question_type == "Multiple choice":
+    if questions1[i].question_type.question_type == "Multiple Choice":
         return render(request, "mcq.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})             
-    print(questions1[i].question_type.question_type)
+   
     
     if questions1[i].question_type.question_type == "Fill in the blanks":
         return render(request, "fill_ups.html",
@@ -141,6 +166,10 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     if questions1[i].question_type.question_type == "Riddles":
         return render(request, "riddles.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+    if questions1[i].question_type.question_type == "Single image based question":
+        return render(request, "image.html",
+                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+
 
     if questions1[i].question_type.question_type == "Jumbled Words":
         str = questions1[i].question
