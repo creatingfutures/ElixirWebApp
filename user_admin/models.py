@@ -284,6 +284,9 @@ class question(models.Model):
             return question_option.objects.get(question=self, is_right_option=True)
         except:
             return "No Answer"
+    @property
+    def content(self):
+        return question_content.objects.get(question=self)
 
     def __str__(self):
         return self.question

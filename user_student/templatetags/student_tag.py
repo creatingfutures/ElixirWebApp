@@ -11,7 +11,7 @@ def index(List, i):
 
 @register.filter
 def index_img(List, i):
-    return List[i].question.url
+    return List[i].content
 
 @register.filter
 def index_av(List, i):
@@ -19,11 +19,11 @@ def index_av(List, i):
 
 @register.filter
 def index1_img(List, i):
-    return List[i].option1.url
+    return List[i].answer
 
 @register.filter
 def index2_img(List, i):
-    return List[i].option2.url
+    return List[i].answer
 
 @register.filter
 def index3_img(List, i):
@@ -35,19 +35,19 @@ def index4_img(List, i):
 
 @register.filter
 def index1(List, i):
-    return List[i].option1
+    return List[i].options[0]
 
 @register.filter
 def index2(List, i):
-    return List[i].option2
+    return List[i].options[1]
 
 @register.filter
 def index3(List, i):
-    return List[i].option3
+    return List[i].options[2]
 
 @register.filter
 def index4(List, i):
-    return List[i].option4
+    return List[i].options[3]
 
 @register.filter
 def index5(List, i):
