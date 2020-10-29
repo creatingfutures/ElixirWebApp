@@ -116,7 +116,7 @@
   <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'image_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>
   {% endif %}
   {% if test_name|av %}
-  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'av_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>
+  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'av_test' pk pk1 pk2 pk3 pk4 pk5%}">Try Again</a></h4>
   {% endif %}
 
 </div>
@@ -155,7 +155,7 @@
         test_name:"{{test_name}}"
       },
       success: function(data) {
-       location.replace('/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}})
+        location.replace('/s_home/' + "{{ pk }}" + '/batch/' + "{{ pk1 }}" + '/program/' + "{{ pk2 }}")
 
       }
     });

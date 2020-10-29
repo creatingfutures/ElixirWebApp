@@ -15,7 +15,7 @@ def index_img(List, i):
 
 @register.filter
 def index_av(List, i):
-    return List[i].question.url
+    return List[i].content
 
 @register.filter
 def index1_img(List, i):
@@ -86,7 +86,7 @@ def image(a):
 
 @register.filter
 def av(a):
-    if a=="av":
+    if a=="av_test":
         return True
     else:
         return False

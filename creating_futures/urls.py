@@ -150,10 +150,10 @@ urlpatterns = [
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/image_test/ajax/test/',
          s_views.ajax_image_test, name='ajax_image_test'),
 
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/av_test/',
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/type/<int:pk5>/av_test/',
          s_views.av_test, name="av_test"),
 
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/av_test/ajax/test/',
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/type/<int:pk5>/av_test/ajax/test/',
          s_views.ajax_av_test, name='ajax_av_test'),
 
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/test/submit/',

@@ -74,6 +74,7 @@ h1{
   text-align: left;
   outline: none;
   font-size: 15px;
+  
 }
 
 .active, .collapsible:hover {
@@ -93,11 +94,25 @@ h1{
 }
 
 .content {
+  padding: 0 0px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color:lightgray;
+
+}
+.content1 {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
-  background-color: #f1f1f1;
+  background-color: white;
+}
+.collapsible1 {
+  background-color: #777;
+  color: white;
+  width:1550px;
+  
 }
 ul.breadcrumb {
   padding: 10px 16px;
@@ -150,67 +165,65 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     
     {% for i,lev in l %}
     
-    <h2><b>{{i.module_name|allcaps}} </b></h2>
-  
+    <button class="collapsible"><b>{{i.module_name|allcaps}} </b></button>
+    <div class="content">
     {% for j in lev %}
-  
+    
    
-     
-    <button class="collapsible"><h4>{{j.level_description|allcaps}}</h4><a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1150px;" > Score : XX</b></button>
-     
+
+  <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
+  
     
      
-    <div class="content">
+    <div class="content1">
   
    
     <table class="myTable" style="width:100%">
       <tr>
         <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
-        <td><b style="color:red;">X </b> </td>
+        <td><b style="color:red;margin-left: 1180px;">X </b> </td>
       
        </tr>
       <tr>
         <td><a href="{% url 'match' pk pk1 pk2 i.pk j.pk%}">Match the following</a> </td>
-         <td><b style="color:green;">Y </b> </td>
+         <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
       
        </tr>
          <tr>
        <td><a href="{% url 'word_find' pk pk1 pk2 i.pk j.pk%}">Word Search</a> </td>
-         <td><b style="color:green;">Y </b> </td>
+         <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
     
        </tr>
         <tr>
        <td><a href="{% url 'crossword' pk pk1 pk2 i.pk j.pk %}">Crossword</a> </td>
-         <td><b style="color:red;">X </b> </td>
+         <td><b style="color:red; margin-left: 1180px;">X </b> </td>
       
        </tr>
-       <tr >
-        <td><a href="">Images based</a> </td>
-          <td><b style="color:red;">X </b> </td>
        
-        </tr>
         <tr > 
-          <td><a href="">Audio</a> </td>
-            <td><b style="color:red;">X </b> </td>
+          <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 7 %}">Audio</a> </td>
+            <td><b style="color:red;margin-left: 1180px;">X </b> </td>
          
           </tr>
           <tr>
-            <td><a href="">Video</a> </td>
-              <td><b style="color:red;">X </b> </td>
+            <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 8 %}">Video</a> </td>
+              <td><b style="color:red;margin-left: 1180px;">X </b> </td>
            
           </tr>
           <tr>
-            <td><a href="">Text</a> </td>
-              <td><b style="color:red;">X </b> </td>
+            <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
+              <td><b style="color:red;margin-left: 1180px;">X </b> </td>
            
           </tr>
             
        </table>
     
  
-      </div>
-    
+     
+    </div> 
+  
       {% endfor %}
+    </div>
       {% endfor %}
       
     
@@ -219,21 +232,22 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     <script>
       
 
-     /*  var coll=document.getElementsByClassName("collapsible");
+      var coll=document.getElementsByClassName("collapsible");
           var i;
      for (i = 0; i < coll.length; i++) {
+
         coll[i].addEventListener("click", function() {
           this.classList.toggle("active");
-         var content = this.nextElementSibling;
-          if (content.style.maxHeight){
-            content.style.maxHeight = null;
+         var content1 = this.nextElementSibling;
+          if (content1.style.maxHeight){
+            content1.style.maxHeight = null;
           } else {
-            content.style.maxHeight = content.scrollHeight + "px";
+            content1.style.maxHeight = content1.scrollHeight + 1000 + "px";
           }
    });
       }
       
-     var coll=document.getElementsByClassName("collapsible");
+    /* var coll=document.getElementsByClassName("collapsible");
       coll[1].addEventListener("click", function() {
           this.classList.toggle("active");
           var content = this.nextElementSibling;
@@ -249,45 +263,45 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
           
       
         
-        var coll = document.getElementsByClassName("collapsible");
+        var coll = document.getElementsByClassName("collapsible1");
         //alert(coll.length);
         
           
           for(var i=0;i<coll.length;i++){
             if(i<6)
             {
+            document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
             document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
             document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-            document.getElementsByClassName("myTable")[i].rows[7].innerHTML="";
             }
             if(i>=6 && i<12)
             {
               document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[7].innerHTML="";
             }
             if(i>=12 && i<18)
             {
               document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[7].innerHTML="";
             }
             if(i>=18 && i<24)
             {
               document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[7].innerHTML="";
             
             }
             if(i>=24 && i<30)
             {
-              document.getElementsByClassName("myTable")[i].innerHTML=document.getElementsByClassName("myTable")[i].rows[7].innerHTML;
+              document.getElementsByClassName("myTable")[i].innerHTML=document.getElementsByClassName("myTable")[i].rows[6].innerHTML;
             }
             if(i>=30 && i<36)
             {
@@ -295,8 +309,7 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
               document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[7].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
             }
             if(i>=36 && i<48)
             {
@@ -304,21 +317,20 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
               document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
               document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
               
             }
             
           coll[i].addEventListener("click", function() {
             
           this.classList.toggle("active");
-          var content = this.nextElementSibling;
+          var content1 = this.nextElementSibling;
           
          
-          if (content.style.maxHeight){
-            content.style.maxHeight = null;
+          if (content1.style.maxHeight){
+            content1.style.maxHeight = null;
           } else {
             
-            content.style.maxHeight = content.scrollHeight + "px";
+            content1.style.maxHeight = content1.scrollHeight + "px";
           } 
         });
           }
