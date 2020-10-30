@@ -1,95 +1,216 @@
 {% load static %}
 {% load student_tag %}
 
-
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{% static 'lesson_styles.css' %}">
+<style>
+    body {
+        background-color: lightgrey;
+    }
+
+    #top {
+        top: 0;
+        background-color: orange;
+        height: 100px;
+    }
+
+    body {
+        background: lightgrey;
+        font-family: Montserrat;
+        font-size: 12px;
+    }
+
+    * {
+        transition: all 0.3s ease-in-out;
+    }
+
+
+    nav {
+        float: right;
+    }
+
+    .logo img {
+        float: left;
+        padding: 8px;
+    }
+
+    h1 {
+        font-family: "Montserrat";
+        font-weight: 100;
+
+    }
+
+    p,
+    ul.list,
+    h4,
+    h3 {
+        font-family: "Montserrat";
+        font-size: large;
+    }
+
+    table,
+    td,
+    th {
+        border: 3px solid black;
+        border-collapse: collapse;
+        color: black;
+        font-size: large;
+    }
+
+    th,
+    td {
+        padding: 20px;
+        background-color: none;
+    }
+
+
+    .nav {
+        background-color: orange;
+        height: 30%;
+        display: grid;
+        grid-template-rows: auto auto auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navig {
+        grid-row: 2/3;
+        display: flex;
+        flex-wrap: nowrap;
+        background-color: white;
+        flex-direction: row;
+    }
+
+    .navv {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    ul.breadcrumb {
+        padding: 10px 16px;
+        list-style: none;
+        background-color: lightgray;
+    }
+
+    ul.breadcrumb li {
+        display: inline;
+        font-size: 18px;
+    }
+
+    ul.breadcrumb li+li:before {
+        padding: 8px;
+        color: black;
+        content: "/\00a0";
+    }
+
+    ul.breadcrumb li a {
+        color: darkblue;
+        text-decoration: none;
+    }
+
+    ul.breadcrumb li a:hover {
+        color: darkblue;
+        text-decoration: underline;
+    }
+</style>
+
+
 
 <body>
-
-
-    <div class="content margin" style="max-width:1400px;">
-
-
-
-        <div class="block">
-
-            <div class="container card  marginbottom">
-                <h1>Words-Level 4 Lesson</h1>
-                <div class="container">
-                    <h3 class="opacity"><b>Types of Noun</b></h3>
-                    <p>There are several different types of noun, as follows:</p>
-                    <h4 class="opacity">Common noun</h4>
-                    <p>A common noun is a noun that refers to people or things in general, e.g. boy, country, bridge,
-                        city, birth, day, happiness.
-                    </p>
-                    <h4 class="opacity">Proper noun</h4>
-                    <p>A proper noun is a name that identifies a particular person, place, or thing, e.g. Steven,
-                        Africa, London, Monday. In written English, proper nouns begin with capital letters.
-                    </p>
-                    <h4 class="opacity">Concrete noun</h4>
-                    <p>A concrete noun is a noun which refers to people and to things that exist physically and can be
-                        seen, touched, smelled, heard, or tasted. Examples include dog, building, coffee, tree, rain,
-                        beach, and shirt.
-                    </p>
-                    <h4 class="opacity">Abstract noun
-                    </h4>
-                    <p>An abstract noun is a noun which refers to ideas, qualities, and conditions - things that cannot
-                        be seen or touched and things which have no physical reality, e.g. truth, danger, happiness,
-                        time, friendship, humour.
-                    </p>
-                    <h4 class="opacity">Collective nouns</h4>
-                    <p>Collective nouns refer to groups of people or things, e.g. audience, family, government, team,
-                        students.
-                    </p>
-                    <hr>
-                </div>
-                <h1>Words-Level 4 Examples</h1>
-                <div class="container">
-                    <h4 class="opacity">Common noun</h4>
-                    <ul>
-                        <li>
-                            Boy, country, bridge, city, birth, day, happiness.
-                        </li>
-                    </ul>
-                    <h4 class="opacity">Proper noun</h4>
-                    <ul>
-                        <li>
-                            Amar, Steven, Africa, London, Monday, Indian Ocean.
-                        </li>
-                    </ul>
-                    <h4 class="opacity">Concrete noun</h4>
-                    <ul>
-                        <li>
-                            Dog, building, coffee, tree, rain, beach and shirt.
-                        </li>
-                    </ul>
-                    <h4 class="opacity">Abstract noun
-                    </h4>
-                    <ul>
-                        <li>
-                            Truth, danger, happiness, time, friendship, humour.
-                        </li>
-                    </ul>
-
-                    <h4 class="opacity">Collective nouns</h4>
-                    <ul>
-                        <li>
-                            Audience, family, government, team, students.
-                        </li>
-                    </ul>
-                    <hr>
-
-                </div>
-
+    <div class="nav">
+        <div class="navig">
+            <div>
+                <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
+            </div>
+            <div class="navv">
+                <a href="" style="font-size:150%;margin:10px;"></a>
+                <a href="" style="font-size:150%;margin:10px;"></a>
+                <a href="" style="font-size:150%;margin:10px;"></a>
+                <a href="" style="font-size:150%;margin:10px;"></a>
             </div>
         </div>
     </div>
+    <ul class="breadcrumb">
+        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+
+    </ul>
+
+
+
+
+    <h1>Words-Level 4 Lesson</h1>
+    <h3><b>Types of Noun</b></h3>
+    <p>There are several different types of noun, as follows:</p>
+    <h4>Common noun</h4>
+    <p>A common noun is a noun that refers to people or things in general, e.g. boy, country, bridge,
+        city, birth, day, happiness.
+    </p>
+    <h4>Proper noun</h4>
+    <p>A proper noun is a name that identifies a particular person, place, or thing, e.g. Steven,
+        Africa, London, Monday. In written English, proper nouns begin with capital letters.
+    </p>
+    <h4>Concrete noun</h4>
+    <p>A concrete noun is a noun which refers to people and to things that exist physically and can be
+        seen, touched, smelled, heard, or tasted. Examples include dog, building, coffee, tree, rain,
+        beach, and shirt.
+    </p>
+    <h4>Abstract noun
+    </h4>
+    <p>An abstract noun is a noun which refers to ideas, qualities, and conditions - things that cannot
+        be seen or touched and things which have no physical reality, e.g. truth, danger, happiness,
+        time, friendship, humour.
+    </p>
+    <h4>Collective nouns</h4>
+    <p>Collective nouns refer to groups of people or things, e.g. audience, family, government, team,
+        students.
+    </p>
+    <hr>
+    </div>
+    <h1>Words-Level 4 Examples</h1>
+    <div>
+        <h4>Common noun</h4>
+        <ul class="list">
+            <li>
+                Boy, country, bridge, city, birth, day, happiness.
+            </li>
+        </ul>
+        <h4>Proper noun</h4>
+        <ul class="list">
+            <li>
+                Amar, Steven, Africa, London, Monday, Indian Ocean.
+            </li>
+        </ul>
+        <h4>Concrete noun</h4>
+        <ul class="list">
+            <li>
+                Dog, building, coffee, tree, rain, beach and shirt.
+            </li>
+        </ul>
+        <h4>Abstract noun
+        </h4>
+        <ul class="list">
+            <li>
+                Truth, danger, happiness, time, friendship, humour.
+            </li>
+        </ul>
+
+        <h4>Collective nouns</h4>
+        <ul class="list">
+            <li>
+                Audience, family, government, team, students.
+            </li>
+        </ul>
+        <hr>
+
 
 </body>
 

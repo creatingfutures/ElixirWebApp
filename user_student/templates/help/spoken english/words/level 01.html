@@ -1,64 +1,173 @@
 {% load static %}
 {% load student_tag %}
 
-<!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{% static 'lesson_styles.css' %}" >
+<style>
+    body {
+        background-color: lightgrey;
+    }
+
+    #top {
+        top: 0;
+        background-color: orange;
+        height: 100px;
+    }
+
+    body {
+        background: lightgrey;
+        font-family: Montserrat;
+        font-size: 12px;
+    }
+
+    * {
+        transition: all 0.3s ease-in-out;
+    }
+
+
+    nav {
+        float: right;
+    }
+
+    .logo img {
+        float: left;
+        padding: 8px;
+    }
+
+    h1 {
+        font-family: "Montserrat";
+        font-weight: 100;
+
+    }
+
+    p,
+    ol,
+    h4 {
+        font-family: "Montserrat";
+        font-size: large;
+    }
+
+
+    .nav {
+        background-color: orange;
+        height: 30%;
+        display: grid;
+        grid-template-rows: auto auto auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navig {
+        grid-row: 2/3;
+        display: flex;
+        flex-wrap: nowrap;
+        background-color: white;
+        flex-direction: row;
+    }
+
+    .navv {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    ul.breadcrumb {
+        padding: 10px 16px;
+        list-style: none;
+        background-color: lightgray;
+    }
+
+    ul.breadcrumb li {
+        display: inline;
+        font-size: 18px;
+    }
+
+    ul.breadcrumb li+li:before {
+        padding: 8px;
+        color: black;
+        content: "/\00a0";
+    }
+
+    ul.breadcrumb li a {
+        color: darkblue;
+        text-decoration: none;
+    }
+
+    ul.breadcrumb li a:hover {
+        color: darkblue;
+        text-decoration: underline;
+    }
+</style>
 
 <body>
+    <div class="nav">
+        <div class="navig">
+            <div>
+                <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
 
-    <!-- Page Container -->
-    <div class="content margin" style="max-width:1400px;">
 
-
-
-        <div class="block">
-
-            <div class="container card  marginbottom">
-                <h1>Words-Level 1 Lesson</h1>
-                <div class="container">
-                    <h3 class="opacity"><b>Units</b></h3>
-                    <p>
-                        There are FIVE UNITS in English.</p>
-                    <ol>
-                        <li>Letter</li>
-                        <li>Word</li>
-                        <li>Phrase</li>
-                        <li>Clause</li>
-                        <li>Sentence</li>
-                    </ol>
-                    <p>All these five Units make a sentence or a paragraph a meaningful one.</p>
-                    <p>Let us see these Units of English individually.</p>
-                    <h4 class="opacity"><b>1.Letter</b></h4>
-                    <p>
-                        There are twenty six letters in English language.
-                    </p>
-                    <p>
-                        They are:
-                    </p>
-                    <p>A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y and Z.</p>
-                    <p>All these twenty-six letters are collectively called <strong>ALPHABET</strong>
-                    </p>
-                    <p>So the alphabet of English language has twenty-six letters.These twenty-six letters can be
-                        classified into two groups.</p>
-                    <p>They are:</p>
-                    <p><b>I. Consonants</b></p>
-                    <p>b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,w,x,y and z are called <strong>CONSONANTS.</strong></p>
-                    <p>That means there are 21 consonants.</p>
-                    <p><b>II. Vowels</b></p>
-                    <p>a,e,i,o and u are called <strong>VOWELS.</strong> </p>
-                    <p>That means there are 5 vowels.</p>
-                    <hr>
-                </div>
-
-                <!-- End Page Container -->
             </div>
+            <div class="navv">
+                <a href="" style="font-size:150%;margin:10px;"></a>
+                <a href="" style="font-size:150%;margin:10px;"></a>
+                <a href="" style="font-size:150%;margin:10px;"></a>
+                <a href="" style="font-size:150%;margin:10px;"></a>
+            </div>
+
+
+
         </div>
     </div>
+    <ul class="breadcrumb">
+        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
+
+
+
+
+    </ul>
+
+
+
+    <h1>Words-Level 1 Lesson</h1>
+    <h2><b>Units</b></h2>
+    <p>
+        There are FIVE UNITS in English.</p>
+    <ol>
+        <li>Letter</li>
+        <li>Word</li>
+        <li>Phrase</li>
+        <li>Clause</li>
+        <li>Sentence</li>
+    </ol>
+    <p>All these five Units make a sentence or a paragraph a meaningful one.</p>
+    <p>Let us see these Units of English individually.</p>
+    <h4><b>1.Letter</b></h4>
+    <p>
+        There are twenty six letters in English language.
+    </p>
+    <p>
+        They are:
+    </p>
+    <p>A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y and Z.</p>
+    <p>All these twenty-six letters are collectively called <strong>ALPHABET</strong>
+    </p>
+    <p>So the alphabet of English language has twenty-six letters.These twenty-six letters can be
+        classified into two groups.</p>
+    <p>They are:</p>
+    <p><b>I. Consonants</b></p>
+    <p>b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,w,x,y and z are called <strong>CONSONANTS.</strong></p>
+    <p>That means there are 21 consonants.</p>
+    <p><b>II. Vowels</b></p>
+    <p>a,e,i,o and u are called <strong>VOWELS.</strong> </p>
+    <p>That means there are 5 vowels.</p>
+    <hr>
 </body>
 
 </html>

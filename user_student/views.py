@@ -109,7 +109,7 @@ def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = str1+".html"
      
      
-     return render(request, str1)
+     return render(request, str1 ,{"pk":pk,"pk1":pk1,"pk2":pk2})
     
 
 def before_test(request, pk, pk1, pk2, pk3, pk4):
