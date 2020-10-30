@@ -147,21 +147,22 @@ text-decoration: underline;
 </style>
 
 <html>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <head>
 
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="exercise.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href="exercise.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 
-    <div class="nav">
-      <div class="navig">
-        <div>
-      <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;"/>
-      </div>
-      <div class="navv">
+<div class="nav">
+  <div class="navig">
+    <div>
+      <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
+    </div>
+    <div class="navv">
       <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
       <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
       <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
@@ -183,18 +184,18 @@ text-decoration: underline;
 <br> <br>
 <div id="container">
 
-<center><button id="submit" class="button">Start Test</button></center>
+  <center><button id="submit" class="button">Start Test</button></center>
 
 
-<br>
+  <br>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 
-<script>
+  <script>
 
- // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
-var done=0;
+    // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+    var done = 0;
 
 $("#submit").click(function() {
   $.ajax({ // initialize an AJAX request
@@ -211,10 +212,11 @@ $("#submit").click(function() {
     }
   });
 
-});
+    });
 
-</script>
+  </script>
 
 
 </div>
+
 </html>

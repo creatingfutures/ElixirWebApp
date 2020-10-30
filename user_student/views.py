@@ -38,20 +38,40 @@ def s_home(request, pk, pk1):
 
 
 def spoken_english(request, pk, pk1, pk2):
-    modules = program_module.objects.filter(program_id=pk2)
+    if pk2 == 3:
+        modules = program_module.objects.filter(program_id=pk2)
+        program1 = program.objects.get(pk=pk2)
+        levels=[]
+        for i in modules:
+            levels.append(module_level.objects.filter(
+            module_id=i.module_id).order_by('level_description'))
     
-    order = [4, 1, 0, 7, 3, 2, 6, 5]
-    modules = [modules[i] for i in order]
-    program1 = program.objects.get(pk=pk2)
-    levels=[]
-    for i in modules:
-        levels.append(module_level.objects.filter(
-        module_id=i.module_id).order_by('level_description'))
+        return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+    else:
+     
+        modules = program_module.objects.filter(program_id=pk2)
     
-    question_type1 = question_type.objects.all()
+        order = [4, 1, 0, 7, 3, 2, 6, 5]
+        modules = [modules[i] for i in order]
+        program1 = program.objects.get(pk=pk2)
+        levels=[]
+        for i in modules:
+            levels.append(module_level.objects.filter(
+            module_id=i.module_id).order_by('level_description'))
     
-    return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":question_type1})
+            question_type1 = question_type.objects.all()
+    
+        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":question_type1})
 
+          
+def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
+    module = program_module.objects.get(pk=pk3)
+    if pk3 == 20:
+       level = module_level.objects.get(pk=pk4)
+       return render(request, "resume_builder/index.html", {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
+    else:
+         level = module_level.objects.get(pk=pk4)
+         return redirect('standard_test',pk,pk1,pk2,pk3,pk4)   
 
 def module_view(request, pk, pk1, pk2, pk3):
     levels = module_level.objects.filter(
@@ -182,7 +202,7 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
                       {"q": questions1, "len": range(0, len(str.split())), "words": str.split(),
                        "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
-
+   
 def image_test(request, pk, pk1, pk2, pk3, pk4):
     return redirect("error")
 

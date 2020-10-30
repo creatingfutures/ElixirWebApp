@@ -118,6 +118,7 @@ urlpatterns = [
 
     path('', s_views.login, name='student_login'),
     path('s_home/<int:pk>/batch/<int:pk1>', s_views.s_home, name="s_home"),
+
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>',
          s_views.spoken_english, name="spoken_english"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/crossword', s_views.crossword, name="crossword"),
@@ -134,8 +135,11 @@ urlpatterns = [
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/btest/',
          s_views.before_test, name="before_test"),
 
-#     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/crossword/',
+#   path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/crossword/',
 #          s_views.crossword, name="crossword"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/resume_builder/',
+         s_views.e2e_modules, name="e2e_modules"),
+
 
 
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/standard_test/',

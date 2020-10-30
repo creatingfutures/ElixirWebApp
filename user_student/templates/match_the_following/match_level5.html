@@ -1,0 +1,263 @@
+{% load static %}
+{% load student_tag %}
+
+<style>
+    body {
+        background-color: lightgrey;
+    }
+
+    #top {
+        top: 0;
+        background-color: orange;
+        height: 100px;
+    }
+
+    body {
+        background: lightgrey;
+        font-family: Montserrat;
+        font-size: 12px;
+    }
+
+    * {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .container {
+        clear: both;
+        overflow: auto;
+        background: white;
+
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        position: relative;
+        width: 1300;
+        top: 45;
+        left: 95;
+
+    }
+
+    nav {
+        float: right;
+    }
+
+    .logo img {
+        float: left;
+        padding: 8px;
+    }
+
+    h1 {
+        font-family: "Montserrat";
+        font-weight: 100;
+
+    }
+
+    .button {
+        font-family: 'Montserrat';
+        background-color: orange;
+        border: none;
+        color: black;
+        padding: 12px 22px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        outline: none;
+    }
+
+
+    .nav {
+        background-color: orange;
+        height: 30%;
+        display: grid;
+        grid-template-rows: auto auto auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navig {
+        grid-row: 2/3;
+        display: flex;
+        flex-wrap: nowrap;
+        background-color: white;
+        flex-direction: row;
+    }
+
+    .navv {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    table,
+    th,
+    td {
+        border: 3px solid black;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    h1 {
+
+        display: inline-block;
+    }
+</style>
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<script>
+    var col1 = ["My mother-in-law", "This lemon rice", "Titanic", "Golden Retriever", "My Boss loves", "Kids are", "Eating nutritious food is"];
+    var col2 = ["is a rare breed of dog", "was made in 1912", "is flying to Delhi", "tastes really good", "playing with balls", "annoying but necessary", "serious hard work"];
+</script>
+
+<div class="nav">
+    <div class="navig">
+        <div>
+            <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
+        </div>
+        <div class="navv">
+            <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+            <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+            <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+            <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
+        </div>
+    </div>
+</div>
+<br>
+
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - LEVEL {{l.level_number}} </h1>
+<br>
+<h2 style="text-align:center"> Match the following </h2>
+<br> <br>
+
+
+<body>
+
+
+    <center>
+
+
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Column A</th>
+                <th>Column B</th>
+                <th>Match</th>
+
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    <script type="text/javascript">document.write(col1[0])</script>
+                </td>
+                <td>
+                    <script type="text/javascript">document.write(col2[0])</script>
+                </td>
+                <td><input type="number" id="r1" name="r1" min="1" max="7" oninput="this.style.borderColor ='black'">
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    <script type="text/javascript">document.write(col1[1])</script>
+                </td>
+                <td>
+                    <script type="text/javascript">document.write(col2[1])</script>
+                </td>
+                <td><input type="number" id="r2" name="r2" min="1" max="7" oninput="this.style.borderColor ='black'">
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    <script type="text/javascript">document.write(col1[2])</script>
+                </td>
+                <td>
+                    <script type="text/javascript">document.write(col2[2])</script>
+                </td>
+                <td><input type="number" id="r3" name="r3" min="1" max="7" oninput="this.style.borderColor ='black'">
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    <script type="text/javascript">document.write(col1[3])</script>
+                </td>
+                <td>
+                    <script type="text/javascript">document.write(col2[3])</script>
+                </td>
+                <td><input type="number" id="r4" name="r4" min="1" max="7" oninput="this.style.borderColor ='black'">
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>
+                    <script type="text/javascript">document.write(col1[4])</script>
+                </td>
+                <td>
+                    <script type="text/javascript">document.write(col2[4])</script>
+                </td>
+                <td><input type="number" id="r5" name="r5" min="1" max="7" oninput="this.style.borderColor ='black'">
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    <script type="text/javascript">document.write(col1[5])</script>
+                </td>
+                <td>
+                    <script type="text/javascript">document.write(col2[5])</script>
+                </td>
+                <td><input type="number" id="r6" name="r6" min="1" max="7" oninput="this.style.borderColor ='black'">
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>
+                    <script type="text/javascript">document.write(col1[6])</script>
+                </td>
+                <td>
+                    <script type="text/javascript">document.write(col2[6])</script>
+                </td>
+                <td><input type="number" id="r7" name="r7" min="1" max="7" oninput="this.style.borderColor ='black'">
+                </td>
+            </tr>
+
+        </table>
+        <br>
+        <button class="button" onclick="check()">Submit</button>
+        <h1 id="demo"></h1>
+
+
+    </center>
+</body>
+
+
+<script>
+    function check() {
+
+        var ans = [4, 3, 1, 2, 6, 7, 5];
+
+        myfun.res(ans);
+    }
+
+</script>
+<script src="logic.js"></script>
+
+
+
+</html>
