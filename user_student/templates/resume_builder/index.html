@@ -20,6 +20,12 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="exercise.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/4.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
 
     <style>
         body {
@@ -118,6 +124,10 @@
         ul.breadcrumb li a:hover {
             color: darkblue;
             text-decoration: underline;
+        }
+
+        .popover-title .close {
+            position: relative;
         }
     </style>
 
@@ -280,14 +290,10 @@
             $(this).hide();
             }
             });
-
             var tables = $(".jsgrid-table");
-
             $.each(tables, function (index, table) {
             $(this).find("tr th:last-child").hide();
-
             $(this).find("tr td:last-child").hide();
-
             }
             );*/
 
@@ -676,7 +682,7 @@
 <div class="nav" style="height: 200px">
     <div class="navig">
         <div>
-            <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:62px;margin:0;" />
+            <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100px;margin:0;" />
         </div>
         <div class="navv">
             <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
@@ -726,7 +732,7 @@
                     </div>
                 </div>
                 <div class="col-md-1">
-                    <label for="txtEmail">EMAIL ID</label>
+                    <label for="txtEmail">EMAIL</label>
                 </div>
                 <div class="col-md-3">
                     <input type="email" id="txtEmail" name="txtEmail" placeholder="Enter your email id.." required
@@ -755,6 +761,9 @@
             <div class="row">
                 <div class="col-md-2">
                     <label for="txtObjective">OBJECTIVE</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-md-12">
                     <textarea id="txtObjective" name="txtObjective" placeholder="Enter objective..."
@@ -766,6 +775,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="tblEducation">EDUCATION DETAILS</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
 
             </div>
@@ -783,6 +795,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtTechnicalStrengths">STRENGTHS - TECHNICAL </label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-md-12">
                     <textarea class="form-control editResume" id="txtTechnicalStrengths" name="txtTechnicalStrengths"
@@ -795,6 +810,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtNonTechStrengths">STRENGTHS - NON TECHNICAL (DOMAIN /MANAGEMENT SKILLS)</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-md-12">
                     <textarea class="form-control editResume" id="txtNonTechStrengths" name="txtDomainStrengths"
@@ -818,6 +836,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtQualities"> QUALITIES & SOFT SKILLS</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-md-12">
                     <textarea class="form-control editResume" id="txtQualities" name="txtQualities"
@@ -830,6 +851,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtTechProjects"> ACADEMIC/TECHNICAL PROJECTS</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
 
                 <!--<div class="col-50">
@@ -847,6 +871,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtInternships"> INTERNSHIP EXPERIENCE </label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-50">
                     <div class="col-md-12">
@@ -859,6 +886,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtVolunteering">VOLUNTEERING EXPERIENCE</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-50">
                     <!-- <textarea id="txtVolunteering" name="txtVolunteering" placeholder="Enter Volunteering Experience (if any)" style="height:100px"></textarea>-->
@@ -870,6 +900,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtWorkEx">WORK EXPERIENCE</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-50">
                     <!--<textarea id="txtWorkEx" name="txtWorkEx" placeholder="Enter Work Experience.." style="height:100px"></textarea>-->
@@ -881,6 +914,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtCertifications">CERTIFICATIONS</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-md-12">
                     <!--<textarea id="txtCertifications" name="txtCertifications" placeholder="Enter Certifications" style="height:100px"></textarea>-->
@@ -893,6 +929,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtWebPresence"> WEB PRESENCE (IF ANY)</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
                 <div class="col-md-12">
                     <textarea id="txtWebPresence" class="editResume" name="txtWebPresence"
@@ -906,6 +945,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtInterests">INTERESTS</label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
+
                 </div>
                 <div class="col-md-12">
                     <textarea id="txtInterests" name="txtInterests"
@@ -918,6 +961,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtAwards"> AWARDS AND ACHIEVEMENTS </label>
+                    <a data-toggle="popover" data-content="Some content inside the popover">
+                        <i class="fa fa-question-circle"></i></a>
+
                 </div>
 
                 <div class="col-md-12">
@@ -1117,5 +1163,17 @@
     </form>
 
 </body>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            title: 'User Info <a class="close" data-dismiss="alert">&times;</a>',
+        });
+        $(document).on("click", ".popover .close", function () {
+            $(this).parents(".popover").popover('hide');
+        });
+    });
+
+</script>
 
 </html>
