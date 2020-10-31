@@ -92,7 +92,33 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
    outline: none;
  }
 
-</style>
+  ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color:lightgray;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: darkblue;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: darkblue;
+  text-decoration: underline;
+}
+  </style>
+ 
+
+
+
 
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,16 +140,21 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   <li><a href="{% url 's_home' pk pk1 %}">HOME</a></li>
   <li><a href="">ABOUT US</a></li>
   <li><a href="">REPORTS</a></li>
-      <li><a href="">LOGOOUT</a></li>
+      <li><a href="{% url 'student_login' %}">LOG OUT</a></li>
   </ul>
 </nav>
 </div>
 </div>
-<br>
+<ul class="breadcrumb">
+  <li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+  <li><a href="#">QUESTIONS</a>
+  
+  
+</ul>
 
-<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - LEVEL {{l.level_number}} </h1>
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
 <br>
-<h2 style="text-align:center"> Audio / Video Test </h2
+<h2 style="text-align:center"> Text / Audio / Video Test </h2
 <br> <br>
 <div id="container">
 
@@ -142,10 +173,10 @@ var done=0;
 
 $("#submit").click(function() {
   $.ajax({ // initialize an AJAX request
-    url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/av_test/ajax/test/',
+    url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/',
     type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
     data: {
-      questions:"{{q}}",
+      // questions:"{{q}}",
       correct:"pass",
       id:"{{i}}",
       "score":0

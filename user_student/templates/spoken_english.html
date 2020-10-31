@@ -2,10 +2,12 @@
 {% load student_tag %}
 <html>
 <head>
+   
     <link rel="stylesheet" href="course.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="serachbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 <style>
     body {background-color: lightgrey;}
 
@@ -22,90 +24,16 @@ body{
 
 *{transition:all 0.3s ease-in-out;}
 
-.container{
-  clear:both;
-  overflow:auto;
-  background: white;
-
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    position: relative;
-    width: 1300;
-    top:45;
-    left:95;
-
-}
 
 nav{float:right;}
 
 .logo img{float:left; padding:8px;}
 
-ul li{
-  display: inline-block; padding:10px;
-  font-size:20px; font-family:"Montserrat";
-}
-
-ul li:hover{
-  color:orange;
-
-}
-.outer{
-    background: orange;
-    position: relative;
-    height: 150px;
-}
-hr{
-    background-color: orange;
-    width: 8%;
-
-    align-content: center;
-    height: 1px;
-    color: orange;
-    border: none;
-}
 h1{
     font-family: "Montserrat";
     font-weight: 100;
 
    }
-
-#box{
-  z-index: 1;
-  width:320px;
-  height:370px;
-  margin-top:20px;
-  margin-right:auto;
-  margin-left:auto;
-  margin-bottom:10px;
-  background-color: white;
-  /* top: 350;
-  left: 160; */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-
-.container1{
-
-display:flex;
-flex-direction:row;
-flex-wrap:wrap;
-}
-
-
-.button{
-  font-family: 'Montserrat';
-  background-color: orange;
-  border: none;
-  color: black;
-  padding: 12px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    outline: none;
-}
 
 
 .nav
@@ -136,9 +64,81 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   align-items:center;
   margin:10px;
 }
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  
+}
 
+.active, .collapsible:hover {
+  background-color: #555;
+}
 
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 0px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color:lightgray;
+
+}
+.content1 {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: white;
+}
+.collapsible1 {
+  background-color: #777;
+  color: white;
+  width:1550px;
+  
+}
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color:lightgray;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: darkblue;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: darkblue;
+  text-decoration: underline;
+}
+h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
 </style>
+</head>
 <body>
 
   <div class="nav">
@@ -150,41 +150,193 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
     <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
     <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
+        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
     </div>
     </div>
   </div>
-
-    <center><h1> {{p.program_name|allcaps}}</h1></center>
-
-    <div class="col-md-8">
-
-      {% if messages %}
-      {% for message in messages %}
-
-      <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
-
-        {{message}}
-      </div>
-
-      {% endfor %}
-      {% endif %}
-    </div>
+  <ul class="breadcrumb">
+    <li><a href="#" >MODULES</a></li>
     
-<div class="container1">
-  {% for i in m %}
-   <div id="box">
-            <center><h3>{{i.module_name|allcaps}}</h3></center>
-            <center><img src="{% static i.module_name|str1 %}" width="200" height="90"></center><br><br>
-       <center><p style="font-size: 13">{{i.comments}}</p></center>
-            <center><a href="{% url 'module_view' pk pk1 pk2 i.module_id %}" class="button">GO TO MODULE</a></center>
+    
+    
+  </ul>
+  
+    <center><h1> {{p.program_name|allcaps}}</h1></center>
+    
+    {% for i,lev in l %}
+    
+    <button class="collapsible"><b>{{i.module_name|allcaps}} </b></button>
+    <div class="content">
+    {% for j in lev %}
+    
+   
 
-
-        </div>
-        {% endfor %}
+  <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
+  
+    
+     
+    <div class="content1">
+  
+   
+    <table class="myTable" style="width:100%">
+      <tr>
+        <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
+        <td><b style="color:red;margin-left: 1180px;">X </b> </td>
+      
+       </tr>
+      <tr>
+        <td><a href="{% url 'match' pk pk1 pk2 i.pk j.pk%}">Match the following</a> </td>
+         <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
+      
+       </tr>
+         <tr>
+       <td><a href="{% url 'word_find' pk pk1 pk2 i.pk j.pk%}">Word Search</a> </td>
+         <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
+    
+       </tr>
+        <tr>
+       <td><a href="{% url 'crossword' pk pk1 pk2 i.pk j.pk %}">Crossword</a> </td>
+         <td><b style="color:red; margin-left: 1180px;">X </b> </td>
+      
+       </tr>
+       
+        <tr > 
+          <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 7 %}">Audio</a> </td>
+            <td><b style="color:red;margin-left: 1180px;">X </b> </td>
+         
+          </tr>
+          <tr>
+            <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 8 %}">Video</a> </td>
+              <td><b style="color:red;margin-left: 1180px;">X </b> </td>
+           
+          </tr>
+          <tr>
+            <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
+              <td><b style="color:red;margin-left: 1180px;">X </b> </td>
+           
+          </tr>
+            
+       </table>
+    
+ 
+     
+    </div> 
+  
+      {% endfor %}
     </div>
+      {% endfor %}
+      
+    
+    
+  
+    <script>
+      
 
+      var coll=document.getElementsByClassName("collapsible");
+          var i;
+     for (i = 0; i < coll.length; i++) {
 
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+         var content1 = this.nextElementSibling;
+          if (content1.style.maxHeight){
+            content1.style.maxHeight = null;
+          } else {
+            content1.style.maxHeight = content1.scrollHeight + 1000 + "px";
+          }
+   });
+      }
+      
+    /* var coll=document.getElementsByClassName("collapsible");
+      coll[1].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.maxHeight){
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          } 
+        });
+      */
+      
+      //var coll=document.getElementsByClassName("collapsible");
+          
+      
+        
+        var coll = document.getElementsByClassName("collapsible1");
+        //alert(coll.length);
+        
+          
+          for(var i=0;i<coll.length;i++){
+            if(i<6)
+            {
+            document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
+            document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
+            document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
+            }
+            if(i>=6 && i<12)
+            {
+              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
+            }
+            if(i>=12 && i<18)
+            {
+              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
+            }
+            if(i>=18 && i<24)
+            {
+              document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
+            
+            }
+            if(i>=24 && i<30)
+            {
+              document.getElementsByClassName("myTable")[i].innerHTML=document.getElementsByClassName("myTable")[i].rows[6].innerHTML;
+            }
+            if(i>=30 && i<36)
+            {
+              document.getElementsByClassName("myTable")[i].rows[0].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
+            }
+            if(i>=36 && i<48)
+            {
+              document.getElementsByClassName("myTable")[i].rows[0].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
+              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
+              
+            }
+            
+          coll[i].addEventListener("click", function() {
+            
+          this.classList.toggle("active");
+          var content1 = this.nextElementSibling;
+          
+         
+          if (content1.style.maxHeight){
+            content1.style.maxHeight = null;
+          } else {
+            
+            content1.style.maxHeight = content1.scrollHeight + "px";
+          } 
+        });
+          }
+        
+      
+      </script>
+          
     </body>
-</head>
 </html>

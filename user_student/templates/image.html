@@ -1,12 +1,12 @@
 {% load student_tag %}
 
 <div style="marting:10px;padding:10px">
-  <p style="font-size:200%"><b>Choose The Most appropriate Option Related To The Image</b></p>
-  <img width=500px height=300px src="/media/{{ q|index_img:i }}" alt="Nones">
-  <ol type="A">
-    <li> <input type="radio" name="options" value="{{q|index1:i}}">{{q|index1:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{q|index2:i}}">{{q|index2:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{q|index3:i}}">{{q|index3:i}}</li><br>
+<p style="font-size:200%"><b>Choose The Most appropriate Option Related To The Image</b></p>
+<img width=500px height=300px src="/media/{{q|index_img:i}}" alt="Nones">
+<ol type="A">
+    <li>  <input type="radio" name="options" value="{{q|index1:i}}">{{q|index1:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q|index2:i}}">{{q|index2:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{q|index3:i}}">{{q|index3:i}}</li><br>
     <li> <input type="radio" name="options" value="{{q|index4:i}}">{{q|index4:i}}</li><br>
   </ol>
 
@@ -22,7 +22,7 @@
 
 <script>
 
-  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+ // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
   var done = 0;
 

@@ -11,7 +11,7 @@ import json
 from django.core import serializers
 from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
-from user_admin.models import batch, program_module, module_level, question, student_module_level, student_batch
+from user_admin.models import batch, program_module, module_level, question, student_module_level, student_batch,question_content,question_type
 # from user_admin.models import image_question,images_question, av_question,av_sub_question
 import random
 import os
@@ -38,7 +38,7 @@ def s_home(request, pk, pk1):
 
 
 def spoken_english(request, pk, pk1, pk2):
-     if pk2 == 3:
+    if pk2 == 3:
         modules = program_module.objects.filter(program_id=pk2)
         program1 = program.objects.get(pk=pk2)
         levels=[]
@@ -47,18 +47,23 @@ def spoken_english(request, pk, pk1, pk2):
             module_id=i.module_id).order_by('level_description'))
     
         return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
-     else:
-          modules = program_module.objects.filter(program_id=pk2)
-          order = [4, 1, 0, 7, 3, 2, 6, 5]
-          modules = [modules[i] for i in order]
-          program1 = program.objects.get(pk=pk2)
-          levels=[]
-          for i in modules:
-              levels.append(module_level.objects.filter(
-              module_id=i.module_id).order_by('level_description'))
-    
-          return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+    else:
      
+        modules = program_module.objects.filter(program_id=pk2)
+    
+        order = [4, 1, 0, 7, 3, 2, 6, 5]
+        modules = [modules[i] for i in order]
+        program1 = program.objects.get(pk=pk2)
+        levels=[]
+        for i in modules:
+            levels.append(module_level.objects.filter(
+            module_id=i.module_id).order_by('level_description'))
+    
+            question_type1 = question_type.objects.all()
+    
+        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":question_type1})
+
+          
 def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
     module = program_module.objects.get(pk=pk3)
     if pk3 == 20:
@@ -80,39 +85,52 @@ def level_view(request, pk, pk1, pk2, pk3, pk4):
                       'CrossWord', 'Word Search']
     level = module_level.objects.get(level_id=pk4)
     return render(request, "level_view.html", {"question_types": question_types, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, 'pk4': pk4, "l": level})
-
-
-def crossword(request, pk, pk1, pk2, pk3, pk4):
-    module = program_module.objects.get(pk=pk3)
-    level = module_level.objects.get(pk=pk4)
-    try:
-        a = "crossword/"+module.module_name+"/"+str(level.level_number)
-        b = "user_student/templates/crossword/" + \
-            module.module_name+"/"+str(level.level_number)
-        c = os.getcwd()
-        b = c+"/"+b
-        length = len([name for name in os.listdir(b)])
-        rand = random.randrange(1, length)
-        a = a+"/crossword"+str(rand)+".html"
-        print(a)
-        return render(request, a, {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
-    except:
-        messages.success(request, f'No Crossword for the level yet')
-        return redirect('module_view', pk, pk1, pk2, pk3)
-
-
+def word_find(request,pk,pk1,pk2,m,l):
+    module = program_module.objects.get(pk=m)
+    level = module_level.objects.get(pk=l)
+   
+    return render(request,"wordsearch/wordfind%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+def match(request,pk,pk1,pk2,m,l):
+    module = program_module.objects.get(pk=m)
+    level = module_level.objects.get(pk=l)
+   
+    return render(request,"match/match%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+def crossword(request, pk, pk1, pk2, m, l):
+    
+    module = program_module.objects.get(pk=m)
+    level = module_level.objects.get(pk=l)
+    
+    # try:
+    #     a = "crossword/"+module.module_name+"/"+str(level.level_number)
+    #     b = "user_student/templates/crossword/" + \
+    #         module.module_name+"/"+str(level.level_number)
+    #     c = os.getcwd()
+    #     b = c+"/"+b
+    #     length = len([name for name in os.listdir(b)])
+    #     rand = random.randrange(1, length)
+    #     a = a+"/crossword"+str(rand)+".html"
+    #     print(a)
+    #     return render(request, a, {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
+    # except:
+    #     messages.success(request, f'No Crossword for the level yet')
+    #     return redirect('module_view', pk, pk1, pk2, pk3)
+    
+    
+    return render(request,"crossword/crossword%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+    
 def lesson(request, pk, pk1, pk2, pk3, pk4):
-    str1 = "lesson"
-    module = program_module.objects.get(pk=pk3)
-    program1 = program.objects.get(pk=pk2)
-    level = module_level.objects.get(pk=pk4)
-    str1 = str1+"/"+program1.program_name
-    str1 = str1+"/"+module.module_name
-    str1 = str1+"/"+str(level.level_description)
-    str1 = str1+".html"
-    print(str1)
-    return render(request, str1)
-
+     str1 = "help"
+     module = program_module.objects.get(pk=pk3)
+     program1 = program.objects.get(pk=pk2)
+     level = module_level.objects.get(pk=pk4)
+     str1 = str1+"/"+program1.program_name
+     str1 = str1+"/"+module.module_name
+     str1 = str1+"/"+str(level.level_description)
+     str1 = str1+".html"
+     
+     
+     return render(request, str1 ,{"pk":pk,"pk1":pk1,"pk2":pk2})
+    
 
 def before_test(request, pk, pk1, pk2, pk3, pk4):
     module1 = program_module.objects.get(pk=pk3)
@@ -140,8 +158,8 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questions1 = []
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
+    print("QUERUBOI", questions1)
     
-    print(questions1)
     i = int(request.GET.get('id'))
     c = (request.GET.get('correct'))
     s = int(request.GET.get('score'))
@@ -150,15 +168,16 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     elif c == "False":
         s = s+0
     i += 1
+    # print("fg")
+    #print(questions1[i].question_type)
     if i == len(questions1):
         return render(request, "test_submit.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
-    
+
     if questions1[i].question_type.question_type == "Multiple Choice":
         return render(request, "mcq.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})             
-   
-    
+                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+
     if questions1[i].question_type.question_type == "Fill in the blanks":
         return render(request, "fill_ups.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
@@ -166,12 +185,17 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     if questions1[i].question_type.question_type == "Riddles":
         return render(request, "riddles.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+    if questions1[i].question_type.question_type == "Multiple image based question":
+        return render(request, "images.html",
+                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
     if questions1[i].question_type.question_type == "Single image based question":
         return render(request, "image.html",
                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
-
-
-    if questions1[i].question_type.question_type == "Jumbled Words":
+    # if questions1[i].question_type.question_type == "Audio":
+    #     ques = question_content.objects.filter(question_content_id=questions1[i].question_content_id)
+    #     return render(request, "audio.html",
+    #                   {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+    if questions1[i].question_type.question_type == "Unscramble":
         str = questions1[i].question
         print(str.split())
         return render(request, "jumbled_words.html",
@@ -232,57 +256,64 @@ def ajax_image_test(request, pk, pk1, pk2, pk3, pk4):
 #                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
 
-def av_test(request, pk, pk1, pk2, pk3, pk4):
-    return redirect("error")
+def av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
 
 
-#     questions1 = sorted(av_question.objects.filter(program_id=pk2).filter(module_id=pk3).filter(level_id=pk4),
-#                         key=lambda x: random.random())
-
-#     print(questions1, len(questions1))
-#     data = serializers.serialize('json', questions1)
-#     print(data)
-#     request.session['questions'] = data
-#     module1 = program_module.objects.get(pk=pk3)
-#     level1 = module_level.objects.get(pk=pk4)
-#     i = -1
-#     return render(request, "av_test.html",
-#                   {"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "m": module1, "l": level1})
-
-
-def ajax_av_test(request, pk, pk1, pk2, pk3, pk4):
-    return redirect("error")
-
-#     questionss = request.session.get('questions')
-#     questions1 = []
-#     for copy in serializers.deserialize("json", questionss):
-#         questions1.append(copy.object)
-#     print("QUERUBOI", questions1)
-#     i = int(request.GET.get('id'))
-#     c = (request.GET.get('correct'))
-#     s = int(request.GET.get('score'))
-#     ques = av_sub_question.objects.filter(av=questions1[i].pk)
-#     i += 1
-#     if i == len(questions1):
-#         count = 0
-#         for i in questions1:
-#             ques = av_sub_question.objects.filter(av=i.pk)
-#             count += len(ques)
-
-#         return render(request, "test_submit.html",
-#                       {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "av", "len": count})
-
-#     if questions1[i].question_type == "Video":
-#         ques = av_sub_question.objects.filter(av=questions1[i].pk)
-#         return render(request, "video.html",
-#                       {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
-
-#     if questions1[i].question_type == "Audio":
-#         ques = av_sub_question.objects.filter(av=questions1[i].pk)
-#         return render(request, "audio.html",
-#                       {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+    questions1 = question.objects.filter(level_id=pk4).filter(question_type_id=pk5).order_by('-question_content_id')
+              
+    print(questions1, len(questions1))
+    data = serializers.serialize('json', questions1)
+    #print(data)
+    request.session['questions'] = data
+    module = program_module.objects.get(pk=pk3)
+    level = module_level.objects.get(pk=pk4)
+    i = 0
+    return render(request, "av_test.html",
+                  {"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
 
 
+def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
+    questionss = request.session.get('questions')
+    questions1 = []
+    for copy in serializers.deserialize("json", questionss):
+        questions1.append(copy.object)
+    print("QUERUBOI", questions1)
+    i = int(request.GET.get('id'))
+    c = (request.GET.get('correct'))
+    s = int(request.GET.get('score'))
+    
+     
+    if c == "True":
+        s = s+1
+    elif c == "False":
+        s = s+0
+    
+    
+    j=len(questions1)
+    #print(questions1[i].question_type)
+    if i >= j:
+            i=j
+            return render(request, "test_submit.html",
+                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1)})
+    if questions1[i].question_type.question_type == "Video":
+        ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+        return render(request, "video.html",
+                      {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
+
+    if questions1[i].question_type.question_type == "Audio":
+        
+        ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+        # a = ques[i].question_content_id
+        print(i)
+        return render(request, "audio.html",
+                      {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
+    if questions1[i].question_type.question_type == "Text":
+        
+        ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+        # a = ques[i].question_content_id
+        print(i)
+        return render(request, "text.html",
+                      {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
 def test_submit(request, pk, pk1, pk2, pk3, pk4):
     student1 = student.objects.get(pk=pk)
     program1 = program.objects.get(pk=pk2)

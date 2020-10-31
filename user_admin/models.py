@@ -277,7 +277,9 @@ class question(models.Model):
     @property
     def options(self):
         return question_option.objects.filter(question=self)
-
+    @property
+    def content(self):
+        return question_content.objects.get(question=self)
     @property
     def answer(self):
         try:

@@ -115,30 +115,27 @@
 </style>
 
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div style="display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;">
-  <div id="box1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;">
+<div id="box1">
 
-    <h1>Score : {{score}}</h1>
+  <h1>Score : {{score}}</h1>
 
-    <h1 id="status"></h1>
+  <h1 id="status"></h1>
 
-    <h4 style="display:none" id="submit"><input class="button" type="submit" id="submit1" value="Next Level"></h4>
+  <h4 style="display:none" id="submit"><input  class="button" type="submit" id="submit1" value="Next Level"></h4>
 
-    {% if test_name|standard %}
-    <h4 style="display:none" id="try_again"><a class="button" href="{% url 'standard_test' pk pk1 pk2 pk3 pk4 %}">Try
-        Again</a></h4>
-    {% endif %}
-    {% if test_name|image %}
-    <h4 style="display:none" id="try_again"><a class="button" href="{% url 'image_test' pk pk1 pk2 pk3 pk4 %}">Try
-        Again</a></h4>
-    {% endif %}
-    {% if test_name|av %}
-    <h4 style="display:none" id="try_again"><a class="button" href="{% url 'av_test' pk pk1 pk2 pk3 pk4 %}">Try
-        Again</a></h4>
-    {% endif %}
+  {% if test_name|standard %}
+  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'standard_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>
+  {% endif %}
+  {% if test_name|image %}
+  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'image_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>
+  {% endif %}
+  {% if test_name|av %}
+  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'av_test' pk pk1 pk2 pk3 pk4 pk5%}">Try Again</a></h4>
+  {% endif %}
 
-  </div>
+</div>
 </div>
 
 
@@ -166,13 +163,13 @@
     //var url = $("#form1").attr("data-modules-url");
 
     $.ajax({ // initialize an AJAX request
-      url: '/s_home/' + "{{ pk }}" + '/batch/' + "{{ pk1 }}" + '/program/' + "{{ pk2 }}" + '/module/' + "{{ pk3 }}" + '/level/' + "{{ pk4 }}" + '/test/submit/',
-      type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+      url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/test/submit/',
+      type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
       data: {
         score: "{{score}}",
         test_name: "{{test_name}}"
       },
-      success: function (data) {
+      success: function(data) {
         location.replace('/s_home/' + "{{ pk }}" + '/batch/' + "{{ pk1 }}" + '/program/' + "{{ pk2 }}")
 
       }

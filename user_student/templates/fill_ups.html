@@ -20,9 +20,10 @@
 
 <script>
 
-  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+ // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
-  var done = 0;
+var done=0;
+
 
   $("#submit").click(function () {
     //var url = $("#form1").attr("data-modules-url");
@@ -46,8 +47,8 @@
           var str = "True"
           var score = "{{score}}"
           $.ajax({ // initialize an AJAX request
-            url: '/s_home/' + "{{pk}}" + '/batch/' + "{{pk1}}" + '/program/' + "{{pk2}}" + '/module/' + "{{pk3}}" + '/level/' + "{{pk4}}" + '/standard_test/ajax/test/',
-            type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
+            type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
             data: {
               correct: str,
               id: "{{i}}",
@@ -94,3 +95,4 @@
   });
 
 </script>
+      
