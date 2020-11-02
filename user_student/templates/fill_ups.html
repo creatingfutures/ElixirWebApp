@@ -39,9 +39,12 @@ var done=0;
       var question = $("#ques").html();
       var option = $("#ans").val();
       var answer = "{{q|index5:i}}"
-
-
-      if (option.toString().toLowerCase().trim() == answer) {
+      option=option.toString().toLowerCase();
+      answer = answer.toString().toLowerCase();
+      // alert(answer);
+      // alert(option);
+      
+      if (option == answer) {
         alert("Right Answer");
         if ($(this).data("count") == 1) {
           var str = "True"
