@@ -139,11 +139,17 @@ def before_test(request, pk, pk1, pk2, pk3, pk4):
                   {"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "m": module1, "l": level1})
 
 
+def trimQuestions(ques):
+    ques.question = ques.question.strip()
+    return ques
+
 def standard_test(request, pk, pk1, pk2, pk3, pk4):
-    questions1 = sorted(question.objects.filter(level_id=pk4).order_by('-pk'),
+    questions1= sorted(question.objects.filter(level_id=pk4).order_by('-pk'),
                         key=lambda x: random.random())
-    print(questions1, len(questions1))
-    data = serializers.serialize('json', questions1)
+    result = list(map(trimQuestions,questions1))
+
+    print(result, len(result))
+    data = serializers.serialize('json', result)
     print(data)
     request.session['questions'] = data
     module1 = program_module.objects.get(pk=pk3)
