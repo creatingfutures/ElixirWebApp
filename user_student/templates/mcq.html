@@ -2,15 +2,13 @@
 
 <div style="marting:10px;padding:10px">
   <p style="font-size:200%"><b>Multiple Choice Question</b></p>
-  <p style="font-size:150%">{{q|index:i}}</p>
+  <p style="font-size:150%">{{request.session.questions|index:i}}</p>
   <ol type="A">
-    <li> <input type="radio" name="options" value="{{q|index1:i}}">{{q|index1:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{q|index2:i}}">{{q|index2:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{q|index3:i}}">{{q|index3:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{q|index4:i}}">{{q|index4:i}}</li><br>
+    <li> <input type="radio" name="options" value="{{request.session.questions|index1:i}}">{{request.session.questions|index1:i}}</li><br>
+    <li> <input type="radio" name="options" value="{{request.session.questions|index2:i}}">{{request.session.questions|index2:i}}</li><br>
+    <li> <input type="radio" name="options" value="{{request.session.questions|index3:i}}">{{request.session.questions|index3:i}}</li><br>
+    <li> <input type="radio" name="options" value="{{request.session.questions|index4:i}}">{{request.session.questions|index4:i}}</li><br>
   </ol>
-
-
   <input type="submit" id="submit" class="button" value="Submit">
 
 </div>
@@ -39,7 +37,7 @@ var done=0;
 
       var question = $("#ques").html();
       var option = $("input[name='options']:checked").val();
-      var answer = "{{q|index5:i}}"
+      var answer = "{{request.session.questions|index5:i}}"
 
       if (option == answer) {
         alert("Right Answer");

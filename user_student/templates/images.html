@@ -4,10 +4,10 @@
 <p style="font-size:200%"><b>Multiple Image Question</b></p>
 <p style="font-size:150%">{{q|index:i}}</p>
 <ol type="A">
-    <li>  <input type="radio" name="options" value="/media/{{q|index1_img:i}}"><img width=100px height=100px src="/media/{{q|index1_img:i}}" alt=""></li><br>
-    <li>  <input type="radio" name="options" value="/media/{{q|index2_img:i}}"><img width=100px height=100px src="/media/{{q|index2_img:i}}" alt=""></li><br>
-    <li>  <input type="radio" name="options" value="/media/{{q|index3_img:i}}"><img width=100px height=100px src="/media/{{q|index3_img:i}}" alt=""></li><br>
-    <li> <input type="radio" name="options" value="/media/{{q|index4_img:i}}"><img width=100px height=100px src="/media/{{q|index4_img:i}}" alt=""></li><br>
+    <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index1_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index1_img:i}}" alt=""></li><br>
+    <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index2_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index2_img:i}}" alt=""></li><br>
+    <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index3_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index3_img:i}}" alt=""></li><br>
+    <li> <input type="radio" name="options" value="/media/{{request.session.questions|index4_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index4_img:i}}" alt=""></li><br>
 </ol>
 
 
@@ -41,7 +41,7 @@ $("#submit").click(function() {
 
     var question = $("#ques").html();
     var option = $("input[name='options']:checked").val();
-    var answer = "/media/{{q|index5:i}}"
+    var answer = "/media/{{request.session.questions|index5:i}}"
     if(option==answer)
     {
       alert("Right Answer");

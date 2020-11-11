@@ -1,5 +1,5 @@
 from django import template
-
+from django.core import serializers
 
 register = template.Library()
 
@@ -7,56 +7,93 @@ register = template.Library()
 
 @register.filter
 def index(List, i):
-    return List[i].question
+    L = list(serializers.deserialize("json",List))
+    return L[i].object.question
 
 @register.filter
 def index_img(List, i):
-    return List[i].content
+    L = list(serializers.deserialize("json",List))
+    return L[i].object.content
 
 @register.filter
 def index_av(List, i):
-    return List[i].content
+    L = list(serializers.deserialize("json",List))
+    return L[i].object.content
 
 @register.filter
 def index1_img(List, i):
-    return List[i].options[0]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=1:
+        return L[i].object.options[0]
+    else:
+        return ""
 
 @register.filter
 def index2_img(List, i):
-    return List[i].options[1]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=2:
+        return L[i].object.options[1]
+    else:
+        return ""
 
 @register.filter
 def index3_img(List, i):
-    return List[i].options[2]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=3:
+            return L[i].object.options[2]
+    else:
+            return ""
 
 @register.filter
 def index4_img(List, i):
-    return List[i].options[3]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=4:
+        return L[i].object.options[3]
+    else:
+        return ""
 
 @register.filter
 def index1(List, i):
-    return List[i].options[0]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=1:
+        return L[i].object.options[0]
+    else:
+        return ""
 
 @register.filter
 def index2(List, i):
-    return List[i].options[1]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=2:
+        return L[i].object.options[1]
+    else:
+        return ""
 
 @register.filter
 def index3(List, i):
-    return List[i].options[2]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=3:
+        return L[i].object.options[2]
+    else:
+        return ""
 
 @register.filter
 def index4(List, i):
-    return List[i].options[3]
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=4:
+        return L[i].object.options[3]
+    else:
+        return ""
 
 @register.filter
 def index5(List, i):
-    return List[i].answer
+    L = list(serializers.deserialize("json",List))
+    return L[i].object.answer
 
 
 @register.filter
 def id(List, i):
-    return List[i]
+    L = list(serializers.deserialize("json",List))
+    return L[i].object
 
 @register.filter
 def str1(arg1):

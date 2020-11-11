@@ -145,18 +145,18 @@ def trimQuestions(ques):
 
 def standard_test(request, pk, pk1, pk2, pk3, pk4):
     questions1= sorted(question.objects.filter(level_id=pk4).order_by('-pk'),
-                        key=lambda x: random.random())
+                        key=lambda x: random.random())[:20]
     result = list(map(trimQuestions,questions1))
 
     print(result, len(result))
     data = serializers.serialize('json', result)
     print(data)
-    request.session['questions'] = data
+    request.session['questions'] = data;
     module1 = program_module.objects.get(pk=pk3)
     level1 = module_level.objects.get(pk=pk4)
     i = -1
     return render(request, "standard_test.html",
-                  {"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "m": module1, "l": level1})
+                  { "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "m": module1, "l": level1})
 
 
 def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
@@ -178,25 +178,25 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     #print(questions1[i].question_type)
     if i == len(questions1):
         return render(request, "test_submit.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
 
     if questions1[i].question_type.question_type == "Multiple Choice":
         return render(request, "mcq.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
     if questions1[i].question_type.question_type == "Fill in the blanks":
         return render(request, "fill_ups.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
     if questions1[i].question_type.question_type == "Riddles":
         return render(request, "riddles.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
     if questions1[i].question_type.question_type == "Multiple image based question":
         return render(request, "images.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
     if questions1[i].question_type.question_type == "Single image based question":
         return render(request, "image.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+                      { "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
     # if questions1[i].question_type.question_type == "Audio":
     #     ques = question_content.objects.filter(question_content_id=questions1[i].question_content_id)
     #     return render(request, "audio.html",
@@ -205,7 +205,7 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
         str = questions1[i].question
         print(str.split())
         return render(request, "jumbled_words.html",
-                      {"q": questions1, "len": range(0, len(str.split())), "words": str.split(),
+                      {"len": range(0, len(str.split())), "words": str.split(),
                        "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
    

@@ -1,9 +1,9 @@
 {% load student_tag %}
 
 
-<div style="marting:10px;padding:10px">
+<div style="margin:10px;padding:10px">
   <p style="font-size:200%"><b>Fill The Blanks</b></p>
-  <p style="font-size:150%">{{q|index:i}}</p>
+  <p style="font-size:150%">{{request.session.questions|index:i}}</p>
   <ol type="A">
     <li> <input id="ans" type="text"></li><br>
   </ol>
@@ -38,7 +38,7 @@ var done=0;
 
       var question = $("#ques").html();
       var option = $("#ans").val();
-      var answer = "{{q|index5:i}}"
+      var answer = "{{request.session.questions|index5:i}}"
       option=option.toString().toLowerCase();
       answer = answer.toString().toLowerCase();
       // alert(answer);
@@ -98,4 +98,3 @@ var done=0;
   });
 
 </script>
-      

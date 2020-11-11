@@ -4,10 +4,10 @@
 <p style="font-size:200%"><b>Choose The Most appropriate Option Related To The Image</b></p>
 <img width=500px height=300px src="/media/{{q|index_img:i}}" alt="Nones">
 <ol type="A">
-    <li>  <input type="radio" name="options" value="{{q|index1:i}}">{{q|index1:i}}</li><br>
-    <li>  <input type="radio" name="options" value="{{q|index2:i}}">{{q|index2:i}}</li><br>
-    <li>  <input type="radio" name="options" value="{{q|index3:i}}">{{q|index3:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{q|index4:i}}">{{q|index4:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{request.session.questions|index1:i}}">{{request.session.questions|index1:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{request.session.questions|index2:i}}">{{request.session.questions|index2:i}}</li><br>
+    <li>  <input type="radio" name="options" value="{{request.session.questions|index3:i}}">{{request.session.questions|index3:i}}</li><br>
+    <li> <input type="radio" name="options" value="{{request.session.questions|index4:i}}">{{request.session.questions|index4:i}}</li><br>
   </ol>
 
 
@@ -39,7 +39,7 @@
 
       var question = $("#ques").html();
       var option = $("input[name='options']:checked").val();
-      var answer = "{{q|index5:i}}"
+      var answer = "{{request.session.questions|index5:i}}"
 
       if (option == answer) {
         alert("Right Answer");

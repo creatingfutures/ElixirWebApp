@@ -3,7 +3,7 @@
 
 <div style="marting:10px;padding:10px">
 <p style="font-size:200%"><b>Crack The Riddles</b></p>
-<p style="font-size:150%">{{q|index:i}}</p>
+<p style="font-size:150%">{{request.session.questions|index:i}}</p>
 <ol type="A">
     <li>  <input id="ans" type="text"></li><br>
 </ol>
@@ -38,9 +38,9 @@ $("#submit").click(function() {
 
     var question = $("#ques").html();
     var option = $("#ans").val();
-    var answer = "{{q|index5:i}}"
+    var answer = "{{request.session.questions|index5:i}}"
 
-    if(option.toString().toLowerCase().trim()==answer)
+    if(option.toString().toLowerCase().trim()==answer.toLowerCase().trim())
     {
       alert("Right Answer");
       if($(this).data("count")==1)
