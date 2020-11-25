@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %} {% block content %}
+<br />
+<table align="center" style="width: 80%; font-family: Montserrat">
+  <tr>
+    <th>CENTER NAME</th>
+    <th>CENTER TYPE</th>
+    <th>EMAIL ID</th>
+    <th>ACTION</th>
+  </tr>
+  {% for s1 in p %}
+  <tr>
+    <td>{{s1.center_name}}</td>
+    <td>{{s1.center_type}}</td>
+    <td>{{s1.email_id}}</td>
+    <td>
+      <a href="{% url 'view_center' s1.center_id %}">View</a> |
+      <a href="{% url 'edit_center' s1.center_id %}">Edit</a> {% if s1.batch_check %} {% else %} |
+      <a href="{% url 'delete_center' s1.center_id %}">Delete</a> {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<br /><br />
+<div class="pagination" style="width: 20%; position: absolute; left: 40%">
+  <ul style="position: absolute; left: 10%">
+    {% if p.has_previous %}
+    <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+    {% endif %} {% for pg in p.paginator.page_range %} {% if p.number == pg %}
+    <li class="active" style="background-color: orange; color: white">
+      <a href="?page={{pg}}">{{pg}}</a>
+    </li>
+    {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+    <li><a href="?page={{ pg }}">{{pg}}</a></li>
+    {% endif %} {% endfor %} {% if p.has_next %}
+    <li><a href="?page={{p.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</div>
+<br />
+<div id="container">
+  <a style="margin-left: 150px" class="button" href="{% url 'add_center' %}">ADD CENTER</a>
+</div>
+
+{% endblock content %}

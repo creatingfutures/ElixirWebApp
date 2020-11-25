@@ -123,7 +123,7 @@ def home(request):
 
     a = {"p": programs1,
          "pmc": module_count_dict, "p1": programs, "f": facilitator1, "m": modules1}
-    return render(request, 'home.html', a)
+    return render(request, 'home/home.html', a)
 
 
 def load_modules_home(request):
@@ -359,17 +359,17 @@ def view_level(request, pk, pk1, pk2):
 
 def view_student(request, pk):
     student1 = get_object_or_404(student, pk=pk)
-    return render(request, 'view_student.html', {"f": student1})
+    return render(request, 'student/view_student.html', {"f": student1})
 
 
 def view_batch(request, pk):
     batch1 = get_object_or_404(batch, pk=pk)
-    return render(request, 'view_batch.html', {"f": batch1})
+    return render(request, 'batch/view_batch.html', {"f": batch1})
 
 
 def view_center(request, pk):
     center1 = get_object_or_404(center, pk=pk)
-    return render(request, 'view_center.html', {"f": center1})
+    return render(request, 'center/view_center.html', {"f": center1})
 
 
 def view_questions(request, pk):
@@ -401,7 +401,7 @@ def students(request):
     except:
         students1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'students.html', {"p": students1})
+    return render(request, 'student/students.html', {"p": students1})
 
 
 def student_search(request):
@@ -436,7 +436,7 @@ def centers(request):
     except:
         centers1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'centers.html', {"p": centers1})
+    return render(request, 'center\centers.html', {"p": centers1})
 
 
 def facilitators(request):
@@ -468,7 +468,7 @@ def batches(request):
         batch1 = paginator.page(page)
     except:
         batch1 = paginator.page(paginator_num_pages)
-    return render(request, 'batches.html', {"p": batch1})
+    return render(request, 'batch/batches.html', {"p": batch1})
 
 
 def batch_search(request):
@@ -495,7 +495,7 @@ def questionss(request):
     except:
         questions11 = paginator.page(paginator_num_pages)
 
-    return render(request, 'questions.html', {"p": questions11})
+    return render(request, 'question/questions.html', {"p": questions11})
 
 
 @login_required
@@ -701,7 +701,7 @@ def delete_question(request, pk):
         messages.success(request, f'Successfully Deleted {a1}')
         q.delete()
         return redirect('questions')
-    return render(request, 'delete_question.html', {"a": a})
+    return render(request, 'question/delete_question.html', {"a": a})
 
 
 def load_modules(request):
@@ -728,7 +728,7 @@ def add_facilitator(request):
     else:
         form = add_facilitator_form()
 
-    return render(request, 'add_facilitator.html', {"form": form})
+    return render(request, 'home/facilitator/add_facilitator.html', {"form": form})
 
 
 @login_required
@@ -771,7 +771,7 @@ def add_student(request):
     else:
         form = add_student_form()
 
-    return render(request, 'add_student.html', {"form": form})
+    return render(request, 'student/add_student.html', {"form": form})
 
 
 @login_required
@@ -787,7 +787,7 @@ def edit_student(request, pk):
     else:
         form = add_student_form(instance=a)
 
-    return render(request, 'add_student.html', {"form": form, "f": a})
+    return render(request, 'student/add_student.html', {"form": form, "f": a})
 
 
 def delete_student(request, pk):
@@ -799,7 +799,7 @@ def delete_student(request, pk):
         q.delete()
         return redirect('students')
 
-    return render(request, 'delete_student.html', {"a": a})
+    return render(request, 'student/delete_student.html', {"a": a})
 
 
 @login_required
@@ -814,7 +814,7 @@ def add_center(request):
     else:
         form = add_center_form()
 
-    return render(request, 'add_center.html', {"form": form})
+    return render(request, 'center/add_center.html', {"form": form})
 
 
 @login_required
@@ -830,7 +830,7 @@ def edit_center(request, pk):
     else:
         form = add_center_form(instance=a)
 
-    return render(request, 'add_center.html', {"form": form})
+    return render(request, 'center/add_center.html', {"form": form})
 
 
 def delete_center(request, pk):
@@ -842,7 +842,7 @@ def delete_center(request, pk):
         q.delete()
         return redirect('centers')
 
-    return render(request, 'delete_center.html', {"a": a})
+    return render(request, 'center/delete_center.html', {"a": a})
 
 
 @login_required
@@ -858,7 +858,7 @@ def add_batch(request):
     else:
         form = add_batch_form()
 
-    return render(request, 'add_batch.html', {"form": form})
+    return render(request, 'batch/add_batch.html', {"form": form})
 
 
 def edit_batch(request, pk):
@@ -877,7 +877,7 @@ def edit_batch(request, pk):
     else:
         form = add_batch_form(instance=a)
 
-    return render(request, 'add_batch.html', {"form": form, "f": a})
+    return render(request, 'batch/add_batch.html', {"form": form, "f": a})
 
 
 def delete_batch(request, pk):
@@ -888,11 +888,11 @@ def delete_batch(request, pk):
         messages.success(request, f'Successfully Deleted {a1}')
         return redirect('batches')
 
-    return render(request, 'delete_batch.html', {"a": a})
+    return render(request, 'batch\delete_batch.html', {"a": a})
 
 
 def password(request):
-    return render(request, 'password.html')
+    return render(request, 'admin/password.html')
 
 
 def password_management_facilitators(request):
@@ -909,7 +909,7 @@ def password_management_facilitators(request):
     except:
         facilitators1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'password_management_facilitators.html', {"p": facilitators1})
+    return render(request, 'admin/password_management_facilitators.html', {"p": facilitators1})
 
 
 def password_management_students(request):
@@ -925,7 +925,7 @@ def password_management_students(request):
         students1 = paginator.page(page)
     except:
         students1 = paginator.page(paginator_num_pages)
-    return render(request, 'password_management_students.html', {"p": students1})
+    return render(request, 'admin/password_management_students.html', {"p": students1})
 
 
 def password_management_facilitator(request, pk):
@@ -941,7 +941,7 @@ def password_management_facilitator(request, pk):
     else:
         form = password_facilitator_form()
 
-    return render(request, 'password_management_facilitator.html', {"form": form, "f": facilitator1})
+    return render(request, 'admin/password_management_facilitator.html', {"form": form, "f": facilitator1})
 
 
 def password_management_student(request, pk):
@@ -953,11 +953,11 @@ def password_management_student(request, pk):
             a = student1.first_name
             form.save()
             messages.success(request, f'Successfully changed password for {a}')
-            return redirect('password_management_students')
+            return redirect('admin/password_management_students')
     else:
         form = password_student_form()
 
-    return render(request, 'password_management_student.html', {"form": form, "s": student1})
+    return render(request, 'admin/password_management_student.html', {"form": form, "s": student1})
 
 
 class LoginView1(auth_views.LoginView):
