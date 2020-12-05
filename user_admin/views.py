@@ -14,6 +14,9 @@ import django
 from .forms import *
 import re
 from django.db.models import Q
+from pyexcel_xls import get_data as xls_get
+from pyexcel_xlsx import get_data as xlsx_get
+from django.db import connection
 
 # Create your views here.
 import csv
@@ -70,6 +73,136 @@ def questions_export(request):
     response['Content-Disposition'] = 'attachment;filename="questions.csv"'
 
     return response
+
+
+def questions_import(request):
+    try:
+        excel_file = request.FILES['myfile']
+    except MultiValueDictKeyError:
+        return redirect('questions')
+    
+    response = HttpResponse(content_type='text/plain')
+    textWriter = csv.writer(response)
+    textWriter.writerow(['Excel import started'])
+    active = True
+    isValid = True    
+    _question_type = None
+    _module_level= None
+    if (str(excel_file).split('.')[-1] != 'xlsx') :
+        messages.error(request, f'You must select an valid excel format.')
+        return redirect('questions')
+    if (str(excel_file).split('.')[-1] == "xls"):
+        data = xls_get(excel_file, column_limit=15)
+    elif (str(excel_file).split('.')[-1] == "xlsx"):
+        data = xlsx_get(excel_file, column_limit=15)
+    index = 0
+    try:
+        questions_data = None
+        try:
+            questions_data =  data["Questions"]
+        except :
+            messages.error(request, f'Questions excel tab - No data available')
+            return redirect('questions')
+
+        if (len(questions_data) > 0):
+            for questions_item in questions_data:
+                if(index == 0):
+                    if(str(questions_item) != "['Sno', 'Program', 'Module', 'Level', 'Question', 'Narrative', 'Question Type', 'Hint', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer', 'Comments']"):
+                        textWriter.writerow('Header columns are mismatching')                   
+                        messages.error(request, f'Header columns are mismatching.')
+                        return redirect('questions')
+                else :
+                    if questions_item[1] == '' or questions_item[2] == '' or questions_item[3] == '' or questions_item[4] == '' or questions_item[6] == '' :
+                        textWriter.writerow('fields data are missing in the line no ' + str(index))
+                        messages.error(request, f'fields data are missing in the line no ' + str(index))
+                        return redirect('questions')
+                    
+
+                    cursor = connection.cursor();
+                    sql_query = """SELECT level_id from User_admin_module_level a inner join user_admin_program_module b on a.module_id = b.module_id where a.level_description = %s  COLLATE NOCASE and b.module_name = %s  COLLATE NOCASE """
+                    data_tuple = (questions_item[3], questions_item[2])
+                    cursor.execute(sql_query, data_tuple)
+                    result = cursor.fetchall();
+                    
+                    if len(result) > 0 :
+                        _question_type = question_type.objects.get(question_type=questions_item[6])
+                        _module_level = module_level.objects.get(pk=result[0][0]),
+                    if len(result) == 0 :
+                        textWriter.writerow(['field level and module is not available on line no: ' + str(index)])
+                        isValid = False
+                    if _question_type is None :
+                        textWriter.writerow(['field question_type having issue on line no: ' + str(index)])
+                        isValid = False
+                    if _module_level is None :
+                        textWriter.writerow(['field module_level having issue on line no: ' + str(index)])
+                        isValid = False
+                    
+                    try:
+                        questions_item_comments = questions_item[13]
+                    except :
+                        questions_item_comments = ''
+
+                    if isValid == True :
+                        #save question
+                        new_question = question(
+                        question =  questions_item[4],
+                        narrative = questions_item[5],
+                        question_type = _question_type,
+                        hint = questions_item[7],
+                        created_by = 'admin_data_import',
+                        level = _module_level[0],
+                        comments = questions_item_comments,
+                        )
+                        new_question.save()
+
+                        #save options
+                        if _question_type.pk in [2, 3, 4, 9]: 
+                            if questions_item[8] != '' :
+                                new_options = question_option(question = new_question, 
+                                option_description= questions_item[12],
+                                is_right_option =1)
+                                new_options.save()
+
+                        if _question_type.pk in [12]: 
+                            #save options #1
+                            if questions_item[8] != '' :
+                                new_options = question_option(question = new_question, 
+                                option_description= questions_item[8],
+                                is_right_option = (questions_item[8] == questions_item[12]))
+                                new_options.save()
+                            #save options #2
+                            if questions_item[9] != '' :
+                                new_options = question_option(question = new_question, 
+                                option_description= questions_item[9],
+                                is_right_option = (questions_item[9] == questions_item[12]))
+                                new_options.save()
+                            #save options #3
+                            if questions_item[10] != '' :
+                                new_options = question_option(question = new_question, 
+                                option_description= questions_item[10],
+                                is_right_option = (questions_item[10] == questions_item[12]) )
+                                new_options.save()
+                            #save options #4
+                            if questions_item[11] != '' :
+                                new_options = question_option(question = new_question, 
+                                option_description= questions_item[11],
+                                is_right_option = (questions_item[11] == questions_item[12]) )
+                                new_options.save()
+                index = index +1;
+    except Exception as ex:
+        message = str(ex)
+        textWriter.writerow(['Exception on the line no: '+ str(index) +' Exception:' + message])
+        isValid = False
+
+    if active == True:
+        # messages.success(request, f'Successfully Added Question')  
+        data = {'ok': True}
+        textWriter.writerow(['Total no of records : ' + str(index)])
+        textWriter.writerow(['Excel import completed'])
+        response['Content-Disposition'] = 'attachment;filename="logs.txt"'
+        return response
+    return render(request, 'question/questions.html')
+ 
 
 
 @login_required

@@ -48,7 +48,7 @@ urlpatterns = [
     path('add_program/', views.add_program, name='add_program'),
     path('add_batch/', views.add_batch, name='add_batch'),
     path('add_question/', views.add_question, name='add_question'),
-
+    path('questions_import', views.questions_import, name='questions_import'), 
     path('ajax/load_modules/', views.load_modules, name='load_modules'),
     path('ajax/load_levels/', views.load_levels, name='load_levels'),
     path('ajax/load_modules_home/',
