@@ -710,8 +710,7 @@ def add_question(request):
     else:
         form = add_question_form()
         option_formset = add_option_formset()
-        form.fields['question_type'].queryset = question_type.objects.exclude(
-            Q(pk=1) | Q(pk=10) | Q(pk=11))
+        form.fields['question_type'].queryset = question_type.objects.all()
     return render(request, 'add_question/main.html', {"form": form, "option_formset": option_formset})
 
 
