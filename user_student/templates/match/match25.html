@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'match_styles.css' %}">
 </head>
+{% if empty %}
 <script>
-    var col1 = ["Summer", "Hot", "Night", "Fast", "Short"];
-    var col2 = ["Slow", "Long", "Winter", "Cold", "Day"];
+    var col1 ={{ colq|safe }};
+    var col2 ={{ cola|safe }};
+    var answers = {{final_options|safe}};
 </script>
 
 <div class="nav">
@@ -107,28 +109,25 @@
                 <td><input type="number" id="r5" name="r5" min="1" max="6" oninput="this.style.borderColor ='black'">
                 </td>
             </tr>
-
+           
         </table>
         <br>
         <button class="button" onclick="check()">Submit</button>
         <h1 id="demo"></h1>
-
-
     </center>
 </body>
 
-
 <script>
     function check() {
-
-        var ans = [4, 5, 1, 2, 3];
-
+        var ans = {{final_options|safe}};
         myfun.res(ans);
     }
 
 </script>
-<script src="{% static 'logic.js' %}"></script>
+<script src="{% static 'logic1.js' %}"></script>
 
+{% else %}
 
-
+<h1>No questions to show!</h1>
+{% endif %}
 </html>

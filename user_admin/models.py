@@ -212,20 +212,16 @@ class program_module(models.Model):
         self.module_name = self.module_name.lower()
         return super(program_module, self).save(*args, **kwargs)
 
-
 class module_level(models.Model):
     level_id = models.AutoField(primary_key=True)
     module = models.ForeignKey(program_module, on_delete=models.CASCADE)
     level_description = models.CharField(
         max_length=100, null=False, blank=False)
-
     def __str__(self):
         return self.level_description
-
     def save(self, *args, **kwargs):
         self.level_description = self.level_description.lower()
         return super(module_level, self).save(*args, **kwargs)
-
 
 class question_type(models.Model):
     question_type_id = models.AutoField(primary_key=True)
@@ -239,7 +235,6 @@ class question_type(models.Model):
         self.question_type = self.question_type.lower()
         return super(question_type, self).save(*args, **kwargs)
 
-
 class question_content(models.Model):
     question_content_id = models.AutoField(primary_key=True)
     content = models.FileField(upload_to='question_content')
@@ -247,13 +242,14 @@ class question_content(models.Model):
     def __str__(self):
         return str(self.content)
 
-
 class question(models.Model):
     question_id = models.AutoField(primary_key=True)
     question_type = models.ForeignKey(
         question_type, on_delete=models.CASCADE, blank=False, null=False)
     level = models.ForeignKey(
         module_level, on_delete=models.CASCADE, null=False, blank=False)
+    question_content = models.ForeignKey(
+        question_content, on_delete=models.DO_NOTHING, null=True, blank=True)
     question = models.CharField(
         max_length=200, null=False, blank=False)
     narrative = models.CharField(max_length=100, null=True, blank=True)
@@ -263,8 +259,7 @@ class question(models.Model):
     updated_date = models.DateField(auto_now=True)
     created_by = models.CharField(max_length=100, null=True, blank=True)
     updated_by = models.CharField(max_length=100, null=True, blank=True)
-    question_content = models.ForeignKey(
-        question_content, on_delete=models.DO_NOTHING, null=True, blank=True)
+    
 
     @property
     def program(self):
