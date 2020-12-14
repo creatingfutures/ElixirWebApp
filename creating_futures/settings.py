@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'creating_futures.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'Databases/db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'Databases/db_QA.sqlite3'),
     }
 }
 
