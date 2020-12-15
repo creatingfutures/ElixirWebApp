@@ -13,9 +13,13 @@ from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level,question_option, question, student_module_level, student_batch,question_content,question_type
 # from user_admin.models import image_question,images_question, av_question,av_sub_question
+from user_student.models import score,student_status
 import random
 import os
 import json
+import datetime
+
+
 
 def login(request):
     batches = batch.objects.all()
@@ -92,33 +96,85 @@ def word_find(request,pk,pk1,pk2,m,l):
    
     return render(request,"wordsearch/wordfind%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
 
-def match(request,pk,pk1,pk2,m,l):
-    QandA = question_option.objects.all()
-    IDB = [] 
-    QUEST = []
-    ANS = []
+def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlinks which contains questions related to specifi narratives
     level = module_level.objects.get(pk=l)
     module = program_module.objects.get(pk=m)
+    Qj = question.objects.filter(level=level,question_type_id=question_type_id) # making sure we are queryting match the following quetions
+    narratives = [] # all narratives related to match the following
+    distinct_narratives = [] # removed repeating narratives
+    for i in Qj:
+        narratives.append(i.narrative)
+    for i in narratives:
+        if i not in distinct_narratives:
+            distinct_narratives.append(i)
+    return render(request,"all_hyperlinks.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'d':distinct_narratives})
+
+def score_save(request,pk,pk1,pk2,m,l,typ):
+    date_time = datetime.datetime.now() # get present time
+    if(typ==1):
+        print(int(request.POST['user_score']))
+        if(int(request.POST['user_score'])==0):
+            print('try again')
+            total_score = 1
+            user_score = 0
+        else:
+            total_score = 1
+            user_score = 1
+        if request.method == 'POST':
+            level_id = module_level.objects.get(level_id = request.POST['level_id'])
+            batch_id = batch.objects.get(batch_id = request.POST['batch_id'])
+            module_id = program_module.objects.get(module_id =request.POST['module_id'])
+            student_id = student.objects.get(student_id = request.POST['student_id'])
+            assessment_type = request.POST['assessment_type']
+            student_query = score.objects.get(student_id=student_id,assesment_type=assessment_type)
+            if(student_query):
+                student_query.user_score = user_score
+                student_query.date_time = datetime.datetime.now()
+                student_query.save()
+            else:
+                obj = score.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = user_score,total_score = total_score,date_time = date_time)
+                obj.save()   
+        return render(request,"score_card.html",{'score':request.POST['user_score'],"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l})
+    
+
+
+
+def match(request,pk,pk1,pk2,m,l,narrative):
+    QandA = question_option.objects.all() # Querying all the questions
+    QUEST = [] # list to store the required questions
+    ANS = [] # list to store the respective answers
+    level = module_level.objects.get(pk=l) 
+    module = program_module.objects.get(pk=m)
+    count = 0 # initiated count to make sure we prepare only 5 questios for Match the following
+    ID = []
+    NM = []  
     for i in QandA:
-        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==1)):
-            IDB.append(i.question_id)
+        ID.append(i.question.question_type.question_type_id)
+        NM.append(i.question.question_type.question_type)
+        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==1 and i.question.narrative == narrative)and count<5):
+            typ = i.question.question_type.question_type_id
             QUEST.append(i.question.question) 
             ANS.append(i.option_description)
-    options = random.sample(range(0,len(QUEST)),len(QUEST))
-    rans = []
-    final_options = []
+            count = count + 1
+    
+    options = random.sample(range(0,len(QUEST)),len(QUEST)) # randomising options
+    print(ID,NM)
+    rans = [] # randomising answers
+    final_options = [] # correct answers after randomising
     for i in range(0,len(QUEST)):
         rans.append(ANS[options[i]])
     for i in range(0,len(QUEST)):
         for j in range(0,len(QUEST)):
             if(ANS[i]==rans[j]):
                 final_options.append(j+1)
-    if(len(QUEST)!=0):
+    if(len(QUEST)==5):
         acc = True
     else:
         acc = False
-    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'cola':rans,'colq':QUEST,'final_options':final_options,'empty':acc})
+    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,"typ":typ,'cola':rans,'colq':QUEST,'final_options':final_options,'empty':acc,'narrative':narrative})
     #"match/match%s.html" %l
+
+
 def crossword(request, pk, pk1, pk2, m, l):
     
     module = program_module.objects.get(pk=m)
@@ -188,8 +244,7 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questions1 = []
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
-    print("QUERUBOI", questions1)
-    
+    #print("QUERUBOI", questions1)
     i = int(request.GET.get('id'))
     c = (request.GET.get('correct'))
     s = int(request.GET.get('score'))

@@ -45,12 +45,12 @@
 
     <center>
 
-
+        <div id="container">
         <table>
             <tr>
                 <th>No</th>
-                <th>Column A</th>
-                <th>Column B</th>
+                <th>questions</th>
+                <th>options</th>
                 <th>Match</th>
 
             </tr>
@@ -112,22 +112,54 @@
            
         </table>
         <br>
-        <button class="button" onclick="check()">Submit</button>
+        
+            <button id="submit" class="button">Submit</button>
+    </div>
         <h1 id="demo"></h1>
     </center>
 </body>
 
 <script>
+    var g = 0;
     function check() {
         var ans = {{final_options|safe}};
-        myfun.res(ans);
+        var c = myfun.res(ans);
+        g = c;
+        console.log(c)
+        return g;
     }
 
 </script>
 <script src="{% static 'logic1.js' %}"></script>
+<div id="container"></div>
 
 {% else %}
 
-<h1>No questions to show!</h1>
+<h1>make sure you have atleast 5 questions in this narrative!</h1>
 {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+    $("#submit").click(function(){
+    var score = check();
+    var token = "{{csrf_token}}";
+    $.ajax({ // initialize an AJAX request
+        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}},
+        type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        headers:{"X-CSRFToken":token},
+        data: {
+        user_score: score,
+        level_id: {{l.pk}},
+        batch_id: {{pk1}},
+        module_id: {{m.pk}},
+        student_id: {{pk}},
+        assessment_type:"{{narrative}}",
+        },
+        success: function(data) {
+      $("#container").html(data) // `data` is the return of the `load_cities` view function
+        }
+      });
+    });
+    </script>
 </html>
