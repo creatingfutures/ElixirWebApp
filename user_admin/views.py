@@ -32,18 +32,18 @@ def student_export(request):
     response = HttpResponse(content_type='text/csv')
 
     writer = csv.writer(response)
-    writer.writerow(['student_id', 'first_name', 'middle_name', 'last_name',
-                     'mobile_number', 'email', 'gender', 'dob', 'address', 'status'])
+    writer.writerow( 'student_id', 'first_name', 'middle_name', 'last_name',
+                     'mobile_number', 'email', 'gender', 'dob', 'address', 'status' )
 
     for i in student.objects.all().values_list('student_id', 'first_name', 'middle_name', 'last_name', 'mobile_number', 'email_id', 'gender', 'dob', 'address_1', 'status'):
         j = list(i)
-        id = j[len(j)-1]
+        id = len(j)-1 
         status = entity_status.objects.get(pk=id)
         j.pop(len(j)-1)
         j.append(status.description)
         writer.writerow(j)
 
-    response['Content-Disposition'] = 'attachment;filename="stuents.csv"'
+    response 'Content-Disposition'  = 'attachment;filename="stuents.csv"'
     return response
 
 
@@ -51,12 +51,12 @@ def questions_export(request):
     response = HttpResponse(content_type='text/csv')
 
     writer = csv.writer(response)
-    writer.writerow(['question_id', 'question', 'narrative',
-                     'question_type', 'program', 'module', 'level', 'options', 'answer'])
+    writer.writerow( 'question_id', 'question', 'narrative',
+                     'question_type', 'program', 'module', 'level', 'options', 'answer' )
 
     for i in question.objects.all().values_list('question_id', 'question', 'narrative', 'question_type'):
         i = list(i)
-        q = question.objects.get(pk=i[0])
+        q = question.objects.get(pk=i 0 )
         i.append(q.program)
         i.append(q.module)
         i.append(q.level)
@@ -67,7 +67,7 @@ def questions_export(request):
         i.append(q.answer)
         writer.writerow(i)
 
-    response['Content-Disposition'] = 'attachment;filename="questions.csv"'
+    response 'Content-Disposition'  = 'attachment;filename="questions.csv"'
 
     return response
 
@@ -119,7 +119,7 @@ def home(request):
         for j in modules:
             if j.program_id == i.program_id:
                 module_count += 1
-        module_count_dict[i] = module_count
+        module_count_dict i  = module_count
 
     a = {"p": programs1,
          "pmc": module_count_dict, "p1": programs, "f": facilitator1, "m": modules1}
@@ -154,7 +154,7 @@ def load_modules_home(request):
 def load_fac_home(request):
     fac_id = request.GET.get('facilitator_id')
     facs = facilitator.objects.all()
-    fac_list = []
+    fac_list =   
     for i in facs:
         if fac_id.lower() in i.first_name:
             fac_list.append(i)
@@ -306,8 +306,8 @@ def delete_level(request, pk):
 def view_module(request, pk, pk1):
     program1 = get_object_or_404(program, pk=pk)
     module1 = get_object_or_404(program_module, pk=pk1)
-    questions1 = [q for q in question.objects.all() if q.module ==
-                  module1 or q.level == None]
+    questions1 =  q for q in question.objects.all() if q.module ==
+                  module1 or q.level == None 
     # questions1 = question.objects.filter(module=module1, level_id=None)
     levels = module_level.objects.filter(module=module1)
     if len(levels) == 0:
@@ -374,7 +374,7 @@ def view_center(request, pk):
 
 def view_questions(request, pk):
     question1 = get_object_or_404(question, pk=pk)
-    if question1.question_type.pk in [7, 8, 9]:
+    if question1.question_type.pk in  7, 8, 9 :
         question1.sub_questions = question.objects.filter(
             question_content=question1.question_content)
 
@@ -407,7 +407,7 @@ def students(request):
 def student_search(request):
     student_id = request.GET.get('student_id')
     stud = student.objects.all()
-    stud1 = []
+    stud1 =   
     for i in stud:
         if student_id in i.first_name:
             stud1.append(i)
@@ -474,7 +474,7 @@ def batches(request):
 def batch_search(request):
     batch_id = request.GET.get('batch_id')
     bat = batch.objects.all()
-    bat1 = []
+    bat1 =   
     for i in bat:
         if batch_id.lower() in i.batch_name:
             bat1.append(i)
@@ -507,32 +507,32 @@ def add_question(request):
         option_formset.data = option_formset.data.copy()
         form.data = form.data.copy()
 
-        if request.POST['question_type'] in ['2', '4']:
-            option_formset.data['form-0-is_right_option'] = True
+        if request.POST 'question_type'  in  '2', '4' :
+            option_formset.data 'form-0-is_right_option'  = True
 
-        if request.POST['question_type'] == '5':
+        if request.POST 'question_type'  == '5':
             if 'question_image' in request.FILES:
                 form.instance.question_content = question_content(
-                    content=request.FILES['question_image'])
+                    content=request.FILES 'question_image' )
 
-        if request.POST['question_type'] == '6':
+        if request.POST 'question_type'  == '6':
             option_formset.option_contents = {}
             for i in range(len(option_formset)):
                 if f'form-{i}-option_description_file' in request.FILES:
                     option_content = question_content(
-                        content=request.FILES[f'form-{i}-option_description_file'])
-                    option_formset.option_contents[i] = option_content
-                    option_formset.data[f'form-{i}-option_description'] = i
+                        content=request.FILES f'form-{i}-option_description_file' )
+                    option_formset.option_contents i  = option_content
+                    option_formset.data f'form-{i}-option_description'  = i
 
-        if request.POST['question_type'] in ['7', '8', '9']:
-            if request.POST['question_content_id'] != '':
-                pk = int(request.POST['question_content_id'])
+        if request.POST 'question_type'  in  '7', '8', '9' :
+            if request.POST 'question_content_id'  != '':
+                pk = int(request.POST 'question_content_id' )
                 if len(question_content.objects.filter(pk=pk)):
                     form.instance.question_content = question_content.objects.get(
                         pk=pk)
             elif 'question_content' in request.FILES:
                 form.instance.question_content = question_content(
-                    content=request.FILES['question_content'])
+                    content=request.FILES 'question_content' )
 
         # validation and sending back errors
         if not (form.is_valid() and option_formset.is_valid()):
@@ -542,13 +542,13 @@ def add_question(request):
             option_errors = str(option_formset.non_form_errors())
 
             if len(question_errors) > 0:
-                error_field = str(list(question_errors.keys())[0])
-                error = str(question_errors[error_field][0]).strip("[]'")
+                error_field = str(list(question_errors.keys()) 0 )
+                error = str(question_errors error_field  0 ).strip("  '")
                 error_field = error_field.replace('_', ' ')
-                data['message'] = f'{error_field.capitalize()}: {error}'
+                data 'message'  = f'{error_field.capitalize()}: {error}'
 
             elif len(option_errors) > 0:
-                data['message'] = option_errors
+                data 'message'  = option_errors
 
             return JsonResponse(data)
 
@@ -556,14 +556,14 @@ def add_question(request):
         else:
             data = {'ok': True}
 
-            if request.POST['question_type'] == '6':
+            if request.POST 'question_type'  == '6':
                 for i in range(len(option_formset)):
-                    option_formset.option_contents[i].save()
-                    option_formset[i].instance.option_description = str(
-                        option_formset.option_contents[i])
+                    option_formset.option_contents i .save()
+                    option_formset i .instance.option_description = str(
+                        option_formset.option_contents i )
 
-            if request.POST['question_type'] in ['5', '7', '8', '9']:
-                form.cleaned_data['question_content'].save()
+            if request.POST 'question_type'  in  '5', '7', '8', '9' :
+                form.cleaned_data 'question_content' .save()
 
             question = form.save()
 
@@ -577,14 +577,14 @@ def add_question(request):
     else:
         form = add_question_form()
         option_formset = add_option_formset()
-        form.fields['question_type'].queryset = question_type.objects.exclude(
+        form.fields 'question_type' .queryset = question_type.objects.exclude(
             Q(pk=1) | Q(pk=10) | Q(pk=11))
     return render(request, 'add_question/main.html', {"form": form, "option_formset": option_formset})
 
 
 @login_required
 def question_type_form(request):
-    form_question_type = request.GET['question_type']
+    form_question_type = request.GET 'question_type' 
 
     template = f"add_question/sub_form/{form_question_type}.html"
     try:
@@ -593,8 +593,8 @@ def question_type_form(request):
         return HttpResponse("")
 
     form_data = {}
-    form_data["form"] = add_question_form()
-    form_data["option_formset"] = add_option_formset()
+    form_data "form"  = add_question_form()
+    form_data "option_formset"  = add_option_formset()
 
     return render(request, template, form_data)
 
@@ -609,37 +609,37 @@ def edit_question(request, pk):
         option_formset = add_option_formset(request.POST)
         option_formset.data = option_formset.data.copy()
         form.data = form.data.copy()
-        # form.data['level'] = a.level.pk
-        # form.data['module'] = a.module.pk
-        # form.data['program'] = a.program.pk
-        form.data['question_type'] = form_question_type
+        # form.data 'level'  = a.level.pk
+        # form.data 'module'  = a.module.pk
+        # form.data 'program'  = a.program.pk
+        form.data 'question_type'  = form_question_type
 
-        if form_question_type in [2, 4]:
-            option_formset.data['form-0-is_right_option'] = True
+        if form_question_type in  2, 4 :
+            option_formset.data 'form-0-is_right_option'  = True
 
         if form_question_type == 5:
             if 'question_image' in request.FILES:
                 form.instance.question_content = question_content(
-                    content=request.FILES['question_image'])
+                    content=request.FILES 'question_image' )
 
         if form_question_type == 6:
             option_formset.option_contents = {}
             for i in range(len(option_formset)):
                 if f'form-{i}-option_description_file' in request.FILES:
                     option_content = question_content(
-                        content=request.FILES[f'form-{i}-option_description_file'])
+                        content=request.FILES f'form-{i}-option_description_file' )
                 else:
                     option_content = question_content.objects.get(
-                        content=str(a.options[i]))
-                option_formset.option_contents[i] = option_content
-                option_formset.data[f'form-{i}-option_description'] = i
+                        content=str(a.options i ))
+                option_formset.option_contents i  = option_content
+                option_formset.data f'form-{i}-option_description'  = i
 
-        if form_question_type in [7, 8, 9]:
+        if form_question_type in  7, 8, 9 :
             sub_questions = question.objects.filter(
                 question_content=a.question_content)
             if 'question_content' in request.FILES:
                 form.instance.question_content = question_content(
-                    content=request.FILES['question_content'])
+                    content=request.FILES 'question_content' )
 
         if not (form.is_valid() and option_formset.is_valid()):
             data = {'ok': False, 'message': ''}
@@ -648,31 +648,31 @@ def edit_question(request, pk):
             option_errors = str(option_formset.non_form_errors())
 
             if len(question_errors) > 0:
-                error_field = str(list(question_errors.keys())[0])
-                error = str(question_errors[error_field][0]).strip("[]'")
+                error_field = str(list(question_errors.keys()) 0 )
+                error = str(question_errors error_field  0 ).strip("  '")
                 error_field = error_field.replace('_', ' ')
-                data['message'] = f'{error_field.capitalize()}: {error}'
+                data 'message'  = f'{error_field.capitalize()}: {error}'
 
             elif len(option_errors) > 0:
-                data['message'] = option_errors
+                data 'message'  = option_errors
 
             return JsonResponse(data)
         else:
             data = {'ok': True}
             if form_question_type == 5:
-                form.cleaned_data['question_content'].save()
+                form.cleaned_data 'question_content' .save()
 
             elif form_question_type == 6:
                 for i in range(len(option_formset)):
-                    option_formset.option_contents[i].save()
-                    option_formset[i].instance.option_description = str(
-                        option_formset.option_contents[i])
+                    option_formset.option_contents i .save()
+                    option_formset i .instance.option_description = str(
+                        option_formset.option_contents i )
 
-            elif form_question_type in [7, 8, 9]:
-                form.cleaned_data['question_content'].save()
+            elif form_question_type in  7, 8, 9 :
+                form.cleaned_data 'question_content' .save()
                 for sub_question in sub_questions:
-                    sub_question.level = form.cleaned_data['level']
-                    sub_question.question_content = form.cleaned_data['question_content']
+                    sub_question.level = form.cleaned_data 'level' 
+                    sub_question.question_content = form.cleaned_data 'question_content' 
                     sub_question.save()
 
             form_question = form.save()
