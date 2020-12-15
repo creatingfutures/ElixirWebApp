@@ -130,7 +130,7 @@
     }
 
 </script>
-<script src="{% static 'logic2.js' %}"></script>
+<script src="{% static 'logic1.js' %}"></script>
 <div id="container"></div>
 
 {% else %}
@@ -143,12 +143,9 @@
 <script>
     $("#submit").click(function(){
     var score = check();
-    console.log('hi frends');
-    console.log(score)  ;
-    console.log('hi frends1',{{m.pk}});
     var token = "{{csrf_token}}";
     $.ajax({ // initialize an AJAX request
-        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save',
+        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}},
         type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
         headers:{"X-CSRFToken":token},
         data: {

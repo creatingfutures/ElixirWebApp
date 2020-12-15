@@ -195,8 +195,6 @@ text-decoration: underline;
   <script>
 
     // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
-    var done = 0;
-
 
 $("#submit").click(function() {
   $.ajax({ // initialize an AJAX request
@@ -209,11 +207,11 @@ $("#submit").click(function() {
     },
     success: function(data) {
       $("#container").html(data) // `data` is the return of the `load_cities` view function
-//      request1();
     }
   });
 
     });
+
 
   </script>
 
