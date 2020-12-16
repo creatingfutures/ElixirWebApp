@@ -13,7 +13,7 @@ from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level,question_option, question, student_module_level, student_batch,question_content,question_type
 # from user_admin.models import image_question,images_question, av_question,av_sub_question
-from user_student.models import score,student_status
+from user_student.models import scores,student_status
 import random
 import os
 import json
@@ -109,34 +109,47 @@ def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlink
             distinct_narratives.append(i)
     return render(request,"all_hyperlinks.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'d':distinct_narratives})
 
-def score_save(request,pk,pk1,pk2,m,l,typ):
+def score_save(request,pk,pk1,pk2,m,l,typ,score):
+    level_id = module_level.objects.get(level_id = l)
+    batch_id = batch.objects.get(batch_id = pk1)
+    module_id = program_module.objects.get(module_id = m)
+    student_id = student.objects.get(student_id = pk)
     date_time = datetime.datetime.now() # get present time
+    assessment_type = ''
+    if(typ == 2): #GA
+        try:
+            student_query = scores.objects.get(student_id=pk,assesment_type='GA')
+        except scores.DoesNotExist:
+            student_query = None
+        if(student_query==None):
+            assessment_type = 'GA'
+            obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = 20,date_time = date_time)
+            obj.save()
+        else:
+            student_query.user_score = score
+            student_query.date_time = datetime.datetime.now()
+            student_query.save()
     if(typ==1):
-        print(int(request.POST['user_score']))
         if(int(request.POST['user_score'])==0):
-            print('try again')
             total_score = 1
             user_score = 0
         else:
             total_score = 1
             user_score = 1
         if request.method == 'POST':
-            level_id = module_level.objects.get(level_id = request.POST['level_id'])
-            batch_id = batch.objects.get(batch_id = request.POST['batch_id'])
-            module_id = program_module.objects.get(module_id =request.POST['module_id'])
-            student_id = student.objects.get(student_id = request.POST['student_id'])
             assessment_type = request.POST['assessment_type']
-            student_query = score.objects.get(student_id=student_id,assesment_type=assessment_type)
-            if(student_query):
-                student_query.user_score = user_score
-                student_query.date_time = datetime.datetime.now()
-                student_query.save()
+            try:
+                student_query = scores.objects.get(student_id=pk,assesment_type=assessment_type)
+            except scores.DoesNotExist:
+                student_query = None
+            if(student_query==None):
+                obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
+                obj.save()
             else:
-                obj = score.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = user_score,total_score = total_score,date_time = date_time)
-                obj.save()   
-        return render(request,"score_card.html",{'score':request.POST['user_score'],"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l})
-    
-
+                student_query.user_score = score
+                student_query.date_time = datetime.datetime.now()
+                student_query.save()   
+        return render(request,"score_card.html",{'score':request.POST['user_score'],"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'assessment_type':assessment_type})
 
 
 def match(request,pk,pk1,pk2,m,l,narrative):
@@ -145,20 +158,11 @@ def match(request,pk,pk1,pk2,m,l,narrative):
     ANS = [] # list to store the respective answers
     level = module_level.objects.get(pk=l) 
     module = program_module.objects.get(pk=m)
-    count = 0 # initiated count to make sure we prepare only 5 questios for Match the following
-    ID = []
-    NM = []  
     for i in QandA:
-        ID.append(i.question.question_type.question_type_id)
-        NM.append(i.question.question_type.question_type)
-        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==1 and i.question.narrative == narrative)and count<5):
-            typ = i.question.question_type.question_type_id
+        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==1 and i.question.narrative == narrative)):
             QUEST.append(i.question.question) 
             ANS.append(i.option_description)
-            count = count + 1
-    
     options = random.sample(range(0,len(QUEST)),len(QUEST)) # randomising options
-    print(ID,NM)
     rans = [] # randomising answers
     final_options = [] # correct answers after randomising
     for i in range(0,len(QUEST)):
@@ -167,11 +171,13 @@ def match(request,pk,pk1,pk2,m,l,narrative):
         for j in range(0,len(QUEST)):
             if(ANS[i]==rans[j]):
                 final_options.append(j+1)
-    if(len(QUEST)==5):
+    if(len(QUEST)>=1):
         acc = True
     else:
         acc = False
-    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,"typ":typ,'cola':rans,'colq':QUEST,'final_options':final_options,'empty':acc,'narrative':narrative})
+    typ = 1
+    two_cols = dict(zip(QUEST,rans))
+    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,"typ":typ,'cola':rans,'colq':QUEST,'two_cols':two_cols,'final_options':final_options,'empty':acc,'narrative':narrative})
     #"match/match%s.html" %l
 
 
@@ -256,6 +262,10 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     # print("fg")
     #print(questions1[i].question_type)
     if i == len(questions1):
+        print('saved',20)
+        score = 20
+        typ = 2
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score)
         return render(request, "test_submit.html",
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
 

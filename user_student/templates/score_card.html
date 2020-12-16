@@ -1,7 +1,8 @@
+{%load static %}
 <html>
+    <link rel="stylesheet" href="{% static 'css/score_card.css' %}">
     <div id="container">
-<h1>
-    score is {{score}} 
-</h1>
-<div>
+            <h1>score is {{score}} </h1>
+            <button id="submit" class="button"><a href="{% url 'match' pk pk1 pk2 m l assessment_type %}">try again</a></button>
+        </div>
 </html>
