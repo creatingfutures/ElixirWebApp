@@ -33,7 +33,7 @@ class student_status(models.Model):
         return ''+self.student_id.first_name+'__'+self.program_id.program_name+'__'+self.module_id.module_name+'__'+self.level_id.level_description
 
 
-class score(models.Model):
+class scores(models.Model):
     user_score    = models.IntegerField(null=False) # for particular test 
     student_id = models.ForeignKey(student, on_delete=models.CASCADE,null=True, blank=True) 
     batch_id      = models.ForeignKey(batch, on_delete=models.CASCADE,null=True, blank=True)

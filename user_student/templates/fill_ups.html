@@ -39,6 +39,7 @@ var done=0;
       var question = $("#ques").html();
       var option = $("#ans").val();
       var answer = "{{request.session.questions|index5:i}}"
+      console.log(answer)
       option=option.toString().toLowerCase();
       answer = answer.toString().toLowerCase();
       // alert(answer);
