@@ -30,7 +30,7 @@ myfun = {
         }
         var res1;
         if (count == len) {
-            res1 = "Correct Ansr!"
+            res1 = "Correct Answer!"
             document.getElementById("demo").innerHTML = '<font style="color:black">' + res1  + '</font>';
             score = 1;
             return score;
@@ -38,7 +38,7 @@ myfun = {
 
         }
         else {
-            res1 = "Wrong Anr!";
+            res1 = "Wrong Answer!";
             document.getElementById("demo").innerHTML = '<font style="color:red">' + res1 + '</font>';
             score = 0;
             return score;
