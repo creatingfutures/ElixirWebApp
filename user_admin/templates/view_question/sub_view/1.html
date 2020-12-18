@@ -1,0 +1,23 @@
+{% extends 'view_question/main.html' %} {% block sub_view %}
+<p>
+  <label>Narrative:</label>
+  {{f.narrative}}
+</p>
+<p>
+  <label>Question: </label>
+  {{f.question}}
+</p>
+
+<p>
+  <label>Answer:</label>
+  {{f.answer}}
+</p>
+<p>
+  <label>Comments:</label>
+  {{f.comments}}
+</p>
+<p>
+  <label>Hint:</label>
+  {{f.hint}}
+</p>
+{% endblock sub_view %}

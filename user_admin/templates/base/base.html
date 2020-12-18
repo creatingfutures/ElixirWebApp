@@ -4,6 +4,24 @@
 <html lang="en">
   <head>
     <style>
+    {% comment %} .pagination li a:hover{
+        background-color: orange !important;
+      }
+   .active > a,
+   .active > span {
+    &,
+    &:hover,
+    &:focus {
+      z-index: 3;
+      color: @pagination-active-color;
+      cursor: default;
+      background-color: orange !important;
+      border-color: orange !important;
+    }
+  }
+    .pagination li active {
+        color: orange !important;
+      } {% endcomment %}
       body {
         background: lightgrey;
         font-family: Montserrat;
@@ -14,7 +32,8 @@
         background-color: orange;
         height: 100px;
       }
-
+      
+ 
       table,
       th,
       td {
@@ -264,5 +283,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
   </body>
 </html>

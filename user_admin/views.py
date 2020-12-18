@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.contrib.auth import views as auth_views
-from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .models import program, program_module, facilitator, center, student
@@ -174,13 +174,14 @@ def questions_import(request):
                             new_question.save()
 
                             #save options
-                            if _question_type.pk in [2, 3, 4, 9]: 
-                                if questions_item[8] != '' :
+                            #10 Cross Words, 11 Word Search, 4 Unscramble,3 Riddles,2 Fill in the blanks, 1 Match the following
+                            if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11]: 
+                                if questions_item[12] != '' :
                                     new_options = question_option(question = new_question, 
                                     option_description= questions_item[12],
                                     is_right_option =1)
                                     new_options.save()
-
+                            # 12 Multiple Choice questions
                             if _question_type.pk in [12]: 
                                 #save options #1
                                 if questions_item[8] != '' :
