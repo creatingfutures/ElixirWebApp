@@ -181,6 +181,7 @@ def questions_import(request):
                                     option_description= questions_item[12],
                                     is_right_option =1)
                                     new_options.save()
+                                    
                             # 12 Multiple Choice questions
                             if _question_type.pk in [12]: 
                                 #save options #1
@@ -667,7 +668,7 @@ def add_question(request):
         option_formset.data = option_formset.data.copy()
         form.data = form.data.copy()
 
-        if request.POST['question_type'] in ['2', '4']:
+        if request.POST['question_type'] in ['1', '2', '4']:
             option_formset.data['form-0-is_right_option'] = True
 
         if request.POST['question_type'] == '5':
@@ -773,7 +774,7 @@ def edit_question(request, pk):
         # form.data['program'] = a.program.pk
         form.data['question_type'] = form_question_type
 
-        if form_question_type in [2, 4]:
+        if form_question_type in [1, 2, 4]:
             option_formset.data['form-0-is_right_option'] = True
 
         if form_question_type == 5:
