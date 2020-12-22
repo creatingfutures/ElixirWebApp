@@ -96,7 +96,7 @@ def word_find(request,pk,pk1,pk2,m,l):
    
     return render(request,"wordsearch/wordfind%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
 
-def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlinks which contains questions related to specifi narratives
+def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlinks which contains questions related to specify narratives
     level = module_level.objects.get(pk=l)
     module = program_module.objects.get(pk=m)
     Qj = question.objects.filter(level=level,question_type_id=question_type_id) # making sure we are queryting match the following quetions
@@ -109,21 +109,23 @@ def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlink
             distinct_narratives.append(i)
     return render(request,"all_hyperlinks.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'d':distinct_narratives})
 
-def score_save(request,pk,pk1,pk2,m,l,typ,score):
+def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     level_id = module_level.objects.get(level_id = l)
     batch_id = batch.objects.get(batch_id = pk1)
     module_id = program_module.objects.get(module_id = m)
     student_id = student.objects.get(student_id = pk)
     date_time = datetime.datetime.now() # get present time
     assessment_type = ''
+    pass_status = True
+    total_score = total_score
     if(typ == 2): #GA
         try:
-            student_query = scores.objects.get(student_id=pk,assesment_type='GA')
+            student_query = scores.objects.get(student_id=pk,assesment_type='GA',level_id=level_id)
         except scores.DoesNotExist:
             student_query = None
         if(student_query==None):
             assessment_type = 'GA'
-            obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = 20,date_time = date_time)
+            obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
             obj.save()
         else:
             student_query.user_score = score
@@ -133,23 +135,27 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score):
         if(int(request.POST['user_score'])==0):
             total_score = 1
             user_score = 0
+            pass_status = False
         else:
             total_score = 1
+            pass_status = True
             user_score = 1
         if request.method == 'POST':
             assessment_type = request.POST['assessment_type']
             try:
-                student_query = scores.objects.get(student_id=pk,assesment_type=assessment_type)
+                student_query = scores.objects.get(student_id=pk,assesment_type=assessment_type,level_id=level_id)
             except scores.DoesNotExist:
                 student_query = None
             if(student_query==None):
                 obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
                 obj.save()
             else:
+                student_query.level_id = level_id
                 student_query.user_score = score
                 student_query.date_time = datetime.datetime.now()
                 student_query.save()   
-        return render(request,"score_card.html",{'score':request.POST['user_score'],"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'assessment_type':assessment_type})
+        
+        return render(request,"score_card.html",{'score':request.POST['user_score'],"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'assessment_type':assessment_type,'pass_status':pass_status})
 
 
 def match(request,pk,pk1,pk2,m,l,narrative):
@@ -163,6 +169,7 @@ def match(request,pk,pk1,pk2,m,l,narrative):
             QUEST.append(i.question.question) 
             ANS.append(i.option_description)
     options = random.sample(range(0,len(QUEST)),len(QUEST)) # randomising options
+    print(QUEST,ANS)
     rans = [] # randomising answers
     final_options = [] # correct answers after randomising
     for i in range(0,len(QUEST)):
@@ -171,13 +178,9 @@ def match(request,pk,pk1,pk2,m,l,narrative):
         for j in range(0,len(QUEST)):
             if(ANS[i]==rans[j]):
                 final_options.append(j+1)
-    if(len(QUEST)>=1):
-        acc = True
-    else:
-        acc = False
     typ = 1
     two_cols = dict(zip(QUEST,rans))
-    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,"typ":typ,'cola':rans,'colq':QUEST,'two_cols':two_cols,'final_options':final_options,'empty':acc,'narrative':narrative})
+    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,"typ":typ,'cola':rans,'colq':QUEST,'two_cols':two_cols,'final_options':final_options,'narrative':narrative})
     #"match/match%s.html" %l
 
 
@@ -230,14 +233,10 @@ def trimQuestions(ques):
     return ques
 
 def standard_test(request, pk, pk1, pk2, pk3, pk4):
-    questions1= sorted(question.objects.filter(level_id=pk4).order_by('-pk'),
-                        key=lambda x: random.random())[:20]
+    questions1= sorted(question.objects.filter(level_id=pk4,question_type_id__in=[2,12,3,4,5,6]).order_by('-pk'),key=lambda x: random.random())[:20]
     result = list(map(trimQuestions,questions1))
-
-    print(result, len(result))
     data = serializers.serialize('json', result)
-    print(data)
-    request.session['questions'] = data;
+    request.session['questions'] = data
     module1 = program_module.objects.get(pk=pk3)
     level1 = module_level.objects.get(pk=pk4)
     i = -1
@@ -250,7 +249,6 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questions1 = []
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
-    #print("QUERUBOI", questions1)
     i = int(request.GET.get('id'))
     c = (request.GET.get('correct'))
     s = int(request.GET.get('score'))
@@ -259,13 +257,11 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     elif c == "False":
         s = s+0
     i += 1
-    # print("fg")
-    #print(questions1[i].question_type)
     if i == len(questions1):
-        print('saved',20)
-        score = 20
+        score = s
         typ = 2
-        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score)
+        total_score = 20
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_score)
         return render(request, "test_submit.html",
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
 

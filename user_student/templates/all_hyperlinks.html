@@ -2,7 +2,30 @@
 {% load student_tag %}
 <html>
     <head>
+      <style>
+        ul.breadcrumb li+li:before {
+padding: 18px;
+color: red;
+content: '-';
 
+}
+        .button{
+ font-family: 'Montserrat';
+ background-color: orange;
+ border: none;
+ color: black;
+ padding: 12px 22px;
+ text-align: center;
+ text-decoration: none;
+ display: inline-block;
+ font-size: 14px;
+ margin: 4px 2px;
+ cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+   outline: none;
+ }
+
+      </style>
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="course.css">
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -23,30 +46,23 @@
             </div>
           </div>
           <ul class="breadcrumb">
-            
             <li><a href="#" >MODULES</a></li>
           </ul>
-        <table>
-    <th>
-        <h3>Narrative</h3>
-    </th>
-    <th>
-        <h3>Test</h3>
-    </th>
-    
-    {% for i in d  %} 
-    <tr>
-        <td>{{i}}</td>
-        <td> <button id="submit" class="button"><a href="{% url 'match' pk pk1 pk2 m.pk l.pk i %}">Test</a></button></td>
-    </tr>
-    {% endfor %}
-    
-   
- 
+      <ul class="breadcrumb">
+        <li>Match the following</li>
+      </ul>
+
+<table  cellpadding= "1" >
+    {% for i in d  %}   
+  <tr>
+  <td  style="padding-left: 7%;">  {{i}} </td>
+    <td  style="padding-left: 7%;">
+    <ul class="breadcrumb" style="padding:0px 10px;">
+      <li><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'match' pk pk1 pk2 m.pk l.pk i %}'">Start Test</button></li>
+    </ul>
+  </td>
+  </tr>
+      {% endfor %}
 </table>
 
-
     </html>
-
-
-    

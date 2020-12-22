@@ -3,6 +3,7 @@ myfun = {
     res: function (ans) {
         var er = 0;
         var len = ans.length;
+        console.log(len);
         var num = [];
         for (i = 1, j = 0; i <= len; i++, j++) {
             if (document.getElementById("r" + i).value == "") {
