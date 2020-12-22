@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'match_styles.css' %}">
 </head>
-{% if empty %}
 <script>
     var col1 ={{ colq|safe }};
     var col2 ={{ cola|safe }};
+    var length = col1.length;
     var answers = {{final_options|safe}};
+    var total_score = 1;
 </script>
 
 <div class="nav">
@@ -32,7 +33,7 @@
 </div>
 <ul class="breadcrumb">
     <li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
-    <li><a href="#">QUESTIONS</a></li>
+    <li><a href="#">Match The Following</a></li>
  </ul>
  <h1 style="text-align:center">EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}</h1>
 
@@ -48,28 +49,31 @@
         <div id="container">
         <table>
             <tr>
-                <th>questions</th>
-                <th>options</th>
+                <th>No</th>
+                <th>Questions</th>
+                <th>Options</th>
                 <th>Match</th>
 
             </tr>
             {% for i,j in two_cols.items %}
             <tr>
                 <td>
+                {{forloop.counter}}
+                </td>
+                <td>
                     <script type="text/javascript">document.write("{{i}}")</script>
                 </td>
                 <td>
                     <script type="text/javascript">document.write("{{j}}")</script>
                 </td>
-                <td><input type="number" id="r{{forloop.counter}}" name="r{{forloop.counter}}" min="1" max="6" oninput="this.style.borderColor ='black'"></td>
+                <td><input type="number" id="r{{forloop.counter}}" name="r{{forloop.counter}}" min="1" max="5" oninput="this.style.borderColor ='black'"></td>
             </tr>
             {% endfor %}
-          
-           
         </table>
 
         <br>
             <button id="submit" class="button">Submit</button>
+            <button id="submit" class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 1 %}'">Back</button></li>
             <h1 id="demo"></h1>
         </div>
     </center>
@@ -79,6 +83,7 @@
     var g = 0;
     function check() {
         var ans = {{final_options|safe}};
+        console.log(ans.length);
         var c = myfun.res(ans);
         g = c;
         console.log(c)
@@ -90,10 +95,6 @@
 <script src="{% static 'js/logic1.js' %}"></script>
 
 
-{% else %}
-
-<h1>make sure you have atleast 5 questions in this narrative!</h1>
-{% endif %}
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
@@ -102,7 +103,7 @@
     var score = check();
     var token = "{{csrf_token}}";
     $.ajax({ // initialize an AJAX request
-        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score,
+        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
         type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
         headers:{"X-CSRFToken":token},
         data: {
