@@ -90,11 +90,17 @@ def level_view(request, pk, pk1, pk2, pk3, pk4):
     level = module_level.objects.get(level_id=pk4)
     return render(request, "level_view.html", {"question_types": question_types, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, 'pk4': pk4, "l": level})
 
-def word_find(request,pk,pk1,pk2,m,l):
+def word_find(request,pk,pk1,pk2,m,l,narrative):
+    QandA = question_option.objects.all() # Querying all the questions
+    QUEST = [] # list to store the required questions
+    ANS = [] # list to store the respective answers
+    level = module_level.objects.get(pk=l) 
     module = program_module.objects.get(pk=m)
-    level = module_level.objects.get(pk=l)
-   
-    return render(request,"wordsearch/wordfind%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+    for i in QandA:
+        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==11 and i.question.narrative == narrative)): 
+            ANS.append(i.option_description)    
+    return render(request,"wordsearch/wordfind25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'ans':ANS,'typ':11,'narrative':narrative})
+
 
 def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlinks which contains questions related to specify narratives
     level = module_level.objects.get(pk=l)
@@ -107,7 +113,8 @@ def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlink
     for i in narratives:
         if i not in distinct_narratives:
             distinct_narratives.append(i)
-    return render(request,"all_hyperlinks.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'d':distinct_narratives})
+    name = question_type.objects.get(question_type_id=question_type_id)
+    return render(request,"all_hyperlinks.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'d':distinct_narratives,'name':name})
 
 def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     level_id = module_level.objects.get(level_id = l)
@@ -131,31 +138,33 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
             student_query.user_score = score
             student_query.date_time = datetime.datetime.now()
             student_query.save()
-    if(typ==1):
-        if(int(request.POST['user_score'])==0):
-            total_score = 1
-            user_score = 0
+    if request.method == 'POST':
+        if int(request.POST.get('user_score',False))>0:
+            pass_status = True
+        else:
             pass_status = False
+    if(typ==1):
+        if(pass_status):
+            total_score = 1
+            user_score = 1
         else:
             total_score = 1
-            pass_status = True
-            user_score = 1
-        if request.method == 'POST':
-            assessment_type = request.POST['assessment_type']
-            try:
-                student_query = scores.objects.get(student_id=pk,assesment_type=assessment_type,level_id=level_id)
-            except scores.DoesNotExist:
-                student_query = None
-            if(student_query==None):
-                obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
-                obj.save()
-            else:
-                student_query.level_id = level_id
-                student_query.user_score = score
-                student_query.date_time = datetime.datetime.now()
-                student_query.save()   
-        
-        return render(request,"score_card.html",{'score':request.POST['user_score'],"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'assessment_type':assessment_type,'pass_status':pass_status})
+            user_score = 0
+    if(typ==11 or typ==1):
+        assessment_type = request.POST.get('assessment_type',False)
+        try:
+            student_query = scores.objects.get(student_id=pk,assesment_type=assessment_type,level_id=level_id)
+        except scores.DoesNotExist:
+            student_query = None
+        if(student_query==None):
+            obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
+            obj.save()
+        else:
+            student_query.level_id = level_id
+            student_query.user_score = score
+            student_query.date_time = datetime.datetime.now()
+            student_query.save()   
+    return render(request,"score_card.html",{'score':request.POST.get('user_score',False),"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'assessment_type':assessment_type,'pass_status':pass_status,'typ':typ})
 
 
 def match(request,pk,pk1,pk2,m,l,narrative):
@@ -348,10 +357,7 @@ def ajax_image_test(request, pk, pk1, pk2, pk3, pk4):
 
 
 def av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
-
-
-    questions1 = question.objects.filter(level_id=pk4).filter(question_type_id=pk5).order_by('-question_content_id')
-              
+    questions1 = question.objects.filter(level_id=pk4).filter(question_type_id=pk5).order_by('-question_content_id')              
     print(questions1, len(questions1))
     data = serializers.serialize('json', questions1)
     #print(data)
@@ -359,8 +365,7 @@ def av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
     module = program_module.objects.get(pk=pk3)
     level = module_level.objects.get(pk=pk4)
     i = 0
-    return render(request, "av_test.html",
-                  {"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
+    return render(request, "av_test.html",{"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
 
 
 def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
@@ -405,6 +410,8 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
         print(i)
         return render(request, "text.html",
                       {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
+
+
 def test_submit(request, pk, pk1, pk2, pk3, pk4):
     student1 = student.objects.get(pk=pk)
     program1 = program.objects.get(pk=pk2)

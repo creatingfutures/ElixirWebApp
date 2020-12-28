@@ -11,7 +11,24 @@
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="exercise.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
+  .button {
+    font-family: 'Montserrat';
+    background-color: orange;
+    border: none;
+    color: black;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 38px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
   ul.breadcrumb {
 padding: 10px 16px;
 list-style: none;
@@ -60,22 +77,57 @@ text-decoration: underline;
 		
 	  </ul>
 	 
-<!-- partial:index.partial.html -->
-<div class="puzzleWrap">
-  <p>EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} Word Search </p>
- 
-  <div id='puzzle'></div>
-  <div id='words'>
-    <button id='solve'>Solve Puzzle</button>
+    <center>
+  <div class="puzzleWrap">
+    
+    <p>EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </p>
+    <p>Word Search</p>
+    <div id="container">
+    <div id='puzzle'></div>
+    <div id='words'>
+      <!--<button id='solve'>Solve Puzzle</button>-->
+    </div>
+    <button id='s' class="button">Submit</button>
+    <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'">Back</button>
   </div>
-  
-</div>
-<!-- partial -->
+</div>  
+</center>
+
 <script>
-var words = ['ball','gift','bear','doll'];
+var words = {{ans|safe}};
+var score_arr = [];
+  function score_reciever(s){
+    score_arr.push(s);
+    console.log(score_arr);
+  }
+    </script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+<script  src="{% static 'js/wordfind1.js' %}"></script>
+
+<script>
+   $("#s").click(function(){
+    if (score_arr.length == 0) {alert("Please fill all the answers");return;}
+    var total_score = words.length;
+    var score = score_arr.length;
+    var token = "{{csrf_token}}";
+    $.ajax({ // initialize an AJAX request
+        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
+        type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        headers:{"X-CSRFToken":token},
+        data: {
+        user_score: score,
+        level_id: {{l.pk}},
+        batch_id: {{pk1}},
+        module_id: {{m.pk}},
+        student_id: {{pk}},
+        assessment_type:"{{narrative}}",
+        },
+        success: function(data) {
+      $("#container").html(data) // `data` is the return of the `load_cities` view function
+        }
+      });
+    });
 </script>
-
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script><script  src="{% static 'wordfind.js' %}"></script>
-
 </body>
 </html>

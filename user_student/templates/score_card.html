@@ -2,7 +2,7 @@
 <html>
 <head>
     <style>
-        .container1 {
+    .container1 {
     z-index: 1;
     width: 200px;
     position: relative;
@@ -16,29 +16,57 @@
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   } 
-
-    </style>
+</style>
+    <link rel="stylesheet" href="{% static 'match_styles.css' %}">
 </head>
-    <script>
+
+<script>
         var result = {{score}};
+        var remove = {{typ}};
         var status = 'Status : FAIL';
-        if (result == 0){
-            document.getElementById("result").innerHTML =  status ;
-        };
-        if(result==1){
+        console.log(remove,"{{pass_status}}");
+        pass_status="{{pass_status}}"
+        if(remove == 11){
+            document.getElementsByClassName('container1')[0].style.display = 'none';
+        }
+        if(remove==1){
+            document.getElementsByClassName('container1')[1].style.display = 'none';
+        }
+        if(pass_status=='True'){
             var status = 'Status : PASS';
-            document.getElementById("result").innerHTML =  status ;
-        };
+            document.getElementById("result1").innerHTML =  status ;
+            document.getElementById("result2").innerHTML =  status ;
+        }
+        else{
+            document.getElementById("result1").innerHTML =  status ;
+            document.getElementById("result2").innerHTML =  status ;
+        }
+        
+       
     </script>
+
     <div class="container1">
             <h1>Score : {{score}} </h1>
-            <h1 id='result'></h1>
+            <h1 id='result1'></h1>
                 {% if pass_status %}
-                <button id="submit" class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m l 1 %}'">Next Level</button></li>
+                <button id="submit" class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m l typ %}'">Next Level</button></li>
                 <br><br>
                 <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>
                 {% else %}
                 <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>    
             {% endif %}
     </div>
-</html>
+    <div class="container1">
+        <h1>Score : {{score}} </h1>
+        <h1 id='result2'></h1>
+            {% if pass_status %}
+            <button id="submit" class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m l typ %}'">Next Level</button></li>
+            <br><br>
+            <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>
+            {% else %}
+            <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>    
+        {% endif %}
+</div>
+
+
+    </html>
