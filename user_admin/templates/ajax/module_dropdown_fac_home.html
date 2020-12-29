@@ -1,8 +1,9 @@
-  {% load user_tags %}
 
+{% load user_tags %}
 {% if n %}
-
-<table align="center" style="width:97%;font-family: Montserrat">
+<div class="row">
+  <div class="col-md-12">
+<table class="table" align="center" style="width:78%;font-family: Montserrat">
 <tr>
 <th>FIRST NAME</th>
 <th>MOBILE NUMBER</th>
@@ -10,14 +11,16 @@
 </tr>
 {% for m1 in m %}
 <tr>
-<td>{{m1}}</td>
+<td >{{m1}}</td>
 <td>{{m1.mobile_number}}</td>
 
-<td><a href="{% url 'edit_facilitator' m1.facilitator_id %}">Edit</a> | <a href="{% url 'view_facilitator' m1.facilitator_id %}">Edit</a></td>
+<td><a href="{% url 'edit_facilitator' m1.facilitator_id %}" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> &nbsp; &nbsp; <a href="{% url 'view_facilitator' m1.facilitator_id %}" data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a></td>
 {% endfor %}
 </tr>
 
 </table>
+</div>
+</div>
 <br><br>
 <br>
 
@@ -39,7 +42,7 @@
     <tr>
       <td>{{s1}}</td>
       <td>{{s1.mobile_number}}</td>
-      <td><u><a href="{% url 'view_facilitator' s1.facilitator_id %}">Edit</a></u> | <a href="{% url 'view_facilitator' s1.facilitator_id %}">View</a> </td>
+      <td><u><a href="{% url 'view_facilitator' s1.facilitator_id %}"data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionview"></span></a></u> &nbsp; &nbsp <a href="{% url 'view_facilitator' s1.facilitator_id %}"data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span> </td>
     </tr>
       {% endfor %}
   </table>

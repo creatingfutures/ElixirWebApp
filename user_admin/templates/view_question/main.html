@@ -1,7 +1,8 @@
+{% extends 'base/base.html' %} {% block content %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -18,49 +19,10 @@
   </head>
 
   <body>
-    <div id="top">
-      <br />
-      <center>
-        <img src="{% static 'elixir_logo.PNG' %}" width="60" height="60" />
-      </center>
-    </div>
 
-    <ul>
-      <li><a href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
-      <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
-      <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
-      <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
-      <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
-      <li><a href="#reports">REPORTS</a></li>
-      <li style="float: right"><a href="#about">FAQs</a></li>
-      <li style="float: right">
-        <a href="{% url 'admin_logout' %}">Logout</a>
-      </li>
-      <li style="float: right"><a href="{% url 'home' %}">HOME</a></li>
-    </ul>
-    <br /><br />
-
-    <div class="row">
-      <div class="col-md-8">
-        {% if messages %} {% for message in messages %}
-
-        <div
-          class=""
-          style="
-            background-color: rgb(50, 221, 110);
-            padding: 20px;
-            margin: 20px;
-          "
-          role="alert"
-        >
-          {{message}}
-        </div>
-
-        {% endfor %} {% endif %}
-      </div>
-    </div>
 
     <div id="box">
+      
       <p>
         <label>Program Name :</label>
         {{f.program}}
@@ -92,9 +54,7 @@
         </button>
       </div>
 
-      <script>
-        back = () => window.history.back();
-      </script>
     </div>
   </body>
 </html>
+{% endblock content %}

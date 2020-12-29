@@ -3,219 +3,6 @@
 {% load user_tags %}
 <html lang="en">
   <head>
-    <style>
-    {% comment %} .pagination li a:hover{
-        background-color: orange !important;
-      }
-   .active > a,
-   .active > span {
-    &,
-    &:hover,
-    &:focus {
-      z-index: 3;
-      color: @pagination-active-color;
-      cursor: default;
-      background-color: orange !important;
-      border-color: orange !important;
-    }
-  }
-    .pagination li active {
-        color: orange !important;
-      } {% endcomment %}
-      body {
-        background: lightgrey;
-        font-family: Montserrat;
-        font-size: 12px;
-      }
-      #top {
-        top: 0;
-        background-color: orange;
-        height: 100px;
-      }
-      
- 
-      table,
-      th,
-      td {
-        border: 1px solid #696969;
-        border-collapse: collapse;
-        text-align: center;
-        background-color: #c4c4c4;
-        font-size: 12px;
-      }
-      th,
-      td {
-        padding: 15px;
-      }
-      th {
-        background-color: #ffffff;
-      }
-
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: rgb(255, 197, 138);
-        font-family: "Montserrat";
-        font-size: 12px;
-      }
-
-      ul.nav2 {
-        background: transparent;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        font-family: "Montserrat";
-        font-size: 12px;
-      }
-
-      li {
-        float: left;
-      }
-
-      li a {
-        display: block;
-        color: black;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
-
-      li a:hover {
-        background-color: rgb(255, 165, 74);
-      }
-
-      .search {
-        width: 100%;
-        position: relative;
-        display: flex;
-      }
-
-      .searchTerm {
-        width: 25%;
-        border: 1px;
-        border-right: none;
-        padding: 10px;
-        height: 30px;
-        border-radius: 40px 0 0 40px;
-        outline: none;
-        color: #000000;
-        font-family: Montserrat;
-        font-size: 12px;
-      }
-
-      .searchTerm:focus {
-        color: #696969;
-        font-family: Montserrat;
-        font-size: 12px;
-      }
-
-      .searchButton {
-        width: 40px;
-        height: 30px;
-        border: 0px;
-        background: #ffffff;
-        text-align: center;
-        color: #696969;
-        border-radius: 0 40px 40px 0;
-        cursor: pointer;
-        font-size: 20px;
-        font-family: Montserrat;
-      }
-
-      label {
-        font-family: "Montserrat";
-        text-align: center;
-        font-weight: 100;
-        display: inline-block;
-        width: 100px;
-        font-size: 14px;
-      }
-
-      p.welcome {
-        font-family: "Montserrat";
-        font-weight: 100;
-        font-size: 12px;
-        position: absolute;
-        bottom: 640;
-        right: 1390;
-        color: white;
-      }
-
-      .button1 {
-        font-family: "Montserrat";
-        font-weight: 100;
-        font-size: 12px;
-        position: absolute;
-        bottom: 652;
-        right: 20;
-        background-color: Transparent;
-        background-repeat: no-repeat;
-        border: none;
-        cursor: pointer;
-        overflow: hidden;
-        outline: none;
-        text-decoration: underline;
-        color: white;
-      }
-
-      a.active {
-        background-color: rgb(255, 165, 74);
-      }
-
-      #top {
-        top: 0;
-        background-color: orange;
-        height: 100px;
-      }
-
-      #box {
-        width: 350px;
-        height: 350px;
-        background: transparent;
-        margin: auto;
-        position: absolute;
-        margin-top: 0%;
-        left: 0;
-        right: 0;
-        font-family: "Montserrat";
-      }
-
-      .button {
-        display: inline-block;
-        font-family: "Montserrat";
-        background-color: orange;
-        border: none;
-        color: black;
-        padding: 12px 22px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 14px;
-        margin: 4px 2px;
-        cursor: pointer;
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-        outline: none;
-      }
-
-      #container {
-        text-align: center;
-      }
-
-      #box label {
-        left: 0;
-        position: absolute;
-        width: 50%;
-        text-align: left;
-      }
-
-      #box p {
-        text-align: left;
-        margin-left: 50%;
-      }
-    </style>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -225,6 +12,7 @@
       href="https://fonts.googleapis.com/css?family=Montserrat"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/static/css/custom_style.css">
     <title>Elixir</title>
   </head>
   <body>
@@ -283,6 +71,76 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
+<script>
+    $("#module").change(function () {
+      //var url = $("#form1").attr("data-modules-url");
+
+      var programId = $(this).val();
+      console.log(programId) // get the selected country ID from the HTML input
+
+      $.ajax({ // initialize an AJAX request
+        url: '/ajax/load_modules_home/',
+        type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          program_id: programId, // add the country id to the GET parameters
+        },
+        success: function (data) { // `data` is the return of the `load_cities` view function
+          $("#modulesDone").html(data);
+          $("#modulesnotdone").remove();
+          // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+
+    $("#facilitator1").click(function () {
+        //var url = $("#form1").attr("data-modules-url");
+
+        var facId = $('#facilitator').val();
+        console.log(facId) // get the selected country ID from the HTML input
+
+        $.ajax({ // initialize an AJAX request
+          url: '/ajax/load_fac_home/',
+          type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            facilitator_id: facId, // add the country id to the GET parameters
+          },
+          success: function (data) { // `data` is the return of the `load_cities` view function
+            $("#facdone").html(data);
+            $("#facnotdone")
+              .remove(); // replace the contents of the city input with the data that came from the server
+          }
+        });
+
+      });
+
+
+$("#batch1").click(function () {
+        //var url = $("#form1").attr("data-modules-url");
+
+        var facId = $("#batch").val();
+        console.log(facId); // get the selected country ID from the HTML input
+
+        $.ajax({
+          // initialize an AJAX request
+          url: "/ajax/batch_search/",
+          type: "GET", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            batch_id: facId, // add the country id to the GET parameters
+          },
+          success: function (data) {
+            // `data` is the return of the `load_cities` view function
+            $("#bat_done").html(data); // replace the contents of the city input with the data that came from the server
+          },
+        });
+      });
+
+
+      back = () => window.history.back();
+</script>
   </body>
 </html>
