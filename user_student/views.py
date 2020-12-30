@@ -18,7 +18,7 @@ import random
 import os
 import json
 import datetime
-
+from .crossword_puzzle import Crossword
 
 
 def login(request):
@@ -99,7 +99,7 @@ def word_find(request,pk,pk1,pk2,m,l,narrative):
     for i in QandA:
         if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==11 and i.question.narrative == narrative)): 
             ANS.append(i.option_description)    
-    return render(request,"wordsearch/wordfind25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'ans':ANS,'typ':11,'narrative':narrative})
+    return render(request,"wordsearch/wordfind.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'ans':ANS,'typ':11,'narrative':narrative})
 
 
 def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlinks which contains questions related to specify narratives
@@ -197,24 +197,7 @@ def crossword(request, pk, pk1, pk2, m, l):
     
     module = program_module.objects.get(pk=m)
     level = module_level.objects.get(pk=l)
-    
-    # try:
-    #     a = "crossword/"+module.module_name+"/"+str(level.level_number)
-    #     b = "user_student/templates/crossword/" + \
-    #         module.module_name+"/"+str(level.level_number)
-    #     c = os.getcwd()
-    #     b = c+"/"+b
-    #     length = len([name for name in os.listdir(b)])
-    #     rand = random.randrange(1, length)
-    #     a = a+"/crossword"+str(rand)+".html"
-    #     print(a)
-    #     return render(request, a, {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
-    # except:
-    #     messages.success(request, f'No Crossword for the level yet')
-    #     return redirect('module_view', pk, pk1, pk2, pk3)
-    
-    
-    return render(request,"crossword/crossword%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
     
 def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = "help"
