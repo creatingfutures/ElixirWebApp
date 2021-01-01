@@ -167,63 +167,71 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     
     <button class="collapsible"><b>{{i.module_name|allcaps}} </b></button>
     <div class="content">
-    {% for j in lev %}
+    {% for j in lev.level %}
     
    
 
-  <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
+  <button class="collapsible1"><h4>{{j.level_description|allcaps}}
+  <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
   
+    
+    
     
      
     <div class="content1">
   
    
-    <table class="myTable" style="width:100%">
+   
+    {% for k in q_t %}
+    {% if k.level_id  == j.level_id %}
+    {% for questionTypeItem in k.questiontypes %}
+        <table class="myTable" style="width:100%">
+            <tr>
+                <td style="width:80%; padding-left:35px">
+                <a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">
+                 {% if questionTypeItem == 'Multiple Choice' %}
+                    <span>General Assesment</span>
+                {% else %}
+                    <span>{{questionTypeItem}}</span>
+                {% endif %}
+                </a> </td>
+                <td style="width:20%"><b style="color:red;">X </b> </td>
+            </tr>
+        </table>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    
+    {% comment %} <table class="myTable" style="width:100%">
       <tr>
         <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
         <td><b style="color:red;margin-left: 1180px;">X </b> </td>
-      
        </tr>
-    
        <tr>
-
-
-
-        
         <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 1 %}">Match the following</a> </td>
          <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
-      
        </tr>
-         <tr>
+      <tr>
        <td><a href="{% url 'word_find' pk pk1 pk2 i.pk j.pk%}">Word Search</a> </td>
          <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
-    
        </tr>
         <tr>
        <td><a href="{% url 'crossword' pk pk1 pk2 i.pk j.pk %}">Crossword</a> </td>
          <td><b style="color:red; margin-left: 1180px;">X </b> </td>
-      
        </tr>
-       
         <tr > 
           <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 7 %}">Audio</a> </td>
             <td><b style="color:red;margin-left: 1180px;">X </b> </td>
-         
           </tr>
           <tr>
             <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 8 %}">Video</a> </td>
               <td><b style="color:red;margin-left: 1180px;">X </b> </td>
-           
           </tr>
           <tr>
             <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
               <td><b style="color:red;margin-left: 1180px;">X </b> </td>
-           
           </tr>
-            
-       </table>
-    
- 
+       </table> {% endcomment %}
      
     </div> 
   
@@ -249,20 +257,23 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
           } else {
             content1.style.maxHeight = content1.scrollHeight + 1000 + "px";
           }
-   });
+        });
       }
       
-    /* var coll=document.getElementsByClassName("collapsible");
-      coll[1].addEventListener("click", function() {
+    var coll=document.getElementsByClassName("collapsible1");
+      for (i = 0; i < coll.length; i++) {
+
+        coll[i].addEventListener("click", function() {
           this.classList.toggle("active");
-          var content = this.nextElementSibling;
-          if (content.style.maxHeight){
-            content.style.maxHeight = null;
+         var content1 = this.nextElementSibling;
+          if (content1.style.maxHeight){
+            content1.style.maxHeight = null;
           } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-          } 
+            content1.style.maxHeight = content1.scrollHeight + 1000 + "px";
+          }
         });
-      */
+      }
+      
       
       //var coll=document.getElementsByClassName("collapsible");
           
