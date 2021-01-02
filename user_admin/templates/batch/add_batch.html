@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block content %}
+
 <div id="box">
     <form method="POST" onsubmit="return check(this)">
 
@@ -53,6 +54,13 @@
         <br><br>
         <div id="container">
             <input type="submit" class="button" value="Submit">
+            <button
+            type="button"
+            class="button"
+            onclick="back()"
+          >
+            Cancel
+          </button>
         </div>
     </form>
 </div>

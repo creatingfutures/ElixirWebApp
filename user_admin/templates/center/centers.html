@@ -1,44 +1,65 @@
 {% extends 'base/base.html' %} {% block content %}
-<br />
-<table align="center" style="width: 80%; font-family: Montserrat">
-  <tr>
-    <th>CENTER NAME</th>
-    <th>CENTER TYPE</th>
-    <th>EMAIL ID</th>
-    <th>ACTION</th>
-  </tr>
-  {% for s1 in p %}
-  <tr>
-    <td>{{s1.center_name}}</td>
-    <td>{{s1.center_type}}</td>
-    <td>{{s1.email_id}}</td>
-    <td>
-      <a href="{% url 'view_center' s1.center_id %}">View</a> |
-      <a href="{% url 'edit_center' s1.center_id %}">Edit</a> {% if s1.batch_check %} {% else %} |
-      <a href="{% url 'delete_center' s1.center_id %}">Delete</a> {% endif %}
-    </td>
-  </tr>
-  {% endfor %}
-</table>
-<br /><br />
+{% load user_tags %}
+{% load static %}
+
+<div class="container">
+ 
+      <h2>Center</h2>
+
+<div class="row ">
+    <div class="col-sm-12 table-reponsive">
+  <table class="table text-center" align="center" style="width: 80%; font-family: Montserrat">
+    <tr>
+      <th>CENTER NAME</th>
+      <th>CENTER TYPE</th>
+      <th>EMAIL ID</th>
+      <th>ACTION</th>
+    </tr>
+    {% for s1 in p %}
+    <tr>
+      <td class="col-sm-3">{{s1.center_name}}</td>
+      <td class="col-sm-3">{{s1.center_type}}</td>
+      <td class="col-sm-3">{{s1.email_id}}</td>
+      <td class="col-sm-3"  >
+        <a href="{% url 'view_center' s1.center_id %}" data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a> &nbsp; &nbsp;
+        <a href="{% url 'edit_center' s1.center_id %}"data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> {% if s1.batch_check %} {% else %} &nbsp; &nbsp;
+        <a href="{% url 'delete_center' s1.center_id %}" data-toggle="tooltip" data-placement="bottom" title="Delete"><span class="glyphicon glyphicon-remove actionremove"></span></a> {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+</div>
+
+
+<div class="row">
+<div class="col-sm-12">
 <div class="pagination" style="width: 20%; position: absolute; left: 40%">
-  <ul style="position: absolute; left: 10%">
+  <ul class="pagination justify-content-center" style="position: absolute; left: 10%">
     {% if p.has_previous %}
-    <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+    <li class="page-item"><a href="?page={{p.previous_page_number}}">Previous</a></li>
     {% endif %} {% for pg in p.paginator.page_range %} {% if p.number == pg %}
-    <li class="active" style="background-color: orange; color: white">
+    <li class="page-item active" style="background-color: orange; color: white">
       <a href="?page={{pg}}">{{pg}}</a>
     </li>
     {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
     <li><a href="?page={{ pg }}">{{pg}}</a></li>
     {% endif %} {% endfor %} {% if p.has_next %}
-    <li><a href="?page={{p.next_page_number}}">Next</a></li>
+    <li><a class="page-item" href="?page={{p.next_page_number}}">Next</a></li>
     {% endif %}
   </ul>
 </div>
+</div>
+</div>
 <br />
-<div id="container">
-  <a style="margin-left: 150px" class="button" href="{% url 'add_center' %}">ADD CENTER</a>
+
+<div class="row">
+  <div class="col-sm-12">
+    <br><br><br><br>
+  <a style="margin-left: 112px" class="button" href="{% url 'add_center' %}">ADD CENTER</a>
+</div>
+</div>
 </div>
 
 {% endblock content %}
+

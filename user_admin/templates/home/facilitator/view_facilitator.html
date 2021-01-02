@@ -1,22 +1,5 @@
 {% extends '../../base/base.html' %}
 {% block content %}
-
-      <div class="row">
-        <div class="col-md-8">
-          {% if messages %}
-          {% for message in messages %}
-
-          <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
-
-            {{message}}
-          </div>
-
-          {% endfor %}
-          {% endif %}
-        </div>
-      </div>
-
-
 <div id="box">
 
   <p>
@@ -64,6 +47,13 @@
  <label>Image :</label>
 
   <img src="media/{{f.image}}" style="width:100%;height:auto" alt="No image"></p>
+  <button style="margin-left: 100px;"
+  type="button"
+  class="button"
+  onclick="back()"
+>
+  Go Back
+</button>
 
 
 <br><br>

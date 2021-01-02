@@ -1,6 +1,7 @@
 {% load user_tags %} {% if n %}
-
-<table align="center" style="width: 97%; font-family: Montserrat;">
+<div class="row">
+  <div class="col-md-12">
+<table class="table" align="center" style="width: 80%; font-family: Montserrat;">
   <tr>
     <th>MODULE NAME</th>
     <th>PROGRAM NAME</th>
@@ -10,24 +11,33 @@
   <tr>
     <td>{{m1}}</td>
     <td>{{m1.program}}</td>
-
     <td>
-      <a href="{% url 'view_module' m1.program_id m1.module_id %}">Edit</a>
+      <a href="{% url 'view_module' m1.program_id m1.module_id %}"  data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a>
     </td>
-    {% endfor %}
+    {% endfor %}  
   </tr>
 </table>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
 <br />
 <a style="margin-left: 21px;" class="button" href="{% url 'add_module' p.program_id  %}">ADD MODULE</a>
-
+</div>
+</div>
 {% else %}
-
+<div class="row">
+  <div class="col-md-12">
 <p style="margin-left: 21px; font-size: 20px;">
   Program does not have any modules yet
 </p>
 
 <br />
 <a style="margin-left: 21px;" class="button" href="{% url 'add_module' p.program_id  %}">ADD MODULE</a>
+</div>
+</div>
 
 {% endif %}
 

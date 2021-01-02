@@ -1,20 +1,23 @@
 {% extends 'base/base.html' %} {% block content %}
 
-<br />
-<div class="btn">
+
+  <div class="row">
+    <div class="form-group col-md-10 " style="margin-left: 10%;">
   <div class="search">
-    <input id="student" type="text" class="searchTerm" placeholder="STUDENT" />
-    <button id="student1" type="submit" class="searchButton">
+    <input id="student" type="text" class="searchTerm"style="height: 50px;" placeholder="STUDENT" />
+    <button id="student1" type="submit" class="searchButton" style="height: 50px;">
       <i class="fa fa-search"></i>
     </button>
   </div>
+</div>
+</div>
   <br />
-
-  <br />
-  <br />
+ 
   <div id="stud_done"></div>
   <br /><br />
-  <table align="center" style="width: 80%; font-family: Montserrat">
+  <div class="row">
+    <div class="col-md-12 table-responsive">
+  <table class="table"   align="center" style="width: 80%; font-family: Montserrat; ">
     <tr>
       <th>ID</th>
       <th>NAME</th>
@@ -25,37 +28,45 @@
     </tr>
     {% for s1 in p %}
     <tr>
-      <td>{{s1.pk}}</td>
-      <td>{{s1.first_name}} {{s1.last_name}}</td>
-      <td>{{s1.mobile_number}}</td>
-      <td>{{s1.email_id}}</td>
-      <td>{{s1.enroll_date}}</td>
-      <td>
-        <a href="{% url 'edit_student' s1.student_id %}">Edit</a> |
-        <a href="{% url 'delete_student' s1.student_id %}">Delete</a> |
-        <a href="{% url 'view_student' s1.student_id %}">View</a>
+      <td class="col-md-1">{{s1.pk}}</td>
+      <td class="col-md-2">{{s1.first_name}} {{s1.last_name}}</td>
+      <td class="col-md-2">{{s1.mobile_number}}</td>
+      <td class="col-md-2">{{s1.email_id}}</td>
+      <td class="col-md-2">{{s1.enroll_date}}</td>
+      <td class="col-md-2">
+        <a href="{% url 'view_student' s1.student_id %}"data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a>&nbsp; &nbsp;
+        <a href="{% url 'edit_student' s1.student_id %}" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> &nbsp; &nbsp;
+        <a href="{% url 'delete_student' s1.student_id %}"data-toggle="tooltip" data-placement="bottom" title="Delete"><span class="glyphicon glyphicon-remove actionremove"></span></a> 
+        
       </td>
     </tr>
     {% endfor %}
   </table>
-  <br />
+</div>
+</div>
+ 
+  <div class="row" style="margin-top: 15px;">
+    <div class="col-md-12">
   <div class="pagination" style="width: 20%; position: absolute; left: 40%">
-    <ul style="position: absolute; left: 10%">
+    <ul style="position: absolute; left: 10%" class="pagination justify-content-center">
       {% if p.has_previous %}
-      <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+      <li class="page-item"><a href="?page={{p.previous_page_number}}">Previous</a></li>
       {% endif %} {% for pg in p.paginator.page_range %} {% if p.number == pg %}
-      <li class="active" style="background-color: orange; color: white">
+      <li class="page-item  active" style="background-color: orange; color: white">
         <a href="?page={{pg}}">{{pg}}</a>
       </li>
       {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
-      <li><a href="?page={{ pg }}">{{pg}}</a></li>
+      <li ><a href="?page={{ pg }}">{{pg}}</a></li>
       {% endif %} {% endfor %} {% if p.has_next %}
-      <li><a href="?page={{p.next_page_number}}">Next</a></li>
+      <li><a class="page-item" href="?page={{p.next_page_number}}">Next</a></li>
       {% endif %}
     </ul>
   </div>
-
-  <br />
+</div>
+</div>
+<br> <br> <br>
+ <div class="row" style="margin-top: 15px;">
+   <div class="col-md-12" >
   <a style="margin-left: 150px" class="button" href="{% url 'add_student' %}"
     >ADD STUDENT</a
   >
@@ -65,7 +76,8 @@
     onClick="func()"
     class="button" >EXPORT STUDENTS</a
   >
-
+</div>
+</div>
   <script>
     function func() {
       alert("CSV File will Begin Downloading");
@@ -94,5 +106,6 @@
       });
     });
   </script>
-</div>
+
 {% endblock content %}
+
