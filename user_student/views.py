@@ -41,6 +41,7 @@ def s_home(request, pk, pk1):
     return render(request, 's_home.html', {"p1": programs, "pk": pk, "pk1": pk1, "s": stud})
 
 
+
 def spoken_english(request, pk, pk1, pk2):
     if pk2 == 3:
         modules = program_module.objects.filter(program_id=pk2)
@@ -54,18 +55,30 @@ def spoken_english(request, pk, pk1, pk2):
     else:
      
         modules = program_module.objects.filter(program_id=pk2)
-    
-        order = [4, 1, 0, 7, 3, 2, 6, 5]
-        modules = [modules[i] for i in order]
+        if pk2 == 3:
+            order = [4, 1, 0, 7, 3, 2, 6, 5]
+            modules = [modules[i] for i in order]
+            
         program1 = program.objects.get(pk=pk2)
-        levels=[]
+        levels= []
+        questiontypes = []
+        questiontypesList = []
         for i in modules:
-            levels.append(module_level.objects.filter(
-            module_id=i.module_id).order_by('level_description'))
-    
-            question_type1 = question_type.objects.all()
-    
-        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":question_type1})
+            questiontypes = []
+            level_Ids = module_level.objects.filter(module_id=i.module_id).order_by('level_id')
+            if len(level_Ids) > 0:
+                for level_Id in level_Ids:
+                    questiontypes = []
+                    questiontype_Ids = question.objects.filter(level_id=level_Id.level_id).order_by('question_type_id').distinct()
+                    if questiontype_Ids != None: 
+                        for questiontype in questiontype_Ids:
+                            questionType = question_type.objects.get(pk = questiontype.question_type_id)
+                            questiontypes.append(questionType.question_type)
+                       # questiontypesList = [questiontypesList[i] for i in [12,1,2]]
+                        questiontypesList.append({ 'level_id' :level_Id.level_id, 'questiontypes': set(dict.fromkeys(questiontypes)) })
+            levels.append({ 'level' :module_level.objects.filter(
+            module_id=i.module_id).order_by('level_description', 'level_id')})
+        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":questiontypesList})
 
           
 def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
