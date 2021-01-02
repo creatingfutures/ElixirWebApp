@@ -73,7 +73,7 @@
 
         <br>
             <button id="submit" class="button">Submit</button>
-            <button id="submit" class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 1 %}'">Back</button></li>
+            <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 1 %}'">Back</button></li>
             <h1 id="demo"></h1>
         </div>
     </center>
@@ -83,19 +83,14 @@
     var g = 0;
     function check() {
         var ans = {{final_options|safe}};
-        console.log(ans.length);
         var c = myfun.res(ans);
         g = c;
-        console.log(c)
         return g;
     }
 
 </script>
 
 <script src="{% static 'js/logic1.js' %}"></script>
-
-
-
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <script>

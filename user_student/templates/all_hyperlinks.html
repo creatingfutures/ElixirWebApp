@@ -48,21 +48,49 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
           <ul class="breadcrumb">
             <li><a href="#" >MODULES</a></li>
           </ul>
-      <ul class="breadcrumb">
-        <li>Match the following</li>
-      </ul>
 
+      <ul class="breadcrumb">
+        <li>{{name}}</li>
+      </ul>
 <table  cellpadding= "1" >
     {% for i in d  %}   
   <tr>
   <td  style="padding-left: 7%;">  {{i}} </td>
     <td  style="padding-left: 7%;">
     <ul class="breadcrumb" style="padding:0px 10px;">
-      <li><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'match' pk pk1 pk2 m.pk l.pk i %}'">Start Test</button></li>
+      <li class="Match the following"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'match' pk pk1 pk2 m.pk l.pk i %}'">Start Test</button></li>
     </ul>
+    <ul class="breadcrumb" style="padding:0px 10px;">
+      <li class="Word search"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'word_find' pk pk1 pk2 m.pk l.pk i %}'">Start Test</button></li>
+    </ul>
+
   </td>
   </tr>
       {% endfor %}
 </table>
+<script>
+var name = "{{name|safe}}";
+var len = {{d|safe}};
+var len = len.length;
+if(name=="Word search"){
+  console.log(name);
+  for (var i = 0;i<len;i++){
+    document.getElementsByClassName('Match the following')[i].style.display='none';
+  }
+}
+if(name=="Match the following"){
+  console.log(name);  
+  for (var i = 0;i<len;i++){
+    document.getElementsByClassName('Word search')[i].style.display='none';
+  }
+}
 
-    </html>
+else{
+  
+}
+
+
+</script>
+
+
+</html>

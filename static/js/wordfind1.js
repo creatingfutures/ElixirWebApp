@@ -5,11 +5,11 @@
 * For all details and documentation:
 *     https://github.com/bunkat/wordfind
 */
+var score = 0;
 
 (function () {
-
+  
   'use strict';
-
   /**
   * Generates a new word find (word search) puzzle provided a set of words.
   * Can automatically determine the smallest puzzle size in which all words
@@ -519,7 +519,7 @@
       var output = '<ul>';
       for (var i = 0, len = words.length; i < len; i++) {
         var word = words[i];
-        output += '<li class="word ' + word + '">' + word;
+        output += '<li class="ward ' + word + '">' + word;
       }
       output += '</ul>';
 
@@ -573,6 +573,9 @@
       // see if the user backed up and correct the selectedSquares state if
       // they did
       var backTo;
+
+
+
       for (var i = 0, len = selectedSquares.length; i < len; i++) {
         if (selectedSquares[i] == target) {
           backTo = i+1;
@@ -653,6 +656,7 @@
           $(square).addClass('selected');
           selectedSquares.push(square);
           curWord += $(square).text();
+          console.log('imp');
           break;
         }
       }
@@ -665,16 +669,16 @@
     *
     */
     var endTurn = function () {
-
       // see if we formed a valid word
       for (var i = 0, len = wordList.length; i < len; i++) {
-        
         if (wordList[i] === curWord) {
           $('.selected').addClass('found');
           wordList.splice(i,1);
           $('.' + curWord).addClass('wordFound');
+          score = score+1
+          console.log('endTurn_score',score);
+          score_reciever(score);
         }
-
         if (wordList.length === 0) {
           $('.puzzleSquare').addClass('complete');
         }
@@ -806,7 +810,7 @@ $(function () {
       fillBlanks: true
     });
   $('#solve').click( function() {
-    wordfindgame.solve(gamePuzzle, words);
+    wordfindgame.solve(gamePuzzle, words);  
   });
   // create just a puzzle, without filling in the blanks and print to console
   var puzzle = wordfind.newPuzzle(
@@ -814,4 +818,9 @@ $(function () {
     {height: 5, width:15, fillBlanks: true}
   );
   wordfind.print(puzzle);
+  res();
 });
+
+function res(){  
+  console.log('result',score);
+}
