@@ -1,144 +1,15 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
-
-
+{% block content %} 
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {
-        background-color: lightgrey;
-    }
-
-    #top {
-        top: 0;
-        background-color: orange;
-        height: 100px;
-    }
-
-    body {
-        background: lightgrey;
-        font-family: Montserrat;
-        font-size: 12px;
-    }
-
-    * {
-        transition: all 0.3s ease-in-out;
-    }
-
-
-    nav {
-        float: right;
-    }
-
-    .logo img {
-        float: left;
-        padding: 8px;
-    }
-
-    h1 {
-        font-family: "Montserrat";
-        font-weight: 100;
-
-    }
-
-    p,
-    ul.list,
-    h4,
-    h3 {
-        font-family: "Montserrat";
-        font-size: large;
-    }
-
-    table,
-    td,
-    th {
-        border: 3px solid black;
-        border-collapse: collapse;
-        color: black;
-        font-size: large;
-    }
-
-    th,
-    td {
-        padding: 20px;
-        background-color: none;
-    }
-
-
-    .nav {
-        background-color: orange;
-        height: 30%;
-        display: grid;
-        grid-template-rows: auto auto auto;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .navig {
-        grid-row: 2/3;
-        display: flex;
-        flex-wrap: nowrap;
-        background-color: white;
-        flex-direction: row;
-    }
-
-    .navv {
-        width: 80%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 10px;
-    }
-
-    ul.breadcrumb {
-        padding: 10px 16px;
-        list-style: none;
-        background-color: lightgray;
-    }
-
-    ul.breadcrumb li {
-        display: inline;
-        font-size: 18px;
-    }
-
-    ul.breadcrumb li+li:before {
-        padding: 8px;
-        color: black;
-        content: "/\00a0";
-    }
-
-    ul.breadcrumb li a {
-        color: darkblue;
-        text-decoration: none;
-    }
-
-    ul.breadcrumb li a:hover {
-        color: darkblue;
-        text-decoration: underline;
-    }
-</style>
-
-
 
 <body>
-    <div class="nav">
-        <div class="navig">
-            <div>
-                <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
-            </div>
-            <div class="navv">
-                <a href="" style="font-size:150%;margin:10px;"></a>
-                <a href="" style="font-size:150%;margin:10px;"></a>
-                <a href="" style="font-size:150%;margin:10px;"></a>
-                <a href="" style="font-size:150%;margin:10px;"></a>
-            </div>
-        </div>
-    </div>
     <ul class="breadcrumb">
         <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
         <li style="font-family: Montserrat;"><a href="#">LEVEL 3 LESSON</a></li>
@@ -147,75 +18,130 @@
 
 
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+        <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col" class="bg-white"><h2 class="fonth2">Words-Level 3 Lesson</h2></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>    </td>
+                </tr>
+                <tr>
+                    <td class="bg-white"> <h1 style="font-weight: bold !important;">Common Type of Words</h1></td>
+                  </tr>
+               
+                <tr>
+                <td > 
+                  <p>English has four major word classes:<br>nouns,verbs,adjectives and adverbs</p>
+                </td>
+              </tr>
+                  <tr>
+                    <td class="bg-white">
+                      <h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Noun: </b></h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>              
+                  <p>A noun is a person, place, thing, quality, or act.</p>
+                  <p>Examples: Raj, Bangalore, shoes, turtle, anger, sadness, town</p>
+                    </td>
+                  </tr>
+                    <tr>
+                      <td class="bg-white"> <h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Verb:</h4></b></td>
+                    </tr>
+                 <tr>
+                   <td> <p>Verbs are action that tell what the nouns do.</p>
+                    <p>Examples:
+                    <ul class="list">
+                        <li>Raj went to Bangalore</li>
+                        <li>Raj Laughed</li>
+                        <li>The Turtle walked slowly</li>
+                    </ul>
+                    </p></td>
+                 </tr>
+                 <tr><td class="bg-white">
+                  <h4 ><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Adjective: </b> </h4>
+                 </td></tr>
+                 <tr>
+                   <td>
+                    <p>An adjective describes a noun.</p>
+                    <p> Examples:
+                    <ul class="list">
+                        <li>bald, heavy, useful</li>
+                        <li>The Turtle is heavy</li>
+                    </ul>
+                    </p>
+                   </td>
+                 </tr>
+                  <tr>
+                    <td class="bg-white"><h4><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4. Adverb:</h4></b></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>An adverb describes a verb, adjective, or adverb. It often ends in 'ly'.</p>
+                      <p> Examples:
+                      <ul class='list'>
+                          <li>simply, patiently</li>
+                          <li>She drives carefully</li>
+                          <li>They lived happily</li>
+                          <li> The cricket team played badly last Saturday</li>
+                      </ul>
+                      </p> 
+                    </td>
+                  </tr>
+                         
+             
+            <tr>
+              <td class="bg-white">
+                <h1 style="font-weight: bold !important;"><b> Words-Level 3 Examples</b></h1>
+              </td>
+              <tr>
+                <td>
+                
+                </td>
+              </tr>
+            </tr>
+            </tbody>
+          </table>
+    </div>
+    </div>
+    <div class="col-sm-5 table-responsive">
+        <table class="table table-condensed" align="center" >
+                <tr class="bg-light">
+                    <th >nouns</th>
+                    <th>verbs</th>
+                    <th>adjective</th>
+                    <th>adverbs</th>
+                </tr>
+                <tr>
+                    <td>Ram</td>
+                    <td>Ran</td>
+                    <td>Friendly</td>
+                    <td>carefully</td>
+                </tr>
+                <tr>
+                    <td>India</td>
+                    <td>Grow</td>
+                    <td>Warm</td>
+                    <td>easily</td>
+                </tr>
+                <tr>
+                    <td>Car</td>
+                    <td>Fly</td>
+                    <td>Young</td>
+                    <td>sadly</td>
+                </tr>
+        
+            </table>
+        </div>
 
-
-
-    <h1>Words-Level 3 Lesson</h1>
-
-    <h3><b>Common Type of Words</b></h3>
-    <p>English has four major word classes:<br>nouns,verbs,adjectives and adverbs</p>
-    <h4>1. Noun:</h4>
-    <p>A noun is a person, place, thing, quality, or act.</p>
-    <p>Examples: Raj, Bangalore, shoes, turtle, anger, sadness, town</p>
-    <h4>2. Verb:</h4>
-    <p>Verbs are action that tell what the nouns do.</p>
-    <p>Examples:
-    <ul class="list">
-        <li>Raj went to Bangalore</li>
-        <li>Raj Laughed</li>
-        <li>The Turtle walked slowly</li>
-    </ul>
-    </p>
-    <h4>3. Adjective:</h4>
-    <p>An adjective describes a noun.</p>
-    <p> Examples:
-    <ul class="list">
-        <li>bald, heavy, useful</li>
-        <li>The Turtle is heavy</li>
-    </ul>
-    </p>
-    <h4>4. Adverb:</h4>
-    <p>An adverb describes a verb, adjective, or adverb. It often ends in 'ly'.</p>
-    <p> Examples:
-    <ul class='list'>
-        <li>simply, patiently</li>
-        <li>She drives carefully</li>
-        <li>They lived happily</li>
-        <li> The cricket team played badly last Saturday</li>
-    </ul>
-    </p>
-
-    <hr>
-
-    <h1>Words-Level 3 Examples</h1>
-    <table>
-        <tr>
-            <th>nouns</th>
-            <th>verbs</th>
-            <th>adjective</th>
-            <th>adverbs</th>
-        </tr>
-        <tr>
-            <td>Ram</td>
-            <td>Ran</td>
-            <td>Friendly</td>
-            <td>carefully</td>
-        </tr>
-        <tr>
-            <td>India</td>
-            <td>Grow</td>
-            <td>Warm</td>
-            <td>easily</td>
-        </tr>
-        <tr>
-            <td>Car</td>
-            <td>Fly</td>
-            <td>Young</td>
-            <td>sadly</td>
-        </tr>
-
-    </table>
-
+    </div>
 </body>
 
 </html>
+{% endblock content %} 
