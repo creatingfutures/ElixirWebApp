@@ -1,43 +1,14 @@
 {% load static %}
 {% load student_tag %}
 
-
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
-
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="exercise.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-<style>
-	ul.breadcrumb {
-  padding: 10px 16px;
-  list-style: none;
-  background-color:lightgray;
-}
-ul.breadcrumb li {
-  display: inline;
-  font-size: 18px;
-}
-ul.breadcrumb li+li:before {
-  padding: 8px;
-  color: black;
-  content: "/\00a0";
-}
-ul.breadcrumb li a {
-  color: darkblue;
-  text-decoration: none;
-}
-ul.breadcrumb li a:hover {
-  color: darkblue;
-  text-decoration: underline;
-}
-
-</style>     
+    <link rel="stylesheet" type="text/css" href="{% static 'css/crossword_styles.css' %}">     
 </head>
-
-
     <div class="nav">
       <div class="navig">
         <div>
@@ -53,105 +24,117 @@ ul.breadcrumb li a:hover {
 	</div>
 	<ul class="breadcrumb">
 		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
-		<li><a href="#">QUESTIONS</a></li>
-		
-		
+		<li><a href="#">Crossword</a></li>
 	  </ul>
 	 
-
-
 <h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
 
-<h2 style="text-align:center"> CrossWord </h2>
+<h2 style="text-align:center"> Crossword </h2>
 <br> <br>
 
-<script src="{% static 'commonjs.js' %}"></script>
+<script src="{% static 'js/commonjs.js' %}"></script>
 <script>
 
 //Globals
 //Adds the hint numbers
 
-
 function addHint(){
-	document.getElementById("txt_0_1").placeholder = "1";
-	document.getElementById("txt_0_3").placeholder = "2";
-	document.getElementById("txt_0_5").placeholder = "3";
-	document.getElementById("txt_1_8").placeholder = "4";
-	document.getElementById("txt_2_0").placeholder = "5";
-	document.getElementById("txt_3_3").placeholder = "6";
-    document.getElementById("txt_3_7").placeholder = "7";
-    document.getElementById("txt_4_1").placeholder = "8";
-    document.getElementById("txt_4_2").placeholder = "9";
-    document.getElementById("txt_5_4").placeholder = "10";
-    document.getElementById("txt_7_0").placeholder = "11";
+	var answer_start = {{answer_start|safe}}
+	placeholder = 0 
+	for(var i =0;i<answer_start.length;i++)
+	{
+		placeholder = placeholder+1
+		document.getElementById(answer_start[i]).placeholder = placeholder;
+	}
+	clueClicked({{questions|safe}},{{across_or_down|safe}});
 }
 //Stores ID of the selected cell into currentTextInput
 //Returns Array
 function preparePuzzleArray(){
-var items = [	[0, 't', 0, 't', 0, 's', 'i', 'x', 0],
-				[0, 'w', 0, 'h', 0, 'e', 0, 0, 't' ],
-				['f', 'o', 'u', 'r', 0, 'v', 0, 0, 'e'],
-				[0, 0, 0, 'e', 'l', 'e', 'v', 'e', 'n'],
-				[0, 'o', 'n', 'e', 0, 'n', 0, 'i', 0],
-				[0, 0, 'i', 0, 'f', 0, 0, 'g', 0],
-				[0, 0, 'n', 0, 'i', 0, 0, 'h', 0],
-				['t', 'w', 'e', 'l', 'v', 'e', 0, 't', 0],
-				[0, 0, 0, 0, 'e', 0,0, 0, 0],
-			];
-
+var items = {{nd_array|safe}};
 return items;
 }
 //Clear All Button
 </script>
 </head>
-<body onload="initializeScreen()">
-    
-<div id="leftBox">
-<table id="puzzle">
+<body onload="initializeScreen({{questions|safe}},{{across_or_down|safe}})">
+	
+	<script>
 
+	
+		/*
+		function show_words(){
+			answers = {{answers|safe}};
+			across_or_down = {{across_or_down|safe}};
+			var table = document.getElementById('wordbox');
+			for(var i=0;i<answers.length;i++){
+				var row = table.insertRow(i);
+				var cell1 = row.insertCell(0);
+				cell1.innerHTML = (i+1)+'.'+'&nbsp'+answers[i]+'&nbsp'+'&nbsp'+'('+'<strong>'+across_or_down[i]+'</strong>'+')';
+			}
+			window.calls = 0;
+			}
+
+			function clueClicked(){
+			questions = {{questions|safe}};
+			var table = document.getElementById('clues');
+			if(window.calls==0){
+			for(var i=0;i<questions.length;i++){
+				var row = table.insertRow(i);
+				var cell1 = row.insertCell(0);
+				cell1.innerHTML = (i+1)+'.'+'&nbsp'+questions[i]+'&nbsp'+'&nbsp'+'('+'<strong>'+across_or_down[i]+'</strong>'+')';		
+				}
+				window.calls = 1;
+			}
+			}*/
+	</script>
+<div id='container'>
+<div id='pagecenter'>
+<div id="leftBox">	
+<table id="puzzle">
 </table>
 </div>
 
 <div id="rightBox">
 <table>
-	<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked()"></td>
-	<td><input class="butt"  type="submit" value="Check" onclick="checkClicked()"></td>
-	<td><input class="butt"  type="submit" value="Clue" onclick="clueClicked()"></td></tr>
+	<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked({{questions|safe}},{{across_or_down|safe}})"></td>
+	<td><input class="butt"  type="submit" value="Check" onclick="answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}})"></td>
+	<td><input class="butt" style="display: none;" type="submit" value="Clue" onclick="clueClicked({{questions|safe}},{{across_or_down|safe}})"></td></tr>
 </table>
 </div>
 
-<table>
-		<tr>
-			<td><strong>Horizontal:</strong></td><td><strong>Vertical:</strong></td>
-		</tr>
-		<tr>
-			<td>3. SIX</td><td>1. TWO</td>
-		</tr>
-		<tr>
-			<td>5. FOUR</td><td>2.THREE</td>
-		</tr>
-		<tr>
-			<td>6. ELEVEN</td><td>3. SEVEN</td>
-    </tr>
-         <tr>
-			<td>8. ONE</td><td>4. TEN</td>
-		</tr>
-        <tr>
-			<td>11. TWELVE</td><td>7. EIGHT</td>
-		</tr>
-      <tr>
-			<td></td><td>9. NINE</td>
-		</tr>
-    <tr>
-			<td></td><td>10. FIVE</td>
-		</tr>
-
+<div id='adjust'>
+<table id="wordbox">		
 </table>
-
-<p>{{nd_array}}</p>
-
+<button id="submit" class="button">Submit</button>
+<button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 10 %}'">Back</button></li>
+</div>
+</div>
+<table id="clues"></table>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $("#submit").click(function(){
+		var score = answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}});
+		//console.log(score);
+		var token = "{{csrf_token}}";
+		var total_score = 1;
+		$.ajax({ // initialize an AJAX request
+        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
+        type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        headers:{"X-CSRFToken":token},
+        data: {
+        user_score: score,
+        level_id: {{l.pk}},
+        batch_id: {{pk1}},
+        module_id: {{m.pk}},
+        student_id: {{pk}},
+        assessment_type:"{{narrative}}",
+        },
+        success: function(data) {
+      $("#container").html(data) // `data` is the return of the `load_cities` view function
+        }
+      });
+    });
+    </script>
 </html>
-
-
-
-

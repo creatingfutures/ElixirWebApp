@@ -6,12 +6,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Word Search </title>
+  <link rel="stylesheet" href="{% static 'css/wordfind_grid.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="{% static 'style.css' %}">
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="exercise.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{% static 'css/wordfind.css' %}">
+<link rel="stylesheet" href="{% static 'css/wordfind.css' %}">  
+
 <style>
   
 
@@ -34,21 +35,16 @@
   </div>
   <ul class="breadcrumb">
 		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
-		<li><a href="#">QUESTIONS</a></li>
-		
-		
+		<li><a href="#">Word search</a></li>
 	  </ul>
-	 
     <center>
+<div id="container">
   <div class="puzzleWrap">
-    
-    <p>EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </p>
-    <p>Word Search</p>
-    <div id="container">
+    <h2 style="text-align:center">EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
+    <h2 style="text-align:center">Word Search</h1>
+      <h3>Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
     <div id='puzzle'></div>
-    <div id='words'>
-      <!--<button id='solve'>Solve Puzzle</button>-->
-    </div>
+    <div id='words'></div>
     <button id='s' class="button">Submit</button>
     <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'">Back</button>
   </div>
@@ -58,20 +54,27 @@
 <script>
 var words = {{ans|safe}};
 var score_arr = [];
-  function score_reciever(s){
+score_store = [];  
+function score_reciever(s){
     score_arr.push(s);
-    console.log(score_arr);
   }
+
     </script>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
-<script  src="{% static 'js/wordfind1.js' %}"></script>
+<script  src="{% static 'js/wordfind.js' %}"></script>
 
 <script>
    $("#s").click(function(){
     if (score_arr.length == 0) {alert("Please fill all the answers");return;}
-    var total_score = words.length;
-    var score = score_arr.length;
+    var total_score = 1;
+    if(words.length==score_arr.length){
+      score=1;
+    }
+    else{
+      score=0;
+    }
+    console.log('your score is',score);
     var token = "{{csrf_token}}";
     $.ajax({ // initialize an AJAX request
         url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,

@@ -44,7 +44,7 @@
 }
    
 body {
-  background:white;
+  background:lightgray;
   }
 
 .puzzleWrap {
@@ -52,10 +52,9 @@ body {
   margin: 50px auto 0;
 }
 
-p {
-  font: 22pt sans-serif;
-  margin: 20px 20px 0px 45px;
-  color: #6891ad;
+h2 {
+  font-family: "Montserrat";
+  font-weight:100;  
 }
 
 /**
@@ -117,10 +116,11 @@ button::-moz-focus-inner {
 * Styles for the word list
 */
 #words {
-  width: 250px;
-  color: #6891ad;
+  width: 200px;
+  color: black;
   float: left;
-  margin-top: 37px;
+  margin-left:18px;
+  margin-top: 1.5%;
 }
 
 #words ul {
