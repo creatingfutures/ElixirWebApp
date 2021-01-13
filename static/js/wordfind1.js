@@ -496,7 +496,7 @@ var score = 0;
         output += '<div>';
         // for each element in that row
         for (var j = 0, width = row.length; j < width; j++) {
-            // append our button with the appropriate class 
+            // append our button with the appropriate class
             output += '<button class="puzzleSquare" x="' + j + '" y="' + i + '">';
             output += row[j] || '&nbsp;';
             output += '</button>';
@@ -805,8 +805,8 @@ $(function () {
     words, 
     '#puzzle', 
     '#words', 
-    { height: 13, 
-      width:17, 
+    { height: 8, 
+      width:15, 
       fillBlanks: true
     });
   $('#solve').click( function() {
@@ -815,14 +815,12 @@ $(function () {
   // create just a puzzle, without filling in the blanks and print to console
   var puzzle = wordfind.newPuzzle(
     words, 
-    {height: 13, width:17, fillBlanks: true}
+    {height: 5, width:15, fillBlanks: true}
   );
   wordfind.print(puzzle);
   res();
 });
 
 function res(){  
-
-  
   console.log('result',score);
 }

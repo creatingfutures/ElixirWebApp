@@ -294,18 +294,9 @@ class Crossword(object):
  
     def legend(self): # must order first
         outStr = ''
-        across_or_down = []
-        cords = []
-        answers = self.current_word_list
         for word in self.current_word_list:
-            x_y = []
-            x_y.append(word.col-1)
-            x_y.append(word.row-1)
-            cords.append(x_y)
-            across_or_down.append(word.down_across())
             outStr += '%d. (%d,%d) %s: %s\n' % (word.number, word.col, word.row, word.down_across(), word.clue )
-        return outStr,cords,across_or_down,answers
-
+        return outStr
  
 class Word(object):
     def __init__(self, word=None, clue=None):
@@ -326,35 +317,37 @@ class Word(object):
  
     def __repr__(self):
         return self.word
+ 
 ### end class, start execution
  
 #start_full = float(time.time())
-'''
+ 
+
 word_list = [['saffron', 'The dried, orange yellow plant used to as dye and as a cooking spice.'],['pumpernickel', 'Dark, sour bread made from coarse ground rye.'],['leaven', 'An agent, such as yeast, that cause batter or dough to rise..']] 
-a = Crossword(13, 13, '0', 5000, word_list)
-a.compute_crossword(2)
-print(a.word_bank())
-print('--------')
-items = a.solution()
-print(items)
-print('--------')
-print(a.word_find())
-print(a.display())
-print (a.legend())
-print (len(a.current_word_list), 'out of', len(word_list))
-print (a.debug)
-items = items.replace(' ','')
-items = list(items.replace('\n',''))
-#print(items)
-nd_array = []
-arr = []
-n = 0
-for i in items:
-    if(n<13):
-        arr.append(i)
-        n = n+1
-    if(n==13):
-        nd_array.append(arr)
-        n=0
-        arr=[]
-print(nd_array)'''
+'''a = Crossword(13, 13, '0', 5000, word_list)
+    a.compute_crossword(2)
+    print(a.word_bank())
+    print('--------')
+    items = a.solution()
+    print(items)
+    print('--------')
+    print(a.word_find())
+    print(a.display())
+    print (a.legend())
+    print (len(a.current_word_list), 'out of', len(word_list))
+    print (a.debug)
+    items = items.replace(' ','')
+    items = list(items.replace('\n',''))
+    #print(items)
+    nd_array = []
+    arr = []
+    n = 0
+    for i in items:
+        if(n<13):
+            arr.append(i)
+            n = n+1
+        if(n==13):
+            nd_array.append(arr)
+            n=0
+            arr=[]
+    print(nd_array)'''

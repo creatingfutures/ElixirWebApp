@@ -3,13 +3,13 @@
 <html>
     <head>
       <style>
-ul.breadcrumb li+li:before {
+        ul.breadcrumb li+li:before {
 padding: 18px;
 color: red;
 content: '-';
 
 }
-.button{
+        .button{
  font-family: 'Montserrat';
  background-color: orange;
  border: none;
@@ -27,7 +27,9 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 
       </style>
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="course.css">
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <link rel="stylesheet" type="text/css" href="serachbar.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
         <div class="nav">
@@ -61,9 +63,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     <ul class="breadcrumb" style="padding:0px 10px;">
       <li class="Word search"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'word_find' pk pk1 pk2 m.pk l.pk i %}'">Start Test</button></li>
     </ul>
-    <ul class="breadcrumb" style="padding:0px 10px;">
-      <li class="cross words"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'crossword' pk pk1 pk2 m.pk l.pk i %}'">Start Test</button></li>
-    </ul>
+
   </td>
   </tr>
       {% endfor %}
@@ -76,24 +76,21 @@ if(name=="Word search"){
   console.log(name);
   for (var i = 0;i<len;i++){
     document.getElementsByClassName('Match the following')[i].style.display='none';
-    document.getElementsByClassName('Cross words')[i].style.display='none';
   }
 }
 if(name=="Match the following"){
   console.log(name);  
   for (var i = 0;i<len;i++){
     document.getElementsByClassName('Word search')[i].style.display='none';
-    document.getElementsByClassName('Cross words')[i].style.display='none';
   }
 }
 
-if(name=="Cross words"){
-  console.log(name);
-  for (var i = 0;i<len;i++){
-    document.getElementsByClassName('Match the following')[i].style.display='none';
-    document.getElementsByClassName('Word search')[i].style.display='none';
-  }
+else{
+  
 }
+
 
 </script>
+
+
 </html>

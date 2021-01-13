@@ -41,7 +41,6 @@ def s_home(request, pk, pk1):
     return render(request, 's_home.html', {"p1": programs, "pk": pk, "pk1": pk1, "s": stud})
 
 
-
 def spoken_english(request, pk, pk1, pk2):
     if pk2 == 3:
         modules = program_module.objects.filter(program_id=pk2)
@@ -55,30 +54,18 @@ def spoken_english(request, pk, pk1, pk2):
     else:
      
         modules = program_module.objects.filter(program_id=pk2)
-        if pk2 == 3:
-            order = [4, 1, 0, 7, 3, 2, 6, 5]
-            modules = [modules[i] for i in order]
-            
+    
+        order = [4, 1, 0, 7, 3, 2, 6, 5]
+        modules = [modules[i] for i in order]
         program1 = program.objects.get(pk=pk2)
-        levels= []
-        questiontypes = []
-        questiontypesList = []
+        levels=[]
         for i in modules:
-            questiontypes = []
-            level_Ids = module_level.objects.filter(module_id=i.module_id).order_by('level_id')
-            if len(level_Ids) > 0:
-                for level_Id in level_Ids:
-                    questiontypes = []
-                    questiontype_Ids = question.objects.filter(level_id=level_Id.level_id).order_by('question_type_id').distinct()
-                    if questiontype_Ids != None: 
-                        for questiontype in questiontype_Ids:
-                            questionType = question_type.objects.get(pk = questiontype.question_type_id)
-                            questiontypes.append(questionType.question_type)
-                       # questiontypesList = [questiontypesList[i] for i in [12,1,2]]
-                        questiontypesList.append({ 'level_id' :level_Id.level_id, 'questiontypes': set(dict.fromkeys(questiontypes)) })
-            levels.append({ 'level' :module_level.objects.filter(
-            module_id=i.module_id).order_by('level_description', 'level_id')})
-        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":questiontypesList})
+            levels.append(module_level.objects.filter(
+            module_id=i.module_id).order_by('level_description'))
+    
+            question_type1 = question_type.objects.all()
+    
+        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":question_type1})
 
           
 def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
@@ -135,6 +122,7 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     module_id = program_module.objects.get(module_id = m)
     student_id = student.objects.get(student_id = pk)
     date_time = datetime.datetime.now() # get present time
+    assessment_type = ''
     pass_status = True
     total_score = total_score
     if(typ == 2): #GA
@@ -151,7 +139,6 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
             student_query.date_time = datetime.datetime.now()
             student_query.save()
     if request.method == 'POST':
-        assessment_type = request.POST.get('assessment_type',False)
         if int(request.POST.get('user_score',False))>0:
             pass_status = True
         else:
@@ -163,7 +150,8 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
         else:
             total_score = 1
             user_score = 0
-    if((typ==11) or (typ==1) or (typ==10)):
+    if(typ==11 or typ==1):
+        assessment_type = request.POST.get('assessment_type',False)
         try:
             student_query = scores.objects.get(student_id=pk,assesment_type=assessment_type,level_id=level_id)
         except scores.DoesNotExist:
@@ -172,11 +160,10 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
             obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
             obj.save()
         else:
-            if(student_query.user_score==0):
-                student_query.user_score = score
-                student_query.date_time = datetime.datetime.now()
-                student_query.level_id = level_id
-                student_query.save()   
+            student_query.level_id = level_id
+            student_query.user_score = score
+            student_query.date_time = datetime.datetime.now()
+            student_query.save()   
     return render(request,"score_card.html",{'score':request.POST.get('user_score',False),"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'assessment_type':assessment_type,'pass_status':pass_status,'typ':typ})
 
 
@@ -206,75 +193,11 @@ def match(request,pk,pk1,pk2,m,l,narrative):
     #"match/match%s.html" %l
 
 
-def crossword(request, pk, pk1, pk2, m, l,narrative):
+def crossword(request, pk, pk1, pk2, m, l):
+    
     module = program_module.objects.get(pk=m)
     level = module_level.objects.get(pk=l)
-    QandA = question_option.objects.all() # Querying all the questions
-    QUEST = [] # list to store the required questions
-    ANS = [] # list to store the respective answers
-    level = module_level.objects.get(pk=l) 
-    module = program_module.objects.get(pk=m)
-    for i in QandA:
-        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==10 and i.question.narrative == narrative)): 
-            QUEST.append(i.question.question)
-            ANS.append(i.option_description)
-    word_list=[]
-    for i in range(0,len(ANS)):
-        c = []
-        c.append(str(ANS[i]))
-        c.append(str(QUEST[i]))
-        word_list.append(c) 
-    a = Crossword(13, 13, '0', 5000, word_list)
-    a.compute_crossword(2)
-    items = a.solution()
-    a.display()
-    legend,cords,across_or_down,answers = a.legend()
-    items = items.replace(' ','')
-    items = list(items.replace('\n',''))
-    nd_array = []
-    arr = []
-    n = 0
-    for i in items:
-        if(n<13):
-            arr.append(i)
-            n = n+1
-        if(n==13):
-            nd_array.append(arr)
-            n=0
-            arr=[]
-    items = items
-    answer_start = []
-    answer_start_index = []
-    length_cords = len(cords) 
-    for i in cords:
-        ans = []
-        ans.append(i[1])
-        ans.append(i[0])
-        answer_start_index.append(ans)
-        answer_start_id = 'txt'+'_'+str(i[1])+'_'+ str(i[0])
-        answer_start.append(answer_start_id)
-    new_cells_allowed=[]
-    for i in range(0,length_cords):
-        cells_allowed=[]
-        if(across_or_down[i]=='across'):
-            for j in range(answer_start_index[i][1],answer_start_index[i][1]+answers[i].length):
-                rows_allowed = []
-                rows_allowed.append(answer_start_index[i][0])
-                rows_allowed.append(j)
-                cells_allowed.append(rows_allowed)
-            new_cells_allowed.append(cells_allowed)
-        else:
-            for j in range(answer_start_index[i][0],answer_start_index[i][0]+answers[i].length):
-                rows_allowed = []
-                rows_allowed.append(j)
-                rows_allowed.append(answer_start_index[i][1])
-                cells_allowed.append(rows_allowed)
-            new_cells_allowed.append(cells_allowed)    
-    ans = []
-    for i in answers:
-        ans.append(str(i))
-
-    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'nd_array':nd_array,'legend':legend,'cords':cords,'across_or_down':across_or_down,'items':items,'answer_start':answer_start,'answer_start_index':answer_start_index,'answers':ans,'new_cells_allowed':new_cells_allowed,'typ':10,'narrative':narrative,'questions':QUEST})
+    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
     
 def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = "help"
