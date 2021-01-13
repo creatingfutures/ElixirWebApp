@@ -272,8 +272,6 @@ def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = str1+"/"+module.module_name
      str1 = str1+"/"+str(level.level_description)
      str1 = str1+".html"
-     
-     
      return render(request, str1 ,{"pk":pk,"pk1":pk1,"pk2":pk2})
     
 
