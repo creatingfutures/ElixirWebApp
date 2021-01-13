@@ -172,7 +172,9 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
    
 
   <button class="collapsible1"><h4>{{j.level_description|allcaps}}
-  <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
+     <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}" style="color:white;margin-left:50px;">Go To Lesson </a>  
+     <b style="color:white;margin-left:1050px;" > Score : XX</b></h4>
+  </button>
   
     
     
@@ -181,7 +183,7 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     <div class="content1">
   
    
-   
+   {% comment %}
     {% for k in q_t %}
     {% if k.level_id  == j.level_id %}
     {% for questionTypeItem in k.questiontypes %}
@@ -201,8 +203,9 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     {% endfor %}
     {% endif %}
     {% endfor %}
+    {% endcomment %}
     
-    {% comment %} <table class="myTable" style="width:100%">
+    <table class="myTable" style="width:100%">
       <tr>
         <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
         <td><b style="color:red;margin-left: 1180px;">X </b> </td>
@@ -212,7 +215,7 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
          <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
        </tr>
       <tr>
-       <td><a href="{% url 'word_find' pk pk1 pk2 i.pk j.pk%}">Word Search</a> </td>
+       <td><a href="{% url 'word_find' pk pk1 pk2 i.pk j.pk 11%}">Word Search</a> </td>
          <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
        </tr>
         <tr>
@@ -231,7 +234,7 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
             <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
               <td><b style="color:red;margin-left: 1180px;">X </b> </td>
           </tr>
-       </table> {% endcomment %}
+       </table> 
      
     </div> 
   
@@ -265,13 +268,14 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
 
         coll[i].addEventListener("click", function() {
           this.classList.toggle("active");
-         var content1 = this.nextElementSibling;
-          if (content1.style.maxHeight){
-            content1.style.maxHeight = null;
-          } else {
-            content1.style.maxHeight = content1.scrollHeight + 1000 + "px";
-          }
-        });
+         //var content1 = this.nextElementSibling;
+         // if (content1.style.maxHeight){
+         //   content1.style.maxHeight = null;
+         // } else {
+         //   content1.style.maxHeight = content1.scrollHeight + 1000 + "px";
+         // }
+        }
+        );
       }
       
       
