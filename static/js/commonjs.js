@@ -109,7 +109,6 @@ function clearAllClicked(questions,across_or_down){
 //Check button
 function checkClicked(new_cells_allowed,answers,across_or_down){
 	var score = 0;
-	console.log('hi prends',answers.length);
 	for ( var i = 0; i < puzzleArrayData.length ; i++ ) {
 		var rowData = puzzleArrayData[i];
 		for(var j = 0 ; j < rowData.length ; j++){
