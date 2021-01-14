@@ -124,6 +124,7 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     date_time = datetime.datetime.now() # get present time
     pass_status = True
     total_score = total_score
+    assessment_type = request.POST.get('assessment_type',False)
     if(typ == 2): #GA
         try:
             student_query = scores.objects.get(student_id=pk,assesment_type='GA',level_id=level_id)
