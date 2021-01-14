@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'match_styles.css' %}">
 </head>
-{% if empty %}
 <script>
     var col1 ={{ colq|safe }};
     var col2 ={{ cola|safe }};
+    var length = col1.length;
     var answers = {{final_options|safe}};
+    var total_score = 1;
 </script>
 
 <div class="nav">
@@ -32,7 +33,7 @@
 </div>
 <ul class="breadcrumb">
     <li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
-    <li><a href="#">QUESTIONS</a></li>
+    <li><a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 1 %}">Match The Following</a></li>
  </ul>
  <h1 style="text-align:center">EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}</h1>
 
@@ -45,89 +46,73 @@
 
     <center>
 
-
+        <div id="container">
         <table>
             <tr>
                 <th>No</th>
-                <th>Column A</th>
-                <th>Column B</th>
+                <th>Questions</th>
+                <th>Options</th>
                 <th>Match</th>
 
             </tr>
+            {% for i,j in two_cols.items %}
             <tr>
-                <td>1</td>
                 <td>
-                    <script type="text/javascript">document.write(col1[0])</script>
+                {{forloop.counter}}
                 </td>
                 <td>
-                    <script type="text/javascript">document.write(col2[0])</script>
+                    <script type="text/javascript">document.write("{{i}}")</script>
                 </td>
-                <td><input type="number" id="r1" name="r1" min="1" max="6" oninput="this.style.borderColor ='black'">
+                <td>
+                    <script type="text/javascript">document.write("{{j}}")</script>
                 </td>
+                <td><input type="number" id="r{{forloop.counter}}" name="r{{forloop.counter}}" min="1" max="5" oninput="this.style.borderColor ='black'"></td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>
-                    <script type="text/javascript">document.write(col1[1])</script>
-                </td>
-                <td>
-                    <script type="text/javascript">document.write(col2[1])</script>
-                </td>
-                <td><input type="number" id="r2" name="r2" min="1" max="6" oninput="this.style.borderColor ='black'">
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>
-                    <script type="text/javascript">document.write(col1[2])</script>
-                </td>
-                <td>
-                    <script type="text/javascript">document.write(col2[2])</script>
-                </td>
-                <td><input type="number" id="r3" name="r3" min="1" max="6" oninput="this.style.borderColor ='black'">
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>
-                    <script type="text/javascript">document.write(col1[3])</script>
-                </td>
-                <td>
-                    <script type="text/javascript">document.write(col2[3])</script>
-                </td>
-                <td><input type="number" id="r4" name="r4" min="1" max="6" oninput="this.style.borderColor ='black'">
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>
-                    <script type="text/javascript">document.write(col1[4])</script>
-                </td>
-                <td>
-                    <script type="text/javascript">document.write(col2[4])</script>
-                </td>
-                <td><input type="number" id="r5" name="r5" min="1" max="6" oninput="this.style.borderColor ='black'">
-                </td>
-            </tr>
-           
+            {% endfor %}
         </table>
+
         <br>
-        <button class="button" onclick="check()">Submit</button>
-        <h1 id="demo"></h1>
+            <button id="submit" class="button">Submit</button>
+            <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 1 %}'">Back</button></li>
+            <h1 id="demo"></h1>
+        </div>
     </center>
 </body>
 
 <script>
+    var g = 0;
     function check() {
         var ans = {{final_options|safe}};
-        myfun.res(ans);
+        var c = myfun.res(ans);
+        g = c;
+        return g;
     }
 
 </script>
-<script src="{% static 'logic1.js' %}"></script>
 
-{% else %}
+<script src="{% static 'js/logic1.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
-<h1>No questions to show!</h1>
-{% endif %}
+<script>
+    $("#submit").click(function(){
+    var score = check();
+    var token = "{{csrf_token}}";
+    $.ajax({ // initialize an AJAX request
+        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
+        type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        headers:{"X-CSRFToken":token},
+        data: {
+        user_score: score,
+        level_id: {{l.pk}},
+        batch_id: {{pk1}},
+        module_id: {{m.pk}},
+        student_id: {{pk}},
+        assessment_type:"{{narrative}}",
+        },
+        success: function(data) {
+      $("#container").html(data) // `data` is the return of the `load_cities` view function
+        }
+      });
+    });
+    </script>
 </html>

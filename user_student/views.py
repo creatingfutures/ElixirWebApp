@@ -13,9 +13,13 @@ from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level,question_option, question, student_module_level, student_batch,question_content,question_type
 # from user_admin.models import image_question,images_question, av_question,av_sub_question
+from user_student.models import scores,student_status
 import random
 import os
 import json
+import datetime
+from .crossword_puzzle import Crossword
+
 
 def login(request):
     batches = batch.objects.all()
@@ -86,61 +90,179 @@ def level_view(request, pk, pk1, pk2, pk3, pk4):
     level = module_level.objects.get(level_id=pk4)
     return render(request, "level_view.html", {"question_types": question_types, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, 'pk4': pk4, "l": level})
 
-def word_find(request,pk,pk1,pk2,m,l):
-    module = program_module.objects.get(pk=m)
-    level = module_level.objects.get(pk=l)
-   
-    return render(request,"wordsearch/wordfind%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
-
-def match(request,pk,pk1,pk2,m,l):
-    QandA = question_option.objects.all()
-    IDB = [] 
-    QUEST = []
-    ANS = []
-    level = module_level.objects.get(pk=l)
+def word_find(request,pk,pk1,pk2,m,l,narrative):
+    QandA = question_option.objects.all() # Querying all the questions
+    QUEST = [] # list to store the required questions
+    ANS = [] # list to store the respective answers
+    level = module_level.objects.get(pk=l) 
     module = program_module.objects.get(pk=m)
     for i in QandA:
-        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==1)):
-            IDB.append(i.question_id)
+        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==11 and i.question.narrative == narrative)): 
+            ANS.append(i.option_description)    
+    return render(request,"wordsearch/wordfind.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'ans':ANS,'typ':11,'narrative':narrative})
+
+
+def list_narrative(request,pk,pk1,pk2,m,l,question_type_id): # returns hyperlinks which contains questions related to specify narratives
+    level = module_level.objects.get(pk=l)
+    module = program_module.objects.get(pk=m)
+    Qj = question.objects.filter(level=level,question_type_id=question_type_id) # making sure we are queryting match the following quetions
+    narratives = [] # all narratives related to match the following
+    distinct_narratives = [] # removed repeating narratives
+    for i in Qj:
+        narratives.append(i.narrative)
+    for i in narratives:
+        if i not in distinct_narratives:
+            distinct_narratives.append(i)
+    name = question_type.objects.get(question_type_id=question_type_id)
+    return render(request,"all_hyperlinks.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'d':distinct_narratives,'name':name})
+
+def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
+    level_id = module_level.objects.get(level_id = l)
+    batch_id = batch.objects.get(batch_id = pk1)
+    module_id = program_module.objects.get(module_id = m)
+    student_id = student.objects.get(student_id = pk)
+    date_time = datetime.datetime.now() # get present time
+    pass_status = True
+    total_score = total_score
+    assessment_type = request.POST.get('assessment_type',False)
+    if(typ == 2): #GA
+        try:
+            student_query = scores.objects.get(student_id=pk,assesment_type='GA',level_id=level_id)
+        except scores.DoesNotExist:
+            student_query = None
+        if(student_query==None):
+            assessment_type = 'GA'
+            obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
+            obj.save()
+        else:
+            student_query.user_score = score
+            student_query.date_time = datetime.datetime.now()
+            student_query.save()
+    if request.method == 'POST':
+        assessment_type = request.POST.get('assessment_type',False)
+        if int(request.POST.get('user_score',False))>0:
+            pass_status = True
+        else:
+            pass_status = False
+    if(typ==1):
+        if(pass_status):
+            total_score = 1
+            user_score = 1
+        else:
+            total_score = 1
+            user_score = 0
+    if((typ==11) or (typ==1) or (typ==10)):
+        try:
+            student_query = scores.objects.get(student_id=pk,assesment_type=assessment_type,level_id=level_id)
+        except scores.DoesNotExist:
+            student_query = None
+        if(student_query==None):
+            obj = scores.objects.create(assesment_type=assessment_type,student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = date_time)
+            obj.save()
+        else:
+            if(student_query.user_score==0):
+                student_query.user_score = score
+                student_query.date_time = datetime.datetime.now()
+                student_query.level_id = level_id
+                student_query.save()   
+    return render(request,"score_card.html",{'score':request.POST.get('user_score',False),"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'assessment_type':assessment_type,'pass_status':pass_status,'typ':typ})
+
+
+def match(request,pk,pk1,pk2,m,l,narrative):
+    QandA = question_option.objects.all() # Querying all the questions
+    QUEST = [] # list to store the required questions
+    ANS = [] # list to store the respective answers
+    level = module_level.objects.get(pk=l) 
+    module = program_module.objects.get(pk=m)
+    for i in QandA:
+        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==1 and i.question.narrative == narrative)):
             QUEST.append(i.question.question) 
             ANS.append(i.option_description)
-    options = random.sample(range(0,len(QUEST)),len(QUEST))
-    rans = []
-    final_options = []
+    options = random.sample(range(0,len(QUEST)),len(QUEST)) # randomising options
+    print(QUEST,ANS)
+    rans = [] # randomising answers
+    final_options = [] # correct answers after randomising
     for i in range(0,len(QUEST)):
         rans.append(ANS[options[i]])
     for i in range(0,len(QUEST)):
         for j in range(0,len(QUEST)):
             if(ANS[i]==rans[j]):
                 final_options.append(j+1)
-    if(len(QUEST)!=0):
-        acc = True
-    else:
-        acc = False
-    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'cola':rans,'colq':QUEST,'final_options':final_options,'empty':acc})
+    typ = 1
+    two_cols = dict(zip(QUEST,rans))
+    return render(request,"match/match25.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,"typ":typ,'cola':rans,'colq':QUEST,'two_cols':two_cols,'final_options':final_options,'narrative':narrative})
     #"match/match%s.html" %l
-def crossword(request, pk, pk1, pk2, m, l):
-    
+
+
+def crossword(request, pk, pk1, pk2, m, l,narrative):
     module = program_module.objects.get(pk=m)
     level = module_level.objects.get(pk=l)
-    
-    # try:
-    #     a = "crossword/"+module.module_name+"/"+str(level.level_number)
-    #     b = "user_student/templates/crossword/" + \
-    #         module.module_name+"/"+str(level.level_number)
-    #     c = os.getcwd()
-    #     b = c+"/"+b
-    #     length = len([name for name in os.listdir(b)])
-    #     rand = random.randrange(1, length)
-    #     a = a+"/crossword"+str(rand)+".html"
-    #     print(a)
-    #     return render(request, a, {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
-    # except:
-    #     messages.success(request, f'No Crossword for the level yet')
-    #     return redirect('module_view', pk, pk1, pk2, pk3)
-    
-    
-    return render(request,"crossword/crossword%s.html" %l,{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level})
+    QandA = question_option.objects.all() # Querying all the questions
+    QUEST = [] # list to store the required questions
+    ANS = [] # list to store the respective answers
+    level = module_level.objects.get(pk=l) 
+    module = program_module.objects.get(pk=m)
+    for i in QandA:
+        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==10 and i.question.narrative == narrative)): 
+            QUEST.append(i.question.question)
+            ANS.append(i.option_description)
+    word_list=[]
+    for i in range(0,len(ANS)):
+        c = []
+        c.append(str(ANS[i]))
+        c.append(str(QUEST[i]))
+        word_list.append(c) 
+    a = Crossword(13, 13, '0', 5000, word_list)
+    a.compute_crossword(2)
+    items = a.solution()
+    a.display()
+    legend,cords,across_or_down,answers = a.legend()
+    items = items.replace(' ','')
+    items = list(items.replace('\n',''))
+    nd_array = []
+    arr = []
+    n = 0
+    for i in items:
+        if(n<13):
+            arr.append(i)
+            n = n+1
+        if(n==13):
+            nd_array.append(arr)
+            n=0
+            arr=[]
+    items = items
+    answer_start = []
+    answer_start_index = []
+    length_cords = len(cords) 
+    for i in cords:
+        ans = []
+        ans.append(i[1])
+        ans.append(i[0])
+        answer_start_index.append(ans)
+        answer_start_id = 'txt'+'_'+str(i[1])+'_'+ str(i[0])
+        answer_start.append(answer_start_id)
+    new_cells_allowed=[]
+    for i in range(0,length_cords):
+        cells_allowed=[]
+        if(across_or_down[i]=='across'):
+            for j in range(answer_start_index[i][1],answer_start_index[i][1]+answers[i].length):
+                rows_allowed = []
+                rows_allowed.append(answer_start_index[i][0])
+                rows_allowed.append(j)
+                cells_allowed.append(rows_allowed)
+            new_cells_allowed.append(cells_allowed)
+        else:
+            for j in range(answer_start_index[i][0],answer_start_index[i][0]+answers[i].length):
+                rows_allowed = []
+                rows_allowed.append(j)
+                rows_allowed.append(answer_start_index[i][1])
+                cells_allowed.append(rows_allowed)
+            new_cells_allowed.append(cells_allowed)    
+    ans = []
+    for i in answers:
+        ans.append(str(i))
+
+    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'nd_array':nd_array,'legend':legend,'cords':cords,'across_or_down':across_or_down,'items':items,'answer_start':answer_start,'answer_start_index':answer_start_index,'answers':ans,'new_cells_allowed':new_cells_allowed,'typ':10,'narrative':narrative,'questions':QUEST})
     
 def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = "help"
@@ -151,8 +273,6 @@ def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = str1+"/"+module.module_name
      str1 = str1+"/"+str(level.level_description)
      str1 = str1+".html"
-     
-     
      return render(request, str1 ,{"pk":pk,"pk1":pk1,"pk2":pk2})
     
 
@@ -168,14 +288,10 @@ def trimQuestions(ques):
     return ques
 
 def standard_test(request, pk, pk1, pk2, pk3, pk4):
-    questions1= sorted(question.objects.filter(level_id=pk4).order_by('-pk'),
-                        key=lambda x: random.random())[:20]
+    questions1= sorted(question.objects.filter(level_id=pk4,question_type_id__in=[2,12,3,4,5,6]).order_by('-pk'),key=lambda x: random.random())[:20]
     result = list(map(trimQuestions,questions1))
-
-    print(result, len(result))
     data = serializers.serialize('json', result)
-    print(data)
-    request.session['questions'] = data;
+    request.session['questions'] = data
     module1 = program_module.objects.get(pk=pk3)
     level1 = module_level.objects.get(pk=pk4)
     i = -1
@@ -188,8 +304,6 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questions1 = []
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
-    print("QUERUBOI", questions1)
-    
     i = int(request.GET.get('id'))
     c = (request.GET.get('correct'))
     s = int(request.GET.get('score'))
@@ -198,9 +312,11 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     elif c == "False":
         s = s+0
     i += 1
-    # print("fg")
-    #print(questions1[i].question_type)
     if i == len(questions1):
+        score = s
+        typ = 2
+        total_score = 20
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_score)
         return render(request, "test_submit.html",
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
 
@@ -287,10 +403,7 @@ def ajax_image_test(request, pk, pk1, pk2, pk3, pk4):
 
 
 def av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
-
-
-    questions1 = question.objects.filter(level_id=pk4).filter(question_type_id=pk5).order_by('-question_content_id')
-              
+    questions1 = question.objects.filter(level_id=pk4).filter(question_type_id=pk5).order_by('-question_content_id')              
     print(questions1, len(questions1))
     data = serializers.serialize('json', questions1)
     #print(data)
@@ -298,8 +411,7 @@ def av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
     module = program_module.objects.get(pk=pk3)
     level = module_level.objects.get(pk=pk4)
     i = 0
-    return render(request, "av_test.html",
-                  {"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
+    return render(request, "av_test.html",{"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
 
 
 def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
@@ -344,6 +456,8 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
         print(i)
         return render(request, "text.html",
                       {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
+
+
 def test_submit(request, pk, pk1, pk2, pk3, pk4):
     student1 = student.objects.get(pk=pk)
     program1 = program.objects.get(pk=pk2)

@@ -168,34 +168,30 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     <button class="collapsible"><b>{{i.module_name|allcaps}} </b></button>
     <div class="content">
     {% for j in lev %}
-    
-   
-
+  
   <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
   
-    
-     
     <div class="content1">
   
-   
     <table class="myTable" style="width:100%">
       <tr>
         <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
         <td><b style="color:red;margin-left: 1180px;">X </b> </td>
       
        </tr>
-      <tr>
-        <td><a href="{% url 'match' pk pk1 pk2 i.pk j.pk%}">Match the following</a> </td>
+    
+       <tr>      
+        <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 1 %}">Match the following</a> </td>
          <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
       
        </tr>
          <tr>
-       <td><a href="{% url 'word_find' pk pk1 pk2 i.pk j.pk%}">Word Search</a> </td>
+       <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 11%}">Word Search</a> </td>
          <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
     
        </tr>
         <tr>
-       <td><a href="{% url 'crossword' pk pk1 pk2 i.pk j.pk %}">Crossword</a> </td>
+       <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 10%}">Crossword</a> </td>
          <td><b style="color:red; margin-left: 1180px;">X </b> </td>
       
        </tr>

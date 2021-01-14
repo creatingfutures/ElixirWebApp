@@ -1,0 +1,98 @@
+{% load static %}
+{% load student_tag %}
+
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Word Search </title>
+  <link rel="stylesheet" href="{% static 'css/wordfind_grid.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="exercise.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/wordfind.css' %}">  
+
+<style>
+  
+
+</style>     
+
+</head>
+<body>
+  <div class="nav" style="height: 200px">
+    <div class="navig">
+      <div>
+    <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:62px;margin:0;"/>
+    </div>
+    <div class="navv">
+    <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+    <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+    <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
+    </div>
+    </div>
+  </div>
+  <ul class="breadcrumb">
+		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+		<li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'>Word search</a></li>
+	  </ul>
+    <center>
+<div id="container">
+  <div class="puzzleWrap">
+    <h2 style="text-align:center">EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
+    <h2 style="text-align:center">Word Search</h1>
+      <h3>Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
+    <div id='puzzle'></div>
+    <div id='words'></div>
+    <button id='s' class="button">Submit</button>
+    <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'">Back</button>
+  </div>
+</div>  
+</center>
+
+<script>
+var words = {{ans|safe}};
+var score_arr = [];
+score_store = [];  
+function score_reciever(s){
+    score_arr.push(s);
+  }
+
+    </script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+<script  src="{% static 'js/wordfind.js' %}"></script>
+
+<script>
+   $("#s").click(function(){
+    if (score_arr.length == 0) {alert("Please fill all the answers");return;}
+    var total_score = 1;
+    if(words.length==score_arr.length){
+      score=1;
+    }
+    else{
+      score=0;
+    }
+    console.log('your score is',score);
+    var token = "{{csrf_token}}";
+    $.ajax({ // initialize an AJAX request
+        url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
+        type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        headers:{"X-CSRFToken":token},
+        data: {
+        user_score: score,
+        level_id: {{l.pk}},
+        batch_id: {{pk1}},
+        module_id: {{m.pk}},
+        student_id: {{pk}},
+        assessment_type:"{{narrative}}",
+        },
+        success: function(data) {
+      $("#container").html(data) // `data` is the return of the `load_cities` view function
+        }
+      });
+    });
+</script>
+</body>
+</html>

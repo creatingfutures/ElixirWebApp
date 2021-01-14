@@ -1,7 +1,9 @@
+var score = 0
 myfun = {
     res: function (ans) {
         var er = 0;
         var len = ans.length;
+        console.log(len);
         var num = [];
         for (i = 1, j = 0; i <= len; i++, j++) {
             if (document.getElementById("r" + i).value == "") {
@@ -21,8 +23,6 @@ myfun = {
             }
             return;
         }
-
-
         var count = 0;
         for (i = 0; i < len; i++) {
             if (num[i] == ans[i]) {
@@ -30,21 +30,23 @@ myfun = {
             }
         }
         var res1;
-
         if (count == len) {
             res1 = "Correct Answer!"
             document.getElementById("demo").innerHTML = '<font style="color:black">' + res1  + '</font>';
-            alert('You have scored 100%');
+            score = 1;
+            return score;
+            
+
         }
         else {
             res1 = "Wrong Answer!";
             document.getElementById("demo").innerHTML = '<font style="color:red">' + res1 + '</font>';
-            alert('You have scored '+(count/len)*100+'% '+'please practise and try again!')
+            score = 0;
+            return score;
         }
-
-
-
-
-
+        
     }
 }
+
+console.log('hi');
+
