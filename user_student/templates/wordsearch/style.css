@@ -62,7 +62,7 @@ p {
 * Styles for the puzzle
 */
 #puzzle {
-  padding: 0px;
+  padding: 20px;
   float: left;
   margin: 30px 20px;
   width: 500px;
@@ -78,11 +78,11 @@ p {
   height: 25px;
   width: 25px;
   text-transform: uppercase;
-  background-color:orange;
+  background-color: #306a8b;
   border: 0;
   outline: none;
   font: 1em sans-serif;
-  color:black;
+  color: #6891ad;
 }
 
 button::-moz-focus-inner {

@@ -1,22 +1,25 @@
-
 {% extends 'base/base.html' %}
 {% block content %}
+
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <div class="btn">
+<div class="container-fluid">
+    <div class="row" style="margin-left: 5px;">
+      <div class="form-group col-md-10 " style="margin-left: 16%;">
       <div class="search">
-        <input id="batch" type="text" class="searchTerm" placeholder="NAME" />
-        <button id="batch1" type="submit" class="searchButton" >
+        <input id="batch" type="text" class="searchTerm"  style="height: 50px;" placeholder="NAME" />
+        <button id="batch1" type="submit" class="searchButton" style="height: 50px;" >
           <span class="fa fa-search" "aria-hidden="true"></span>
         </button>
       </div>
-    </div>
-
+  </div>
+  </div>
     <br /> 
 
     <div id="bat_done"></div>
     <br /> 
-
-    <table align="center" style="width: 80%; font-family: Montserrat">
+<div class="row">
+  <div class="col-sm-12 table-responsive">
+    <table class="table" align="center" style="width: 65%; font-family: Montserrat">
       <tr>
         <th>BATCH</th>
         <th>PROGRAM</th>
@@ -27,61 +30,47 @@
       </tr>
       {% for s1 in p %}
       <tr>
-        <td>{{s1}}</td>
-        <td>{{s1.program_id}}</td>
-        <td>{{s1.start_date}}</td>
-        <td>{{s1.end_date}}</td>
-        <td>{{s1.status}}</td>
-        <td>
-          <a href="{% url 'edit_batch' s1.batch_id %}">Edit</a> |
-          <a href="{% url 'view_batch' s1.batch_id %}">View</a>
+        <td class="col-sm-1">{{s1}}</td>
+        <td class="col-sm-2">{{s1.program_id}}</td>
+        <td class="col-sm-1">{{s1.start_date}}</td>
+        <td class="col-sm-1">{{s1.end_date}}</td>
+        <td class="col-sm-1">{{s1.status}}</td>
+        <td class="col-sm-1">
+          <a href="{% url 'view_batch' s1.batch_id %} "  data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a>&nbsp; &nbsp;
+          <a href="{% url 'edit_batch' s1.batch_id %}"  data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> 
+          
         </td>
       </tr>
       {% endfor %}
     </table>
+  </div>
+  </div>
     <br />
-    <div class="pagination" style="width: 20%; position: absolute; left: 40%">
-      <ul style="position: absolute; left: 10%">
+    <div class="row">
+      <div class="col-sm-12" >
+    <div class="pagination" style="width: 20%; position: absolute; left: 40%; margin-top: 0px;">
+      <ul style="position: absolute; left: 10%" class="pagination justify-content-center bg-warning">
         {% if p.has_previous %}
-        <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+        <li ><a href="?page={{p.previous_page_number}}">Previous</a></li>
         {% endif %} {% for pg in p.paginator.page_range %} {% if p.number == pg%}
-        <li class="active" style="background-color: orange; color: white">
+        <li class="active " style="background-color: orange; color: white">
           <a href="?page={{pg}}">{{pg}}</a>
         </li>
         {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
         <li><a href="?page={{ pg }}">{{pg}}</a></li>
         {% endif %} {% endfor %} {% if p.has_next %}
-        <li><a href="?page={{p.next_page_number}}">Next</a></li>
+        <li  class="page-item"><a href="?page={{p.next_page_number}}">Next</a></li>
         {% endif %}
       </ul>
     </div>
+  </div>
+</div>
+  
 
-    <br />
-    <div id="container">
-      <a style="margin-left: 150px" class="button" href="{% url 'add_batch' %}"
-        >ADD BATCH</a>
-    </div>
+      <div class="row">
+        <div class="col-sm-12">  
+      <a style="margin-left: 240px; margin-top: 75px;" class="button" href="{% url 'add_batch' %}">ADD BATCH</a>
+    </div></div>
 
-    <script>
-      $("#batch1").click(function () {
-        //var url = $("#form1").attr("data-modules-url");
-
-        var facId = $("#batch").val();
-        console.log(facId); // get the selected country ID from the HTML input
-
-        $.ajax({
-          // initialize an AJAX request
-          url: "/ajax/batch_search/",
-          type: "GET", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-          data: {
-            batch_id: facId, // add the country id to the GET parameters
-          },
-          success: function (data) {
-            // `data` is the return of the `load_cities` view function
-            $("#bat_done").html(data); // replace the contents of the city input with the data that came from the server
-          },
-        });
-      });
-    </script>
- 
  {% endblock content %}
+</div>

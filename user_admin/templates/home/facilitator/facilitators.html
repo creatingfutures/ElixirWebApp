@@ -1,218 +1,11 @@
-<!doctype html>
-{% load static %}
-<style>
-  body {
-    background-color: lightgrey;
-  }
-
-
-  #top {
-    top: 0;
-    background-color: orange;
-    height: 100px;
-  }
-
-
-    .button1 {
-      font-family: 'Montserrat';
-      font-weight: 100;
-      font-size: 12px;
-      position: absolute;
-      bottom: 652;
-      right: 20;
-      background-color: Transparent;
-      background-repeat: no-repeat;
-      border: none;
-      cursor: pointer;
-      overflow: hidden;
-      outline: none;
-      text-decoration: underline;
-      color: white;
-    }
-
-
-
-  table,
-  th,
-  td {
-    border: 1px solid #696969;
-    border-collapse: collapse;
-    text-align: center;
-    background-color: #C4C4C4;
-    font-size: 12px;
-  }
-
-  th,
-  td {
-    padding: 15px;
-  }
-
-  th {
-    background-color: #FFFFFF;
-  }
-
-  body {
-    background:lightgrey;
-    font-family: Montserrat;
-    font-size: 12px;
-  }
-
-  .search {
-    width: 100%;
-    position: relative;
-    display: flex;
-  }
-
-  .searchTerm {
-    width: 25%;
-    border: 1px;
-    border-right: none;
-    padding: 10px;
-    height: 30px;
-    border-radius: 40px 0 0 40px;
-    outline: none;
-    color: #000000;
-    font-family: Montserrat;
-    font-size: 12px;
-  }
-
-  .searchTerm:focus {
-    color: #696969;
-    font-family: Montserrat;
-    font-size: 12px;
-  }
-
-  .searchButton {
-    width: 40px;
-    height: 50px;
-    border: 0px;
-    background: #FFFFFF;
-    text-align: center;
-    color: #696969;
-    border-radius: 0 40px 40px 0;
-    cursor: pointer;
-    font-size: 20px;
-    font-family: Montserrat;
-  }
-
-  ul.nav2 {
-    background: transparent;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-
-    font-family: "Montserrat";
-    font-size: 17px;
-    font-size: 12px;
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #FFD4AA;
-    font-size: 12px;
-  }
-
-  li.nav3 {
-    float: center;
-  }
-
-  li {
-    float: left;
-  }
-
-  li a {
-    display: block;
-    color: BLACK;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-
-  li a:hover {
-    background-color: #FFBA77;
-  }
-
-  a.active {
-    background-color: #FFBA77;
-  }
-  .button {
-    font-family: 'Montserrat';
-    background-color: orange;
-    border: none;
-    color: white;
-    padding: 12px 22px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    cursor: pointer;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    outline: none;
-
-  }
-
-</style>
-
-
-<html>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<head>
-  <link rel="stylesheet" href="facilitator.css">
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-  <link rel="stylesheet" type="text/css" href="serachbar.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<body>
-
-  <div id="top"><br>
-    <center><img src="{% static 'elixir_logo.PNG' %}" width="60" height="60"></center>
-  </div>
-
-
-  <ul>
-    <li><a  href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
-    <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
-    <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
-    <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
-    <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
-    <li><a href="#reports">REPORTS</a></li>
-    <li style="float:right"><a href="#about">FAQs</a></li>
-    <li style="float:right"><a href="{% url 'admin_logout' %}">Logout</a></li>
-    <li style="float:right"><a href="{% url 'home' %}">HOME</a></li>
-  </ul>
-
-
-  <br>
-  <div class="row">
-
-
-    <div class="col-md-8">
-
-      {% if messages %}
-      {% for message in messages %}
-
-      <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
-
-        {{message}}
-      </div>
-
-      {% endfor %}
-      {% endif %}
-    </div>
-  </div>
+{% extends '../../base/base.html' %}
+{% block content %}
 
 <br><br>
-
+<div class="row">
+  <div class="col-md-12">
   <br>
-  <table align="center" style="width:80%;font-family: Montserrat">
+  <table class="table" align="center" style="width:80%;font-family: Montserrat; width: 50%;">
     <tr>
       <th>NAME</th>
       <th>CONTACT</th>
@@ -220,13 +13,17 @@
     </tr>
       {% for s1 in p %}
     <tr>
-      <td>{{s1.first_name}} {{s1.last_name}}</td>
-      <td>{{s1.mobile_number}}</td>
-      <td><a href="{% url 'edit_facilitator' s1.facilitator_id %}">Edit</a> | <a href="{% url 'view_facilitator' s1.facilitator_id %}">View</a></td>
+      <td class="col-md-4">{{s1.first_name}} {{s1.last_name}}</td>
+      <td class="col-md-4">{{s1.mobile_number}}</td>
+      <td class="col-md-4"  ><a href="{% url 'edit_facilitator' s1.facilitator_id %}"data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> &nbsp; &nbsp; <a href="{% url 'view_facilitator' s1.facilitator_id %}"data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a></td>
     </tr>
       {% endfor %}
   </table>
+</div>
+</div>
   <br>
+<div class="row">
+  <div class="col-md-12">
 
   <div class="pagination" style="width:20%;position:absolute;left:40%">
   <ul style="position:absolute;left:10%">
@@ -247,11 +44,17 @@
   </ul>
 
   </div>
-  <br>
-  <a class="button" style="margin-left:150px;color:black;"    href="{% url 'add_facilitator' %}">ADD FACILITATOR</a>
-  <br>
+  
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
 
-</body>
-</head>
 
-</html>
+  <br>
+  <br><br>
+  <a class="button" style="margin-left:350px;color:black;"    href="{% url 'add_facilitator' %}">ADD FACILITATOR</a>
+  <br>
+</div>
+</div>
+{% endblock content %}

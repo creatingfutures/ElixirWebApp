@@ -1,6 +1,5 @@
 {% extends 'base/base.html' %} {% block content %}
-
-<div id="box">
+<div id="box" >
   <p>
     <label>First Name:</label>
     {{f.first_name}}
@@ -60,5 +59,14 @@
   </p>
 
   <br /><br />
+  <div class="buttonouter" style="display: flex; justify-content: center;">
+    <button
+    type="button"
+    class="button"
+    onclick="back()"
+    >
+        Go Back
+    </button>
+  </div>
 </div>
 {% endblock content %}

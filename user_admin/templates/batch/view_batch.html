@@ -12,7 +12,10 @@
     {% endfor %} {% endif %}
   </div>
 </div>
+<style>
 
+
+</style>
 <div id="box">
   <p>
     <label>Program Name :</label>
@@ -57,6 +60,12 @@
   </p>
 
   <br /><br />
-   <a class="align-right" href="{% url 'batches' %}">Back</a>
+  <button style="margin-left: 80px;"
+  type="button"
+  class="button"
+  onclick="back()"
+>
+  Go Back
+</button>
 </div>
 {% endblock content %}
