@@ -6,7 +6,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .models import program, program_module, facilitator, center, student
-from .models import module_level, question, question_type, question_content, batch, entity_status
+from .models import module_level, question, question_type, assessment_type, question_content, batch, entity_status
 import json
 from django.core import serializers
 from django import forms
@@ -57,12 +57,17 @@ def questions_export(request):
 
     writer = csv.writer(response)
     writer.writerow(['ID', 'Program', 'Module',
-                     'Level', 'Question', 'Narrative', 'Question Type', 'Hint', 
+                     'Level', 'Question', 'Narrative', 'Question Type', 'Assessment Type','Hint', 
                      'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer', 'Comments'])
 
-    for i in question.objects.all().values_list('question_id', 'question', 'narrative', 'question_type','hint', 'comments'):
+    for i in question.objects.all().values_list('question_id', 'question', 'narrative', 'question_type','assessment_type','hint', 'comments'):
         q = question.objects.get(pk=i[0])
         i =[];
+        _assessment_type= None
+        if q.assessment_type_id != None:
+         _assessment_type = q.assessment_type
+        else:
+         _assessment_type = None
         i.append(q.question_id)
         i.append(q.program)
         i.append(q.module)
@@ -70,6 +75,7 @@ def questions_export(request):
         i.append(q.question)
         i.append(q.narrative)
         i.append(q.question_type)
+        i.append(_assessment_type)
         i.append(q.hint)
         if len(q.options) == 4:
             for j in q.options:
@@ -101,14 +107,15 @@ def questions_import(request):
     active = True
     isValid = True    
     _question_type = None
+    _assessment_type = None
     _module_level= None
     if (str(excel_file).split('.')[-1] != 'xlsx') :
         messages.error(request, f'You must select an valid excel format.')
         return redirect('questions')
     if (str(excel_file).split('.')[-1] == "xls"):
-        data = xls_get(excel_file, column_limit=15)
+        data = xls_get(excel_file, column_limit=16)
     elif (str(excel_file).split('.')[-1] == "xlsx"):
-        data = xlsx_get(excel_file, column_limit=15)
+        data = xlsx_get(excel_file, column_limit=16)
     index = 0
     recordInserted = 0
     try:
@@ -125,12 +132,12 @@ def questions_import(request):
                     if(len(questions_item)) == 0:
                         break;
                     if(index == 0):
-                        if(str(questions_item) != "['Sno', 'Program', 'Module', 'Level', 'Question', 'Narrative', 'Question Type', 'Hint', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer', 'Comments']"):
+                        if(str(questions_item) != "['ID', 'Program', 'Module', 'Level', 'Question', 'Narrative', 'Question Type', 'Assessment Type', 'Hint', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer', 'Comments']"):
                             textWriter.writerow(['Header columns are mismatching'])                   
                             messages.error(request, f'Header columns are mismatching.')
                             return redirect('questions')
                     else :
-                        if questions_item[1] == '' or questions_item[2] == '' or questions_item[3] == '' or questions_item[4] == '' or questions_item[6] == '' :
+                        if questions_item[1] == '' or questions_item[2] == '' or questions_item[3] == '' or questions_item[4] == '' or questions_item[6] == ''  or questions_item[7] == '' :
                             textWriter.writerow(['fields data are missing in the line no ' + str(index)])
                             messages.error(request, f'fields data are missing in the line no ' + str(index))
                             return redirect('questions')
@@ -144,6 +151,7 @@ def questions_import(request):
                         
                         if len(result) > 0 :
                             _question_type = question_type.objects.get(question_type__icontains = questions_item[6].lower())
+                            _assessment_type = assessment_type.objects.get(assessment_type__icontains = questions_item[7].lower())
                             _module_level = module_level.objects.get(pk=result[0][0]),
                         if len(result) == 0 :
                             textWriter.writerow(['field level and module is not available on line no: ' + str(index)])
@@ -156,7 +164,7 @@ def questions_import(request):
                             isValid = False
                         
                         try:
-                            questions_item_comments = questions_item[13]
+                            questions_item_comments = questions_item[14]
                         except :
                             questions_item_comments = ''
 
@@ -166,7 +174,8 @@ def questions_import(request):
                             question =  questions_item[4],
                             narrative = questions_item[5],
                             question_type = _question_type,
-                            hint = questions_item[7],
+                            assessment_type = _assessment_type,
+                            hint = questions_item[8],
                             created_by = 'admin_data_import',
                             level = _module_level[0],
                             comments = questions_item_comments,
@@ -176,37 +185,37 @@ def questions_import(request):
                             #save options
                             #10 Cross Words, 11 Word Search, 4 Unscramble,3 Riddles,2 Fill in the blanks, 1 Match the following
                             if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11]: 
-                                if questions_item[12] != '' :
+                                if questions_item[13] != '' :
                                     new_options = question_option(question = new_question, 
-                                    option_description= questions_item[12],
+                                    option_description= questions_item[13],
                                     is_right_option =1)
                                     new_options.save()
                                     
                             # 12 Multiple Choice questions
                             if _question_type.pk in [12]: 
                                 #save options #1
-                                if questions_item[8] != '' :
-                                    new_options = question_option(question = new_question, 
-                                    option_description= questions_item[8],
-                                    is_right_option = (questions_item[8] == questions_item[12]))
-                                    new_options.save()
-                                #save options #2
                                 if questions_item[9] != '' :
                                     new_options = question_option(question = new_question, 
                                     option_description= questions_item[9],
-                                    is_right_option = (questions_item[9] == questions_item[12]))
+                                    is_right_option = (questions_item[9] == questions_item[13]))
                                     new_options.save()
-                                #save options #3
+                                #save options #2
                                 if questions_item[10] != '' :
                                     new_options = question_option(question = new_question, 
                                     option_description= questions_item[10],
-                                    is_right_option = (questions_item[10] == questions_item[12]) )
+                                    is_right_option = (questions_item[10] == questions_item[13]))
                                     new_options.save()
-                                #save options #4
+                                #save options #3
                                 if questions_item[11] != '' :
                                     new_options = question_option(question = new_question, 
                                     option_description= questions_item[11],
-                                    is_right_option = (questions_item[11] == questions_item[12]) )
+                                    is_right_option = (questions_item[11] == questions_item[13]) )
+                                    new_options.save()
+                                #save options #4
+                                if questions_item[12] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= questions_item[12],
+                                    is_right_option = (questions_item[12] == questions_item[13]) )
                                     new_options.save()
                     index = index +1;
                     recordInserted = recordInserted +1;
@@ -535,10 +544,16 @@ def view_center(request, pk):
 
 def view_questions(request, pk):
     question1 = get_object_or_404(question, pk=pk)
+    assessment_type = None
     if question1.question_type.pk in [7, 8, 9]:
         question1.sub_questions = question.objects.filter(
             question_content=question1.question_content)
+    try: 
+      assessment_type = question1.assessment_type;
+    except:
+      assessment_type = None
 
+    question1.assessment_type = assessment_type
     template = f'view_question/sub_view/{question1.question_type.question_type_id}.html'
     try:
         django.template.loader.get_template(template)
@@ -668,7 +683,7 @@ def add_question(request):
         option_formset.data = option_formset.data.copy()
         form.data = form.data.copy()
 
-        if request.POST['question_type'] in ['1', '2', '4']:
+        if request.POST['question_type'] in ['1', '2', '4', '10', '11']:
             option_formset.data['form-0-is_right_option'] = True
 
         if request.POST['question_type'] == '5':
@@ -745,7 +760,8 @@ def add_question(request):
 @login_required
 def question_type_form(request):
     form_question_type = request.GET['question_type']
-
+    if form_question_type in ['10', '11'] :
+        form_question_type = '1'
     template = f"add_question/sub_form/{form_question_type}.html"
     try:
         django.template.loader.get_template(template)
@@ -763,6 +779,11 @@ def question_type_form(request):
 def edit_question(request, pk):
     a = question.objects.get(pk=pk)
     form_question_type = a.question_type.pk
+    try:
+      form_assessment_type = a.assessment_type.pk
+    except:
+      form_assessment_type = None
+
 
     if request.method == "POST":
         form = add_question_form(request.POST, request.FILES, instance=a)
@@ -773,6 +794,7 @@ def edit_question(request, pk):
         # form.data['module'] = a.module.pk
         # form.data['program'] = a.program.pk
         form.data['question_type'] = form_question_type
+        form.data['assessment_type'] = form_assessment_type
 
         if form_question_type in [1, 2, 4]:
             option_formset.data['form-0-is_right_option'] = True
@@ -849,6 +871,8 @@ def edit_question(request, pk):
     else:
         template = f"edit_question/sub_form/{form_question_type}.html"
         form = add_question_form(instance=a)
+        form.fields['question_type'].queryset = question_type.objects.all()
+        form.fields['question_type'].widget.attrs['disabled'] = True
         option_formset = add_option_formset(initial=a.options.values())
         return render(request, template, {"form": form, 'option_formset': option_formset})
 

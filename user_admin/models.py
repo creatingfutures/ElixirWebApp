@@ -223,6 +223,22 @@ class module_level(models.Model):
         self.level_description = self.level_description.lower()
         return super(module_level, self).save(*args, **kwargs)
 
+class assessment_type(models.Model):
+    assessment_type_id = models.AutoField(primary_key=True)
+    assessment_type = models.CharField(
+        max_length=150, null=False, blank=False, unique=True)
+
+    def __str__(self):
+        if not self.assessment_type:
+            return 
+        return self.assessment_type.capitalize()
+
+    def save(self, *args, **kwargs):
+        self.assessment_type = self.assessment_type.lower()
+        return super(assessment_type, self).save(*args, **kwargs)
+
+
+
 class question_type(models.Model):
     question_type_id = models.AutoField(primary_key=True)
     question_type = models.CharField(
@@ -246,6 +262,8 @@ class question(models.Model):
     question_id = models.AutoField(primary_key=True)
     question_type = models.ForeignKey(
         question_type, on_delete=models.CASCADE, blank=False, null=False)
+    assessment_type = models.ForeignKey(
+        assessment_type, on_delete=models.CASCADE, blank=False, null=False)
     level = models.ForeignKey(
         module_level, on_delete=models.CASCADE, null=False, blank=False)
     question_content = models.ForeignKey(

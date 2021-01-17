@@ -1,25 +1,6 @@
 {% extends 'base/base.html' %} {% block content %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat"
-      rel="stylesheet"
-    />
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <link rel="stylesheet" href="{% static 'view_question/css/index.css' %}" />
-    <title>View Questions</title>
-    <meta name="google" content="notranslate" />
-  </head>
-
-  <body>
-
 
     <div id="box">
       
@@ -38,12 +19,30 @@
         {{f.level}}
       </p>
 
+      
+ 
       <p>
         <label>Question Type :</label>
-        {{f.question_type}}
+       {{f.question_type}}
+      </p>
+
+      <p>
+        <label>Assessment Type :</label>
+    
+        {% if f.assessment_type_id != None  %}
+          {{ f.assessment_type }} 
+        {% endif %}
+
+        {% if f.assessment_type_id == None  %}
+          <span> None </span>      
+        {% endif %}
+
       </p>
 
       {% block sub_view %} {% endblock sub_view %}
+
+      <br>
+<br>
       <div class="buttonouter" style="display: flex; justify-content: center;">
         <button
         type="button"
@@ -55,6 +54,5 @@
       </div>
 
     </div>
-  </body>
-</html>
+
 {% endblock content %}

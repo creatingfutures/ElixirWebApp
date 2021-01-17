@@ -1,5 +1,3 @@
-{% extends 'base/base.html' %}
-{% block content %}
 {% load static %}
 <!DOCTYPE html>
 
@@ -21,7 +19,27 @@
   </head>
 
   <body>
-    
+    <div id="top">
+      <br />
+      <center>
+        <img src="{% static 'elixir_logo.PNG' %}" width="60" height="60" />
+      </center>
+    </div>
+
+    <ul>
+      <li><a href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+      <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
+      <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
+      <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
+      <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
+      <li><a href="#reports">REPORTS</a></li>
+      <li style="float: right"><a href="#about">FAQs</a></li>
+      <li style="float: right">
+        <a href="{% url 'admin_logout' %}">Logout</a>
+      </li>
+      <li style="float: right"><a href="{% url 'home' %}">HOME</a></li>
+    </ul>
+
     <br /><br />
 
     <div id="box">
@@ -43,6 +61,10 @@
         <p>
           <label>Type of question <span style="color: red">*</span> :</label>
           {{form.question_type}}{{form.question_type.errors}}
+        </p>
+         <p>
+          <label>Type of Assessment <span style="color: red">*</span> :</label>
+          {{form.assessment_type}}{{form.assessment_type.errors}}
         </p>
         <script src="{% static 'add_question/js/question_type_form.js' %}"></script>
         <p>
@@ -87,4 +109,3 @@
     </div>
   </body>
 </html>
-{% endblock content %}
