@@ -58,7 +58,7 @@ class add_question_form(forms.ModelForm):
     class Meta:
         model = question
         fields = ['question_type', 'level', 'question', 'narrative', 'hint', 'comments',
-                  'created_by', 'updated_by', 'question_content']
+                  'created_by', 'updated_by', 'assessment_type', 'question_content']
         widgets = {'comments': forms.Textarea,
                    'question': forms.Textarea}
 

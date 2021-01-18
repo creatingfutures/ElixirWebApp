@@ -10,12 +10,13 @@
 <br>
 
         <div class="row">
-            <div class="col-sm-12 table-responsive">
-                <table class="table" align="center" style="width:80%;font-family: Montserrat">
+            <div class="col-md-12 table-responsive">
+                <table class="table" align="center" style="width:90%;font-family: Montserrat">
                     <tr>
                         <th>PROGRAM NAME</th>
                         <th>MODULE</th>
                         <th>LEVEL</th>
+                        <th>QUESTION TYPE</th>
                         <th>QUESTION</th>
                         <th>ACTION</th>
                     </tr>
@@ -24,6 +25,7 @@
                         <td class="col-sm-2">{{q1.program}}</td>
                         <td class="col-sm-1">{{q1.module}}</td>
                         <td class="col-sm-1">{{q1.level}}</td>
+                         <td class="col-sm-1">{{q1.question_type}}</td>
                         <td class="col-sm-6">{{q1.question}}</td>
                         <td class="col-sm-3">
                             <a href="{% url 'view_questions' q1.question_id %}" data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a> &nbsp; &nbsp; 
@@ -36,39 +38,43 @@
             </div>
         </div>
         <div class="row">
-             <div class="col-sm-12">
-                <div class="pagination" style="width:25%;position:absolute;left:40%">
-                <nav aria-label="Page navigation">
-                  <ul class="pagination justify-content-center" >
+        <div class="col-md-4">
+        </div>
+             <div class="col-md-8">
+                <div class="" style=" ">
+                  <ul class="pagination" >
                     {% comment %} <ul style="position:absolute;left:10%"> {% endcomment %}
                         {% if p.has_previous %}
-                        <li class="page-item page-item1" ><a class="" href="?page={{p.previous_page_number}}">&laquo;</a></li>
+                        <li><a   href="?page=1">&laquo;</a></li>
+                        <li >  
+                        <a class="" href="?page={{p.previous_page_number}}">Prev</a></li>
                         {% else %}
-                        <li class="page-item"><a>&laquo;</a></li>
+                        <li  ><a>&laquo;</a></li>
                         {% endif %}
                         {% for pg in p.paginator.page_range %}
                         {% if p.number == pg %}
-                        <li class="page-item active"  style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
-                        {% elif pg > p.number|add:'-3' and pg < p.number|add:'3' %}
+                        <li ><a class="active" href="?page={{pg}}">{{pg}}</a></li>
+                        {% elif pg > p.number|add:'-5' and pg < p.number|add:'5' %}
                         <li><a href="?page={{ pg }}"><span>{{pg}}</span></a></li>
 
                         {% endif %}
                         {% endfor %}
 
                         {% if p.has_next %}
-                        <li><a class="page-item" href="?page={{p.next_page_number}}">&raquo;</a></li>
+                        <li><a class="page-item" href="?page={{p.next_page_number}}">Next</a></li>
+                        <li><a class="page-item" href="?page={{p.paginator.num_pages}}">&raquo;</a></li>
                         {% else %}
                         <li class="page-item"><span>&raquo;</span></li>
                         {% endif %}
                     </ul>
-                </nav>
+              
                 
             
            </div>
          </div>
       
         <div class="row margin " style="margin-top:25px" >
-            <div class="col-sm-12">
+            <div class="col-md-12">
                    <br><br><br>
                 <div style="position:absolute;left:10%;" id="">
                     <a class="button" href="{% url 'add_question' %}">ADD QUESTION</a>

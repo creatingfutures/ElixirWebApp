@@ -1,25 +1,30 @@
    .pagination li a:hover{
     background-color: orange !important;
   }
-.active > a,
-.active > span {
-&,
-&:hover,
-&:focus {
-  z-index: 3;
-  color: @pagination-active-color;
-  cursor: default;
-  background-color: orange !important;
-  border-color: orange !important;
-}
-}
+ 
+
 .page-item{
  color:black !important;
 }
 
-.pagination li active {
-    color: orange !important;
+.pagination li .active{
+    background-color: orange !important;
+    border-color: orange !important;
+    color: red;
   } 
+
+  .pagination>li>a {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: black !important;
+    text-decoration: none;
+    border: 1px solid #ddd;
+}
+  
+ 
 
   body {
     background: lightgrey !important;
@@ -172,8 +177,7 @@
   }
 
   #box {
-    width: 350px;
-    height: 350px;
+    width: 550px;
     background: transparent;
     margin: auto;
     position: absolute;
@@ -221,7 +225,7 @@ font-family: Montserrat;
 font-size: 12px;
 }
 select {
-  width: 40%;
+  width: 220px;
   padding: 12px 20px;
   margin: 0px 0px;
   display: inline-block;

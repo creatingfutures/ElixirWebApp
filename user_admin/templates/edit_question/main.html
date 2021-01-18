@@ -62,7 +62,16 @@
           <label>Narrative:</label>
           {{form.narrative}}{{form.narrative.errors}}
         </p>
+        <p>
+          <label>Question Type:</label>
+          {{form.question_type}}{{form.question_type.errors}}
+        </p>
+         <p>
+          <label>Assessment Type:</label>
+          {{form.assessment_type}}{{form.assessment_type.errors}}
+        </p>
         {% block question_type_form %} {% endblock question_type_form %}
+         <script src="{% static 'add_question/js/question_type_form.js' %}"></script>
         <p>
           <label>Hint: </label>
           {{form.hint}}{{form.hint.errors}}
