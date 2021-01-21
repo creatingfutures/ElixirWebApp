@@ -1,15 +1,16 @@
 //1,11,10
 function show(result,remove,status,pass_status)
 {
-    if(remove == 11){
+    console.log(question_type);
+    if(question_type == "Word search"){
         document.getElementsByClassName('container1')[0].style.display = 'none';
         document.getElementsByClassName('container1')[2].style.display = 'none';
     }
-    if(remove==1){
+    if(question_type== "Match the following"){
         document.getElementsByClassName('container1')[1].style.display = 'none';
         document.getElementsByClassName('container1')[2].style.display = 'none';
     }
-    if(remove==10){
+    if(question_type=="Crossword"){
         document.getElementsByClassName('container1')[0].style.display = 'none';
         document.getElementsByClassName('container1')[1].style.display = 'none';
     }

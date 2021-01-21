@@ -5,7 +5,7 @@ from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level, question
 from user_admin.models import student_module_level, student_batch,question_content
-#from user_admin.models import assessment_type
+from user_admin.models import assessment_type
 
 class student_status(models.Model):
     class Meta:
@@ -36,7 +36,7 @@ class student_status(models.Model):
 
 
 class scores(models.Model):
-    #id = models.AutoField(primary_key=True)
+    score_id = models.AutoField(primary_key=True)
     user_score    = models.IntegerField(null=False) # for particular test 
     student_id = models.ForeignKey(student, on_delete=models.CASCADE,null=True, blank=True) 
     batch_id      = models.ForeignKey(batch, on_delete=models.CASCADE,null=True, blank=True)
@@ -45,6 +45,6 @@ class scores(models.Model):
     total_score   = models.IntegerField(default=0) # no.of tests taken 
     question_content_id = models.ForeignKey(question_content, on_delete=models.DO_NOTHING, null=True, blank=True)
     assesment_type = models.CharField(default="Narrative",max_length=20)        
-    #assessment_type_id = models.ForeignKey(assessment_type,on_delete=models.DO_NOTHING, null=True, blank=True)
+    assessment_type_id = models.ForeignKey(assessment_type,on_delete=models.DO_NOTHING, null=True, blank=True)
     def __str__(self):
         return str(self.user_score)

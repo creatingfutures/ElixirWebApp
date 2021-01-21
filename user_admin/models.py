@@ -263,7 +263,7 @@ class question(models.Model):
     question_type = models.ForeignKey(
         question_type, on_delete=models.CASCADE, blank=False, null=False)
     assessment_type = models.ForeignKey(
-        assessment_type, on_delete=models.CASCADE, blank=False, null=False)
+        assessment_type, on_delete=models.CASCADE, blank=True, null=True)
     level = models.ForeignKey(
         module_level, on_delete=models.CASCADE, null=False, blank=False)
     question_content = models.ForeignKey(

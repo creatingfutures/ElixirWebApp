@@ -121,9 +121,9 @@ urlpatterns = [
 
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>',
          s_views.spoken_english, name="spoken_english"),
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/crossword/<str:narrative>', s_views.crossword, name="crossword"),
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/word_find/<str:narrative>', s_views.word_find, name="word_find"),
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/list_narrative/match/<str:narrative>', s_views.match, name="match"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/crossword/<str:narrative>/<int:question_type_id>', s_views.crossword, name="crossword"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/word_find/<str:narrative>/<int:question_type_id>', s_views.word_find, name="word_find"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/list_narrative/match/<str:narrative>/<int:question_type_id>', s_views.match, name="match"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/list_narrative/<int:question_type_id>', s_views.list_narrative, name="list_narrative"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/lesson',s_views.lesson,name="lesson"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/score_save/<int:typ>/<int:score>/<int:total_score>', s_views.score_save, name="score_save"),

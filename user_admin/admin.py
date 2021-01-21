@@ -5,7 +5,7 @@ from .models import student, facilitator, program, center
 from .models import batch, program_module, module_level
 from .models import student_module_level, student_batch
 from .models import question, question_type, question_option, question_content
-#from .models import assessment_type
+from .models import assessment_type
 # from .models import image_question,images_question,av_question,av_sub_question
 
 admin.site.register(entity)
@@ -27,7 +27,7 @@ admin.site.register(student_module_level)
 admin.site.register(student_batch)
 
 
-#admin.site.register(assessment_type)
+admin.site.register(assessment_type)
 #admin.site.register(image_question)
 # admin.site.register(images_question)
 # admin.site.register(av_question)
