@@ -612,7 +612,7 @@ def centers(request):
     except:
         centers1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'center\centers.html', {"p": centers1})
+    return render(request, 'center/centers.html', {"p": centers1})
 
 
 def facilitators(request):
