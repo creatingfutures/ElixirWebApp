@@ -203,10 +203,10 @@ def crossword(request, pk, pk1, pk2, m, l,narrative):
     level = module_level.objects.get(pk=l) 
     module = program_module.objects.get(pk=m)
     for i in QandA:
-        if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type.question_type_id==10 and i.question.narrative == narrative)): 
+        if((i.question.level == level and i.question.level.module == module) and (i.question.question_type.question_type_id == 10 and i.question.narrative == narrative)): 
             QUEST.append(i.question.question)
             ANS.append(i.option_description)
-    word_list=[]
+    word_list = []
     for i in range(0,len(ANS)):
         c = []
         c.append(str(ANS[i]))
@@ -223,13 +223,13 @@ def crossword(request, pk, pk1, pk2, m, l,narrative):
     arr = []
     n = 0
     for i in items:
-        if(n<13):
+        if(n < 13):
             arr.append(i)
-            n = n+1
-        if(n==13):
+            n = n + 1
+        if(n == 13):
             nd_array.append(arr)
-            n=0
-            arr=[]
+            n = 0
+            arr = []
     items = items
     answer_start = []
     answer_start_index = []
@@ -239,20 +239,20 @@ def crossword(request, pk, pk1, pk2, m, l,narrative):
         ans.append(i[1])
         ans.append(i[0])
         answer_start_index.append(ans)
-        answer_start_id = 'txt'+'_'+str(i[1])+'_'+ str(i[0])
+        answer_start_id = 'txt' + '_' + str(i[1]) + '_' + str(i[0])
         answer_start.append(answer_start_id)
-    new_cells_allowed=[]
+    new_cells_allowed = []
     for i in range(0,length_cords):
-        cells_allowed=[]
-        if(across_or_down[i]=='across'):
-            for j in range(answer_start_index[i][1],answer_start_index[i][1]+answers[i].length):
+        cells_allowed = []
+        if(across_or_down[i] == 'across'):
+            for j in range(answer_start_index[i][1],answer_start_index[i][1] + answers[i].length):
                 rows_allowed = []
                 rows_allowed.append(answer_start_index[i][0])
                 rows_allowed.append(j)
                 cells_allowed.append(rows_allowed)
             new_cells_allowed.append(cells_allowed)
         else:
-            for j in range(answer_start_index[i][0],answer_start_index[i][0]+answers[i].length):
+            for j in range(answer_start_index[i][0],answer_start_index[i][0] + answers[i].length):
                 rows_allowed = []
                 rows_allowed.append(j)
                 rows_allowed.append(answer_start_index[i][1])
@@ -262,6 +262,13 @@ def crossword(request, pk, pk1, pk2, m, l,narrative):
     for i in answers:
         ans.append(str(i))
 
+     #Smita
+    QUEST.clear()
+    ANS.clear()
+    for item in a.current_word_list:
+        QUEST.append(item.clue)
+        ANS.append(item)
+     #end Smita
     return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'nd_array':nd_array,'legend':legend,'cords':cords,'across_or_down':across_or_down,'items':items,'answer_start':answer_start,'answer_start_index':answer_start_index,'answers':ans,'new_cells_allowed':new_cells_allowed,'typ':10,'narrative':narrative,'questions':QUEST})
     
 def lesson(request, pk, pk1, pk2, pk3, pk4):
