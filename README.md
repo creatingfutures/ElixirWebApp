@@ -1,4 +1,4 @@
-# cfApp
+# Elixir
 
 Python >3.6 [3.7.6 preferred]
 
