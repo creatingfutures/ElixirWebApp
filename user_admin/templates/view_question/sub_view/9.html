@@ -30,29 +30,29 @@
 {% for sub_question in f.sub_questions %}
 <p>
   <label>Narrative:</label>
-  {{sub_question.narrative}}
+  {{sub_question.narrative}}<br/> 
 </p>
 <label> Question {{ forloop.counter }}: </label>
 {{sub_question.question}}
 {% for option in sub_question.options %}
 <p>
     <label>Option {{ forloop.counter }}:</label>
-    {{option}}
+    {{option}}<br/> 
 </p>
 {% endfor %}
 
 <p>
     <label>Answer: </label>
-    {{sub_question.answer}}
+    {{sub_question.answer}}<br/> 
 </p>
 
 <p>
     <label>Comments:</label>
-    {{sub_question.comments}}
+    {{sub_question.comments}}<br/> 
 </p>
 <p>
     <label>Hint:</label>
-    {{sub_question.hint}}
+    {{sub_question.hint}}<br/> 
 </p>
 <br>
 {% endfor %}
