@@ -6,31 +6,31 @@
       
       <p>
         <label>Program Name :</label>
-        {{f.program}}
+        {{f.program}}<br/> 
       </p>
 
       <p>
         <label>Module Name :</label>
-        {{f.module}}
+        {{f.module}}<br/> 
       </p>
 
       <p>
         <label>Level :</label>
-        {{f.level}}
+        {{f.level}}<br/> 
       </p>
 
       
  
       <p>
         <label>Question Type :</label>
-       {{f.question_type}}
+       {{f.question_type}}<br/> 
       </p>
 
       <p>
         <label>Assessment Type :</label>
     
         {% if f.assessment_type_id != None  %}
-          {{ f.assessment_type }} 
+          {{ f.assessment_type }} <br/> 
         {% endif %}
 
         {% if f.assessment_type_id == None  %}

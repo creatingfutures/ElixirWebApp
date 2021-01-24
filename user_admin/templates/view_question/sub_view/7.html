@@ -7,37 +7,40 @@
 </audio>
 <p>
   <label>Content Id: </label>
-  {{f.question_content.pk}}
+  {{f.question_content.pk}}<br/> 
 </p>
 <p>
   <label> Sub Questions: </label>
+  <br/> 
 </p>
 
 {% for sub_question in f.sub_questions %}
 <p>
   <label>Narrative:</label>
-  {{sub_question.narrative}}
+  {{sub_question.narrative}}<br/> 
 </p>
+<p>
 <label> Question {{ forloop.counter }}: </label>
-{{sub_question.question}} {% for option in sub_question.options %}
+{{sub_question.question}} {% for option in sub_question.options %}<br/>
+</p>
 <p>
   <label>Option {{ forloop.counter }}:</label>
-  {{option}}
+  {{option}}<br/> 
 </p>
 {% endfor %}
 
 <p>
   <label>Answer: </label>
-  {{sub_question.answer}}
+  {{sub_question.answer}}<br/> 
 </p>
 
 <p>
   <label>Comments:</label>
-  {{sub_question.comments}}
+  {{sub_question.comments}}<br/> 
 </p>
 <p>
   <label>Hint:</label>
-  {{sub_question.hint}}
+  {{sub_question.hint}}<br/> 
 </p>
 <br />
 {% endfor %} {% endblock sub_view %}
