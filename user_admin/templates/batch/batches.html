@@ -1,8 +1,7 @@
 {% extends 'base/base.html' %}
 {% block content %}
 
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<div class="container-fluid">
+<div class="container">
     <div class="row" style="margin-left: 5px;">
       <div class="form-group col-md-10 " style="margin-left: 16%;">
       <div class="search">
@@ -11,7 +10,7 @@
           <span class="fa fa-search" "aria-hidden="true"></span>
         </button>
       </div>
-  </div>
+ 
   </div>
     <br /> 
 
@@ -45,27 +44,12 @@
     </table>
   </div>
   </div>
-    <br />
-    <div class="row">
-      <div class="col-sm-12" >
-    <div class="pagination" style="width: 20%; position: absolute; left: 40%; margin-top: 0px;">
-      <ul style="position: absolute; left: 10%" class="pagination justify-content-center bg-warning">
-        {% if p.has_previous %}
-        <li ><a href="?page={{p.previous_page_number}}">Previous</a></li>
-        {% endif %} {% for pg in p.paginator.page_range %} {% if p.number == pg%}
-        <li class="active " style="background-color: orange; color: white">
-          <a href="?page={{pg}}">{{pg}}</a>
-        </li>
-        {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
-        <li><a href="?page={{ pg }}">{{pg}}</a></li>
-        {% endif %} {% endfor %} {% if p.has_next %}
-        <li  class="page-item"><a href="?page={{p.next_page_number}}">Next</a></li>
-        {% endif %}
-      </ul>
+       <div class="row" style="margin-top: 15px"> 
+     {% include  'base/pagination.html' %} 
     </div>
   </div>
 </div>
-  
+   </div>
 
       <div class="row">
         <div class="col-sm-12">  

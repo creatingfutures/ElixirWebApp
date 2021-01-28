@@ -48,25 +48,9 @@
   <br>
 
 <div class="row">
-  <div class="col-md-12">
-  <div class="pagination" style="width:20%;position:absolute;left:40%">
-    <ul style="position:absolute;left:10%">
-      {% if p.has_previous %}
-      <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
-      {% endif %}
-      {% for pg in p.paginator.page_range %}
-      {% if p.number == pg %}
-      <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
-      {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
-      <li><a href="?page={{ pg }}">{{pg}}</a></li>
-      {% endif %}
-      {% endfor %}
-
-      {% if p.has_next %}
-      <li><a href="?page={{p.next_page_number}}">Next</a></li>
-      {% endif %}
-    </ul>
-  </div>
+     <div class="row" style="margin-top: 15px"> 
+     {% include  'base/pagination.html' %} 
+    </div>
 </div>
 </div>
 <div class="row">
@@ -123,18 +107,16 @@
 </div>
     <br>
 <div class="row">
-  <div class="col-md-12">
-    
-  </div>
-</div>
-    <div class="pagination" style="width:20%;position:absolute;left:40%">
-      <ul style="position:absolute;left:10%">
+  <div class="col-md-6"> </div>
+  <div class="col-md-6"> 
+     <div style="width:20%;left:40%">
+      <ul class="pagination"  style="left:10%">
         {% if m.has_previous %}
-        <li><a href="?page3={{m.previous_page_number}}">Previous</a></li>
+        <li><a href="?page3={{m.previous_page_number}}">Prev</a></li>
         {% endif %}
         {% for pg in m.paginator.page_range %}
         {% if m.number == pg %}
-        <li class="active" style="background-color:orange;color:white;"><a href="?page3={{pg}}">{{pg}}</a></li>
+        <li ><a class="active" href="?page3={{pg}}">{{pg}}</a></li>
         {% elif pg > m.number|add:'-2' and pg < m.number|add:'2' %}
         <li><a href="?page3={{ pg }}">{{pg}}</a></li>
         {% endif %}
@@ -146,6 +128,9 @@
       </ul>
 
     </div>
+  </div>
+</div>
+ 
   </div>
 </div>
 
@@ -211,15 +196,16 @@
   </div>
       <br>
 <div class="row">
-  <div class="col-md-12">
-      <div class="pagination" style="width:20%;position:absolute;left:40%">
-        <ul style="position:absolute;left:10%">
+<div class="col-md-6"> </div>
+  <div class="col-md-6">
+      <div  style="width:20%;align:center; left:40%">
+        <ul class="pagination" style=";left:10%">
           {% if f.has_previous %}
           <li><a href="?page2={{f.previous_page_number}}">Previous</a></li>
           {% endif %}
           {% for pg in f.paginator.page_range %}
           {% if f.number == pg %}
-          <li class="active" style="background-color:orange;color:white;"><a href="?page2={{pg}}">{{pg}}</a></li>
+          <li  ><a class="active" href="?page2={{pg}}">{{pg}}</a></li>
           {% elif pg > f.number|add:'-2' and pg < f.number|add:'2' %}
           <li><a href="?page2={{ pg }}">{{pg}}</a></li>
           {% endif %}

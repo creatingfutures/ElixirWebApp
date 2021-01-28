@@ -22,9 +22,9 @@
                 {% if pass_status %} 
                     <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
                     <br><br>
-                    <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l assessment_type typ%}'">Try Again</button></li>
+                    <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l narrative typ%}'">Try Again</button></li>
                     {% else %}
-                    <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l assessment_type typ%}'">Try Again</button></li>    
+                    <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l narrative typ%}'">Try Again</button></li>    
                 {% endif %}
         </div>
 
@@ -34,9 +34,9 @@
                 {% if pass_status %}
                     <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
                     <br><br>
-                    <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l assessment_type typ %}'">Try Again</button></li>
+                    <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l narrative typ %}'">Try Again</button></li>
                     {% else %}
-                    <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l assessment_type typ %}'">Try Again</button></li>    
+                    <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l narrative typ %}'">Try Again</button></li>    
                 {% endif %}
         </div>
 
@@ -46,9 +46,9 @@
                 {% if pass_status %}
                     <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
                     <br><br>
-                    <button id="submit" class="button" onclick="location.href='{% url 'crossword' pk pk1 pk2 m l assessment_type typ %}'">Try Again</button></li>
+                    <button id="submit" class="button" onclick="location.href='{% url 'crossword' pk pk1 pk2 m l narrative typ %}'">Try Again</button></li>
                     {% else %}
-                    <button id="submit" class="button" onclick="location.href='{% url 'crossword' pk pk1 pk2 m l assessment_type typ %}'">Try Again</button></li>    
+                    <button id="submit" class="button" onclick="location.href='{% url 'crossword' pk pk1 pk2 m l narrative typ %}'">Try Again</button></li>    
                 {% endif %}
         </div>
 

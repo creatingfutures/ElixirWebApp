@@ -43,8 +43,10 @@ class scores(models.Model):
     level_id      = models.ForeignKey(module_level, on_delete=models.CASCADE,null=True, blank=True)
     date_time     = models.DateTimeField(null=True, blank=True)
     total_score   = models.IntegerField(default=0) # no.of tests taken 
-    question_content_id = models.ForeignKey(question_content, on_delete=models.DO_NOTHING, null=True, blank=True)
-    assesment_type = models.CharField(default="Narrative",max_length=20)        
+    question_content_id = models.IntegerField(null=True, blank=True) 
     assessment_type_id = models.ForeignKey(assessment_type,on_delete=models.DO_NOTHING, null=True, blank=True)
+    #assesment_type = models.CharField(default="Narrative",max_length=20)       
     def __str__(self):
         return str(self.user_score)
+
+# score_id,batch_id,student_id,level_id,assessment_type_id,question_content_id,user_score,total_score,date_time,

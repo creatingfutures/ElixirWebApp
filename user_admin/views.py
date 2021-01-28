@@ -553,6 +553,7 @@ def view_questions(request, pk):
     except:
       assessment_type = None
 
+
     question1.assessment_type = assessment_type
     template = f'view_question/sub_view/{question1.question_type.question_type_id}.html'
     try:
@@ -612,7 +613,7 @@ def centers(request):
     except:
         centers1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'center\centers.html', {"p": centers1})
+    return render(request, 'center/centers.html', {"p": centers1})
 
 
 def facilitators(request):
@@ -794,9 +795,9 @@ def edit_question(request, pk):
         # form.data['module'] = a.module.pk
         # form.data['program'] = a.program.pk
         form.data['question_type'] = form_question_type
-        form.data['assessment_type'] = form_assessment_type
+        # form.data['assessment_type'] = form_assessment_type
 
-        if form_question_type in [1, 2, 4]:
+        if form_question_type in [1, 2, 4, 10, 11]:
             option_formset.data['form-0-is_right_option'] = True
 
         if form_question_type == 5:
@@ -869,6 +870,8 @@ def edit_question(request, pk):
             messages.success(request, f'Successfully Edited questions')
             return JsonResponse(data)
     else:
+        if form_question_type in [10, 11] :
+            form_question_type = 1
         template = f"edit_question/sub_form/{form_question_type}.html"
         form = add_question_form(instance=a)
         form.fields['question_type'].queryset = question_type.objects.all()

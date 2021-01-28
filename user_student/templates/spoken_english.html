@@ -156,11 +156,8 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
   </div>
   <ul class="breadcrumb">
     <li><a href="#" >MODULES</a></li>
-    
-    
-    
-  </ul>
-  
+  </ul>  
+
     <center><h1> {{p.program_name|allcaps}}</h1></center>
     
     {% for i,lev in l %}
@@ -169,46 +166,44 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     <div class="content">
     {% for j in lev %}
   
-  <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
+  <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>
   
     <div class="content1">
   
     <table class="myTable" style="width:100%">
       <tr>
         <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
-        <td><b style="color:red;margin-left: 1180px;">X </b> </td>
-      
+        <td id='G,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;" ></b>X</td>
        </tr>
-    
        <tr>      
         <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 1 %}">Match the following</a> </td>
-         <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
+         <td id='M,{{pk}},{{pk1}},{{j.pk}}'><b style="color:green; margin-left: 1180px;">Y </b> </td>
       
        </tr>
          <tr>
        <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 11%}">Word Search</a> </td>
-         <td><b style="color:green; margin-left: 1180px;">Y </b> </td>
+         <td id='W,{{pk}},{{pk1}},{{j.pk}}'><b style="color:green; margin-left: 1180px;">Y </b> </td>
     
        </tr>
         <tr>
        <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 10%}">Crossword</a> </td>
-         <td><b style="color:red; margin-left: 1180px;">X </b> </td>
+         <td id='C,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red; margin-left: 1180px;">X </b> </td>
       
        </tr>
        
         <tr > 
           <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 7 %}">Audio</a> </td>
-            <td><b style="color:red;margin-left: 1180px;">X </b> </td>
+            <td id='A,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;">X </b> </td>
          
           </tr>
           <tr>
             <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 8 %}">Video</a> </td>
-              <td><b style="color:red;margin-left: 1180px;">X </b> </td>
+              <td id='V,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;">X </b> </td>
            
           </tr>
           <tr>
             <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
-              <td><b style="color:red;margin-left: 1180px;">X </b> </td>
+              <td id='T,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;">X </b> </td>
            
           </tr>
             
@@ -226,8 +221,58 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     
   
     <script>
-      
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    /*
+    var score = 0; 
+    var respective_scores = {{respective_scores|safe}}
+=======
+      var score = 0;
+      var respective_scores = {{respective_scores|safe}}
+>>>>>>> Stashed changes
+=======
+      var score = 0;
+      var respective_scores = {{respective_scores|safe}}
+>>>>>>> Stashed changes
+=======
+      var score = 0;
+      var respective_scores = {{respective_scores|safe}}
+>>>>>>> Stashed changes
+=======
+      var score = 0;
+      var respective_scores = {{respective_scores|safe}}
+>>>>>>> Stashed changes
+      var F = {{F|safe}}
+      var user_score = 0;
+      var total_score = 1;
+      //console.log(F);
+      for(var i=0;i<F.length;i++){
+        res = F[i].split(',',4);
+        console.log(res);
+        //console.log(F);
+        user_score = F[i].split(',').slice(4)[0];
+        total_score = F[i].split(',').slice(4)[1];
+        if(F[i].split(',').slice(0)[0]=='L'){
+          var score_style = document.getElementById(res);
+          score_style.innerHTML= ' Score: '+ (user_score/total_score)*100+'%';
+          
+        }
+        else{
+          score_style = document.getElementById(res);
+          score_style.innerHTML= (user_score/total_score)*100+'%';
+          if(user_score>=0.8*total_score){
+            score_style.style.color = "green";
+          }
+          else{
+            score_style.style.color = "red";
+          }
+        }
+          
+      }
 
+      */
       var coll=document.getElementsByClassName("collapsible");
           var i;
      for (i = 0; i < coll.length; i++) {
