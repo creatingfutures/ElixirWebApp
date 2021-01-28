@@ -418,7 +418,8 @@ def av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
     module = program_module.objects.get(pk=pk3)
     level = module_level.objects.get(pk=pk4)
     i = 0
-    return render(request, "av_test.html",{"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
+    #return render(request, "av_test.html",{"q": questions1, "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
+    return render(request, "av_test.html",{ "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5, "m": module, "l": level})
 
 
 def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
@@ -443,26 +444,32 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5):
     if i >= j:
             i=j
             return render(request, "test_submit.html",
-                      {"q": questions1, "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1)})
+                      { "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1)})
+    question_content = question.objects.filter(question_content_id=questions1[i].question_content_id)
+    request.session['question_content']= serializers.serialize('json', question_content) 
+    #list(question_content)
+    #serializers.serialize('json', question_content) 
+    #list(question_content)
+
     if questions1[i].question_type.question_type == "Video":
-        ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+       #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
         return render(request, "video.html",
-                      {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
+                      {"i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
 
     if questions1[i].question_type.question_type == "Audio":
         
-        ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+        #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
         # a = ques[i].question_content_id
         print(i)
         return render(request, "audio.html",
-                      {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
+                      { "i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
     if questions1[i].question_type.question_type == "Text":
         
-        ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+        #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
         # a = ques[i].question_content_id
         print(i)
         return render(request, "text.html",
-                      {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
+                      {"q1": question_content, "i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5})
 
 
 def test_submit(request, pk, pk1, pk2, pk3, pk4):

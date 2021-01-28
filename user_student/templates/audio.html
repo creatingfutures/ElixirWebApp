@@ -4,24 +4,29 @@
 <p style="font-size:200%"><b>Listen to Audio and Answer Below Questions</b></p>
 
 <audio controls>
- <source src="/media/{{q|index_av:i}}" type="audio/mpeg">
+ <source src="/media/{{request.session.questions|index_av:i}}" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
 
 {% for j in r %}
-<form action="" onSubmit="return check(this)" id="{{j}}">
-<p style="font-size:200%"><b>Multiple Choice Question</b></p>
-<p style="font-size:150%">{{q1|index:j}}</p> 
-<ol type="A">
-    <li>  <input type="radio" name="options" value="{{q1|index1:j}}">{{q1|index1:j}}</li><br>
-    <li>  <input type="radio" name="options" value="{{q1|index2:j}}">{{q1|index2:j}}</li><br>
-    <li>  <input type="radio" name="options" value="{{q1|index3:j}}">{{q1|index3:j}}</li><br>
-    <li> <input type="radio" name="options" value="{{q1|index4:j}}" >{{q1|index4:j}}</li><br>
-      <input type="text" name="ans" value="{{q1|index5:j}}" hidden>
-      <input type="text" name="c" value="0" hidden>
-</ol>
-<input type="submit" name="sub" class="button" value="Check">
-</form>
+    <form action="" onSubmit="return check(this)" id="{{j}}">
+    {% with  iteratedContent=request.session.question_content|getObject:j %}
+        <p style="font-size:200%"><b>Multiple Choice Question</b></p>
+        <p style="font-size:150%">{{iteratedContent.question}}</p>
+        <ol type="A">
+            {% for option in iteratedContent.options %}
+                <li>  
+                    <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
+                </li>
+            {% endfor %}
+       
+            
+        </ol>
+        <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
+        <input type="text" name="c" value="0" hidden>
+        <input type="submit" name="sub" class="button" value="Check">
+     {% endwith %}
+    </form>
 
 {% endfor %}
 <br><br><br>

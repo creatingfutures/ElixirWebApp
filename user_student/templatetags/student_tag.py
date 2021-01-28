@@ -11,6 +11,15 @@ def index(List, i):
     return L[i].object.question
 
 @register.filter
+def getObject(List, i):
+    if not isinstance(List,list):
+     L = list(serializers.deserialize("json",List))
+    else:
+     L=List 
+    return L[i].object
+
+
+@register.filter
 def index_img(List, i):
     L = list(serializers.deserialize("json",List))
     return L[i].object.content
@@ -81,6 +90,14 @@ def index4(List, i):
     L = list(serializers.deserialize("json",List))
     if len(L[i].object.options)>=4:
         return L[i].object.options[3]
+    else:
+        return ""
+
+@register.filter
+def indexn(List, i,n):
+    L = list(serializers.deserialize("json",List))
+    if len(L[i].object.options)>=n:
+        return L[i].object.options[n-1]
     else:
         return ""
 
