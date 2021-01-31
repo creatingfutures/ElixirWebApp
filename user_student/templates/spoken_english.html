@@ -172,7 +172,7 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
   
     <table class="myTable" style="width:100%">
       <tr>
-        <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assesment</a> </td>
+        <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> </td>
         <td id='G,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;" ></b>X</td>
        </tr>
        <tr>      
@@ -192,18 +192,19 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
        </tr>
        
         <tr > 
-          <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 7 %}">Audio</a> </td>
+          
+          <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 7 %}">Audio</a> </td>
             <td id='A,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;">X </b> </td>
          
           </tr>
           <tr>
-            <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 8 %}">Video</a> </td>
+            <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 8 %}">Video</a> </td>
               <td id='V,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;">X </b> </td>
            
           </tr>
           <tr>
-            <td><a href="{% url 'av_test' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
-              <td id='T,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;">X </b> </td>
+            <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
+              <td id='t,{{pk}},{{pk1}},{{j.pk}}'><b style="color:red;margin-left: 1180px;">X </b> </td>
            
           </tr>
             
@@ -217,50 +218,32 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
     </div>
       {% endfor %}
       
-    
-    
+    </body>    
   
     <script>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    /*
-    var score = 0; 
-    var respective_scores = {{respective_scores|safe}}
-=======
+
+    
       var score = 0;
-      var respective_scores = {{respective_scores|safe}}
->>>>>>> Stashed changes
-=======
-      var score = 0;
-      var respective_scores = {{respective_scores|safe}}
->>>>>>> Stashed changes
-=======
-      var score = 0;
-      var respective_scores = {{respective_scores|safe}}
->>>>>>> Stashed changes
-=======
-      var score = 0;
-      var respective_scores = {{respective_scores|safe}}
->>>>>>> Stashed changes
-      var F = {{F|safe}}
+      var respective_scores = {{respective_scores|safe}};
+      var F = {{F|safe}};
       var user_score = 0;
       var total_score = 1;
-      //console.log(F);
+      console.log(F);
       for(var i=0;i<F.length;i++){
         res = F[i].split(',',4);
-        console.log(res);
-        //console.log(F);
+        console.log('hi',res);
+        console.log(F);
         user_score = F[i].split(',').slice(4)[0];
         total_score = F[i].split(',').slice(4)[1];
+        console.log(user_score,total_score);
         if(F[i].split(',').slice(0)[0]=='L'){
           var score_style = document.getElementById(res);
           score_style.innerHTML= ' Score: '+ (user_score/total_score)*100+'%';
-          
         }
         else{
           score_style = document.getElementById(res);
+          console.log(score_style);
+          console.log('hi',res);
           score_style.innerHTML= (user_score/total_score)*100+'%';
           if(user_score>=0.8*total_score){
             score_style.style.color = "green";
@@ -272,7 +255,7 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
           
       }
 
-      */
+      
       var coll=document.getElementsByClassName("collapsible");
           var i;
      for (i = 0; i < coll.length; i++) {
@@ -379,5 +362,5 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
       
       </script>
           
-    </body>
+
 </html>

@@ -18,19 +18,7 @@ def getObject(List, i):
      L=List 
     return L[i].object
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 @register.filter
 def index_img(List, i):
     L = list(serializers.deserialize("json",List))
@@ -113,22 +101,6 @@ def indexn(List, i,n):
     else:
         return ""
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
 @register.filter
 def index5(List, i):
     L = list(serializers.deserialize("json",List))
