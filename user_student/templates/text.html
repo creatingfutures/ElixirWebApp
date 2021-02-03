@@ -44,6 +44,7 @@
 
      // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
      $(document).ready(function() {
+       console.log("document");
        jQuery.get('/media/{{request.session.questions|index_av:i}}',function(txt){
            $('#output').text(txt);
        });
@@ -96,11 +97,11 @@
             c= parseInt(c);
             b=parseInt(b);
             b=b+c;
-        
+            var narrative = "{{narrative|safe}}";
             alert("Solved all")
             var str="av"
             $.ajax({ // initialize an AJAX request
-              url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/',
+              url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/'+narrative,
               type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
               data: {
                 correct:str,

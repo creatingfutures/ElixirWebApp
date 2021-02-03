@@ -1,0 +1,55 @@
+{%load static %}
+<html>
+    <head> 
+        <link rel="stylesheet" href="{% static 'match_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/score_card.css' %}"> 
+    </head>
+    <body>
+        <script  src="{% static 'js/score_card.js' %}"></script>
+            <script>
+            var result = {{score}};
+            var remove = {{typ}};
+            var status = 'Status : FAIL';
+            console.log(remove,"{{pass_status}}");
+            pass_status="{{pass_status}}"
+            show(result,remove,status,pass_status);
+            </script>
+
+        <div class="container1">
+            <h1>Score : {{score}} </h1>
+            <h1 id='result1'></h1>
+                {% if pass_status %} 
+                    <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
+                    <br><br>
+                    <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>
+                    {% else %}
+                    <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>    
+                {% endif %}
+        </div>
+
+        <div class="container1">
+            <h1>Score : {{score}} </h1>
+            <h1 id='result2'></h1>
+                {% if pass_status %}
+                    <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
+                    <br><br>
+                    <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>
+                    {% else %}
+                    <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>    
+                {% endif %}
+        </div>
+
+        <div class="container1">
+            <h1>Score : {{score}} </h1>
+            <h1 id='result3'></h1>
+                {% if pass_status %}
+                    <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
+                    <br><br>
+                    <button id="submit" class="button" onclick="location.href='{% url 'crossword' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>
+                    {% else %}
+                    <button id="submit" class="button" onclick="location.href='{% url 'crossword' pk pk1 pk2 m l assessment_type %}'">Try Again</button></li>    
+                {% endif %}
+        </div>
+
+    </body>
+    </html>

@@ -297,6 +297,7 @@ class Crossword(object):
         across_or_down = []
         cords = []
         answers = self.current_word_list
+        answers_box = []
         for word in self.current_word_list:
             x_y = []
             x_y.append(word.col-1)
@@ -304,7 +305,8 @@ class Crossword(object):
             cords.append(x_y)
             across_or_down.append(word.down_across())
             outStr += '%d. (%d,%d) %s: %s\n' % (word.number, word.col, word.row, word.down_across(), word.clue )
-        return outStr,cords,across_or_down,answers
+            answers_box.append( ' %s\n' % ( word.clue )   )
+        return outStr,cords,across_or_down,answers,answers_box
 
  
 class Word(object):
