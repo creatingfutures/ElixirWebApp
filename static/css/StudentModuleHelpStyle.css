@@ -69,12 +69,14 @@ nav {
 
 h1 {
   font-family: "Montserrat";
-  font-weight: 100 !important;
+  font-weight: bold !important;
   font-size: 12px !important;
+
 
 }
 h2{
   font-weight: bold !important;
+ 
 }
 
 p,
@@ -88,12 +90,17 @@ h3 {
 }
 h3{
   font-weight: bold !important;
+
+  
 }
 h4{
   font-weight: bold !important;
+ 
 
 }
-
+.boxspace{
+  padding: 6px !important;
+}
 td,
 th {
   border: 1px solid black;
@@ -110,7 +117,12 @@ td {
 }
 
 
-
+.space li{
+  margin-bottom: 9px !important;
+}
+.space ul{
+  margin-bottom: 8px !important;
+}
 
 ul.breadcrumb {
   padding: 10px 16px;

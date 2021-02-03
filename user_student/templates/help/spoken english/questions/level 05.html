@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block content %}
+
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<body>
+    <ul class="breadcrumb">
+        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 5 LESSON</a></li>
+
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Questions  – Level 5 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                             
+
+                                <p>
+                                    In this level, you will learn about questions that will help you be creative and use your thinking.   <br>
+These types of questions produce a lot of new ideas. There is no right or wrong responses to these questions. It is left to the imagination of the person who responds. 
+ </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class=" mleft">
+                                <h2 class="bg-white boxspace"><b> Examples</b></h2>
+                            <ul class="list space">
+                                <li>
+                                    What do you think you will be doing 5 years from now on? 
+                                </li>
+                                <li>
+                                    If you had superpowers, what would you do?   
+                                </li>
+                                <li>
+                                    What if you were living at the Mars instead of Earth? 
+                                </li>
+                                <li>
+                                    If there is one thing you would like to change from your past, what would that be? 
+                                </li>
+                            </ul>    
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}
