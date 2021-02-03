@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block content %}
+
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<body>
+    <ul class="breadcrumb">
+        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 2 LESSON</a></li>
+
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2">Listening – Level 2 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    Listening level 2 focuses on a combination of words used in our day-to-day life. It
+                                    can be our salutations or how we address and reply to individuals. It will also help
+                                    in understanding familiar words and basic phrases when people speak slowly and
+                                    clearly. Situations include meeting people, shopping and conversations at work
+                                </p>
+                                <h2 class="bg-white boxspace fonth2">Example </h2>
+                                <p>“Good Morning”, “Good Evening”, “Thank You”, “Thank you very much”, “What’s up?”,
+                                    “How you doing?” , “I am Great”, “How much?”, “Its alright</p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}

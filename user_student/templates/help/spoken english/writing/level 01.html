@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block content %}
+
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<body>
+    <ul class="breadcrumb">
+        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
+
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2">Writing – Level 1 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+
+                                <p>
+                                    Writing consists of letters, words, phrases, and sentences. In the beginner level, we would just focus on writing simple one line sentence for communicating an information.  </p>
+                                <h2 class="bg-white boxspace">Example</h2>
+                                <ul>
+                                    <li>If we have to communicate a congratulatory message, then the possible write ups can be, 
+                                        <ul>
+                                            <li>
+                                                “Congratulations on your promotion!!!”, 
+                                            </li>
+                                            <li>
+                                                “You have done a Great job. Congrats!!!”, 
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>If we have to communicate a simple message to acknowledge someone or thank someone, then we can have possible write-ups like 
+                                        <ul>
+                                            <li>
+                                                “Thank You very much!!”, 
+                                            </li>
+                                            <li>
+                                                “Thanks!!!”, 
+                                            </li>
+                                            <li>
+                                                “Thank you very much for your support and help!!!”
+                                            </li>
+                                        </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}

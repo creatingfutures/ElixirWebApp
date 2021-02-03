@@ -1,227 +1,180 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
-
+{% block content %} 
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {
-        background-color: lightgrey;
-    }
-
-    #top {
-        top: 0;
-        background-color: orange;
-        height: 100px;
-    }
-
-    body {
-        background: lightgrey;
-        font-family: Montserrat;
-        font-size: 12px;
-    }
-
-    * {
-        transition: all 0.3s ease-in-out;
-    }
 
 
-    nav {
-        float: right;
-    }
-
-    .logo img {
-        float: left;
-        padding: 8px;
-    }
-
-    h1 {
-        font-family: "Montserrat";
-        font-weight: 100;
-
-    }
-
-    p,
-    ul.list,
-    h4,
-    h3 {
-        font-family: "Montserrat";
-        font-size: large;
-    }
-
-
-    .nav {
-        background-color: orange;
-        height: 30%;
-        display: grid;
-        grid-template-rows: auto auto auto;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .navig {
-        grid-row: 2/3;
-        display: flex;
-        flex-wrap: nowrap;
-        background-color: white;
-        flex-direction: row;
-    }
-
-    .navv {
-        width: 80%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 10px;
-    }
-
-    ul.breadcrumb {
-        padding: 10px 16px;
-        list-style: none;
-        background-color: lightgray;
-    }
-
-    ul.breadcrumb li {
-        display: inline;
-        font-size: 18px;
-    }
-
-    ul.breadcrumb li+li:before {
-        padding: 8px;
-        color: black;
-        content: "/\00a0";
-    }
-
-    ul.breadcrumb li a {
-        color: darkblue;
-        text-decoration: none;
-    }
-
-    ul.breadcrumb li a:hover {
-        color: darkblue;
-        text-decoration: underline;
-    }
-</style>
-
-<body>
-    <div class="nav">
-        <div class="navig">
-            <div>
-                <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
-            </div>
-            <div class="navv">
-                <a href="" style="font-size:150%;margin:10px;"></a>
-                <a href="" style="font-size:150%;margin:10px;"></a>
-                <a href="" style="font-size:150%;margin:10px;"></a>
-                <a href="" style="font-size:150%;margin:10px;"></a>
-            </div>
-        </div>
-    </div>
     <ul class="breadcrumb">
         <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
         <li style="font-family: Montserrat;"><a href="#">LEVEL 5 LESSON</a></li>
-
-
-
-
     </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+        <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col" ><h2 class="fonth2 bg-white boxspace">Words-Level 5 Lesson</h2></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>    </td>
+                </tr>
+                <tr>
+                    <td > <h1 style="font-weight: bold !important;" class="boxspace bg-white">Types of Verbs</h1></td>
+                  </tr>
+             
+                    <tr>
+                        <td>
+                            <p>Verbs are action words, like shout, jump, run, and eat. They tell us what’s happening in the
+                                sentence.
+                            </p>
+                            <p>There are three types of verbs:</p>
+                      
+                            <h4 class="boxspace bg-white"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action verbs (which can be transitive or intransitive)</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>    
+                <p>These are the ones that are used to talk about the different actions that are happening and the
+                    physical activities that a subject might perform. </p>
+                <p>Example -
+                <ul class="list space">
+                    <li>taste – This apple tastes good.</li>
+                    <li>hear – I can hear the children crying.</li>
+                </ul>
+                </p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <h4 class="boxspace bg-white"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modal verbs (sometimes called helping verbs)</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                              
+                <p>Modal verbs help to ask for permission and when making requests. They are used to express
+                    ability, possibility, or obligation. Each one of the modal verbs can be used to express one or
+                    more of these modalities. They can also be used to form the future tense and to make conditional
+                    sentences.</p>
+                <p> Example -
+                <ul class="list space">
+                    <li> Can you come home early today?</li>
+                    <li> It could rain tomorrow</li>
+                </ul>
+                </p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4 class="boxspace bg-white">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auxiliary verbs (sometimes called linking verbs)</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Auxiliary (or Helping) verbs are used together with a main verb to show the verb’s tense or to
+                                form a negative or question. The most common auxiliary verbs are have, be, and do.</p>
+                            <p>Example -
+                            <ul class="list space">
+                                <li>She was baking a cake for dessert.</li>
+                                <li> Dad has been working hard all day.</li>
+                            </ul>
+                            </p>
+                        </td>
+                    </tr>
+              <tr>
+                <td> <h1 class="boxspace bg-white" style="font-weight: bold !important;">Words-Level 5 Examples</h1></td>
+              </tr>
+              <tr><td> </td></tr>
+              <tr>
+                  <td >
+                    <h3 class="boxspace bg-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action verbs</h3>
+                  </td>
+              </tr>
+              <tr>
+                  <td >
+                         
+                <ul class="list space">
+                    <li>
+                        Ride, Sit down, Stand up, Fight, Laugh, Read, Play, Listen, Cry, Think
+                    </li>
+                </ul>
+                  </td>
+              </tr>
+              <tr>
+                  <td >
+                    <h3 class="boxspace bg-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Model verbs</h3>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                    <ul class="list space">
+                        <li>
+                            Can, May, Must, Shall, Will, Ought to, Need, be to, Have to, Would, Should, Used to
+                        </li>
+                        <li>
+                            <u>Could</u> I go play with Sammer?
+                        </li>
+                        <li>
+                            I <u>can</u> call you later
+                        </li>
+                        <li>
+                            <u>May</u> I help you with anything?
+                        </li>
+                        <li>
+                            Ira <u>might</u> need your help later
+                        </li>
+                        <li>
+                            Look at the sky, it <u>won't</u> rain later.
+                        </li>
+                        <li>
+                            <u>Will</u> you turn off the light?
+                        </li>
+                    </ul>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                    <h3 class="boxspace bg-white"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auxiliary verbs</b></h3>
 
+                  </td>
+              </tr>
+            <tr>
+              <td>
+              <ul class="list space">
+                  <li>
+                      Am, Is, are, was, were, Be, Been, Will, Has, Have, Had, Do, Does, Did
+                  </li>
+                  <li>
+                      <u>Does</u> Sam write all his own reports?
+                  </li>
+                  <li>
+                      The clerks <u>haven't</u> written all the letters yet.
+                  </li>
+                  <li>
+                      Abdul <u>is</u> writing an e-mail to a client at the moment.
+                  </li>
+      
+              </ul>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
 
-
-
-
-
-
-    <h1>Words-Level 5 Lesson</h1>
-    <div>
-        <h3><b>Types of Verbs</b></h3>
-        <p>Verbs are action words, like shout, jump, run, and eat. They tell us what’s happening in the
-            sentence.
-        </p>
-        <p>There are three types of verbs:</p>
-        <h4>Action verbs (which can be transitive or intransitive)</h4>
-        <p>These are the ones that are used to talk about the different actions that are happening and the
-            physical activities that a subject might perform. </p>
-        <p>Example -
-        <ul class="list">
-            <li>taste – This apple tastes good.</li>
-            <li>hear – I can hear the children crying.</li>
-        </ul>
-        </p>
-        <h4> Modal verbs (sometimes called helping verbs)</h4>
-        <p>Modal verbs help to ask for permission and when making requests. They are used to express
-            ability, possibility, or obligation. Each one of the modal verbs can be used to express one or
-            more of these modalities. They can also be used to form the future tense and to make conditional
-            sentences.</p>
-        <p> Example -
-        <ul class="list">
-            <li> Can you come home early today?</li>
-            <li> It could rain tomorrow</li>
-        </ul>
-        </p>
-        <h4>Auxiliary verbs (sometimes called linking verbs)</h4>
-        <p>Auxiliary (or Helping) verbs are used together with a main verb to show the verb’s tense or to
-            form a negative or question. The most common auxiliary verbs are have, be, and do.</p>
-        <p>Example -
-        <ul class="list">
-            <li>She was baking a cake for dessert.</li>
-            <li> Dad has been working hard all day.</li>
-        </ul>
-        </p>
-        <hr>
-        <h1>Words-Level 5 Examples</h1>
-        <h3><b>Action verbs</b></h3>
-        <ul class="list">
-            <li>
-                Ride, Sit down, Stand up, Fight, Laugh, Read, Play, Listen, Cry, Think
-            </li>
-        </ul>
-        <h3><b>Model verbs</b></h3>
-        <ul class="list">
-            <li>
-                Can, May, Must, Shall, Will, Ought to, Need, be to, Have to, Would, Should, Used to
-            </li>
-            <li>
-                <u>Could</u> I go play with Sammer?
-            </li>
-            <li>
-                I <u>can</u> call you later
-            </li>
-            <li>
-                <u>May</u> I help you with anything?
-            </li>
-            <li>
-                Ira <u>might</u> need your help later
-            </li>
-            <li>
-                Look at the sky, it <u>won't</u> rain later.
-            </li>
-            <li>
-                <u>Will</u> you turn off the light?
-            </li>
-        </ul>
-        <h3><b>Auxiliary verbs</b></h3>
-        <ul class="list">
-            <li>
-                Am, Is, are, was, were, Be, Been, Will, Has, Have, Had, Do, Does, Did
-            </li>
-            <li>
-                <u>Does</u> Sam write all his own reports?
-            </li>
-            <li>
-                The clerks <u>haven't</u> written all the letters yet.
-            </li>
-            <li>
-                Abdul <u>is</u> writing an e-mail to a client at the moment.
-            </li>
-
-        </ul>
-        <hr>
+    </div>
+    </div>
+    </div>
 
 </body>
 
 </html>
+{% endblock content %} 

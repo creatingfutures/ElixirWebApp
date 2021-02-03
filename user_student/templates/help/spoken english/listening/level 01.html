@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block content %}
+
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<body>
+    <ul class="breadcrumb">
+        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
+
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Listening – Level 1 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h1 style="font-weight: bold !important; " class="bg-white boxspace">What is Listening?
+                                </h1>
+
+                                <p>
+                                    Listening is the ability to hear and understand the message being communicated.
+                                    Listening enables an individual to decode the information and if necessary, to
+                                    initiate the action required. </p>
+                                <p>
+                                    In the beginner level, listening would involve hearing out basic letters or words.
+                                </p>
+                               <ul class="list space" style="list-style: lower-roman;">
+                                <li><b> Letter:</b> Beginner level starts with hearing all the 26 Letters like A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y and Z .</li>
+                                <li><b> Numbers: </b>All numbers from 0, 1, 2, 3, 4, 5 ,6,7, 8, 9 are included here</li>
+                                <li> <b> Words: </b>    It can be names of Places like “Delhi”, “Kolkata”, “Bengaluru”, “Mumbai”,  Chennai”. It can be Person names like “Abhishek”, “Poornima”, “Akshay”, “Leena”. </li>
+
+                               </ul>
+                               
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}

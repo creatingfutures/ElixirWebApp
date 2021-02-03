@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block content %} 
+
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<body>
+    <ul class="breadcrumb">
+        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 2 LESSON</a></li>
+    
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col"><h2 class="bg-white boxspace fonth2">Reading – Level 2 </h2></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td > 
+                            <p>
+                                In this level, you will be ready to read short poems and short stories. You are advised to read out loud. </p>
+                   
+                        </td>
+                      </tr>
+                      <tr >
+                    <td class=" mleft" > <h2 class="bg-white boxspace"><b>Examples</b></h2>
+                        
+                    <p>Reading fewer sentences with words with long vowel sounds such as s-t-a-r. Also, understand rhyming words (similar ending sound). </p>
+                    <p>Twinkle twinkle little star <br>
+                        How I wonder what you are <br>
+                        Up above the world so high <br>
+                        Like a diamond in the sky <br>
+                        </p>
+                        <br>
+                        <p>
+                            We are little children,    <br>
+                            Walking in the rain,   <br>
+                            We are little flowers,    <br>
+                            How we love the rain.   <br>
+                            We are little earthworms,   <br>
+                            Wriggling in the rain,   <br>
+                            We are little froggies,   <br>
+                            Hopping in the Rain.   <br>
+                            We are little snails,    <br>
+                            Crawling up the wall,   <br>
+                            How we love the rain,    <br>
+                            Oh, thank you, God!   <br>
+
+                        </p>
+                          </td>
+                      </tr>
+                    
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %} 
