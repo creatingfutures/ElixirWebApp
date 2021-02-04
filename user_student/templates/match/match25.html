@@ -107,8 +107,9 @@
         batch_id: {{pk1}},
         module_id: {{m.pk}},
         student_id: {{pk}},
-        assessment_type:"{{narrative}}",
-        },
+        narrative:"{{narrative}}",
+        question_content_id:{{question_content_id}},    
+    },
         success: function(data) {
       $("#container").html(data) // `data` is the return of the `load_cities` view function
         }

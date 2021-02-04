@@ -9,24 +9,25 @@ Your browser does not support the audio element.
 </audio>
 
 {% for j in r %}
-    <form action="" onSubmit="return check(this)" id="{{j}}">
-    {% with  iteratedContent=request.session.question_content|getObject:j %}
-        <p style="font-size:200%"><b>Multiple Choice Question</b></p>
-        <p style="font-size:150%">{{iteratedContent.question}}</p>
-        <ol type="A">
-            {% for option in iteratedContent.options %}
-                <li>  
-                    <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
-                </li>
-            {% endfor %}
-       
-            
-        </ol>
-        <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
-        <input type="text" name="c" value="0" hidden>
-        <input type="submit" name="sub" class="button" value="Check">
-     {% endwith %}
-    </form>
+
+<form action="" onSubmit="return check(this)" id="{{j}}">
+  {% with  iteratedContent=request.session.question_content|getObject:j %}
+      <p style="font-size:200%"><b>Multiple Choice Question</b></p>
+      <p style="font-size:150%">{{iteratedContent.question}}</p>
+      <ol type="A">
+          {% for option in iteratedContent.options %}
+              <li>  
+                  <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
+              </li>
+          {% endfor %}
+
+
+      </ol>
+      <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
+      <input type="text" name="c" value="0" hidden>
+      <input type="submit" name="sub" class="button" value="Check">
+   {% endwith %}
+  </form>
 
 {% endfor %}
 <br><br><br>
@@ -92,11 +93,11 @@ $("#submit").click(function() {
         c= parseInt(c);
         b=parseInt(b);
         b=b+c;
-        
+        var narrative = "{{narrative|safe}}";
         alert("Solved all")
         var str="av"
         $.ajax({ // initialize an AJAX request
-          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/',
+          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/'+narrative,
           type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
           data: {
             correct:str,

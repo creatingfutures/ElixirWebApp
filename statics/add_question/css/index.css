@@ -1,0 +1,146 @@
+body {
+  background-color: lightgrey;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(255, 197, 138);
+  font-family: "Montserrat";
+  font-size: 12px;
+}
+
+ul.nav2 {
+  background: transparent;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  font-family: "Montserrat";
+  font-size: 12px;
+}
+
+li {
+  float: left;
+}
+
+.error {
+  background-color: rgb(255, 197, 138);
+  font-family: "Montserrat";
+  font-size: 12px;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(255, 165, 74);
+}
+
+label {
+  font-family: "Montserrat";
+  text-align: center;
+  font-weight: 100;
+  display: inline-block;
+  width: 100px;
+  font-size: 14px;
+}
+
+p.welcome {
+  font-family: "Montserrat";
+  font-weight: 100;
+  font-size: 12px;
+  position: absolute;
+  bottom: 640;
+  right: 1390;
+  color: white;
+}
+
+.button1 {
+  font-family: "Montserrat";
+  font-weight: 100;
+  font-size: 12px;
+  position: absolute;
+  bottom: 652;
+  right: 20;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  text-decoration: underline;
+  color: white;
+}
+
+a.active {
+  background-color: rgb(255, 165, 74);
+}
+
+#top {
+  top: 0;
+  background-color: orange;
+  height: 100px;
+}
+
+#box {
+  width: 350px;
+  height: 350px;
+  background: transparent;
+  margin: auto;
+  position: absolute;
+  margin-top: 0%;
+  left: 0;
+  right: 0;
+  font-family: "Montserrat";
+}
+
+#box label {
+  left: 0;
+  position: absolute;
+  width: 50%;
+  text-align: left;
+}
+
+#box p {
+  text-align: left;
+  margin-left: 50%;
+}
+
+.empty_form {
+  display: none;
+}
+
+.button {
+  display: inline-block;
+  font-family: "Montserrat";
+  background-color: orange;
+  border: none;
+  color: black;
+  padding: 12px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  outline: none;
+  width: 105px;
+}
+
+#container {
+  text-align: center;
+}
+.form-group {
+  display: flex;
+  justify-content: center;
+}

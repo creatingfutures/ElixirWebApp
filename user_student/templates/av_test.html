@@ -115,7 +115,8 @@ ul.breadcrumb li a:hover {
   text-decoration: underline;
 }
 
-    ol > li {
+ol > li {
+
         font-size:15px;
     }
   </style>
@@ -129,7 +130,7 @@ ul.breadcrumb li a:hover {
 <head>
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <!--<link rel="stylesheet" type="text/css" href="exercise.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -174,10 +175,11 @@ ul.breadcrumb li a:hover {
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 var done=0;
-
+var narrative = "{{narrative|safe}}";
+console.log(typeof narrative);
 $("#submit").click(function() {
   $.ajax({ // initialize an AJAX request
-    url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/',
+    url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/'+narrative,
     type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
     data: {
       // questions:"{{q}}",
