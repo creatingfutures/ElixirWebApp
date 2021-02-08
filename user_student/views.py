@@ -54,7 +54,7 @@ def spoken_english(request, pk, pk1, pk2):
             A.append(i['assessment_type_id'])
         if(i['level_id'] not in L):
             L.append(i['level_id'])
-    #print(A,L,respective_scores)
+    print(A,L,respective_scores)
     for j in L:
         L_score = 0
         T_score = 0
@@ -65,8 +65,6 @@ def spoken_english(request, pk, pk1, pk2):
             for x in respective_scores:
                 if(x['assessment_type_id']==k and x['level_id']==j):
                     a = k[0]
-                    if(a=='T'):
-                        a='t'
                     score_U+=x['user_score']
                     score_T+=x['total_score']
                     level = x['level_id']
@@ -75,7 +73,7 @@ def spoken_english(request, pk, pk1, pk2):
                 L_score+=score_U
                 T_score+=score_T
         F.append('L'+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(L_score)+','+str(T_score))
-    #print(F)
+    print(F)
     respective_scores = json.dumps(list(respective_scores))
     #print(respective_scores)
     if pk2 == 3:
@@ -200,7 +198,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                 print('a2',question.objects.filter(question_type=q_t_id)[0].question_type_id)
                 Assessment_type = question.objects.filter(question_type=question.objects.filter(question_type=q_t_id)[0].question_type_id)[0].assessment_type
                 print('hiAssessment_type',str(Assessment_type).lower())
-                assessment_type_id=assessment_type.objects.get(assessment_type=str(Assessment_type).lower())
+                assessment_type_id=assessment_type.objects.get(assessment_type__iexact=str(Assessment_type).lower())
                 print(assessment_type_id)
                 student_query = scores.objects.get(batch_id=batch_id,student_id=student_id,level_id=level_id,question_content_id=question_content_id)
             else:
@@ -220,7 +218,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                 print('a2',question.objects.filter(question_type=q_t_id)[0].question_type_id)
                 Assessment_type = question.objects.filter(question_type=question.objects.filter(question_type=q_t_id)[0].question_type_id)[0].assessment_type
                 print('hiAssessment_type',str(Assessment_type).lower())
-                assessment_type_id=assessment_type.objects.get(assessment_type=str(Assessment_type).lower())
+                assessment_type_id=assessment_type.objects.get(assessment_type__iexact=str(Assessment_type).lower())
                 print(assessment_type_id)
                 obj = scores.objects.create(student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = datetime.datetime.now(),question_content_id=question_content_id,assessment_type_id=assessment_type_id)
                 obj.save()
@@ -535,29 +533,28 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5,narrative):
     i = int(request.GET.get('id'))
     c = (request.GET.get('correct'))
     s = int(request.GET.get('score'))
+    print(i,c,s)
     request.session['score']=s
-    if c == "True":
-        s = s+1
-    elif c == "False":
-        s = s+0
     j=len(questions1)
-    #print(questions1[i].question_type)
-    print('i,j',i,j)
-    if i >= j:
+    if c=='av':
             i=j
             print('total_score fren',j)
             total_score = question.objects.filter(narrative=narrative).count()
             score_save(request,pk,pk1,pk2,pk3,pk4,pk5,s,total_score)
             return render(request, "test_submit.html",
                       { "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1),"narrative":narrative})
-    question_content = question.objects.filter(question_content_id=questions1[i].question_content_id)
+    question_content = questions1
+    #question_content = question.objects.filter(question_content_id=questions1[0].question_content_id)
+    print('---question_content',question_content)
     request.session['question_content']= serializers.serialize('json', question_content)
+    print('question_content',request.session['question_content'])
     if questions1[i].question_type.question_type == "Video":
         request.session['question_type'] = questions1[i].question_type.question_type
         #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
         return render(request, "video.html",{"i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5,"narrative":narrative})
 
     if questions1[i].question_type.question_type == "Audio":
+        print('Audio')
         request.session['question_type'] = questions1[i].question_type.question_type
         #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
         # a = ques[i].question_content_id

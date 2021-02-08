@@ -27,7 +27,7 @@
 {% endfor %}
 <br><br><br>
 
-<input type="submit" id="submit" class="button" value="Submit">
+<input type="submit" id="submit" class="button" value="Submit" disabled>
 
 </div>
 
@@ -66,7 +66,12 @@ function check(a)
       {
         score=score+1
       }
-
+      if(solved==len){
+            document.getElementById('submit').disabled=false;
+          }
+          else{
+            document.getElementById('submit').disabled=true;
+          }
     }
 
     else {
