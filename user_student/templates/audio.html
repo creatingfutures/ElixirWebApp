@@ -8,11 +8,13 @@
 Your browser does not support the audio element.
 </audio>
 
+<p style="font-size:200%"><b>Multiple Choice Question</b></p>
 {% for j in r %}
 
 <form action="" onSubmit="return check(this)" id="{{j}}">
   {% with  iteratedContent=request.session.question_content|getObject:j %}
-      <p style="font-size:200%"><b>Multiple Choice Question</b></p>
+      <p></p>
+      
       <p style="font-size:150%">{{iteratedContent.question}}</p>
       <ol type="A">
           {% for option in iteratedContent.options %}
@@ -32,7 +34,7 @@ Your browser does not support the audio element.
 {% endfor %}
 <br><br><br>
 
-<input type="submit" id="submit" class="button" value="Submit">
+<input type="submit" id="submit" class="button" value="Submit" disabled>
 
 </div>
 
@@ -71,14 +73,19 @@ function check(a)
       {
         score=score+1
       }
-
+      if(solved==len){
+            document.getElementById('submit').disabled=false;
+          }
+          else{
+            document.getElementById('submit').disabled=true;
+          }
     }
 
     else {
       alert("Incorrect Answer, Please Try Again")
     }
 
-    console.log(len,score)
+    //console.log(len,score)
   }
 
   return false
