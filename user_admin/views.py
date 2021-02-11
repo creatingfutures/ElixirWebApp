@@ -545,7 +545,7 @@ def view_center(request, pk):
 def view_questions(request, pk):
     question1 = get_object_or_404(question, pk=pk)
     assessment_type = None
-    if question1.question_type.pk in [7, 8, 9]:
+    if question1.question_type.pk in [7, 8, 9] and question1.question_content is not None:
         question1.sub_questions = question.objects.filter(
             question_content=question1.question_content)
     try: 
@@ -1037,7 +1037,7 @@ def add_batch(request):
     if request.method == "POST":
         form = add_batch_form(request.POST)
         if form.is_valid():
-            form.end()
+            #form.end()
             a = form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request, f'Successfully edited {a}')
