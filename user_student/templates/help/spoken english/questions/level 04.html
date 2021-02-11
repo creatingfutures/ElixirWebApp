@@ -12,15 +12,17 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+    <div class="StudentModuleClass">
 
-    </ul>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-borderless">
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+
+        </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
                     <thead>
                         <tr>
                             <th scope="col">
@@ -34,7 +36,7 @@
                                 <p>
                                     In this level, you will learn about questions that will help you analyse based on history or facts. 
                                     Analysis is an important part of thinking. The responses to these questions need analysis accompanied with facts. 
-                                  </p>
+                                </p>
                             </td>
                         </tr>
                         <tr>
@@ -47,7 +49,7 @@
                                    <li>What are the planets in our solar system? </li>
                                    <li>Why does metal rust? </li>
                                    <li>Why did the First World War happen? </li>
-                               </ul>
+                                </ul>
                             </td>
                         </tr>
 
@@ -56,6 +58,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

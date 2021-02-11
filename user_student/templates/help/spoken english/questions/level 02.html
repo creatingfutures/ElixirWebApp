@@ -12,10 +12,12 @@
   integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-  <ul class="breadcrumb">
-    <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-    <li style="font-family: Montserrat;"><a href="#">LEVEL 2 LESSON</a></li>
+  <div class="StudentModuleClass">
 
+    <ul class="breadcrumb">
+      <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+    <li style="font-family: Montserrat;"><a href="#">LEVEL 2 LESSON</a></li>
+    
   </ul>
   <div class="container">
     <div class="row">
@@ -37,8 +39,8 @@
                   questions in your examination or an interview. These are usually referred to as TED questions.  <b> T</b>
                   stands for “Tell Me”. <b>E </b>stands for “Explain” and <b>D</b>  stands for “Describe”. Questions need not start
                   with TED as seen in the examples below</p>
-
-              </td>
+                  
+                </td>
             </tr>
             <tr>
               <td class=" mleft">
@@ -63,7 +65,7 @@
                     What is your idea behind the startup?
                   </li>
                 </ul>
-
+                
               </td>
             </tr>
 
@@ -72,6 +74,7 @@
       </div>
     </div>
   </div>
+</div>
 </body>
 
 </html>

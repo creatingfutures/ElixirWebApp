@@ -12,11 +12,13 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+    <div class="StudentModuleClass">
 
-    </ul>
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+            
+        </ul>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -36,9 +38,9 @@
                                     words.
                                     In this level you may choose to read silently or read out loud.
 
-                            </td>
-                        </tr>
-                        <tr>
+                                </td>
+                            </tr>
+                            <tr>
                             <td class=" mleft">
                                 <h2 class="bg-white boxspace"><b> Examples </b></h2>
                                 <p>Some words ending with -ing, -er which might be tricky to read. </p>
@@ -51,10 +53,10 @@
                                         I'll instead of I will
                                     </li>
                                     <li>I'm instead of I am<< /li>
-                                </ul>
-                                <p>
-                                    Few tricky words, for example knife (k is silent).
-                                </p>
+                                    </ul>
+                                    <p>
+                                        Few tricky words, for example knife (k is silent).
+                                    </p>
                                 <h3 class="bg-white boxspace">Stolen Wallet </h3>
                                 <p>
                                     It is interval time in your school. Everyone is out on the <b><i> playing</i></b> fields, including
@@ -69,16 +71,17 @@
                                     into, walks up to the teacher. A moment later the teacher announces that this
                                     student’s entire wallet with money, cards and other aspects in it has been stolen.
                                     What do you do?
-
+                                    
                                 </p>
                             </td>
                         </tr>
-
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

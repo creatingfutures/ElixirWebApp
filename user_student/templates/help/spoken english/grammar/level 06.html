@@ -11,17 +11,19 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
+  <div class="StudentModuleClass">
     <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 6 LESSON</a></li>
-    
+      <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+      <li style="font-family: Montserrat;"><a href="#">LEVEL 6 LESSON</a></li>
+      
     </ul>
+        
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-borderless">
-                    <thead>
-                      <tr>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
                         <th scope="col" ><h2 class="bg-white boxspace fonth2">Grammar - Level 6 Lesson</h2></th>
                       </tr>
                     </thead>
@@ -54,18 +56,19 @@
                             <li>Neither the black dress nor the grey one looks right on me.</li>
                             <li>My dad always worked hard so we could afford the things we wanted.</li>
                             <li>I try very hard in school yet I am not receiving good marks.</li>
-                        </ul>
+                          </ul>
 
-                        <img src="/static/pre.jpg" alt="" style="height: 900px ; width: 400px;" >
+                          <img src="/static/pre.jpg" alt="" style="height: 900px ; width: 400px;" >
                          <br> <br>
-                        <h2 class="bg-white boxspace">List of Prepositions </h2>
+                         <h2 class="bg-white boxspace">List of Prepositions </h2>
                         <br><br>
                         <img src="/static/prelist.jpg" alt="" style="height: 600px ; width: 500px;">
                     </tbody>
             </div>
-        </div>
+          </div>
     </div>
-</body>
+  </div>
+  </body>
 
 </html>
 {% endblock content %} 

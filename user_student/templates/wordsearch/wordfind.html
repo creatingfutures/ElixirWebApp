@@ -1,5 +1,7 @@
+{% extends 'base1.html' %}
 {% load static %}
 {% load student_tag %}
+{% block content %}
 
 
 <html>
@@ -20,19 +22,7 @@
 
 </head>
 <body>
-  <div class="nav" style="height: 200px">
-    <div class="navig">
-      <div>
-    <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:62px;margin:0;"/>
-    </div>
-    <div class="navv">
-    <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
-    <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
-    <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
-    </div>
-    </div>
-  </div>
+  <div class="wordfind">
   <ul class="breadcrumb">
 		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
 		<li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'>Word search</a></li>
@@ -40,15 +30,16 @@
     <center>
 <div id="container">
   <div class="puzzleWrap">
-    <h2 style="text-align:center">EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
-    <h2 style="text-align:center">Word Search</h1>
-      <h3>Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
+    <h1 style="text-align:center; font-weight: 100;" >EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
+    <h1 style="text-align:center; font-weight: 100;">Word Search</h1>
+      <h3 style="font-size: 18.72; font-weight: 700; font-family: sans-serif;">Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
     <div id='puzzle'></div>
     <div id='words'></div>
     <button id='s' class="button">Submit</button>
     <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'">Back</button>
   </div>
-</div>  
+</div> 
+</div> 
 </center>
 
 <script>
@@ -95,5 +86,7 @@ function score_reciever(s){
       });
     });
 </script>
+
 </body>
 </html>
+{% endblock content %}

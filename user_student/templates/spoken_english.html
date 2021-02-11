@@ -1,5 +1,7 @@
+{% extends 'base1.html' %}
 {% load static %}
 {% load student_tag %}
+{% block content %} 
 <html>
 <head>
    
@@ -9,61 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
 <style>
-    body {background-color: lightgrey;}
+    
 
-    #top {
-    top: 0;
-    background-color: orange;
-    height: 100px;
-}
-body{
-  background: lightgrey;
-  font-family:Montserrat;
-  font-size:12px;
-}
-
-*{transition:all 0.3s ease-in-out;}
-
-
-nav{float:right;}
-
-.logo img{float:left; padding:8px;}
-
-h1{
-    font-family: "Montserrat";
-    font-weight: 100;
-
-   }
-
-
-.nav
-{
-  background-color:orange;
-  height:30%;
-  display:grid;
-  grid-template-rows:auto auto auto;
-  justify-content:center;
-  align-items:center;
-}
-
-.navig
-{
-  grid-row:2/3;
-  display:flex;
-  flex-wrap:nowrap;
-  background-color:white;
-  flex-direction:row;
-}
-
-.navv
-{
-  width:80%;
-  display:flex;
-  flex-direction:row;
-  justify-content:center;
-  align-items:center;
-  margin:10px;
-}
 .collapsible {
   background-color: #777;
   color: white;
@@ -114,46 +63,12 @@ h1{
   width:1550px;
   
 }
-ul.breadcrumb {
-  padding: 10px 16px;
-  list-style: none;
-  background-color:lightgray;
-}
-ul.breadcrumb li {
-  display: inline;
-  font-size: 18px;
-}
-ul.breadcrumb li+li:before {
-  padding: 8px;
-  color: black;
-  content: "/\00a0";
-}
-ul.breadcrumb li a {
-  color: darkblue;
-  text-decoration: none;
-}
-ul.breadcrumb li a:hover {
-  color: darkblue;
-  text-decoration: underline;
-}
 h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
 </style>
 </head>
 <body>
 
-  <div class="nav">
-    <div class="navig">
-      <div>
-    <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;margin:0;"/>
-    </div>
-    <div class="navv">
-    <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
-    <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
-    <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
-    </div>
-    </div>
-  </div>
+  
   <ul class="breadcrumb">
     <li><a href="#" >MODULES</a></li>
     
@@ -366,3 +281,4 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
           
     </body>
 </html>
+{% endblock content %} 

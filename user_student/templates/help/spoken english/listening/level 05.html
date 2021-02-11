@@ -12,11 +12,13 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 5 LESSON</a></li>
+    <div class="StudentModuleClass">
 
-    </ul>
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 5 LESSON</a></li>
+
+        </ul>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -41,20 +43,21 @@
                                         may tread
                                         me in the very dirt <br>But still, like dust, I’ll rise</li>
 
-                                    <li>I shall be telling this with a sigh <br> Somewhere ages and ages hence:</li>
-                                    <p>Two roads diverged in a wood, and I— <br>
+                                        <li>I shall be telling this with a sigh <br> Somewhere ages and ages hence:</li>
+                                        <p>Two roads diverged in a wood, and I— <br>
                                         I took the one less traveled by, <br>
                                         And that has made all the difference. <br>
-                                        </p>
+                                    </p>
                                 </ul>
                             </td>
                         </tr>
-
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

@@ -49,79 +49,77 @@ body {
   background-color: orange;
   height: 100px;
 }
-
-h1{
-
-}
-h2{
-font-size: 11px !important;
-}
-h3{
-
-}
-
-
-
 nav {
   float: right;
 }
 
+.StudentModuleClass h2{
+font-size: 16px !important;
+font-weight: bold !important;
+}
 
-h1 {
+
+
+
+
+
+.StudentModuleClass h1 {
   font-family: "Montserrat";
   font-weight: bold !important;
-  font-size: 12px !important;
+  font-size: 18px !important;
 
 
 }
-h2{
-  font-weight: bold !important;
- 
-}
 
-p,
-ul.list,
-ol,
-h4,
-h3 {
+
+.StudentModuleClass p,
+.StudentModuleClass  ul.list,
+.StudentModuleClass  ol,
+.StudentModuleClass  h4,
+.StudentModuleClass  h3 {
   font-family: "Montserrat";
   font-size: 10px !important;
+  font-size: 14px !important;
 
 }
-h3{
+.StudentModuleClass h3{
   font-weight: bold !important;
+  font-size: 14px;
 
   
 }
-h4{
+.StudentModuleClass h4{
   font-weight: bold !important;
+  font-size: 14px;
  
 
 }
-.boxspace{
+.StudentModuleClass .boxspace{
   padding: 6px !important;
 }
-td,
-th {
+.StudentModuleClass td,
+.StudentModuleClass  th {
   border: 1px solid black;
   border-collapse: collapse;
   color: black;
   font-size: large;
-  font-size: 10px !important;
+  font-size: 14px !important;
 }
 
-th,
-td {
+.StudentModuleClass th,
+.StudentModuleClass  td {
   padding: 20px;
   background-color: none;
 }
 
 
-.space li{
+.StudentModuleClass  .space li{
   margin-bottom: 9px !important;
+  
 }
-.space ul{
+.StudentModuleClass  .space ul{
   margin-bottom: 8px !important;
+  font-size: 14px !important;
 }
 
 ul.breadcrumb {
