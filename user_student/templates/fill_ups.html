@@ -3,6 +3,7 @@
 
 <div style="margin:10px;padding:10px">
   <p style="font-size:200%"><b>Fill The Blanks</b></p>
+  <i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
   <p style="font-size:150%">{{request.session.questions|index:i}}</p>
   <ol type="A">
     <li> <input id="ans" type="text"></li><br>

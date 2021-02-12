@@ -11,6 +11,11 @@ def index(List, i):
     return L[i].object.question
 
 @register.filter
+def index_narrative(List, i):
+    L = list(serializers.deserialize("json",List))
+    return L[i].object.narrative
+
+@register.filter
 def getObject(List, i):
     if not isinstance(List,list):
      L = list(serializers.deserialize("json",List))

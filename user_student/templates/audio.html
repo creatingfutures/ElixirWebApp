@@ -34,7 +34,7 @@ Your browser does not support the audio element.
 {% endfor %}
 <br><br><br>
 
-<input type="submit" id="submit" class="button" value="Submit" disabled>
+<input type="submit" id="submit" class="button" value="Submit" disabled style="background-color:darkgray;color:white">
 
 </div>
 
@@ -64,6 +64,7 @@ function check(a)
     a.c.value=(parseInt(a.c.value))+1
     var answer = a.ans.value
     var option = a.options.value
+    var button = document.getElementById('submit')
     if(option==answer)
     {
       a.sub.disabled=true
@@ -74,10 +75,12 @@ function check(a)
         score=score+1
       }
       if(solved==len){
-            document.getElementById('submit').disabled=false;
+            button.disabled=false;
+            button.style.backgroundColor='orange';
+            button.style.color='black';
           }
           else{
-            document.getElementById('submit').disabled=true;
+            button.disabled=true;
           }
     }
 
