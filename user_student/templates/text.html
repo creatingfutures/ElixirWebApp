@@ -32,7 +32,7 @@
     {% endfor %}
     <br><br><br>
 
-    <input type="submit" id="submit" class="button" value="Submit" disabled>
+    <input type="submit" id="submit" class="button" value="Submit" disabled style="color:white;background-color: darkgray;">
 
     </div>
 
@@ -66,6 +66,7 @@
         a.c.value=(parseInt(a.c.value))+1
         var answer = a.ans.value
         var option = a.options.value
+        var button = document.getElementById('submit');
         if(option==answer)
         {
           a.sub.disabled=true
@@ -76,10 +77,12 @@
             score=score+1
           }
           if(solved==len){
-            document.getElementById('submit').disabled=false;
+            button.disabled=false;
+            button.style.color='black';
+            button.style.backgroundColor = 'orange';
           }
           else{
-            document.getElementById('submit').disabled=true;
+            button.disabled=true;
           }
 
         }

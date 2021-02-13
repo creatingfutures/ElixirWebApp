@@ -2,6 +2,7 @@
 
 <div style="marting:10px;padding:10px">
 <p style="font-size:200%"><b>Choose The Most appropriate Option Related To The Image</b></p>
+<i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
 <img width=500px height=300px src="/media/{{q|index_img:i}}" alt="Nones">
 <ol type="A">
     <li>  <input type="radio" name="options" value="{{request.session.questions|index1:i}}">{{request.session.questions|index1:i}}</li><br>
