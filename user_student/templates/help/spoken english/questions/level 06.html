@@ -12,11 +12,13 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 6 LESSON</a></li>
+    <div class="StudentModuleClass">
 
-    </ul>
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 6 LESSON</a></li>
+            
+        </ul>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -31,17 +33,17 @@
                     <tbody>
                         <tr>
                             <td>
-
-
+                                
+                                
                                 <p>
                                     This level will involve questions which need decision making. We will introduce you to various questioning techniques at this level. These questions collect information and could be used for research purposes. This includes the following</p>
-                            <p>
-                                1.	Multiple Choice Questions <br>
-                                2.	Survey Related Questions
-
+                                    <p>
+                                        1.	Multiple Choice Questions <br>
+                                        2.	Survey Related Questions
+                                        
                             </p>
-                                </td>
-                        </tr>
+                        </td>
+                    </tr>
                         <tr>
                             <td class=" mleft">
                                 <h2 class="bg-white boxspace"><b> Example </b></h2>
@@ -62,12 +64,12 @@
                                     <li>Kerala </li>
                                     <li>Tamil Nadu</li>
                                 </ul>
-                               
+                                
 
                                 <h3 class="bg-white boxspace">Survey related questions </h3>
-
-                              <ul class="list space" style="list-style: decimal;">
-                            <li>How do you rate the course?
+                                
+                                <ul class="list space" style="list-style: decimal;">
+                                    <li>How do you rate the course?
                                 <ul style="list-style: circle;">
                                     <li>
                                         1 being low and 5 being highest (Can add slider/radio buttons) 
@@ -82,14 +84,15 @@
                                 </ul>
                             </li>
                         </ul>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

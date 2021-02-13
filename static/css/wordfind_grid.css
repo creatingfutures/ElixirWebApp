@@ -57,6 +57,7 @@ h2 {
   font-weight:100;  
 }
 
+
 /**
 * Styles for the puzzle
 */
@@ -73,15 +74,16 @@ h2 {
 }
 
 /* style for each square in the puzzle */
-#puzzle .puzzleSquare {
+.wordfind #puzzle .puzzleSquare {
   height: 25px;
   width: 25px;
   text-transform: uppercase;
   background-color:orange;
   border: 0;
   outline: none;
-  font: 1em sans-serif;
+  font: 1.3em sans-serif;
   color:black;
+  font-weight: 100 ;
 }
 
 button::-moz-focus-inner {
@@ -127,9 +129,9 @@ button::-moz-focus-inner {
   list-style-type: none;
 }
 
-#words li {
+ #words li {
   padding: 0 0 7px;
-  font: 1em sans-serif;
+  font: 1.3em sans-serif;
   display: inline-block;
   float: left;
   width: 100px;

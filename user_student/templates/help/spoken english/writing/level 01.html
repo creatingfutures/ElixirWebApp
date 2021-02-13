@@ -12,12 +12,14 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
+    <div class="StudentModuleClass">
 
-    </ul>
-    <div class="container">
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
+            
+        </ul>
+        <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-borderless">
@@ -31,11 +33,11 @@
                     <tbody>
                         <tr>
                             <td>
-
+                                
                                 <p>
                                     Writing consists of letters, words, phrases, and sentences. In the beginner level, we would just focus on writing simple one line sentence for communicating an information.  </p>
-                                <h2 class="bg-white boxspace">Example</h2>
-                                <ul>
+                                    <h2 class="bg-white boxspace">Example</h2>
+                                    <ul>
                                     <li>If we have to communicate a congratulatory message, then the possible write ups can be, 
                                         <ul>
                                             <li>
@@ -65,6 +67,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

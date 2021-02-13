@@ -12,11 +12,13 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+    <div class="StudentModuleClass">
 
-    </ul>
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+            
+        </ul>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -41,18 +43,19 @@
                                         <ul class="list space">
                                             <li>
                                             I am Abhishek. I hail from Bangalore. I have been working for Creating Futures  since last couple of years. My interests include gardening, music, Singing.
-                                            </li>
-                                        </ul>
+                                        </li>
+                                    </ul>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
-
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
