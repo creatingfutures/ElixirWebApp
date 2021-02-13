@@ -12,10 +12,12 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
+    <div class="StudentModuleClass">
 
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
+        
     </ul>
     <div class="container">
         <div class="row">
@@ -38,10 +40,10 @@
                                     Listening is the ability to hear and understand the message being communicated.
                                     Listening enables an individual to decode the information and if necessary, to
                                     initiate the action required. </p>
-                                <p>
+                                    <p>
                                     In the beginner level, listening would involve hearing out basic letters or words.
                                 </p>
-                               <ul class="list space" style="list-style: lower-roman;">
+                                <ul class="list space" style="list-style: lower-roman;">
                                 <li><b> Letter:</b> Beginner level starts with hearing all the 26 Letters like A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y and Z .</li>
                                 <li><b> Numbers: </b>All numbers from 0, 1, 2, 3, 4, 5 ,6,7, 8, 9 are included here</li>
                                 <li> <b> Words: </b>    It can be names of Places like “Delhi”, “Kolkata”, “Bengaluru”, “Mumbai”,  Chennai”. It can be Person names like “Abhishek”, “Poornima”, “Akshay”, “Leena”. </li>
@@ -56,6 +58,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

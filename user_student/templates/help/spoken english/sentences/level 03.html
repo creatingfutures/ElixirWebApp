@@ -4,9 +4,11 @@
 {% block content %} 
 <html>
     <body>
-        <ul class="breadcrumb">
-            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-            <li style="font-family: Montserrat;"><a href="#">LEVEL 3 LESSON</a></li>
+        <div class="StudentModuleClass">
+
+            <ul class="breadcrumb">
+                <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+                <li style="font-family: Montserrat;"><a href="#">LEVEL 3 LESSON</a></li>
         </ul>
         
         <div class="container">
@@ -14,27 +16,27 @@
                 <div class="col-md-12">
                     <table class="table table-borderless">
                         <thead>
-                          <tr>
+                            <tr>
                             <th scope="col" ><h2 class="bg-white boxspace" >Sentences – Level 3 Lesson</h2></th>
-                          </tr>
+                        </tr>
                         </thead>
                         <tbody>
 
                             <tr>
                                 <td > 
-                                <h1 class="bg-white boxspace" style="font-weight: bold !important;">Compound Sentence</h1>
+                                    <h1 class="bg-white boxspace" style="font-weight: bold !important;">Compound Sentence</h1>
                         
                                 <p>
                                     A compound sentence is formed when you join two main clauses with a connective. In a compound sentence the clauses are linked by a conjunctions (and, but, so, or). </p>
                           
-                          <ul class="space">
-                                  <li>I like bananas and I like grapes.</li>
-                                <li>Chandini can be naughty at times but she is a nice girl.</li>
-                            </ul>
-                            <p><b>Compound Sentence = main clause +connective +main clause</b></p>
+                                    <ul class="space">
+                                        <li>I like bananas and I like grapes.</li>
+                                        <li>Chandini can be naughty at times but she is a nice girl.</li>
+                                    </ul>
+                                    <p><b>Compound Sentence = main clause +connective +main clause</b></p>
                            <p>  We could separate the compound sentence into two smaller, complete thoughts </p>
                            <p> <b>Compound Sentence = main clause +connective +main clause </b></p>
-                            <ul class="list space">
+                           <ul class="list space">
                                 <li>Senthil enjoys watching movies. Sridevi enjoys watching movies too. -> Senthil and Sridevi both enjoy watching movies</li>
                                 <li>I like to walk in the park. I also like watching the ducks there. -> I like to walk in the park and watch the ducks there.</li>
                             </ul>
@@ -47,16 +49,17 @@
                                 <li>I want to go to the party, but I have too much homework to do.</li>
                                 <li>My family went to the park yesterday, and we had a wonderful time.</li>
                                 <li>She had to go, so she called a friend to drive her.</li>
-
+                                
                             </ul>
-                            </td>
+                        </td>
                           </tr>
                         </tbody>
-                      </table>
+                    </table>
                 </div>
             </div>
         </div>
-
+    </div>
+        
     </body>
 </html>
 {% endblock content %} 

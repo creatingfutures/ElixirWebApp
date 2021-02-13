@@ -12,10 +12,12 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
-    <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
-        <li style="font-family: Montserrat;"><a href="#">LEVEL 5 LESSON</a></li>
+    <div class="StudentModuleClass">
 
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 5 LESSON</a></li>
+            
     </ul>
     <div class="container">
         <div class="row">
@@ -35,15 +37,15 @@
 
                                 <p>
                                     In this level, you will learn about questions that will help you be creative and use your thinking.   <br>
-These types of questions produce a lot of new ideas. There is no right or wrong responses to these questions. It is left to the imagination of the person who responds. 
+                                    These types of questions produce a lot of new ideas. There is no right or wrong responses to these questions. It is left to the imagination of the person who responds. 
  </p>
-                            </td>
+</td>
                         </tr>
-
+                        
                         <tr>
                             <td class=" mleft">
                                 <h2 class="bg-white boxspace"><b> Examples</b></h2>
-                            <ul class="list space">
+                                <ul class="list space">
                                 <li>
                                     What do you think you will be doing 5 years from now on? 
                                 </li>
@@ -57,14 +59,15 @@ These types of questions produce a lot of new ideas. There is no right or wrong 
                                     If there is one thing you would like to change from your past, what would that be? 
                                 </li>
                             </ul>    
-                            </td>
+                        </td>
                         </tr>
-
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

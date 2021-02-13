@@ -11,23 +11,25 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <body>
+  <div class="StudentModuleClass">
+
     <ul class="breadcrumb">
-        <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+      <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
         <li style="font-family: Montserrat;"><a href="#">LEVEL 1 LESSON</a></li>
-    
+        
     </ul>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col"><h2 class="bg-white boxspace fonth2">Questions  – Level 1 </h2></th>
+          <div class="col-md-12">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col"><h2 class="bg-white boxspace fonth2">Questions  – Level 1 </h2></th>
                       </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td > 
+                      <tr>
+                        <td > 
                             <h1  style="font-weight: bold !important; " class="bg-white boxspace" >What are Questions? This itself is a Question! </h1>
                     
                             <p>
@@ -38,14 +40,14 @@
                         There are different types of questions in English: questions that can be answered with a simple yes or no, questions that can be answered using prior knowledge and questions that require more detailed analysis. 
                       </p>  
                       <p>One type of Questions are those with 5W and 1H. These are WHY, WHO, WHAT, WHEN, WHERE and HOW</p>
-                        </td>
+                    </td>
                       </tr>
 
                       <tr>
                           <td>
-                              
+                            
                               <h2 class="bg-white boxspace">Examples </h2>
-
+                              
                               <ul class="list space">
                                 <li>
                                   What is your name? 
@@ -62,15 +64,16 @@
                               <li>Will you play a game of badminton with me? </li>
                               <li>	Are you hungry? </li>
                               <li>  Can you run? </li>
-                          </td>
+                            </td>
                       </tr>
                     
                     </tbody>
                   </table>
-            </div>
+                </div>
         </div>
+      </div>
     </div>
-</body>
+    </body>
 
-</html>
-{% endblock content %} 
+    </html>
+    {% endblock content %} 

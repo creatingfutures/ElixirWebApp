@@ -1,5 +1,7 @@
+{% extends 'base1.html' %}
 {% load static %}
 {% load student_tag %}
+{% block content %} 
 <html>
     <head>
       <style>
@@ -30,19 +32,7 @@ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
-        <div class="nav">
-            <div class="navig">
-              <div>
-            <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;margin:0;"/>
-            </div>
-            <div class="navv">
-            <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
-            <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
-            <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-                <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
-            </div>
-            </div>
-          </div>
+       
           <ul class="breadcrumb">
             <li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
           </ul>
@@ -149,3 +139,4 @@ if(name=="Text"){
 
 </script>
 </html>
+{% endblock content %} 
