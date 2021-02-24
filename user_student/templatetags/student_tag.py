@@ -3,6 +3,10 @@ from django.core import serializers
 
 register = template.Library()
 
+@register.filter
+def prefix(a, i):
+    print('hi',a)
+    return list(a)[i]   
 
 
 @register.filter

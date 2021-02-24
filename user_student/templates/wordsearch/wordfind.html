@@ -25,7 +25,7 @@
   <div class="wordfind">
   <ul class="breadcrumb">
 		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
-		<li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'>Word search</a></li>
+		<li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'>Word search</a></li>
 	  </ul>
     <center>
 <div id="container">
@@ -36,7 +36,7 @@
     <div id='puzzle'></div>
     <div id='words'></div>
     <button id='s' class="button">Submit</button>
-    <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 11 %}'">Back</button>
+    <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
   </div>
 </div> 
 </div> 

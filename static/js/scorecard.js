@@ -1,15 +1,15 @@
-//1,11,10
+// 4,6,5,m,w,c
 function show(result,remove,status,pass_status)
 {
-    if(remove == 11){
+    if(remove == 6){
         document.getElementsByClassName('container1')[0].style.display = 'none';
         document.getElementsByClassName('container1')[2].style.display = 'none';
     }
-    if(remove==1){
+    if(remove==4){
         document.getElementsByClassName('container1')[1].style.display = 'none';
         document.getElementsByClassName('container1')[2].style.display = 'none';
     }
-    if(remove==10){
+    if(remove==5){
         document.getElementsByClassName('container1')[0].style.display = 'none';
         document.getElementsByClassName('container1')[1].style.display = 'none';
     }
