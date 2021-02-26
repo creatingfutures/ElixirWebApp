@@ -4,11 +4,14 @@
     <head>
         <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
+              integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <style>
              {% block page_specific_styles%}
              {% endblock page_specific_styles%}
         </style>
-       
+        {% block page_specific_htmlhead%}
+        {% endblock page_specific_htmlhead%}
     </head>
     <body>
         <div class="nav">
@@ -23,10 +26,13 @@
                 <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
             </div>
             </div>
-      </div>
-      {% block content %} 
-      {% endblock content %}
+            {%block welcome %}
+            {%endblock welcome%}
+        </div>
+        {% block content %} 
+        {% endblock content %}
     </body>
 </html>
+
 
   
