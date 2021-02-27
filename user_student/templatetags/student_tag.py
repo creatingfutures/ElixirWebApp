@@ -1,12 +1,18 @@
 from django import template
 from django.core import serializers
+from user_admin.models import *
 
 register = template.Library()
 
 @register.filter
-def prefix(a, i):
-    print('hi',a)
-    return list(a)[i]   
+def prefix(a):
+    distinct = []
+    for i in question.objects.filter(level_id=a):
+        if(i.assessment_type_id in distinct):
+            pass
+        else:
+            distinct.append(i.assessment_type_id)
+    return assessment_type.objects.filter(assessment_type_id__in=distinct)
 
 
 @register.filter

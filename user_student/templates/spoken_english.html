@@ -86,9 +86,19 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
   <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>    
   <div class="content1"> 
     <table class="myTable" style="width:100%">
-      {%for id,name in id_names %}
-      <h1>{{id}}-{{name}}</h1>
-      {%endfor %}
+      {% for b in j.level_id|prefix %}
+        {% if b == "General Assessment" %}  
+        <tr>
+          <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> </td>
+          <td id='General Assessment,{{pk}},{{pk1}},{{j.pk}}' style="padding-left: 1180px;color:red">Y</td>
+        </tr>
+        {% else %}
+        <tr>      
+          <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk b.assessment_type_id %}">{{b.assessment_type}}</a></td>
+          <td id='{{b.assessment_type}},{{pk}},{{pk1}},{{j.pk}}'style="padding-left: 1180px;color:red" >Y  </td>
+          </tr>
+        {% endif %}
+    {% endfor %}
        </table>
       </div> 
       {% endfor %}
@@ -105,6 +115,8 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
       var F = {{F|safe}};
       var user_score = 0;
       var total_score = 1;
+      var total_user_score = 0;
+      var total_total_score = 1;
       //console.log(F);
       for(var i=0;i<F.length;i++){
         res = F[i].split(',');
@@ -117,20 +129,18 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
         if(F[i].split(',').slice(0)[0]=='L'){
           var score_style = document.getElementById(res);
           score_style.innerHTML= ' Score: '+ Math.round((user_score/total_score)*100)+'%';
+          score_style.style.margin = "0px 0px 0px 1050px";
         }
         else{
           score_style = document.getElementById(res);
-          /*console.log(score_style);
-          console.log('hi',res);
+          console.log(score_style);
           score_style.innerHTML= Math.round((user_score/total_score)*100)+'%';
+          
           if(user_score>=0.8*total_score){
             score_style.style.color = "green";
           }
-          else{
-            score_style.style.color = "red";
-          }*/
         }
-       // score_style.style.margin = "auto";
+       
       }
       
       var coll=document.getElementsByClassName("collapsible");

@@ -44,7 +44,7 @@ def s_home(request, pk, pk1):
 def spoken_english(request, pk, pk1, pk2):
     respective_scores = scores.objects.filter(student_id=pk,batch_id=pk1).values('student_id','batch_id','level_id','user_score','total_score','assessment_type_id')
     question_type_name = str(assessment_type.objects.get(assessment_type='General Assessment'))
-    print(question_type_name)
+    #print(question_type_name)
     A = []
     L = []
     F = []
@@ -54,7 +54,7 @@ def spoken_english(request, pk, pk1, pk2):
             A.append(i['assessment_type_id'])
         if(i['level_id'] not in L):
             L.append(i['level_id'])
-    print(A,L,respective_scores)
+    #print(A,L,respective_scores)
     for j in L:
         L_score = 0
         T_score = 0
@@ -73,15 +73,10 @@ def spoken_english(request, pk, pk1, pk2):
                 L_score+=score_U
                 T_score+=score_T
         F.append('L'+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(L_score)+','+str(T_score))
-    print(F)
-    ids =[]
-    names = []
-    for i in assessment_type.objects.all():
-        if(i.assessment_type!='General Assessment'):
-            ids.append(i.assessment_type_id)
-            names.append(i.assessment_type)
+    #assessment = assessment_type.objects.exclude(assessment_type='General Assessment')
+    #print(assessment)
     respective_scores = json.dumps(list(respective_scores))
-    #print(respective_score)
+    #print(respective_scores)
     if pk2 == 3:
         modules = program_module.objects.filter(program_id=pk2)
         program1 = program.objects.get(pk=pk2)
@@ -89,12 +84,9 @@ def spoken_english(request, pk, pk1, pk2):
         for i in modules:
             levels.append(module_level.objects.filter(
             module_id=i.module_id).order_by('level_description'))
-    
         return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
     else:
-     
-        modules = program_module.objects.filter(program_id=pk2)
-    
+        modules = program_module.objects.filter(program_id=pk2)    
         order = [4, 1, 0, 7, 3, 2, 6, 5]
         modules = [modules[i] for i in order]
         program1 = program.objects.get(pk=pk2)
@@ -102,10 +94,7 @@ def spoken_english(request, pk, pk1, pk2):
         for i in modules:
             levels.append(module_level.objects.filter(
             module_id=i.module_id).order_by('level_description'))
-    
-            question_type1 = question_type.objects.all()
-        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),"q_t":question_type1,'respective_scores':respective_scores,'F':F,'ids_names':zip(ids,names)})
-
+        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
           
 def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
     module = program_module.objects.get(pk=pk3)
