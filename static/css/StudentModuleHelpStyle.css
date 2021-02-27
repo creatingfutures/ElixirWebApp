@@ -58,9 +58,9 @@ font-weight: bold !important;
 }
 .StudentModuleClass td,
 .StudentModuleClass  th {
-  border: 1px solid black;
+ /* border: 1px solid black;
   border-collapse: collapse;
-  color: black;
+  color: black;*/
   font-size: large;
   font-size: 14px !important;
 }
