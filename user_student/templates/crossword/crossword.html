@@ -15,7 +15,7 @@
    
 	<ul class="breadcrumb">
 		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
-		<li><a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 10 %}">Crossword</a></li>
+		<li><a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}">Crossword</a></li>
 	  </ul>
 	 
 <h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
@@ -98,7 +98,7 @@ return items;
 <table id="wordbox">		
 </table>
 <button id="submit" class="button">Submit</button>
-<button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 10 %}'">Back</button></li>
+<button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button></li>
 </div>
 </div>
 <table id="clues"></table>
