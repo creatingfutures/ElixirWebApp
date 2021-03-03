@@ -2,38 +2,9 @@
 {% load static %}
 {% load student_tag %}
 
-{#<html>
-    <head>
-      <style>
-ul.breadcrumb li+li:before {
-padding: 18px;
-color: red;
-content: '-';
-
-}
-.button{
- font-family: 'Montserrat';
- background-color: orange;
- border: none;
- color: black;
- padding: 12px 22px;
- text-align: center;
- text-decoration: none;
- display: inline-block;
- font-size: 14px;
- margin: 4px 2px;
- cursor: pointer;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-   outline: none;
- }
-
-      </style>#}
- 
-
 {% block page_specific_htmlhead%}
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  {#<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+ 
        
 {% endblock page_specific_htmlhead%}
 {% block content %}     
