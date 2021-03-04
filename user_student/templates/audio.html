@@ -13,9 +13,8 @@ Your browser does not support the audio element.
 
 <form action="" onSubmit="return check(this)" id="{{j}}">
   {% with  iteratedContent=request.session.question_content|getObject:j %}
-      <p></p>
-      
-      <p style="font-size:150%">{{iteratedContent.question}}</p>
+ 
+      <p style="font-size:150%">{{iteratedContent.question}} &nbsp;<i class="fa fa-question" aria-hidden="true" id ='{{forloop.counter}}' onclick="hint({{forloop.counter}});">Hint</i></p>
       <ol type="A">
           {% for option in iteratedContent.options %}
               <li>  
@@ -27,6 +26,8 @@ Your browser does not support the audio element.
       </ol>
       <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
       <input type="text" name="c" value="0" hidden>
+      <input type="text" name="ques" value="{{iteratedContent.question}},{{forloop.counter}},{{iteratedContent.hint}}" hidden>
+      <input type="text" name="counter" value = "{{forloop.counter}}" hidden>
       <input type="submit" name="sub" class="button" value="Check">
    {% endwith %}
   </form>
@@ -47,6 +48,15 @@ Your browser does not support the audio element.
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
+ window.attempted = [];
+function hint(a){
+  console.log(window.attempted.length);
+  for(var i=0;i<window.attempted.length;i++){
+    if(window.attempted[i].split(',')[1] == String(a)){
+      alert(window.attempted[i].split(',')[2]);
+    }
+  }
+}
 
 var len=parseInt("{{l}}");
 var solved=0
@@ -70,6 +80,12 @@ function check(a)
       a.sub.disabled=true
       solved=solved+1
       alert("Right Answer");
+      for(var i=0;i<window.attempted.length;i++){
+             if(window.attempted[i].split(',')[1] == String(a.counter.value)){
+               window.attempted.splice(i,1);
+              }
+          console.log(window.attempted);
+          }
       if(a.c.value==1)
       {
         score=score+1
@@ -85,6 +101,9 @@ function check(a)
     }
 
     else {
+      console.log(a.ques.value);
+          window.attempted.push(a.ques.value);
+          window.attempted = [...new Set(window.attempted)];
       alert("Incorrect Answer, Please Try Again")
     }
 

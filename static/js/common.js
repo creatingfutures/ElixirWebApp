@@ -1,7 +1,7 @@
 var currentTextInput;
 var puzzleArrayData;
 //Loads the Crossword
-function initializeScreen(questions,across_or_down){
+function initializeScreen(questions,across_or_down,word_number){
 	var puzzleTable = document.getElementById("puzzle");
 	puzzleArrayData = preparePuzzleArray();
 	for ( var i = 0; i < puzzleArrayData.length ; i++ ) {
@@ -20,7 +20,7 @@ function initializeScreen(questions,across_or_down){
 	}
 	
 	addHint();
-	clueClicked(questions,across_or_down);	
+	clueClicked(questions,across_or_down,word_number);	
 	//if(window.check_clue==0){show_words();}	
 }
 
@@ -77,20 +77,19 @@ function setCurrent(element){
 	current = string.slice(0,string.length);
 } 
 
-function clueClicked(questions,across_or_down){
+function clueClicked(questions,across_or_down,word_number){
 	var table = document.getElementById('wordbox');
 	row_length = table.rows.length
 	if(row_length==0){
 	for(var i=0;i<questions.length;i++){
 		var row = table.insertRow(i);
 		var cell1 = row.insertCell(0);
-		cell1.innerHTML = (i+1)+'.'+'&nbsp'+questions[i]+'&nbsp'+'&nbsp'+'('+'<strong>'+across_or_down[i]+'</strong>'+')';		
+		cell1.innerHTML = (word_number[i])+'.'+'&nbsp'+questions[i]+'&nbsp'+'&nbsp'+'('+'<strong>'+across_or_down[i]+'</strong>'+')';		
 		}
 	}
 }
 
 function answerblueprint(new_cells_allowed,answers,across_or_down){
-	console.log(answers);
 	score = checkClicked(new_cells_allowed,answers,across_or_down);
 	return score; 
 }

@@ -123,7 +123,7 @@
 
   <h1 id="status"></h1>
 
-  <h4 style="display:none" id="submit"><input  class="button" type="submit" id="submit1" value="Next Level"></h4>
+  <h4 style="display:none" id="submit"><input  class="button" type="submit" id="submit1"><a class="button"  href="{% url 'spoken_english' pk pk1 pk2 %}">Next Level</a></h4>
 
   {% if test_name|standard %}
   <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'standard_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>

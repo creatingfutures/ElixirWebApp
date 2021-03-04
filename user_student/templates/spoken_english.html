@@ -1,6 +1,7 @@
 {% extends 'base1.html' %}
 {% load static %}
 {% load student_tag %}
+
 {% block content %} 
 <html>
 <head>
@@ -87,10 +88,10 @@ h2 {background-color: white;height: 30;margin-bottom: 0;margin-top:0;}
   <div class="content1"> 
     <table class="myTable" style="width:100%">
       {% for b in j.level_id|prefix %}
-        {% if b == "General Assessment" %}  
+        {% if b.assessment_type == 'General Assessment' %}  
         <tr>
-          <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> </td>
-          <td id='General Assessment,{{pk}},{{pk1}},{{j.pk}}' style="padding-left: 1180px;color:red">Y</td>
+          <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">{{b.assessment_type}}</a> </td>
+          <td id='{{b.assessment_type}},{{pk}},{{pk1}},{{j.pk}}' style="padding-left: 1180px;color:red">Y</td>
         </tr>
         {% else %}
         <tr>      

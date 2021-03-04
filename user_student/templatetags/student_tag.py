@@ -8,12 +8,13 @@ register = template.Library()
 def prefix(a):
     distinct = []
     for i in question.objects.filter(level_id=a):
-        if(i.assessment_type_id in distinct):
-            pass
-        else:
-            distinct.append(i.assessment_type_id)
+        if(i.assessment_type_id!=None):
+            if(i.assessment_type_id in distinct):
+                pass
+            else:
+                distinct.append(i.assessment_type_id)
+    print(distinct,assessment_type.objects.filter(assessment_type_id__in=distinct))
     return assessment_type.objects.filter(assessment_type_id__in=distinct)
-
 
 @register.filter
 def index(List, i):
