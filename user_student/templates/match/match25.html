@@ -11,6 +11,13 @@
         var length = col1.length;
         var answers = {{final_options|safe}};
         var total_score = 1;
+        var g = 0;
+        function check() {
+                var ans = {{final_options|safe}};
+                var c = myfun.res(ans);
+                g = c;
+                return g;
+            }
     </script>
 {% endblock page_specific_htmlhead%}
 
@@ -32,55 +39,51 @@
     <br>
 
 
-    <center>
+     <center>
 
-        <div id="container">
-        <table>
-            <tr>
-                <th>No</th>
-                <th>Questions</th>
-                <th>Options</th>
-                <th>Match</th>
+            <div id="container">
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Questions</th>
+                    <th>Options</th>
+                    <th>Match</th>
 
-            </tr>
-            {% for i,j in two_cols.items %}
-            <tr>
-                <td>
-                {{forloop.counter}}
-                </td>
-                <td>
-                    <script type="text/javascript">document.write("{{i}}")</script>
-                </td>
-                <td>
-                    <script type="text/javascript">document.write("{{j}}")</script>
-                </td>
-                <td><input type="number" id="r{{forloop.counter}}" name="r{{forloop.counter}}" min="1" max="5" oninput="this.style.borderColor ='black'"></td>
-            </tr>
-            {% endfor %}
-        </table>
+                </tr>
+                {% for i,j in two_cols.items %}
+                <tr>
+                    <td>
+                    {{forloop.counter}}
+                    </td>
+                    <td>
+                        <script type="text/javascript">
+                            document.write("{{i}}")
+                        </script>
+                    </td>
+                    <td>
+                        <script type="text/javascript">
+                            document.write("{{j}}")
+                        </script>
+                    </td>
+                    <td>
+                        <input type="number" id="r{{forloop.counter}}" name="r{{forloop.counter}}" min="1" max="5" oninput="this.style.borderColor ='black'">
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
 
-        <br>
-            <button id="submit" class="button">Submit</button>
-            <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 1 %}'">Back</button></li>
-            <h1 id="demo"></h1>
-        </div>
-    </center>
-
-
-    <script>
-        var g = 0;
-        function check() {
-            var ans = {{final_options|safe}};
-            var c = myfun.res(ans);
-            g = c;
-            return g;
-        }
-
-    </script>
+            <br>
+                <button id="submit" class="button">Submit</button>
+                <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
+                <h1 id="demo"></h1>
+            </div>
+        </center>
 
 
+        
 
-    <script>
+
+    <script type="text/javascript">
         $("#submit").click(function(){
         var score = check();
         var token = "{{csrf_token}}";
@@ -98,9 +101,9 @@
             question_content_id:{{question_content_id}},    
         },
             success: function(data) {
-          $("#container").html(data) // `data` is the return of the `load_cities` view function
+            $("#container").html(data) // `data` is the return of the `load_cities` view function
             }
-          });
+            });
         });
         </script>
 

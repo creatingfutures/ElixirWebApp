@@ -21,88 +21,33 @@
     </center>
     
     {% for i,lev in l %}
-            <button class="collapsible">
-                <b>{{i.module_name|allcaps}} </b>
-            </button>
-            <div class="content">
-                {% for j in lev %}
-  
-                  <button class="collapsible1">
-                        <h4>
-                            {{j.level_description|allcaps}}
-                            <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
-                            <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b>
-                        </h4>
-                  </button>
-  
-                  <div class="content1">
-  
-                    <table class="myTable">
-                      <tr>
-                        <td>
-                          <a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> 
-                        </td>
-                        <td id='G,{{pk}},{{pk1}},{{j.pk}}'>
-                          <b style="color:red;" >X</b>
-                        </td>
-                       </tr>
     
-                       <tr>      
-                        <td>
-                           <a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 1 %}">Match the following</a> 
-                        </td>
-                         <td id='M,{{pk}},{{pk1}},{{j.pk}}'>
-                           <b style="color:green;">Y </b> 
-                         </td>
+    <button class="collapsible"><b>{{i.module_name|allcaps}} </b></button>
+    <div class="content">
+    {% for j in lev %}
+  <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>    
+  <div class="content1"> 
+    <table class="myTable" style="width:100%">
+      {% for b in j.level_id|prefix %}
+        {% if b.assessment_type == "General Assessment" %}  
+        <tr>
+          <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> </td>
+          <td id='General Assessment,{{pk}},{{pk1}},{{j.pk}}' style="padding-left: 1180px;color:red">Y</td>
+        </tr>
+        {% else %}
+        <tr>      
+          <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk b.assessment_type_id %}">{{b.assessment_type}}</a></td>
+          <td id='{{b.assessment_type}},{{pk}},{{pk1}},{{j.pk}}'style="padding-left: 1180px;color:red" >Y  </td>
+          </tr>
+        {% endif %}
+    {% endfor %}
+       </table>
+      </div> 
+      {% endfor %}
+    </div>
+      {% endfor %}
       
-                       </tr>
-                       <tr>
-                         <td>
-                           <a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 11%}">Word Search</a> 
-                         </td>
-                         <td id='W,{{pk}},{{pk1}},{{j.pk}}' >
-                           <b style="color:green;">Y </b> 
-                         </td>
-    
-                       </tr>
-                        <tr>
-                       <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 10%}">Crossword</a> </td>
-                       <td id='C,{{pk}},{{pk1}},{{j.pk}}'>
-                            <b style="color:red;">X </b> 
-                       </td>
-      
-                       </tr>
-       
-                        <tr > 
-          
-                          <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 7 %}">Audio</a> </td>
-                            <td id='A,{{pk}},{{pk1}},{{j.pk}}'>
-                                <b style="color:red;">X </b> 
-                            </td>
-         
-                          </tr>
-                          <tr>
-                            <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 8 %}">Video</a> </td>
-                              <td id='V,{{pk}},{{pk1}},{{j.pk}}'>
-                              <b style="color:red;">X </b> 
-                              </td>
-           
-                          </tr>
-                          <tr>
-                            <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk 9 %}">Text</a> </td>
-                              <td id='T,{{pk}},{{pk1}},{{j.pk}}'>
-                              <b style="color:red;">X </b> 
-                              </td>
-           
-                          </tr>
-            
-                       </table>
-                  </div> 
   
-                 {% endfor %}
-            </div>
-     {% endfor %}
-        
   
     <script type="text/javascript">
 
@@ -112,39 +57,37 @@
       var F = {{F|safe}};
       var user_score = 0;
       var total_score = 1;
+      var total_user_score = 0;
+      var total_total_score = 1;
       //console.log(F);
       for(var i=0;i<F.length;i++){
-        res = F[i].split(',',4);
-       // console.log('hi',res);
-       // console.log(F);
+        res = F[i].split(',');
+        console.log('res',String(res.slice(0,4)));
+        res = String(res.slice(0,4));
+        console.log('find',F);
         user_score = F[i].split(',').slice(4)[0];
         total_score = F[i].split(',').slice(4)[1];
-        //console.log(user_score,total_score);
+        console.log('2020',user_score,total_score);
         if(F[i].split(',').slice(0)[0]=='L'){
           var score_style = document.getElementById(res);
           score_style.innerHTML= ' Score: '+ Math.round((user_score/total_score)*100)+'%';
+          score_style.style.margin = "0px 0px 0px 1050px";
         }
         else{
           score_style = document.getElementById(res);
-          //console.log(score_style);
-          //console.log('hi',res);
+          console.log(score_style);
           score_style.innerHTML= Math.round((user_score/total_score)*100)+'%';
+          
           if(user_score>=0.8*total_score){
             score_style.style.color = "green";
           }
-          else{
-            score_style.style.color = "red";
-          }
         }
-        //score_style.style.margin = "auto";
+       
       }
-
       
-
       var coll=document.getElementsByClassName("collapsible");
           var i;
      for (i = 0; i < coll.length; i++) {
-
         coll[i].addEventListener("click", function() {
           this.classList.toggle("active");
          var content1 = this.nextElementSibling;
@@ -156,95 +99,22 @@
    });
       }
       
-    /* var coll=document.getElementsByClassName("collapsible");
-      coll[1].addEventListener("click", function() {
-          this.classList.toggle("active");
-          var content = this.nextElementSibling;
-          if (content.style.maxHeight){
-            content.style.maxHeight = null;
-          } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-          } 
-        });
-      */
       
-      //var coll=document.getElementsByClassName("collapsible");
-          
-      
-        
         var coll = document.getElementsByClassName("collapsible1");
         //alert(coll.length);
-        
-          
+             
           for(var i=0;i<coll.length;i++){
-            if(i<6)
-            {
-            document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
-            document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
-            document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-            }
-            if(i>=6 && i<12)
-            {
-              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-            }
-            if(i>=12 && i<18)
-            {
-              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-            }
-            if(i>=18 && i<24)
-            {
-              document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[4].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[5].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-            
-            }
-            if(i>=24 && i<30)
-            {
-              document.getElementsByClassName("myTable")[i].innerHTML=document.getElementsByClassName("myTable")[i].rows[6].innerHTML;
-            }
-            if(i>=30 && i<36)
-            {
-              document.getElementsByClassName("myTable")[i].rows[0].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[6].innerHTML="";
-            }
-            if(i>=36 && i<48)
-            {
-              document.getElementsByClassName("myTable")[i].rows[0].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[1].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[2].innerHTML="";
-              document.getElementsByClassName("myTable")[i].rows[3].innerHTML="";
-              
-            }
-            
           coll[i].addEventListener("click", function() {
-            
           this.classList.toggle("active");
-          var content1 = this.nextElementSibling;
-          
-         
+          var content1 = this.nextElementSibling;         
           if (content1.style.maxHeight){
             content1.style.maxHeight = null;
           } else {
-            
             content1.style.maxHeight = content1.scrollHeight + "px";
           } 
         });
           }
         
-      
       </script>
           
    

@@ -227,14 +227,13 @@ class assessment_type(models.Model):
     assessment_type_id = models.AutoField(primary_key=True)
     assessment_type = models.CharField(
         max_length=150, null=False, blank=False, unique=True)
-
     def __str__(self):
         if not self.assessment_type:
             return 
-        return self.assessment_type.capitalize()
+        return self.assessment_type
 
     def save(self, *args, **kwargs):
-        self.assessment_type = self.assessment_type.lower()
+        self.assessment_type = self.assessment_type
         return super(assessment_type, self).save(*args, **kwargs)
 
 
@@ -245,10 +244,10 @@ class question_type(models.Model):
         max_length=50, null=False, blank=False, unique=True)
 
     def __str__(self):
-        return self.question_type.capitalize()
+        return self.question_type
 
     def save(self, *args, **kwargs):
-        self.question_type = self.question_type.lower()
+        self.question_type = self.question_type
         return super(question_type, self).save(*args, **kwargs)
 
 class question_content(models.Model):
