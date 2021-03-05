@@ -87,14 +87,17 @@ def spoken_english(request, pk, pk1, pk2):
         return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
     else:
         modules = program_module.objects.filter(program_id=pk2)    
-        order = [4, 1, 0, 7, 3, 2, 6, 5]
-        modules = [modules[i] for i in order]
-        program1 = program.objects.get(pk=pk2)
-        levels=[]
-        for i in modules:
-            levels.append(module_level.objects.filter(
-            module_id=i.module_id).order_by('level_description'))
-        return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
+        if len(modules)>0:
+            order = [4, 1, 0, 7, 3, 2, 6, 5]
+            modules = [modules[i] for i in order]
+            program1 = program.objects.get(pk=pk2)
+            levels=[]
+            for i in modules:
+                levels.append(module_level.objects.filter(
+                module_id=i.module_id).order_by('level_description'))
+            return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
+        else:
+            return render(request,'error.html',{"pk": pk, "pk1": pk1})
           
 def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
     module = program_module.objects.get(pk=pk3)
