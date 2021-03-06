@@ -16,7 +16,7 @@
     width: 1550px;
 }
 
-.collapsible > h2 {
+.collapsible > h2, .collapsible > b {
     font-family: Arial;
     font-size: 15px;
 }
@@ -33,7 +33,7 @@
     margin-left: 5px;
 }*/
 
-.collapsible > h2:after {
+.collapsible > h2:after, .collapsible > b:after {
     content: '\002B';
     color: white;
     font-weight: bold;
@@ -45,7 +45,7 @@
     content: "\2212";
 }*/
 
-.active > h2:after {
+.active > h2:after, .active > b:after {
     content: "\2212";
 }
 
@@ -66,10 +66,11 @@
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     background-color: white;
+    width:1515px;
 }
 
 .content > table {
-    width: 100%;
+    /*width: 100%;*/
     color: white;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -80,7 +81,8 @@
 }
 
     .content1 > table > tBody > tr > :first-child {
-        width: 85%;
+        width: 90%;
+        padding-left:125px;
     }
 
 .content > table > tbody > tr > td {

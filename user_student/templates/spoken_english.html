@@ -27,17 +27,17 @@
     {% for j in lev %}
   <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>    
   <div class="content1"> 
-    <table class="myTable" style="width:100%">
+    <table class="myTable">
       {% for b in j.level_id|prefix %}
         {% if b.assessment_type == "General Assessment" %}  
         <tr>
           <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> </td>
-          <td id='General Assessment,{{pk}},{{pk1}},{{j.pk}}' style="padding-left: 1180px;color:red">Y</td>
+          <td id='General Assessment,{{pk}},{{pk1}},{{j.pk}}' style="color:red">Y</td>
         </tr>
         {% else %}
         <tr>      
           <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk b.assessment_type_id %}">{{b.assessment_type}}</a></td>
-          <td id='{{b.assessment_type}},{{pk}},{{pk1}},{{j.pk}}'style="padding-left: 1180px;color:red" >Y  </td>
+          <td id='{{b.assessment_type}},{{pk}},{{pk1}},{{j.pk}}'style="color:red" >Y  </td>
           </tr>
         {% endif %}
     {% endfor %}
