@@ -1,6 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
-<style>
+{#<style>
   ul {
     list-style-type: none;
     margin-right: 0;
@@ -227,37 +228,52 @@
     align-items: center;
     margin: 10px;
   }
-</style>
+</style>#}
 
 
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-  <link rel="stylesheet" href="home.css">
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+{% block page_specific_htmlhead%}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock page_specific_htmlhead%}
+{% block page_specific_styles%}
+  .nav {
+    background:url("{% static 'IMG_20191019_123545.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:50% !important;
+    display:grid !important;
+  }
 
-<body>
 
-<div class="nav">
-  <div class="navig">
-    <div>
-  <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;margin:0;"/>
-  </div>
-  <div class="navv">
-  <a href="{% url 's_home' pk pk1 %}" style="font-size:125%;margin:10px;font-family: 'Montserrat';">HOME</a>
-  <a href="" style="font-size:125%;margin:10px;font-family: 'Montserrat';">ABOUT US</a>
-  <a href="" style="font-size:125%;margin:10px;font-family: 'Montserrat';">REPORTS</a>
-      <a href="{% url 'student_login' %}" style="font-size:125%;margin:10px;font-family: 'Montserrat';">LOG OUT</a>
-  </div>
-  </div>
+  #box {
+    z-index: 1;
+    width: 220px;
+    height: 270px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+    background-color: white;
+    /* top: 350;
+  left: 160; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .container1 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
+
+{% endblock page_specific_styles%}
+
+{%block welcome %}
     <div style="grid-row:3/4;justify-items:center;align-items:center;text-align:center">
       <p style="font-size:200%;margin:10px;color:white">WELCOME {{s.first_name|allcaps}}</p>
     </div>
-  </div>
-
-  <!-- <h1> COURSES</h1> -->
-  <br><br>
+{% endblock welcome%}
+{% block content %}
+  <br>
+   <br>
   <div class="col-md-8">
 
     {% if messages %}
@@ -287,8 +303,4 @@
   </div>
 
 
-
-</body>
-</head>
-
-</html>
+{% endblock%}

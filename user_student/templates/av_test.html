@@ -1,7 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
 
-<style>
+{#<style>
   #top {
   top: 0;
   background-color: orange;
@@ -119,84 +120,61 @@ ol > li {
 
         font-size:15px;
     }
-  </style>
+  </style>#}
  
 
 
 
 
-<html>
+{% block page_specific_htmlhead%}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <!--<link rel="stylesheet" type="text/css" href="exercise.css">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-    <div class="outer">
-    <div class="container">
-    <div class="logo">
-    <img src="{% static 'elixir_logo.PNG' %}" alt="" width="60" height="60"/>
-    </div>
-<nav>
-  <ul>
-  <li><a href="{% url 's_home' pk pk1 %}">HOME</a></li>
-  <li><a href="">ABOUT US</a></li>
-  <li><a href="">REPORTS</a></li>
-      <li><a href="{% url 'student_login' %}">LOG OUT</a></li>
-  </ul>
-</nav>
-</div>
-</div>
-<ul class="breadcrumb">
-  <li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
-  <li><a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk pk5 %}">AV Test</a></li>
+{% endblock page_specific_htmlhead%}
+{% block content %} 
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a>
+      </li>
+      <li>
+        <a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk pk5 %}">AV Test</a>
+      </li>
   
-  
-  
-</ul>
+    </ul>
 
-<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
-<br>
-<h2 style="text-align:center"> Text / Audio / Video Test </h2
-<br> <br>
-<div id="container">
+    <h1 style="text-align:center"> 
+        EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} 
+    </h1>
+    <br>
+    <h2 style="text-align:center"> Text / Audio / Video Test </h2>
+    <br> <br>
+    <div id="container">
 
-<center><button id="submit" class="button">Start Test</button></center>
+        <center>
+            <button id="submit" class="button">Start Test</button>
+        </center>
+        <br>
+        <script type="text/javascript">
+        var done=0;
+        var narrative = "{{narrative|safe}}";
+        console.log(typeof narrative);
+        $("#submit").click(function() {
+          $.ajax({ // initialize an AJAX request
+            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/'+narrative,
+            type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+              // questions:"{{q}}",
+              correct:"pass",
+              id:"{{i}}",
+              "score":0
+            },
+            success: function(data) {
+              $("#container").html(data) // `data` is the return of the `load_cities` view function
+            }
+          });
 
+        });
 
-<br>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
-
-<script>
-
- // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
-var done=0;
-var narrative = "{{narrative|safe}}";
-console.log(typeof narrative);
-$("#submit").click(function() {
-  $.ajax({ // initialize an AJAX request
-    url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/'+narrative,
-    type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-    data: {
-      // questions:"{{q}}",
-      correct:"pass",
-      id:"{{i}}",
-      "score":0
-    },
-    success: function(data) {
-      $("#container").html(data) // `data` is the return of the `load_cities` view function
-    }
-  });
-
-});
-
-</script>
+        </script>
 
 
 </div>
-</html>
+{% endblock content%}

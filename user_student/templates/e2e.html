@@ -1,217 +1,45 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
-<html>
 
-<head>
-
-  <link rel="stylesheet" href="course.css">
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-  <link rel="stylesheet" type="text/css" href="serachbar.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-    body {
-      background-color: lightgrey;
-    }
-
-    #top {
-      top: 0;
-      background-color: orange;
-      height: 100px;
-    }
-
-    body {
-      background: lightgrey;
-      font-family: Montserrat;
-      font-size: 12px;
-    }
-
-    * {
-      transition: all 0.3s ease-in-out;
-    }
-
-
-    nav {
-      float: right;
-    }
-
-    .logo img {
-      float: left;
-      padding: 8px;
-    }
-
-    h1 {
-      font-family: "Montserrat";
-      font-weight: 100;
-
-    }
-
-
-    .nav {
-      background-color: orange;
-      height: 30%;
-      display: grid;
-      grid-template-rows: auto auto auto;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .navig {
-      grid-row: 2/3;
-      display: flex;
-      flex-wrap: nowrap;
-      background-color: white;
-      flex-direction: row;
-    }
-
-    .navv {
-      width: 80%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      margin: 10px;
-    }
-
-    .collapsible {
-      background-color: #777;
-      color: white;
-      cursor: pointer;
-      padding: 18px;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .active,
-    .collapsible:hover {
-      background-color: #555;
-    }
-
-    .collapsible:after {
-      content: '\002B';
-      color: white;
-      font-weight: bold;
-      float: right;
-      margin-left: 5px;
-    }
-
-    .active:after {
-      content: "\2212";
-    }
-
-    .content {
-      padding: 0 18px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.2s ease-out;
-      background-color: #f1f1f1;
-    }
-
-    ul.breadcrumb {
-      padding: 10px 16px;
-      list-style: none;
-      background-color: lightgray;
-    }
-
-    ul.breadcrumb li {
-      display: inline;
-      font-size: 18px;
-    }
-
-    ul.breadcrumb li+li:before {
-      padding: 8px;
-      color: black;
-      content: "/\00a0";
-    }
-
-    ul.breadcrumb li a {
-      color: darkblue;
-      text-decoration: none;
-    }
-
-    ul.breadcrumb li a:hover {
-      color: darkblue;
-      text-decoration: underline;
-    }
-
-    h2 {
-      height: 30;
-      margin-bottom: 0;
-      margin-top: 0;
-    }
-
-    td {
-      font-size: small;
-    }
-
-    td.t1 {
-      table-layout: auto;
-      width: 100px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="nav">
-    <div class="navig">
-      <div>
-        <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;" />
-      </div>
-      <div class="navv">
-        <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
-        <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
-        <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
-      </div>
-    </div>
-  </div>
-  <ul class="breadcrumb">
-    <li><a href="#">MODULES</a></li>
-
-
-
-  </ul>
+{% block page_specific_htmlhead%}
+    <link rel="stylesheet" href="/static/css/Programs.css" />
+{% endblock%}
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="#">MODULES</a></li>
+    </ul>
 
   <center>
     <h1> {{p.program_name|allcaps}}</h1>
   </center>
 
   {% for i,lev in l %}
-  <button class="collapsible">
-    <h2><b>{{i.module_name|allcaps}}</b></h2>
-  </button>
-
-
+    <button class="collapsible">
+        <h2><b>{{i.module_name|allcaps}}</b></h2>
+    </button>
   <div class="content">
-
     {% for j in lev %}
-    <table>
-      <tr>
-        <h4>
+        <table>
+          <tr>
+              <td class="t1">
+                <a href="{% url 'e2e_modules' pk pk1 pk2 i.pk j.pk  %}">{{j.level_description|allcaps}}</a> 
+              </td>
+              <td>
+                <a href="">Go To Lesson </a>
+              </td>
+              <td>
+                <b> Score :
+                  XX</b>
+              </td>
 
-          <td class="t1">
-            <a href="{% url 'e2e_modules' pk pk1 pk2 i.pk j.pk  %}">{{j.level_description|allcaps}}</a> &rarr;
-          </td>
-          <td>
-            <a href="" style="color:black;">Go To Lesson </a>
-          </td>
-          <td>
-            <b style="color:black;margin-left: 1150px;"> Score :
-              XX</b>
-          </td>
-
-        </h4>
-      </tr>
-    </table>
+           
+          </tr>
+        </table>
     {% endfor %}
 
   </div>
-  {% endfor %}
-
-
+ {% endfor %}
 
   <script>
 
@@ -248,6 +76,7 @@
 
   </script>
 
-</body>
 
-</html>
+
+{% endblock content %}
+

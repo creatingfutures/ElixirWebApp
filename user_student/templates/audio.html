@@ -1,46 +1,50 @@
 {% load student_tag %}
 
-<div style="marting:10px;padding:10px">
-<p style="font-size:200%"><b>Listen to Audio and Answer Below Questions</b></p>
+<div style="margin:10px;padding:10px">
+    <p style="font-size:200%">
+        <b>Listen to Audio and Answer Below Questions</b>
+    </p>
 
-<audio controls>
- <source src="/media/{{request.session.questions|index_av:i}}" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
+    <audio controls>
+         <source src="/media/{{request.session.questions|index_av:i}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+    </audio>
 
-<p style="font-size:200%"><b>Multiple Choice Question</b></p>
-{% for j in r %}
+    <p style="font-size:200%">
+        <b>Multiple Choice Question</b>
+    </p>
+    {% for j in r %}
 
-<form action="" onSubmit="return check(this)" id="{{j}}">
-  {% with  iteratedContent=request.session.question_content|getObject:j %}
-      <p></p>
+        <form action="" onSubmit="return check(this)" id="{{j}}">
+          {% with  iteratedContent=request.session.question_content|getObject:j %}
+              <p></p>
       
-      <p style="font-size:150%">{{iteratedContent.question}}</p>
-      <ol type="A">
-          {% for option in iteratedContent.options %}
-              <li>  
-                  <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
-              </li>
-          {% endfor %}
+              <p style="font-size:150%">{{iteratedContent.question}}</p>
+              <ol type="A">
+                  {% for option in iteratedContent.options %}
+                      <li>  
+                          <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
+                      </li>
+                  {% endfor %}
 
 
-      </ol>
-      <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
-      <input type="text" name="c" value="0" hidden>
-      <input type="submit" name="sub" class="button" value="Check">
-   {% endwith %}
-  </form>
+              </ol>
+              <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
+              <input type="text" name="c" value="0" hidden>
+              <input type="submit" name="sub" class="button" value="Check">
+           {% endwith %}
+          </form>
 
-{% endfor %}
-<br><br><br>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
 
-<input type="submit" id="submit" class="button" value="Submit" disabled style="background-color:darkgray;color:white">
+    <input type="submit" id="submit" class="button" value="Submit" disabled style="background-color:darkgray;color:white">
 
 </div>
 
 <br>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 
 <script>
