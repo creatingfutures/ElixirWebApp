@@ -230,7 +230,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                 student_query.total_score = total_score
                 print(student_query)
                 student_query.save()
-            elif(question_type_name=="Text test" or question_type_name=='Av test'):
+            elif(question_type_name=="Text test" or question_type_name=='Audio' or question_type_name=='Video'):
                 print('a9')
                 student_query.user_score = score
                 student_query.date_time = datetime.datetime.now()
@@ -312,7 +312,7 @@ def crossword(request, pk, pk1, pk2, m, l,narrative,assessment_type_id):
     a.compute_crossword(2)
     items = a.solution()
     a.display()
-    legend,cords,across_or_down,answers,answers_box = a.legend()
+    legend,cords,across_or_down,answers,answers_box,word_number = a.legend()
     items = items.replace(' ','')
     items = list(items.replace('\n',''))
     nd_array = []
@@ -358,7 +358,7 @@ def crossword(request, pk, pk1, pk2, m, l,narrative,assessment_type_id):
     for i in answers:
         ans.append(str(i))
     typ = assessment_type_id
-    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'nd_array':nd_array,'legend':legend,'cords':cords,'across_or_down':across_or_down,'items':items,'answer_start':answer_start,'answer_start_index':answer_start_index,'answers':ans,'new_cells_allowed':new_cells_allowed,'typ':typ,'narrative':narrative,'questions':answers_box,'question_content_id':question_content_id})
+    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'nd_array':nd_array,'legend':legend,'cords':cords,'across_or_down':across_or_down,'items':items,'answer_start':answer_start,'answer_start_index':answer_start_index,'answers':ans,'new_cells_allowed':new_cells_allowed,'typ':typ,'narrative':narrative,'questions':answers_box,'question_content_id':question_content_id,'word_number':word_number})
     
 def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = "help"

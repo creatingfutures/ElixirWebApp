@@ -3,8 +3,13 @@
 
 <div style="margin:10px;padding:10px">
   <p style="font-size:200%"><b>Fill The Blanks</b></p>
+  <table>
   <i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
-  <p style="font-size:150%">{{request.session.questions|index:i}}</p>
+  <th><i style="font-size:150%">{{request.session.questions|index:i}}</i></th>
+<th><i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">Hint</i></th>
+
+</table>
+
   <ol type="A">
     <li> <input id="ans" type="text"></li><br>
   </ol>
@@ -91,6 +96,7 @@ var done=0;
       else {
         {
           alert("Incorrect Answer, Please Try Again");
+          document.getElementById('hint').style.display='block';
         }
       }
 
