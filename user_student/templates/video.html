@@ -1,16 +1,19 @@
 {% load student_tag %}
+{% load static %}
+
 <div style="margin:10px;padding:10px">
   <p style="font-size:200%"><b>Watch the Video and Answer Below Questions</b></p>
   <video width="520" height="440" controls>
    <source src="/media/{{request.session.questions|index_av:i}}" type="video/mp4">
   </video>
-
+  <p style="font-size:200%"><b>Multiple Choice Question</b></p>
 {% for j in r %}
     <form action="" onSubmit="return check(this)" id="{{j}}">
     {% with  iteratedContent=request.session.question_content|getObject:j %}
        
-    <p style="font-size:200%"><b>Multiple Choice Question</b></p>
-    <p style="font-size:150%">{{iteratedContent.question}} &nbsp;<i class="fa fa-question" aria-hidden="true" id ='{{forloop.counter}}' onclick="hint({{forloop.counter}});">Hint</i></p>
+
+    <p style="font-size:150%">{{iteratedContent.question}} &nbsp;
+      <button id ='{{forloop.counter}}' onclick="hint_func({{forloop.counter}});return false" name="hint" style="font-size:75%;color:white;background-color: darkgray;" class="button" disabled >Hint</button></p>
         <ol type="A">
             {% for option in iteratedContent.options %}
                 <li>  
@@ -22,7 +25,8 @@
             <input type="text" name="c" value="0" hidden>
             <input type="text" name="ques" value="{{iteratedContent.question}},{{forloop.counter}},{{iteratedContent.hint}}" hidden>
             <input type="text" name="counter" value = "{{forloop.counter}}" hidden>
-        </ol>
+            <input type="submit" name="sub" class="button" value="Check" style="display: none;">
+          </ol>
         <input type="submit" name="sub" class="button" value="Check">
      {% endwith %}
     </form>
@@ -37,18 +41,9 @@
 <br>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
+<script src="{% static 'js/hints.js' %}"></script>
 
 <script>
-window.attempted = [];
-function hint(a){
-  console.log(window.attempted.length);
-  for(var i=0;i<window.attempted.length;i++){
-    if(window.attempted[i].split(',')[1] == String(a)){
-      alert(window.attempted[i].split(',')[2]);
-    }
-  }
-}
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
 
@@ -98,7 +93,10 @@ function check(a)
         console.log(a.ques.value);
           window.attempted.push(a.ques.value);
           window.attempted = [...new Set(window.attempted)];
-        alert("Incorrect Answer, Please Try Again")
+        alert("Incorrect Answer, Please Try Again");
+        document.getElementById(a.counter.value).style.backgroundColor = 'orange';
+          document.getElementById(a.counter.value).style.color = 'black';
+          document.getElementById(a.counter.value).disabled = false;
       }
 
       console.log(len,score)

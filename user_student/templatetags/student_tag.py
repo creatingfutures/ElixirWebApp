@@ -135,8 +135,7 @@ def index5(List, i):
 
 @register.filter
 def id(List, i):
-    L = list(serializers.deserialize("json",List))
-    return L[i].object
+    return List[i]
 
 @register.filter
 def str1(arg1):
