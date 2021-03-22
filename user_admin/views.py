@@ -660,19 +660,46 @@ def batch_search(request):
 
 
 def questionss(request):
-    questions1 = question.objects.all()
-    paginator = Paginator(questions1, paginator_num_pages)
+    #questions1 = question.objects.all()
+    #paginator = Paginator(questions1, paginator_num_pages)
     try:
         page = int(request.GET.get('page'))
+        searchText = str(request.GET.get('searchtext'))
     except:
         page = 1
+        searchText = ""
+    if searchText != "" and searchText != 'None':
+        questions1 = question.objects.all().filter(question__contains=searchText)
+    else:
+        questions1 = question.objects.all()
+    paginator = Paginator(questions1, paginator_num_pages)
+    try:
+        
+        questions11 = paginator.page(page)
+    except:
+        questions11 = paginator.page(paginator_num_pages)
+
+    return render(request, 'question/questions.html', {"p": questions11})
+
+def questions_search(request):
+    try:
+        searchText = str(request.GET.get('searchtext'))
+    except:
+        searchText = ""
+    if searchText != ""
+    :
+        questions1 = question.objects.all().filter(question__contains=searchText)
+    else:
+        questions1 = question.objects.all()
+    paginator = Paginator(questions1, paginator_num_pages)
+    page = 1
 
     try:
         questions11 = paginator.page(page)
     except:
         questions11 = paginator.page(paginator_num_pages)
 
-    return render(request, 'question/questions.html', {"p": questions11})
+    return render(request, 'ajax/questions_search.html', {"p": questions11})
 
 
 @login_required
