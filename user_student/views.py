@@ -166,6 +166,7 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     date_time = datetime.datetime.now() # get present time
     pass_status = True
     total_score = total_score
+    print('id bru',request.session.get('question_content_id'))
     question_content_id = request.POST.get('question_content_id')
     narrative = request.POST.get('narrative')
     print('abhi',question_content_id,narrative)
@@ -173,8 +174,10 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     if(score==0):
         pass_status= False
     
-    if(q_type.assessment_type=='Text' or q_type.assessment_type=='Video' or q_type.assessment_type=='Audio'):
-        score_save_helper(student_id,q_type.assessment_type,level_id,batch_id,pass_status,score,total_score,request.session.get('question_content_id'),request.session.get('narrative'),typ)
+    if(q_type.assessment_type=='Text Test' or q_type.assessment_type=='Video' or q_type.assessment_type=='Audio'):
+        print('avt')
+        question_content_id = request.session.get('question_content_id')
+        score_save_helper(student_id,q_type.assessment_type,level_id,batch_id,pass_status,score,total_score,question_content_id,request.session.get('narrative'),typ)
     else:
         if(typ == 2): #GA
             question_type_name = str(assessment_type.objects.get(assessment_type__iexact='general assessment'))
@@ -189,6 +192,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
         #narrative_id = question_content.objects.get(question_content_id=narrative_id)
         #print(assessment_type.objects.all())
         #print(question_type.objects.all())
+        print('question_contetn_id',question_content_id)
         try:
             if(typ==2):
                 assessment_type_id = assessment_type.objects.get(assessment_type__iexact=question_type_name)
@@ -230,7 +234,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                 student_query.total_score = total_score
                 print(student_query)
                 student_query.save()
-            elif(question_type_name=="Text test" or question_type_name=='Av test'):
+            elif(question_type_name=="Text Test" or question_type_name=='Audio' or question_type_name=='Video'):
                 print('a9')
                 student_query.user_score = score
                 student_query.date_time = datetime.datetime.now()
@@ -312,7 +316,7 @@ def crossword(request, pk, pk1, pk2, m, l,narrative,assessment_type_id):
     a.compute_crossword(2)
     items = a.solution()
     a.display()
-    legend,cords,across_or_down,answers,answers_box = a.legend()
+    legend,cords,across_or_down,answers,answers_box,word_number = a.legend()
     items = items.replace(' ','')
     items = list(items.replace('\n',''))
     nd_array = []
@@ -358,7 +362,7 @@ def crossword(request, pk, pk1, pk2, m, l,narrative,assessment_type_id):
     for i in answers:
         ans.append(str(i))
     typ = assessment_type_id
-    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'nd_array':nd_array,'legend':legend,'cords':cords,'across_or_down':across_or_down,'items':items,'answer_start':answer_start,'answer_start_index':answer_start_index,'answers':ans,'new_cells_allowed':new_cells_allowed,'typ':typ,'narrative':narrative,'questions':answers_box,'question_content_id':question_content_id})
+    return render(request,"crossword/crossword.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'nd_array':nd_array,'legend':legend,'cords':cords,'across_or_down':across_or_down,'items':items,'answer_start':answer_start,'answer_start_index':answer_start_index,'answers':ans,'new_cells_allowed':new_cells_allowed,'typ':typ,'narrative':narrative,'questions':answers_box,'question_content_id':question_content_id,'word_number':word_number})
     
 def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = "help"
@@ -438,11 +442,11 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     #     return render(request, "audio.html",
     #                   {"q": questions1, "q1": ques, "i": i, "r": range(0, len(ques)), "l": len(ques), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
     if questions1[i].question_type.question_type == "Unscramble":
-        str = questions1[i].question
-        print(str.split())
+        strs = questions1[i].question
+        print(strs.split())
         return render(request, "jumbled_words.html",
-                      {"len": range(0, len(str.split())), "words": str.split(),
-                       "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+                      {"len": range(0, len(strs.split())), "words": strs.split(),
+                       "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,'hint': 'none' if questions1[i].hint == '' else questions1[i].hint})
 
    
 def image_test(request, pk, pk1, pk2, pk3, pk4):
@@ -507,7 +511,8 @@ def av_test(request, pk, pk1, pk2, pk3, pk4,pk5,narrative):
     for i in questions1:
         if(question_content_id==0):
             question_content_id = i.question_content.question_content_id
-            print('question_content_id my fen',i.question_content.question_content_id)
+            request.session['question_content_id'] = i.question_content.question_content_id
+            #print('question_content_id my fen',i.question_content.question_content_id)
     print('hi',questions1, len(questions1))
     data = serializers.serialize('json', questions1)
     #print(data)
@@ -547,20 +552,20 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5,narrative):
     print('question_content',request.session['question_content'])
     if questions1[i].question_type.question_type == "Video":
         request.session['question_type'] = questions1[i].question_type.question_type
-        #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+       # request.session['question_content_id'] = question.objects.filter(question_content_id=questions1[i].question_content_id)
         return render(request, "video.html",{"i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5,"narrative":narrative})
 
     if questions1[i].question_type.question_type == "Audio":
         print('Audio')
         request.session['question_type'] = questions1[i].question_type.question_type
-        #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
+       # request.session['question_content_id'] = question.objects.filter(question_content_id=questions1[i].question_content_id)
         # a = ques[i].question_content_id
         print(i)
         return render(request, "audio.html",{ "i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5,"narrative":narrative})
     if questions1[i].question_type.question_type == "Text":
         request.session['question_type'] = questions1[i].question_type.question_type
-        #ques = question.objects.filter(question_content_id=questions1[i].question_content_id)
-        # a = ques[i].question_content_id
+        #question_content_id = questions1[i].question_content_id
+      #  print('text question_content_id',question_content_id)
         print(i)
         return render(request, "text.html",
                                             {"q1": question_content, "i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5,"narrative":narrative})

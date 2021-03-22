@@ -4,7 +4,9 @@
 {% block page_specific_htmlhead%}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/crossword_styles.css' %}">     
-	<script src="{% static 'js/commonjs.js' %}"></script>
+	<body>
+		
+	<script src="{% static 'js/common.js' %}"></script>
 	<script type="text/javascript">
 		//initialize crossword screen on load
 		$( document ).ready(function() {
@@ -62,14 +64,15 @@
 		//Adds the hint numbers
 
 		function addHint(){
-			var answer_start = {{answer_start|safe}}
+			var answer_start = {{answer_start|safe}};
+			var word_number = {{word_number|safe}};
 			placeholder = 0 
 			for(var i =0;i<answer_start.length;i++)
 			{
 				placeholder = placeholder+1
-				document.getElementById(answer_start[i]).placeholder = placeholder;
+				document.getElementById(answer_start[i]).placeholder = word_number[i];
 			}
-			clueClicked({{questions|safe}},{{across_or_down|safe}});
+			clueClicked({{questions|safe}},{{across_or_down|safe}},{{word_number|safe}});
 		}
 		//Stores ID of the selected cell into currentTextInput
 		//Returns Array
@@ -91,7 +94,7 @@
 				<table>
 					<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked({{questions|safe}},{{across_or_down|safe}})"></td>
 					<td><input class="butt"  type="submit" value="Check" onclick="answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}})"></td>
-					<td><input class="butt" style="display: none;" type="submit" value="Clue" onclick="clueClicked({{questions|safe}},{{across_or_down|safe}})"></td></tr>
+					<td><input class="butt" style="display: none;" type="submit" value="Clue" onclick="clueClicked({{questions|safe}},{{across_or_down|safe}},{{word_number|safe}})"></td></tr>
 				</table>
 			</div>
 
@@ -105,6 +108,6 @@
 		<table id="clues"></table>
 	</div>
 
-
+</body>
+</html>
 {% endblock content %}
-

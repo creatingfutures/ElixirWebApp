@@ -2,8 +2,14 @@
 
 <div style="marting:10px;padding:10px">
   <p style="font-size:200%"><b>Multiple Choice Question</b></p>
-  <i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
-  <p style="font-size:150%">{{request.session.questions|index:i}}</p>
+  <table>
+    <i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
+    <th><i style="font-size:150%">{{request.session.questions|index:i}}</i></th>
+  <th><i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">&nbsp; <a href='#' style="color: orange;" >Hint</a> </i></th>
+  
+  
+
+</table>
   <ol type="A">
     <li> <input type="radio" name="options" value="{{request.session.questions|index1:i}}">{{request.session.questions|index1:i}}</li><br>
     <li> <input type="radio" name="options" value="{{request.session.questions|index2:i}}">{{request.session.questions|index2:i}}</li><br>
@@ -85,6 +91,7 @@ var done=0;
       else {
         {
           alert("Incorrect Answer, Please Try Again");
+          document.getElementById('hint').style.display='block';
         }
       }
 

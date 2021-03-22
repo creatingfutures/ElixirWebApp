@@ -3,8 +3,13 @@
 
 <div style="marting:10px;padding:10px">
 <p style="font-size:200%"><b>Crack The Riddles</b></p>
-<i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
-<p style="font-size:150%">{{request.session.questions|index:i}}</p>
+<table>
+  <i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
+  <th><i style="font-size:150%">{{request.session.questions|index:i}}</i></th>
+<th><i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">Hint</i></th>
+
+</table>
+
 <ol type="A">
     <li>  <input id="ans" type="text"></li><br>
 </ol>
@@ -88,6 +93,7 @@ $("#submit").click(function() {
     else {
       {
         alert("Incorrect Answer, Please Try Again");
+        document.getElementById('hint').style.display='block';
       }
     }
 

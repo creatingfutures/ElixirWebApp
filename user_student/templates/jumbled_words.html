@@ -46,8 +46,10 @@ function drop(ev) {
 
 
 <p style="font-size:200%"> <b>Jumbled Words</b></p>
-<p style="font-size:150%">Arrange Below words in proper Order To form sentences</p>
-
+<table>
+<th><p style="font-size:150%">Arrange Below words in proper Order To form sentences</p></th>
+<th><i id='hint' style="display:none;" onclick="alert('{{hint|safe}}')">&nbsp; <a href='#' style="color: orange;" >Hint</a> </i></th>
+</table>
 
 <div  id="container1">
   {% for i in len %}
@@ -55,11 +57,8 @@ function drop(ev) {
     <p id="{{words|id:i}}" style=" cursor: pointer;"draggable="true" ondragstart="drag(event)">{{words|id:i|allcaps}}</p>
     </div>
   {% endfor %}
-
 </div>
-
 <br>
-
 <button class="button" onClick="show()">SUBMIT</button>
 
 
@@ -88,6 +87,7 @@ function drop(ev) {
 
     var answer = "{{request.session.questions|index5:i}}"
     ans=ans.trim()
+    console.log(ans,answer);
     if(ans==answer)
     {
       alert("Right Answer");
@@ -135,6 +135,7 @@ function drop(ev) {
     else {
       {
         alert("Incorrect Answer, Please Try Again");
+        document.getElementById('hint').style.display='block';
       }
     }
 

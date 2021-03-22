@@ -294,6 +294,7 @@ class Crossword(object):
  
     def legend(self): # must order first
         outStr = ''
+        word_number = []
         across_or_down = []
         cords = []
         answers = self.current_word_list
@@ -306,7 +307,9 @@ class Crossword(object):
             across_or_down.append(word.down_across())
             outStr += '%d. (%d,%d) %s: %s\n' % (word.number, word.col, word.row, word.down_across(), word.clue )
             answers_box.append( ' %s\n' % ( word.clue )   )
-        return outStr,cords,across_or_down,answers,answers_box
+            word_number.append(word.number)
+            print(word.number, word.col, word.row, word.down_across())
+        return outStr,cords,across_or_down,answers,answers_box,word_number
 
  
 class Word(object):

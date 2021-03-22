@@ -1,55 +1,56 @@
 {% load student_tag %}
+{% load static %}
+<div style="marting:10px;padding:10px">
+<p style="font-size:200%">
+<b>Listen to Audio and Answer Below Questions</b></p>
 
-<div style="margin:10px;padding:10px">
-    <p style="font-size:200%">
-        <b>Listen to Audio and Answer Below Questions</b>
-    </p>
+<audio controls>
+ <source src="/media/{{request.session.questions|index_av:i}}" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
 
-    <audio controls>
-         <source src="/media/{{request.session.questions|index_av:i}}" type="audio/mpeg">
-            Your browser does not support the audio element.
-    </audio>
+<p style="font-size:200%"><b>Multiple Choice Question</b></p>
+{% for j in r %}
 
-    <p style="font-size:200%">
-        <b>Multiple Choice Question</b>
-    </p>
-    {% for j in r %}
+<form action="" onSubmit="return check(this)" id="{{j}}">
+  {% with  iteratedContent=request.session.question_content|getObject:j %}
+  <p style="font-size:200%"><b>Multiple Choice Question</b></p>
+  <p style="font-size:150%">{{iteratedContent.question}} &nbsp;
+    <button id ='{{forloop.counter}}' onclick="hint_func({{forloop.counter}});return false" name="hint" style="font-size:75%;color:white;background-color: darkgray;" class="button" disabled >Hint</button></p>
 
-        <form action="" onSubmit="return check(this)" id="{{j}}">
-          {% with  iteratedContent=request.session.question_content|getObject:j %}
-              <p></p>
-      
-              <p style="font-size:150%">{{iteratedContent.question}}</p>
-              <ol type="A">
-                  {% for option in iteratedContent.options %}
-                      <li>  
-                          <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
-                      </li>
-                  {% endfor %}
+      <ol type="A">
+          {% for option in iteratedContent.options %}
+              <li>  
+                  <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
+              </li>
+          {% endfor %}
 
 
-              </ol>
-              <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
-              <input type="text" name="c" value="0" hidden>
-              <input type="submit" name="sub" class="button" value="Check">
-           {% endwith %}
-          </form>
+      </ol>
+      <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
+      <input type="text" name="c" value="0" hidden>
+      <input type="text" name="ques" value="{{iteratedContent.question}},{{forloop.counter}},{{iteratedContent.hint}}" hidden>
+      <input type="text" name="counter" value = "{{forloop.counter}}" hidden>
+      <input type="submit" name="sub" class="button" value="Check" style="display: none;">
+   {% endwith %}
+  </form>
 
-    {% endfor %}
-    <br>
-    <br>
-    <br>
+{% endfor %}
+<br><br><br>
 
-    <input type="submit" id="submit" class="button" value="Submit" disabled style="background-color:darkgray;color:white">
+<input type="submit" id="submit" class="button" value="Submit" disabled style="background-color:darkgray;color:white">
 
 </div>
 
 <br>
 
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="{% static 'js/hint.js' %}"></script>
 
 <script>
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+
 
 
 var len=parseInt("{{l}}");
@@ -74,6 +75,12 @@ function check(a)
       a.sub.disabled=true
       solved=solved+1
       alert("Right Answer");
+      for(var i=0;i<window.attempted.length;i++){
+             if(window.attempted[i].split(',')[1] == String(a.counter.value)){
+               window.attempted.splice(i,1);
+              }
+          console.log(window.attempted);
+          }
       if(a.c.value==1)
       {
         score=score+1
@@ -89,7 +96,13 @@ function check(a)
     }
 
     else {
-      alert("Incorrect Answer, Please Try Again")
+      console.log(a.ques.value);
+          window.attempted.push(a.ques.value);
+          window.attempted = [...new Set(window.attempted)];
+      alert("Incorrect Answer, Please Try Again");
+      document.getElementById(a.counter.value).style.backgroundColor = 'orange';
+          document.getElementById(a.counter.value).style.color = 'black';
+          document.getElementById(a.counter.value).disabled = false;
     }
 
     //console.log(len,score)

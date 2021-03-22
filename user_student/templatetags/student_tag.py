@@ -8,12 +8,23 @@ register = template.Library()
 def prefix(a):
     distinct = []
     for i in question.objects.filter(level_id=a):
-        if(i.assessment_type_id in distinct):
-            pass
-        else:
-            distinct.append(i.assessment_type_id)
+        if(i.assessment_type_id!=None):
+            if(i.assessment_type_id in distinct):
+                pass
+            else:
+                distinct.append(i.assessment_type_id)
+    print(distinct,assessment_type.objects.filter(assessment_type_id__in=distinct))
     return assessment_type.objects.filter(assessment_type_id__in=distinct)
 
+@register.filter
+def get_hint(List,i):
+    L = list(serializers.deserialize("json",List))
+    print('hint only',L[i].object.hint)
+    if(L[i].object.hint == ''):
+        print('None')
+        return 'None'
+    else:
+        return L[i].object.hint
 
 @register.filter
 def index(List, i):
@@ -124,8 +135,7 @@ def index5(List, i):
 
 @register.filter
 def id(List, i):
-    L = list(serializers.deserialize("json",List))
-    return L[i].object
+    return List[i]
 
 @register.filter
 def str1(arg1):
