@@ -6,7 +6,7 @@
 <table>
   <i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
   <th><i style="font-size:150%">{{request.session.questions|index:i}}</i></th>
-<th><i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">Hint</i></th>
+<th><i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;"> <a href="#" style="color: orange;">Hint</a></i></th>
 
 </table>
 
