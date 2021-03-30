@@ -89,7 +89,7 @@ def spoken_english(request, pk, pk1, pk2):
         modules = program_module.objects.filter(program_id=pk2)    
         if len(modules)>0:
             order = [4, 1, 0, 7, 3, 2, 6, 5]
-            modules = [modules[i] for i in order]
+            #modules = [modules[i] for i in order]
             program1 = program.objects.get(pk=pk2)
             levels=[]
             for i in modules:
@@ -179,7 +179,7 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
         question_content_id = request.session.get('question_content_id')
         score_save_helper(student_id,q_type.assessment_type,level_id,batch_id,pass_status,score,total_score,question_content_id,request.session.get('narrative'),typ)
     else:
-        if(typ == 2): #GA
+        if(typ == 1): #GA
             question_type_name = str(assessment_type.objects.get(assessment_type__iexact='general assessment'))
             question_type_name = question_type_name.lower()
             score_save_helper(student_id,question_type_name,level_id,batch_id,pass_status,score,total_score,0,'narrative',typ)  
@@ -194,7 +194,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
         #print(question_type.objects.all())
         print('question_contetn_id',question_content_id)
         try:
-            if(typ==2):
+            if(typ==1):
                 assessment_type_id = assessment_type.objects.get(assessment_type__iexact=question_type_name)
                 student_query = scores.objects.get(batch_id=batch_id,student_id=student_id,level_id=level_id,assessment_type_id=assessment_type_id)
                 print('a1')
@@ -209,7 +209,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
             student_query = None
             print('a4')
         if(student_query==None):
-            if(typ==2):
+            if(typ==1):
                 print('a5')
                 assessment_type_id = assessment_type.objects.get(assessment_type__iexact=question_type_name)
                 obj = scores.objects.create(student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = datetime.datetime.now(),assessment_type_id=assessment_type_id,question_content_id=question_content_id)
@@ -226,7 +226,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                 obj = scores.objects.create(student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = datetime.datetime.now(),question_content_id=question_content_id,assessment_type_id=assessment_type_id)
                 obj.save()
         else:
-            if(typ==2):
+            if(typ==1):
                 print('a8')
                 student_query.user_score = score
                 student_query.date_time = datetime.datetime.now()
@@ -414,7 +414,7 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     i += 1
     if i == len(questions1):
         score = s
-        typ = 2
+        typ = 1
         total_score = 20
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_score)
         return render(request, "test_submit.html",
