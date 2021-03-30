@@ -686,8 +686,7 @@ def questions_search(request):
         searchText = str(request.GET.get('searchtext'))
     except:
         searchText = ""
-    if searchText != ""
-    :
+    if searchText != "":
         questions1 = question.objects.all().filter(question__contains=searchText)
     else:
         questions1 = question.objects.all()
