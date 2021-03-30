@@ -1,3 +1,4 @@
+
 """creating_futures URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -56,16 +57,12 @@ urlpatterns = [
     path('ajax/load_fac_home/', views.load_fac_home, name='load_fac_home'),
     path('ajax/student_search/', views.student_search, name='student_search'),
     path('ajax/batch_search/', views.batch_search, name='batch_search'),
-    path('ajax/question_type_form/',
-         views.question_type_form, name='question_type_form'),
-
-
-
+    path('ajax/questions_search', views.questions_search, name='questions_search'),
+    path('ajax/question_type_form/',views.question_type_form, name='question_type_form'),
     path('delete_program/<int:pk>', views.delete_program, name='delete_program'),
     path('delete_module/<int:pk>', views.delete_module, name='delete_module'),
     path('delete_level/<int:pk>', views.delete_level, name='delete_level'),
-    path('delete_facilitator/<int:pk>',
-         views.delete_facilitator, name='delete_facilitator'),
+    path('delete_facilitator/<int:pk>',views.delete_facilitator, name='delete_facilitator'),
     path('delete_student/<int:pk>', views.delete_student, name='delete_student'),
     path('delete_center/<int:pk>', views.delete_center, name='delete_center'),
     path('delete_batch/<int:pk>', views.delete_batch, name='delete_batch'),

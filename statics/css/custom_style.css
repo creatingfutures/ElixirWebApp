@@ -108,6 +108,7 @@
     color: #000000;
     font-family: Montserrat;
     font-size: 12px;
+    height:50px;
   }
 
   .searchTerm:focus {
@@ -127,6 +128,7 @@
     cursor: pointer;
     font-size: 20px;
     font-family: Montserrat;
+    height:50px;
   }
 
   label {
@@ -296,3 +298,7 @@ li.nav3 {
   font-size: 14px !important;
   font-weight: lighter !important ;
     }
+
+#txtSearch{
+    margin-left:4.5%;
+}
