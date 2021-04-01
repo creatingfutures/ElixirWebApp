@@ -6,14 +6,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/crossword_styles.css' %}">     
 	<body>
 		
-	<script src="{% static 'js/common.js' %}"></script>
+	<script src="{% static 'js/commons.js' %}"></script>
 	<script type="text/javascript">
 		//initialize crossword screen on load
 		$( document ).ready(function() {
 			initializeScreen({{questions|safe}},{{across_or_down|safe}});
 			$("#submit").click(function(){
 				var score = answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}});
-				//console.log(score);
+				console.log(score);
 				var token = "{{csrf_token}}";
 				var total_score = 1;
 				$.ajax({ // initialize an AJAX request
@@ -43,7 +43,7 @@
 			<a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a>
 		</li>
 		<li>
-			<a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk 10 %}">Crossword</a>
+			<a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}">Crossword</a>
 		</li>
 	</ul>
 	 

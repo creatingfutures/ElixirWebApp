@@ -131,11 +131,10 @@ def word_find(request,pk,pk1,pk2,m,l,narrative,assessment_type_id):
     q_type = question.objects.filter(assessment_type_id=assessment_type_id)[0].question_type
     for i in QandA:
         if( (i.question.level==level and i.question.level.module == module) and (i.question.question_type== q_type and i.question.narrative == narrative)): 
-            ANS.append(i.option_description)
+            ANS.append(str(i.option_description).replace(' ',''))
             if(question_content_id==0):
                 question_content_id= i.question.question_id
     typ = assessment_type_id 
-    print(question_content_id,narrative)
     return render(request,"wordsearch/wordfind.html",{"pk":pk,"pk1":pk1,"pk2":pk2,"m":module,"l":level,'ans':ANS,'typ':typ,'narrative':narrative,'question_content_id':question_content_id})
 
 
@@ -166,20 +165,16 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     date_time = datetime.datetime.now() # get present time
     pass_status = True
     total_score = total_score
-    print('id bru',request.session.get('question_content_id'))
     question_content_id = request.POST.get('question_content_id')
     narrative = request.POST.get('narrative')
-    print('abhi',question_content_id,narrative)
     q_type = assessment_type.objects.get(assessment_type_id=typ)
     if(score==0):
         pass_status= False
-    
-    if(q_type.assessment_type=='Text Test' or q_type.assessment_type=='Video' or q_type.assessment_type=='Audio'):
-        print('avt')
+    if(str(q_type.assessment_type).lower()=='text test' or str(q_type.assessment_type).lower()=='video' or str(q_type.assessment_type).lower()=='audio'):
         question_content_id = request.session.get('question_content_id')
         score_save_helper(student_id,q_type.assessment_type,level_id,batch_id,pass_status,score,total_score,question_content_id,request.session.get('narrative'),typ)
     else:
-        if(typ == 1): #GA
+        if(str(q_type.assessment_type).lower() == 'general assessment'): #GA
             question_type_name = str(assessment_type.objects.get(assessment_type__iexact='general assessment'))
             question_type_name = question_type_name.lower()
             score_save_helper(student_id,question_type_name,level_id,batch_id,pass_status,score,total_score,0,'narrative',typ)  
@@ -189,16 +184,12 @@ def score_save(request,pk,pk1,pk2,m,l,typ,score,total_score):
     return render(request,"score_card.html",{'score':request.POST.get('user_score',0),"pk":pk,"pk1":pk1,"pk2":pk2,"m":m,"l":l,'narrative':narrative,'pass_status':pass_status,'typ':typ,'question_type':q_type})
    
 def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_status,score,total_score,question_content_id,narrative,typ):
-        #narrative_id = question_content.objects.get(question_content_id=narrative_id)
-        #print(assessment_type.objects.all())
-        #print(question_type.objects.all())
-        print('question_contetn_id',question_content_id)
         try:
-            if(typ==1):
+            if(question_type_name=='general assessment'):
                 assessment_type_id = assessment_type.objects.get(assessment_type__iexact=question_type_name)
                 student_query = scores.objects.get(batch_id=batch_id,student_id=student_id,level_id=level_id,assessment_type_id=assessment_type_id)
                 print('a1')
-            elif(question_type_name=='Text test' or question_type_name=='Av test'):
+            elif(str(question_type_name).lower()=='text test' or str(question_type_name).lower()=='audio' or str(question_type_name).lower()=='video' ):
                 assessment_type_id=assessment_type.objects.get(assessment_type__iexact=str(question_type_name).lower())
                 print(assessment_type_id)
                 student_query = scores.objects.get(batch_id=batch_id,student_id=student_id,level_id=level_id,question_content_id=question_content_id)
@@ -209,12 +200,12 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
             student_query = None
             print('a4')
         if(student_query==None):
-            if(typ==1):
+            if(question_type_name=='general assessment'):
                 print('a5')
                 assessment_type_id = assessment_type.objects.get(assessment_type__iexact=question_type_name)
                 obj = scores.objects.create(student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = datetime.datetime.now(),assessment_type_id=assessment_type_id,question_content_id=question_content_id)
                 obj.save()
-            elif(question_type_name=='Text test' or question_type_name=='Av test'):
+            elif(question_type_name=='text test' or question_type_name=='audio' or question_type_name=='video' ):
                 assessment_type_id=assessment_type.objects.get(assessment_type__iexact=str(question_type_name).lower())
                 print(assessment_type_id)
                 obj = scores.objects.create(student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = datetime.datetime.now(),question_content_id=question_content_id,assessment_type_id=assessment_type_id)
@@ -226,7 +217,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                 obj = scores.objects.create(student_id=student_id,batch_id=batch_id,level_id=level_id,user_score = score,total_score = total_score,date_time = datetime.datetime.now(),question_content_id=question_content_id,assessment_type_id=assessment_type_id)
                 obj.save()
         else:
-            if(typ==1):
+            if(question_type=='general assessment'):
                 print('a8')
                 student_query.user_score = score
                 student_query.date_time = datetime.datetime.now()
@@ -234,7 +225,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                 student_query.total_score = total_score
                 print(student_query)
                 student_query.save()
-            elif(question_type_name=="Text Test" or question_type_name=='Audio' or question_type_name=='Video'):
+            elif(question_type_name=="text test" or question_type_name=='audio' or question_type_name=='video'):
                 print('a9')
                 student_query.user_score = score
                 student_query.date_time = datetime.datetime.now()
@@ -254,7 +245,7 @@ def score_save_helper(student_id,question_type_name,level_id,batch_id,pass_statu
                     student_query.date_time = datetime.datetime.now()
                     student_query.level_id = level_id
                     student_query.total_score = total_score
-                    student_query.save()  
+                    student_query.save()    
 
 
 
@@ -414,8 +405,8 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     i += 1
     if i == len(questions1):
         score = s
-        typ = 1
-        total_score = 20
+        typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
+        total_score = len(questions1)
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_score)
         return render(request, "test_submit.html",
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
