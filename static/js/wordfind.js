@@ -498,8 +498,10 @@ var score = 0;
         for (var j = 0, width = row.length; j < width; j++) {
             // append our button with the appropriate class 
             output += '<button class="puzzleSquare" x="' + j + '" y="' + i + '">';
-            output += row[j] || '&nbsp;';
-            output += '</button>';
+            if(row[j]){
+              output += row[j] || '&nbsp;';
+              output += '</button>';
+            }
         }
         // close our div that represents a row
         output += '</div>';
