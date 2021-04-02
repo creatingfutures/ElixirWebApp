@@ -1,15 +1,16 @@
-// 4,6,5,m,w,c
-function show(result,remove,status,pass_status)
+// m0,w1,c2
+function show(result,remove,status,pass_status,question_type)
+
 {
-    if(remove == 6){
+    if(question_type == 'word search'){
         document.getElementsByClassName('container1')[0].style.display = 'none';
         document.getElementsByClassName('container1')[2].style.display = 'none';
     }
-    if(remove==4){
+    if(question_type== 'match the following' ){
         document.getElementsByClassName('container1')[1].style.display = 'none';
         document.getElementsByClassName('container1')[2].style.display = 'none';
     }
-    if(remove==5){
+    if(question_type=='crossword' ){
         document.getElementsByClassName('container1')[0].style.display = 'none';
         document.getElementsByClassName('container1')[1].style.display = 'none';
     }
