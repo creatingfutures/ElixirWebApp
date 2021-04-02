@@ -12,7 +12,7 @@ function initializeScreen(questions,across_or_down,word_number){
 			if(rowData[j] != 0){
 				var txtID = String('txt' + '_' +i+'_'+j);
 				//console.log(txtID);
-				cell.innerHTML = '<input type="text" autocomplete="off" onClick="setCurrent(this);" class="inputBox" maxlength="1" style="text-transform: lowercase" ' + 'id="' + txtID + '" onfocus="textInputFocus(' + "'" + txtID + "'"+ ')">';
+				cell.innerHTML = '<input type="text" required autocomplete="off" onClick="setCurrent(this);" class="inputBox" maxlength="1" style="text-transform: lowercase" ' + 'id="' + txtID + '" onfocus="textInputFocus(' + "'" + txtID + "'"+ ')">';
 			}else{
 				cell.style.backgroundColor  = "black";
 			}

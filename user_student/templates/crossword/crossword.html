@@ -4,7 +4,6 @@
 {% block page_specific_htmlhead%}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/crossword_styles.css' %}">     
-	<body>
 		
 	<script src="{% static 'js/commons.js' %}"></script>
 	<script type="text/javascript">
@@ -37,6 +36,7 @@
 		});
 	</script>
 {% endblock page_specific_htmlhead%}
+
 {% block content %}   
 	<ul class="breadcrumb">
 		<li>
@@ -108,6 +108,4 @@
 		<table id="clues"></table>
 	</div>
 
-</body>
-</html>
 {% endblock content %}
