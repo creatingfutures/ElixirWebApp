@@ -49,8 +49,8 @@ var done=0;
       answer = answer.toString().toLowerCase();
       // alert(answer);
       // alert(option);
-      
-      if (option == answer) {
+      console.log(option.toLowerCase().trim(),answer.toLowerCase().trim());
+      if (option.toLowerCase().trim() == answer.toLowerCase().trim()) {
         alert("Right Answer");
         if ($(this).data("count") == 1) {
           var str = "True"

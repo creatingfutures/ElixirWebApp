@@ -70,7 +70,7 @@ function check(a)
     var answer = a.ans.value
     var option = a.options.value
     var button = document.getElementById('submit')
-    if(option==answer)
+    if(option.toLowerCase().trim()==answer.toLowerCase().trim())
     {
       a.sub.disabled=true
       solved=solved+1

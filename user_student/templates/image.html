@@ -42,7 +42,7 @@
       var option = $("input[name='options']:checked").val();
       var answer = "{{request.session.questions|index5:i}}"
 
-      if (option == answer) {
+      if (option.toLowerCase().trim() == answer.toLowerCase().trim()) {
         alert("Right Answer");
         if ($(this).data("count") == 1) {
           var str = "True"
