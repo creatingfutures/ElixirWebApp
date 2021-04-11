@@ -88,7 +88,7 @@ function drop(ev) {
     var answer = "{{request.session.questions|index5:i}}"
     ans=ans.trim()
     console.log(ans,answer);
-    if(ans==answer)
+    if(ans.toLowerCase()==answer.toLowerCase())
     {
       alert("Right Answer");
       if($(this).data("count")==1)
