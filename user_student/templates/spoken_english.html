@@ -25,7 +25,10 @@
     <button class="collapsible"><b>{{i.module_name|allcaps}} </b></button>
     <div class="content">
     {% for j in lev %}
-  <button class="collapsible1"><h4>{{j.level_description|allcaps}}<a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b></h4></button>    
+  <button class="collapsible1"><h4>{{j.level_description|allcaps}}
+      <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
+      <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b></h4>
+  </button>    
   <div class="content1"> 
     <table class="myTable">
       {% for b in j.level_id|prefix %}

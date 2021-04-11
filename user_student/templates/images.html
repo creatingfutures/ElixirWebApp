@@ -1,24 +1,27 @@
 {% load student_tag %}
 
-<div style="marting:10px;padding:10px">
-<p style="font-size:200%"><b>Multiple Image Question</b></p>
-<i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
-<p style="font-size:150%">{{q|index:i}}</p>
-<ol type="A">
-    <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index1_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index1_img:i}}" alt=""></li><br>
-    <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index2_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index2_img:i}}" alt=""></li><br>
-    <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index3_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index3_img:i}}" alt=""></li><br>
-    <li> <input type="radio" name="options" value="/media/{{request.session.questions|index4_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index4_img:i}}" alt=""></li><br>
-</ol>
+<div style="margin:10px;padding:10px">
+    <p><b id="questiontype">Multiple Image Question</b></p>
+    <br/>
+    <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
+    <br/>
+    <br/>
+    <p id="question">{{q|index:i}}</p>
+    <ol type="A">
+        <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index1_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index1_img:i}}" alt=""></li><br>
+        <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index2_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index2_img:i}}" alt=""></li><br>
+        <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index3_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index3_img:i}}" alt=""></li><br>
+        <li> <input type="radio" name="options" value="/media/{{request.session.questions|index4_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index4_img:i}}" alt=""></li><br>
+    </ol>
 
 
-<input type="submit" id="submit" class="button" value="Submit">
+    <input type="submit" id="submit" class="button" value="Submit">
 
 </div>
 
 <br>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 
 
 <script>

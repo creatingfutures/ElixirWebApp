@@ -41,7 +41,7 @@ def s_home(request, pk, pk1):
     return render(request, 's_home.html', {"p1": programs, "pk": pk, "pk1": pk1, "s": stud})
 
 
-def spoken_english(request, pk, pk1, pk2):
+def spoken_english(request, pk, pk1, programName):
     respective_scores = scores.objects.filter(student_id=pk,batch_id=pk1).values('student_id','batch_id','level_id','user_score','total_score','assessment_type_id')
     question_type_name = str(assessment_type.objects.get(assessment_type='General Assessment'))
     #print(question_type_name)
@@ -76,26 +76,33 @@ def spoken_english(request, pk, pk1, pk2):
     #assessment = assessment_type.objects.exclude(assessment_type='General Assessment')
     #print(assessment)
     respective_scores = json.dumps(list(respective_scores))
+    programObj=program.objects.filter(program_name=programName)
+    programId = 0
+    if len(programObj)>0:
+        programId=programObj[0].program_id
+    else:
+         return render(request,'error.html',{"pk": pk, "pk1": pk1})
     #print(respective_scores)
-    if pk2 == 3:
-        modules = program_module.objects.filter(program_id=pk2)
-        program1 = program.objects.get(pk=pk2)
+    if programName.lower() == "education to employability":
+        modules = program_module.objects.filter(program_id=programId)
+        program1 = program.objects.get(pk=programId)
         levels=[]
         for i in modules:
             levels.append(module_level.objects.filter(
             module_id=i.module_id).order_by('level_description'))
         return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
     else:
-        modules = program_module.objects.filter(program_id=pk2)    
+        
+        modules = program_module.objects.filter(program_id=programId)    
         if len(modules)>0:
             order = [4, 1, 0, 7, 3, 2, 6, 5]
             #modules = [modules[i] for i in order]
-            program1 = program.objects.get(pk=pk2)
+            program1 = program.objects.get(pk=programId)
             levels=[]
             for i in modules:
                 levels.append(module_level.objects.filter(
                 module_id=i.module_id).order_by('level_description'))
-            return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
+            return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
         else:
             return render(request,'error.html',{"pk": pk, "pk1": pk1})
           

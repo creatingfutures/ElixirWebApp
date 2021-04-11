@@ -293,9 +293,9 @@
 
   {% for p in p1 %}
         <div id="box">
-            <center><h4><font size="1">{{p.program_name|allcaps}}</font></h4></center>
+            <center><h4><font>{{p.program_name|allcaps}}</font></h4></center>
             <center><img src="{% static p.program_name|str1 %}" width="200" height="90"></center><br><br>
-            <center><a href="{% url 'spoken_english' pk pk1 p.program_id %}" class="button">GO TO COURSE</a></center>
+            <center><a href="{% url 'spoken_english' pk pk1 p.program_name %}" class="button">GO TO COURSE</a></center>
 
     </div>
     {% endfor %}

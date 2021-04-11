@@ -23,14 +23,19 @@
     text-decoration: none;
     border: 1px solid #ddd;
 }
-  
- 
 
-  body {
+.ml-3{
+    font-family:'Century Gothic';
+    font-size:20px;
+    margin-left:0px !important;
+
+}
+
+body {
     background: lightgrey !important;
-    font-family: Montserrat;
+    font-family: 'Century Gothic' !important;
     font-size: 12px;
-  }
+}
   #top {
     top: 0;
     background-color: orange;
@@ -61,7 +66,7 @@
     padding: 0;
     overflow: hidden;
     background-color: rgb(255, 197, 138);
-    font-family: "Montserrat";
+    font-family: "Century Gothic";
     font-size: 12px;
   }
 
@@ -71,7 +76,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: "Montserrat";
+    font-family: "Century Gothic";
     font-size: 12px;
   }
 
@@ -106,14 +111,14 @@
     border-radius: 40px 0 0 40px;
     outline: none;
     color: #000000;
-    font-family: Montserrat;
+    font-family: 'Century Gothic';
     font-size: 12px;
     height:50px;
   }
 
   .searchTerm:focus {
     color: #696969;
-    font-family: Montserrat;
+    font-family: 'Century Gothic';
     font-size: 12px;
   }
 
@@ -127,12 +132,12 @@
     border-radius: 0 40px 40px 0;
     cursor: pointer;
     font-size: 20px;
-    font-family: Montserrat;
+    font-family: 'Century Gothic';
     height:50px;
   }
 
   label {
-    font-family: "Montserrat";
+    font-family: "Century Gothic";
     text-align: center;
     font-weight: 100;
     display: inline-block;
@@ -142,7 +147,7 @@
   }
 
   p.welcome {
-    font-family: "Montserrat";
+    font-family: "Century Gothic";
     font-weight: 100;
     font-size: 12px;
     position: absolute;
@@ -152,7 +157,7 @@
   }
 
   .button1 {
-    font-family: "Montserrat";
+    font-family: "Century Gothic";
     font-weight: 100;
     font-size: 12px;
     position: absolute;
@@ -166,6 +171,12 @@
     outline: none;
     text-decoration: underline;
     color: white;
+  }
+
+  .table{
+      font-family:'Century Gothic';
+      width:80%;
+
   }
 
   a.active {
@@ -186,12 +197,12 @@
     margin-top: 0%;
     left: 0;
     right: 0;
-    font-family: "Montserrat";
+    font-family: "Century Gothic";
   }
 
   .button {
     display: inline-block;
-    font-family: "Montserrat";
+    font-family: "Century Gothic";
     background-color: orange;
     border: none;
     color: black;
@@ -223,7 +234,7 @@
   }
   .bodycss{
 background: lightgrey;
-font-family: Montserrat;
+font-family: 'Century Gothic';
 font-size: 12px;
 }
 select {
@@ -240,7 +251,7 @@ select {
 #mainselection select {
   border: 0;
   color: black;
-  font-family: "Montserrat";
+  font-family: "Century Gothic";
   background: white;
   font-size: 15px;
   font-weight: 100;
@@ -275,30 +286,35 @@ li.nav3 {
     }
     
 
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
     
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
-    }
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
     
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-    }
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
 
-    .fontcl{
-      font-family: Montserrat;
-  font-size: 14px !important;
-  font-weight: lighter !important ;
-    }
+.fontcl{
+    font-family: 'Century Gothic';
+font-size: 14px !important;
+font-weight: lighter !important ;
+}
 
 #txtSearch{
-    margin-left:4.5%;
+margin-left:4.5%;
+}
+
+.col-md-12>p{
+    font-family:'Century Gothic';
+    font-size:14px;
 }

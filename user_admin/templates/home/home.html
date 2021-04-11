@@ -11,21 +11,21 @@
 <div class="container-fluid">
 <div class="row">
   <div class="col-md-12">
-  <h2 class="ml-3" style="font-family:'Montserrat';font-size: 20px;">Home</h2>
+  <h2 class="ml-3">Home</h2>
 </div>
 </div>
 
 
 <div class="row">
   <div class="col-md-12">
-  <p style="font-family:'Montserrat'; font-size: 14px; ">PROGRAMS</p>
+    <p >PROGRAMS</p>
+  </div>
 </div>
-</div>
-  <br>
-  
+<br>
+ 
 <div class="row">
   <div class="col-md-12">
-  <table class="table" align="center" style="width:80%;font-family: Montserrat">
+  <table class="table" align="left">
 
     <tr>
       <th>PROGRAM NAME</th>
@@ -45,30 +45,30 @@
   </table>
 </div>
 </div>
-  <br>
+<br>
 
 <div class="row">
      <div class="row" style="margin-top: 15px"> 
      {% include  'base/pagination.html' %} 
     </div>
 </div>
-</div>
+
 <div class="row">
   <div class="col-md-12">
   <br><br> <br> <br>
-  <a class="button" style="margin-left:21px" href="{% url 'add_program' %}">ADD PROGRAM</a>
+  <a class="button" href="{% url 'add_program' %}">ADD PROGRAM</a>
 </div>
 </div>
 
   <br><br>
 <div class="row">
   <div class="col-md-12">
-  <p style="font-family:'Montserrat'; font-size: 14px;">MODULES</p>
-</div>
+     <p>MODULES</p>
+  </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="form-group col-md-3 " style="margin-left: 9%;">
+    <div class="form-group col-md-3 ">
       <p>Choose a program</p>
       <form method="GET">
     
@@ -89,7 +89,7 @@
     <div class="row">
       <div class="col-md-12">
       
-    <table class="table" align="center" style=" width:80%;font-family: Montserrat">
+    <table class="table" align="left">
       <tr>
         <th>MODULE NAME</th>
         <th>PROGRAM NAME</th>
@@ -132,9 +132,9 @@
 </div>
  
   </div>
-</div>
 
-  </div>
+
+
 
   <div id="modulesDone">
 
@@ -149,14 +149,14 @@
 
   <br><br>
 
-  <p style="font-family:'Montserrat'; font-size: 14px; "> &nbsp; &nbsp; &nbsp; FACILITATORS</p>
+  <p>FACILITATORS</p>
 </div>
 </div>
 
   
     <div class="row">
       <div class="col-md-12">
-        <div class="form-group col-md-8 " style="margin-left: 9%;">
+        <div class="form-group col-md-8 ">
     <div class="search">
       <input id="facilitator" type="text" class="searchTerm" placeholder="FACILITATOR" style="height: 50px; ">
       <button id="facilitator1" type="submit" class="searchButton" style="height: 50px; ">
@@ -174,7 +174,7 @@
       <div class="row">
         <div class="col-md-12">
      
-      <table class="table" align="center" style="width:78%;font-family: Montserrat">
+      <table class="table" align="center" style="width:78%;font-family: 'Century Gothic'">
         <tr>
           <th>NAME</th>
           <th>CONTACT</th>
@@ -231,5 +231,7 @@
     <a class="button" href="{% url 'facilitators' %}">VIEW ALL FACILITATORS</a>   
   </div>
 </div>
+</div>
+
 </div>
 {% endblock content %}

@@ -83,7 +83,7 @@ h2 {
         background-color: orange;
         border: 0;
         outline: none;
-        font: 1em sans-serif;
+        font: 1em 'Century Gothic';
         color: black;
     }
 
@@ -133,7 +133,7 @@ button::-moz-focus-inner {
 
     #words li {
         padding: 0 0 7px;
-        font: 1em sans-serif;
+        font: 1em 'Century Gothic';
         display: inline-block;
         float: left;
         width: 100px;
