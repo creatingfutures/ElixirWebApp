@@ -5,7 +5,7 @@
 * For all details and documentation:
 *     https://github.com/bunkat/wordfind
 */
-.nav {
+/*.nav {
     background-color: orange;
     height: 30%;
     display: grid;
@@ -48,7 +48,7 @@ nav {
 
 body {
     background: lightgray;
-}
+}*/
 
 .puzzleWrap {
     width: 850px;
