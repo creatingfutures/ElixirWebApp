@@ -6,7 +6,7 @@
     <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
     <br/>
     <br/>
-    <p id="question">{{q|index:i}}</p>
+    <p id="question">{{request.session.questions|index:i}}</p>
     <ol type="A">
         <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index1_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index1_img:i}}" alt=""></li><br>
         <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index2_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index2_img:i}}" alt=""></li><br>

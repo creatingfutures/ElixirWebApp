@@ -10,7 +10,7 @@ body {
 
 body {
     background: lightgrey;
-    font-family: Montserrat;
+    font-family: 'Century Gothic';
     font-size: 12px;
 }
 
@@ -41,13 +41,13 @@ nav {
 }
 
 h1 {
-    font-family: "Montserrat";
+    font-family: 'Century Gothic';
     font-weight: 100;
 
 }
 
 .button {
-    font-family: 'Montserrat';
+    font-family: 'Century Gothic';
     background-color: orange;
     border: none;
     color: black;
