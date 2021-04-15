@@ -545,6 +545,7 @@ def view_center(request, pk):
 def view_questions(request, pk):
     question1 = get_object_or_404(question, pk=pk)
     assessment_type = None
+    form_question_type = None
     if question1.question_type.pk in [7, 8, 9] and question1.question_content is not None:
         question1.sub_questions = question.objects.filter(
             question_content=question1.question_content)
@@ -553,9 +554,12 @@ def view_questions(request, pk):
     except:
       assessment_type = None
 
+    form_question_type  = question1.question_type.question_type_id
+    if form_question_type in [10, 11] :
+        form_question_type = 1
 
     question1.assessment_type = assessment_type
-    template = f'view_question/sub_view/{question1.question_type.question_type_id}.html'
+    template = f'view_question/sub_view/{form_question_type}.html'
     try:
         django.template.loader.get_template(template)
     except:
