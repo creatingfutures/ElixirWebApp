@@ -1,24 +1,26 @@
 {% load student_tag %}
 
-<div style="marting:10px;padding:10px">
-<p style="font-size:200%"><b>Choose The Most appropriate Option Related To The Image</b></p>
-<i style="font-size:150%">{{request.session.questions|index_narrative:i}}</i>
-<img width=500px height=300px src="/media/{{request.session.questions|index_img:i}}" alt="Nones">
-<ol type="A">
-    <li>  <input type="radio" name="options" value="{{request.session.questions|index1:i}}">{{request.session.questions|index1:i}}</li><br>
-    <li>  <input type="radio" name="options" value="{{request.session.questions|index2:i}}">{{request.session.questions|index2:i}}</li><br>
-    <li>  <input type="radio" name="options" value="{{request.session.questions|index3:i}}">{{request.session.questions|index3:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{request.session.questions|index4:i}}">{{request.session.questions|index4:i}}</li><br>
-  </ol>
-
-
+<div style="margin:10px;padding:10px">
+    <p><b id="questiontype">Single image based question</b></p>
+    <i id="narrative">{{request.session.questions|index_narrative:i}}</i> 
+    <br/><br/>
+     <i id="question">{{request.session.questions|index:i}}</i>
+    <b><i id='hint' style="display:none;" onclick="alert('{{request.session.questions|get_hint:i}}'); ">&nbsp; <a href='#' style="color: orange;" >Hint</a> </i></b>
+    <br/>
+    <img width="500" height="300" src="/media/{{request.session.questions|index_img:i}}" alt="Nones">
+    <br/>
+    <ol type="A">
+        <li>  <input type="radio" name="options" value="{{request.session.questions|index1:i}}">{{request.session.questions|index1:i}}</li><br>
+        <li>  <input type="radio" name="options" value="{{request.session.questions|index2:i}}">{{request.session.questions|index2:i}}</li><br>
+        <li>  <input type="radio" name="options" value="{{request.session.questions|index3:i}}">{{request.session.questions|index3:i}}</li><br>
+        <li> <input type="radio" name="options" value="{{request.session.questions|index4:i}}">{{request.session.questions|index4:i}}</li><br>
+    </ol>
   <input type="submit" id="submit" class="button" value="Submit">
 
 </div>
 
 <br>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 
 <script>

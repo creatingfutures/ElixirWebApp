@@ -3,17 +3,17 @@
 
 
 <body onload="myfunc()">
-    <div style="marting:10px;padding:10px">
-    <p style="font-size:200%"><b>Read the passage and Answer Below Questions</b></p>
-    <p id="output" style="width: 1000px;height: 90px;font-size: 15px;"></p> 
-     <br/> 
+    <div style="margin:10px;padding:10px">
+        <p id="questiontype"><b>Read the passage and Answer Below Questions</b></p>
+        <p id="output" style="width: 1000px;height: 90px;font-size: 15px;"></p> 
+        <br/> 
   
-     <p style="font-size:200%"><b>Multiple Choice Question</b></p>
-    {% for j in r %}
+        <p id="questiontype"><b>Multiple Choice Question</b></p>
+        {% for j in r %}
         <form action="" onSubmit="return check(this)" id="{{j}}">
             {% with  iteratedContent=request.session.question_content|getObject:j %}          
-            <p style="font-size:150%">{{iteratedContent.question}} &nbsp;
-  <button id ='{{forloop.counter}}' onclick="hint_func({{forloop.counter}});return false" name="hint" style="font-size:75%;color:white;background-color: darkgray;" class="button" disabled >Hint</button></p>
+            <p id="question">{{iteratedContent.question}} &nbsp;
+            <button id ='{{forloop.counter}}' onclick="hint_func({{forloop.counter}});return false" name="hint" style="font-size:75%;color:white;background-color: darkgray;" class="button" disabled >Hint</button></p>
                 <ol type="A">
                     {% for option in iteratedContent.options %}
                         <li>  
@@ -35,7 +35,7 @@
     <input type="submit" id="submit" class="button" value="Submit" disabled style="color:white;background-color: darkgray;">
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
     <script src="{% static 'js/hints.js' %}"></script>
 
     <script>

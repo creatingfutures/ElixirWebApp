@@ -4,13 +4,13 @@ body {
 
 body {
     background: lightgrey;
-    font-family: Montserrat !important;
+    font-family: 'Century Gothic' !important;
     font-size: 12px;
 }
 
 .nav {
     background-color: orange;
-    height: 30%;
+    height: 200px;
     display: grid;
     grid-template-rows: auto auto auto;
     justify-content: center;
@@ -34,12 +34,17 @@ body {
     margin: 10px;
 }
 
+.navv>a{
+    font-size:18px;
+    margin:10px;
+}
+
 nav {
     float: right;
 }
 
 .button {
-    font-family: 'Montserrat';
+    font-family: 'Century Gothic';
     background-color: orange;
     border: none;
     color: black;
@@ -48,7 +53,7 @@ nav {
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
-    margin: 4px 2px;
+    margin: 4px 15px;
     cursor: pointer;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     outline: none;
@@ -79,4 +84,33 @@ ul.breadcrumb li a {
  ul.breadcrumb li a:hover {
                 color: darkblue;
                 text-decoration: underline;
+}
+
+
+#GAHeader{
+    font-size:18px;
+    text-align:center;
+}
+
+#GASubHeader{
+    font-size:16px;
+    text-align:center
+
+}
+
+#narrative  
+{
+    font-size: 16px;
+}
+
+#question {
+    font-size: 14px;
+}
+
+#hint{
+    font-size: 16px;
+}
+
+#questiontype{
+    font-size:16px;
 }

@@ -5,7 +5,7 @@
         }
         body{
         background: #FFFFFF;
-        font-family:Montserrat;
+        font-family:'Century Gothic';
         font-size:12px;
         }
         
@@ -30,7 +30,7 @@
         
         ul li{
         display: inline-block; padding:10px;
-        font-size:20px; font-family:"Montserrat";
+        font-size:20px; font-family:"Century Gothic";
         }
         
         ul li:hover{
@@ -52,7 +52,7 @@
           border: none;
         }
         h1{
-          font-family: "Montserrat";
+          font-family: "Century Gothic";
           font-weight: 100;
         
          }
@@ -116,7 +116,7 @@
         }
 
         .button{
-         font-family: 'Montserrat';
+         font-family: 'Century Gothic';
          background-color: orange;
          border: none;
          color: black;
@@ -132,7 +132,7 @@
          }
         
          .butt{
-          font-family: 'Montserrat';
+          font-family: 'Century Gothic';
           background-color: orange;
           border: none;
           color: black;
@@ -209,7 +209,7 @@
          .butt{
              height:50px;
              width: 130px;
-             font-family: "Montserrat";
+             font-family: "Century Gothic";
          }
          #puzzle{
              text-align: center;
@@ -230,9 +230,9 @@
              clear: left;
          }
              h2{
-                 font-family: "Montserrat";
+                 font-family: "Century Gothic";
              }
              table{
-                 font-family: "Montserrat";
+                 font-family: "Century Gothic";
              }
         

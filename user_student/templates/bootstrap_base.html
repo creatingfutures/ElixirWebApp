@@ -4,13 +4,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="/static/css/Elixir.css">
-        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
-              integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="/static/components/jquery/jquery3.6.0.min.js"></script>
+        <link rel="stylesheet" href="/static/components/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+        <script src="/static/components/popper/umd/popper.min.js"></script>
+        <script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
         <style>
              {% block page_specific_styles%}
              {% endblock page_specific_styles%}
@@ -25,10 +23,10 @@
             <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:-1% !important;margin:0;"/>
             </div>
             <div class="navv">
-            <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
-            <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
-            <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-                <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
+                <a href="{% url 's_home' pk pk1 %}" style="margin:10px;">HOME</a>
+                <a href="">ABOUT US</a>
+                <a href="">REPORTS</a>
+                    <a href="{% url 'student_login' %}">LOG OUT</a>
             </div>
             </div>
             {%block welcome %}

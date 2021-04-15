@@ -6,7 +6,6 @@
 {% block page_specific_htmlhead%}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
     <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
 {% endblock page_specific_htmlhead%}
 
@@ -14,7 +13,7 @@
     <div class="StudentModuleClass">
 
         <ul class="breadcrumb">
-            <li><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
             <li><a href="#">LEVEL 6 LESSON</a></li>
 
         </ul>

@@ -17,7 +17,7 @@
 }
 
 .collapsible > h2, .collapsible > b {
-    font-family: Arial;
+    font-family: 'Century Gothic' !important;
     font-size: 15px;
 }
 
@@ -55,9 +55,16 @@
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     background-color: #777;
-    font-family: Arial;
+    font-family: 'Century Gothic';
     font-weight: bold;
-    font-color: white;
+    color: white;
+}
+
+.content > button {
+    font-family:'Century Gothic';
+    font-weight:bold;
+    color:white;
+
 }
 
 .content1 {

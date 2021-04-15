@@ -116,7 +116,7 @@ urlpatterns = [
     path('', s_views.login, name='student_login'),
     path('s_home/<int:pk>/batch/<int:pk1>', s_views.s_home, name="s_home"),
 
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>',
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:programName>',
          s_views.spoken_english, name="spoken_english"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/crossword/<str:narrative>/<int:assessment_type_id>', s_views.crossword, name="crossword"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/word_find/<str:narrative>/<int:assessment_type_id>', s_views.word_find, name="word_find"),
