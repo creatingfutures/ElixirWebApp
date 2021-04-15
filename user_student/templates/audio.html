@@ -8,12 +8,12 @@
      <source src="/media/{{request.session.questions|index_av:i}}" type="audio/mpeg">
     Your browser does not support the audio element.
     </audio>
-
+     <p  id="questiontype"><b>Multiple Choice Question</b></p>
     {% for j in r %}
 
         <form action="" onSubmit="return check(this)" id="{{j}}">
           {% with  iteratedContent=request.session.question_content|getObject:j %}
-              <p  id="questiontype"><b>Multiple Choice Question</b></p>
+             
               <p id="question">{{iteratedContent.question}} &nbsp;
               <button id ='{{forloop.counter}}' onclick="hint_func({{forloop.counter}});return false" name="hint" style="font-size:75%;color:white;background-color: darkgray;" class="button" disabled >Hint</button></p>
 
