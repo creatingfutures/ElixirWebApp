@@ -17,13 +17,13 @@
 
 <p>
     <label>Content Id: </label>
-    {{f.question_content.pk}}
+    {{f.question_content.pk}}<br/> 
 </p>
 
 <p>
     <label>
-        Sub Questions:
-    </label>
+        Sub Questions:  
+    </label><br/> 
 </p>
 
 
@@ -32,8 +32,8 @@
   <label>Narrative:</label>
   {{sub_question.narrative}}<br/> 
 </p>
-<label> Question {{ forloop.counter }}: </label>
-{{sub_question.question}}
+<label> Question {{ forloop.counter }}: </label><br/> 
+{{sub_question.question}}<br/><br/>  
 {% for option in sub_question.options %}
 <p>
     <label>Option {{ forloop.counter }}:</label>
