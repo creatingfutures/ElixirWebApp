@@ -31,13 +31,16 @@
               <input type="text" name="ques" value="{{iteratedContent.question}},{{forloop.counter}},{{iteratedContent.hint}}" hidden>
               <input type="text" name="counter" value = "{{forloop.counter}}" hidden>
               <input type="submit" name="sub" class="button" value="Check" style="display: none;">
+              <input type="submit" name="sub" class="button" value="Check" />
+
            {% endwith %}
           </form>
 
     {% endfor %}
 <br><br><br>
+                 
 
-<input type="submit" id="submit" class="button" value="Submit" disabled style="color:white;background-color: darkgray;">
+                <input type="submit" id="submit" class="button" value="Submit" disabled style="color:white;background-color: darkgray;">
 
 </div>
 
