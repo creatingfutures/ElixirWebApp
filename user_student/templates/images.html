@@ -6,7 +6,10 @@
     <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
     <br/>
     <br/>
-    <p id="question">{{request.session.questions|index:i}}</p>
+    <p id="question">{{request.session.questions|index:i}} <b>
+        <i id='hint' style="display:none;" onclick="alert('{{request.session.questions|get_hint:i}}'); ">&nbsp; <a href='#' style="color: orange;" >Hint</a> </i>
+    </b></p>
+   
     <ol type="A">
         <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index1_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index1_img:i}}" alt=""></li><br>
         <li>  <input type="radio" name="options" value="/media/{{request.session.questions|index2_img:i}}"><img width=100px height=100px src="/media/{{request.session.questions|index2_img:i}}" alt=""></li><br>
@@ -24,7 +27,7 @@
 
 
 
-<script>
+<script type="text/javascript">
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
@@ -39,6 +42,7 @@ $("#submit").click(function() {
   }
 
   else {
+   
     var count = $(this).data("count") || 0;
     $(this).data("count",++count)
     console.log(count)
@@ -70,6 +74,8 @@ $("#submit").click(function() {
 
       else {
         {
+        debugger;
+         
           var str="False"
           var score="{{score}}"
           $.ajax({ // initialize an AJAX request
@@ -92,6 +98,8 @@ $("#submit").click(function() {
 
     else {
       {
+         $("#hint").show();
+
         alert("Incorrect Answer, Please Try Again");
       }
     }
