@@ -23,7 +23,7 @@
         <h1>Score : {{score}} </h1>
         <h1 id='result1'></h1>
         {% if pass_status %}
-        <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
+        <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 'spoken english' %}'">Next Level</button></li>
         <br><br>
         <button id="submit" class="button" onclick="location.href='{% url 'match' pk pk1 pk2 m l narrative typ%}'">Try Again</button></li>
         {% else %}
@@ -35,7 +35,7 @@
         <h1>Score : {{score}} </h1>
         <h1 id='result2'></h1>
         {% if pass_status %}
-        <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
+        <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 'spoken english' %}'">Next Level</button></li>
         <br><br>
         <button id="submit" class="button" onclick="location.href='{% url 'word_find' pk pk1 pk2 m l narrative typ %}'">Try Again</button></li>
         {% else %}
@@ -47,7 +47,7 @@
         <h1>Score : {{score}} </h1>
         <h1 id='result3'></h1>
         {% if pass_status %}
-        <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 pk2 %}'">Next Level</button></li>
+        <button id="submit" class="button" onclick="location.href='{% url 'spoken_english' pk pk1 'spoken english' %}'">Next Level</button></li>
         <br><br>
         <button id="submit" class="button" onclick="location.href='{% url 'crossword' pk pk1 pk2 m l narrative typ %}'">Try Again</button></li>
         {% else %}
