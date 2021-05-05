@@ -82,17 +82,26 @@ def spoken_english(request, pk, pk1, programName):
         programId=programObj[0].program_id
     else:
          return render(request,'error.html',{"pk": pk, "pk1": pk1})
-    #print(respective_scores)
-    if programName.lower() == "education to employability":
+    print(respective_scores)
+    # if programName.lower() == "education to employability":
+    #     modules = program_module.objects.filter(program_id=programId)
+    #     program1 = program.objects.get(pk=programId)
+    #     levels=[]
+    #     for i in modules:
+    #         levels.append(module_level.objects.filter(
+    #         module_id=i.module_id).order_by('level_description'))
+    #     return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+
+    if programName.lower() == "computer coaching":
         modules = program_module.objects.filter(program_id=programId)
         program1 = program.objects.get(pk=programId)
         levels=[]
         for i in modules:
             levels.append(module_level.objects.filter(
             module_id=i.module_id).order_by('level_description'))
-        return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+        return render(request, "computer_coaching.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": program1,"l":zip(modules,levels)})
+
     else:
-        
         modules = program_module.objects.filter(program_id=programId)    
         if len(modules)>0:
             order = [4, 1, 0, 7, 3, 2, 6, 5]
@@ -366,7 +375,7 @@ def lesson(request, pk, pk1, pk2, pk3, pk4):
      str1 = str1+"/"+str(level.level_description)
      str1 = str1+".html"
      return render(request, str1 ,{"pk":pk,"pk1":pk1,"pk2":pk2})
-    
+     
 
 def before_test(request, pk, pk1, pk2, pk3, pk4):
     module1 = program_module.objects.get(pk=pk3)

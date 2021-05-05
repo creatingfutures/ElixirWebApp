@@ -107,7 +107,7 @@ urlpatterns = [
          views.password_management_facilitator, name='password_management_facilitator'),
     path('password_management_students', views.password_management_students,
          name='password_management_students'),
-    path('password_management_student/<int:pk>',
+    path('password_management_student/<int:pk>', 
          views.password_management_student, name='password_management_student'),
     path('admin_login', views.LoginView1.as_view(), name='admin_login'),
     path('logout/', views.LogoutView1.as_view(), name='admin_logout'),
