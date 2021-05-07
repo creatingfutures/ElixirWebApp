@@ -34,7 +34,7 @@
                       <h4>
                           {{levelname|allcaps}}
                               <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
-                              <b id='score-{{modulename}}-{{levelname}}' style="color:white;margin-left:1050px;" data-score='{{scores|get_dictionary_item:levelkey}}'>
+                              <b id='score-{{modulename}}-{{levelname}}' style="color:white;margin-left:calc(100% - 400px);" data-score='{{scores|get_dictionary_item:levelkey}}'>
                                 Score : {{scores|get_dictionary_item:levelkey}}%
                               </b>
                       </h4>
