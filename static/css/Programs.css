@@ -16,6 +16,21 @@
     width: 1550px;
 }
 
+.clickableLvl {
+    background-color: #777;
+    color: white;
+    width: 1550px;
+    text-align:left;
+}
+
+    .clickableLvl > h4, clickableLvl > h4 > a {
+        margin-left: 80px;
+        font-family: 'Century Gothic' !important;
+        font-size: 15px;
+        color: white !important;
+        font-weight: bold;
+    }
+
 .collapsible > h2, .collapsible > b {
     font-family: 'Century Gothic' !important;
     font-size: 15px;
