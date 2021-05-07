@@ -137,7 +137,7 @@ urlpatterns = [
 #   path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/crossword/',
 #          s_views.crossword, name="crossword"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/resume_builder/',
-         s_views.e2e_modules, name="e2e_modules"),
+         s_views.resumebuilder, name="resumebuilder"),
 
 
 
