@@ -1,11 +1,11 @@
 {% extends 'view_question/main.html' %} {% load static %} {% block sub_view %}
 <p>
   <label>Narrative:</label>
-  {{f.narrative}}
+  {{f.narrative}}<br/> 
 </p>
 <p>
   <label>Question: </label>
-  {{f.question}}
+  {{f.question}}<br/> 
 </p>
 
 {% for option in f.options %}
@@ -22,10 +22,10 @@
 
 <p>
   <label>Comments:</label>
-  {{f.comments}}
+  {{f.comments}}<br/> 
 </p>
 <p>
   <label>Hint:</label>
-  {{f.hint}}
+  {{f.hint}}<br/> 
 </p>
 {% endblock sub_view %}

@@ -1,3 +1,4 @@
+
 """creating_futures URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -48,7 +49,7 @@ urlpatterns = [
     path('add_program/', views.add_program, name='add_program'),
     path('add_batch/', views.add_batch, name='add_batch'),
     path('add_question/', views.add_question, name='add_question'),
-
+    path('questions_import', views.questions_import, name='questions_import'), 
     path('ajax/load_modules/', views.load_modules, name='load_modules'),
     path('ajax/load_levels/', views.load_levels, name='load_levels'),
     path('ajax/load_modules_home/',
@@ -56,16 +57,12 @@ urlpatterns = [
     path('ajax/load_fac_home/', views.load_fac_home, name='load_fac_home'),
     path('ajax/student_search/', views.student_search, name='student_search'),
     path('ajax/batch_search/', views.batch_search, name='batch_search'),
-    path('ajax/question_type_form/',
-         views.question_type_form, name='question_type_form'),
-
-
-
+    path('ajax/questions_search', views.questions_search, name='questions_search'),
+    path('ajax/question_type_form/',views.question_type_form, name='question_type_form'),
     path('delete_program/<int:pk>', views.delete_program, name='delete_program'),
     path('delete_module/<int:pk>', views.delete_module, name='delete_module'),
     path('delete_level/<int:pk>', views.delete_level, name='delete_level'),
-    path('delete_facilitator/<int:pk>',
-         views.delete_facilitator, name='delete_facilitator'),
+    path('delete_facilitator/<int:pk>',views.delete_facilitator, name='delete_facilitator'),
     path('delete_student/<int:pk>', views.delete_student, name='delete_student'),
     path('delete_center/<int:pk>', views.delete_center, name='delete_center'),
     path('delete_batch/<int:pk>', views.delete_batch, name='delete_batch'),
@@ -118,21 +115,30 @@ urlpatterns = [
 
     path('', s_views.login, name='student_login'),
     path('s_home/<int:pk>/batch/<int:pk1>', s_views.s_home, name="s_home"),
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>',
+
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:programName>',
          s_views.spoken_english, name="spoken_english"),
-    path('crossword', s_views.crossword, name="crossword"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/crossword/<str:narrative>/<int:assessment_type_id>', s_views.crossword, name="crossword"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/word_find/<str:narrative>/<int:assessment_type_id>', s_views.word_find, name="word_find"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/list_narrative/match/<str:narrative>/<int:assessment_type_id>', s_views.match, name="match"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/list_narrative/<int:assessment_type_id>', s_views.list_narrative, name="list_narrative"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/lesson',s_views.lesson,name="lesson"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:m>/level/<int:l>/score_save/<int:typ>/<int:score>/<int:total_score>', s_views.score_save, name="score_save"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/',
          s_views.module_view, name="module_view"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>',
          s_views.level_view, name="level_view"),
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/lesson/',
-         s_views.lesson, name="lesson"),
+#     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/lesson/',
+#          s_views.lesson, name="lesson"),
 
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/btest/',
          s_views.before_test, name="before_test"),
 
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/crossword/',
-         s_views.crossword, name="crossword"),
+#   path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/crossword/',
+#          s_views.crossword, name="crossword"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/resume_builder/',
+         s_views.resumebuilder, name="resumebuilder"),
+
 
 
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/standard_test/',
@@ -147,10 +153,10 @@ urlpatterns = [
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/image_test/ajax/test/',
          s_views.ajax_image_test, name='ajax_image_test'),
 
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/av_test/',
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/type/<int:pk5>/av_test/<str:narrative>',
          s_views.av_test, name="av_test"),
 
-    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/av_test/ajax/test/',
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/type/<int:pk5>/av_test/ajax/test/<str:narrative>',
          s_views.ajax_av_test, name='ajax_av_test'),
 
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/test/submit/',

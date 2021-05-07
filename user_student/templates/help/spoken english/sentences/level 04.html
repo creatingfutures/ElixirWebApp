@@ -1,0 +1,117 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+        <div class="StudentModuleClass">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+                <li><a href="#">LEVEL 4 LESSON</a></li>
+            </ul>
+            
+            <div class="container">
+                <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                              <th scope="col" ><h2 class="bg-white boxspace" >Sentences – Level 4 Lesson</h2></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td > 
+                                <h1 class="bg-white boxspace" style="font-weight: bold !important;">Type of Sentence</h1>
+                                
+                                <p>
+                                    There are four main types of sentences: </p>
+                                    
+                          
+                                    
+                                    <ul class="list ">
+                                        <li>Simple Sentence
+                                            <ul>
+                                                <li>
+                                                These sentences are used to state information. They are the most commonly used sentence type.
+                                                </li>
+                                            </ul>
+                                     <li>Command Sentence
+                                         <ul>
+                                            <li>
+                                                These sentences give commands or make requests. Imperative sentences end with a period. For example: Open the window
+                                            </li>
+                                 </ul>
+                                 <li>Question Sentence
+                                    <ul>
+                                        <li>
+                                            These sentences ask questions. Accordingly, they end with a question mark. For example: Did you complete the assignment?
+                                        </li>
+                             </ul>
+                             <li>Exclamatory Sentence
+                                <ul>
+                                    <li>
+                                        These sentences express emotion and, as such, end with an exclamation mark. For example: She is going to fall!
+                                    </li>
+                         </ul>
+                         
+                        </ul>
+
+                    </td>
+                </tr>
+                          <tr>
+                              <td>
+                                  <h1 class="bg-white boxspace" style="font-weight: bold !important;">Sentences – Level 4 Examples</h1>
+                                  <ul class="list space">
+                                      <li>
+                                        Simple Sentence  
+                                        <ul>
+                                            <li>
+                                                The boy walked home. 
+                                            </li>
+                                            <li>I love honey.</li>
+                                            <li>He wants to eat cookies, but he doesn't know how to make them.</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Command Sentence
+                                        <ul>
+                                            <li>Please shut the door to keep out the mosquitos.</li>
+                                            <li>Turn left at the bridge.</li>
+                                            <li>Stop bothering me!</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Question Sentence 
+                                        <ul>                                       
+                                            <li>Why does the sun shine?</li>
+                                            <li>Whose dog is that?</li>
+                                            <li>Will Shyam get to keep all her lottery winnings?</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Exclamatory Sentence                                        <ul>                                       
+                                            <li>Wow, he just won a gold medal!</li>
+                                            <li>What a beautiful house!</li>
+                                            <li>The birthday cake was so good!</li>
+                                        </ul>
+                                    </li>       
+                                    
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</div>
+    
+{% endblock content %} 

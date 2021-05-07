@@ -15,6 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="{% static 'edit_question/css/index.css' %}" />
     <title>Add/Edit Question</title>
+    <meta name="google" content="notranslate" />
   </head>
 
   <body>
@@ -45,10 +46,32 @@
       <form method="POST" id="form1" enctype="multipart/form-data">
         {% csrf_token %}
         <p>
+          <label>Program <span style="color: red">*</span> :</label>
+          {{form.program}}
+        </p>
+        <p>
+          <label>Module <span style="color: red">*</span> :</label>
+          {{form.module}}
+        </p>
+        <p>
+          <label>Level <span style="color: red">*</span> :</label>
+          {{form.level}}
+        </p>
+        <script src="{% static 'edit_question/js/get_module_level.js' %}"></script>
+        <p>
           <label>Narrative:</label>
           {{form.narrative}}{{form.narrative.errors}}
         </p>
-
+        <p>
+          <label>Question Type:</label>
+          {{form.question_type}}{{form.question_type.errors}}
+        </p>
+         <p>
+          <label>Assessment Type:</label>
+          {{form.assessment_type}}{{form.assessment_type.errors}}
+        </p>
+        {% block question_type_form %} {% endblock question_type_form %}
+         <script src="{% static 'add_question/js/question_type_form.js' %}"></script>
         <p>
           <label>Hint: </label>
           {{form.hint}}{{form.hint.errors}}
@@ -59,15 +82,23 @@
           {{form.comments}}{{form.comments.errors}}
         </p>
 
-        {% block question_type_form %} {% endblock question_type_form %}
-
         <br />
 
         <div class="form-group">
-          <button style="margin-left: 120px" type="button" class="button">
+          <button type="button" class="button">
             Submit
           </button>
+          <button
+          type="button"
+          class="button"
+          onclick="back()"
+          >
+            Cancel
+          </button>
         </div>
+        <script>
+          back = () => window.history.back();
+        </script>
         <script src="{% static 'edit_question/js/submit_form.js' %}"></script>
       </form>
 

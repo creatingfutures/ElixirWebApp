@@ -1,0 +1,94 @@
+{% extends '../../base/base.html' %}
+{% block content %}
+{% load static %}
+<!doctype html>
+<a href="url(/)"> </a>
+<div id="box">
+<br>
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<p>
+<label>First Name <span style="color:red">*</span> :</label>
+{{form.first_name}}{{form.first_name.errors}}
+</p>
+<p>
+<label>Last Name <span style="color:red">*</span> :</label>
+{{form.last_name}}{{form.last_name.errors}}
+</p>
+<p>
+<label>Email <span style="color:red">*</span> :</label>
+{{form.email_id}}
+</p>
+<p>
+<label>Date Of Birth <span style="color:red">*</span> :</label>
+{{form.dob}}
+<p><p>Format : yyyy-mm-dd</p></p>{{form.dob.errors}}</p>
+<p>
+<label>Mobile Number <span style="color:red">*</span> :</label>
+{{form.mobile_number}}{{form.mobile_number.errors}}
+</p>
+<p>
+<label>Gender <span style="color:red">*</span> :</label>
+{{form.gender}}{{form.gender.errors}}
+</p>
+<p>
+<label>Occupation <span style="color:red">*</span> :</label>
+{{form.occupation}}{{form.occupation.errors}}
+</p>
+<p>
+<label>Languages Known <span style="color:red">*</span> :</label>
+{{form.languages}}{{form.languages.errors}}
+</p>
+<p>
+<label>Enrollment Date:</label>
+{{form.enroll_date}}
+<p> <p>Format : yyyy-mm-dd</p></p>{{form.enroll_date.errors}}</p>
+<p>
+<p>
+<label>Address <span style="color:red">*</span> : </label>
+{{form.address_1}}{{form.address_1.errors}}
+</p>
+<p>
+<label>Specific Interest <span style="color:red">*</span> :</label>
+{{form.specified_interests}}{{form.specified_interests.errors}}
+</p>
+<p>
+<label>Status <span style="color:red">*</span> :</label>
+{{form.status}}
+<p>
+<label>Password:</label>
+{{form.password}}
+</p>
+<p>
+<label>Comments:</label>
+{{form.comments}}{{form.comments.errors}}
+</p>
+<p>
+
+<label>Image :</label>
+
+{{form.image}} <img src="{{form.instance.image.url}}" style="width:100%;height:auto" alt=" ">
+</p>
+
+
+<div class="form-group">
+<br>
+<input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
+<button
+type="button"
+class="button"
+onclick="back()"
+>
+Cancel
+</button>
+</div>
+</form>
+<br><br>
+</div>
+
+
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %} {% block content %}
+
+      <div id="box">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <p>
+            <label>Center Name <span style="color: red">*</span> :</label>
+            {{form.center_name}}{{form.center_name.errors}}
+          </p>
+          <p>
+            <label>Address <span style="color: red">*</span> :</label>
+            {{form.address_1}}{{form.address_1.errors}}
+          </p>
+          <p>
+            <label>Contact Person <span style="color: red">*</span> :</label>
+            {{form.contact_person}}{{form.contact_person.errors}}
+          </p>
+          <p>
+            <label>Mobile <span style="color: red">*</span> :</label>
+            {{form.mobile_number}}{{form.mobile_number.errors}}
+          </p>
+          <p>
+            <label>Email ID :</label>
+            {{form.email_id}}
+          </p>
+          <p>
+            <label>Center Type <span style="color: red">*</span> :</label>
+            {{form.center_type}}
+          </p>
+          <p>
+            <label>Comments :</label>
+            {{form.comments}}{{form.comments.errors}}
+          </p>
+
+          <input
+            style="margin-left: 120px"
+            type="submit"
+            class="button"
+            value="Submit"
+          />&ensp;
+          <button
+            type="button"
+            class="button"
+            onclick="back()"
+          >
+            Cancel
+          </button>
+        </form>
+
+        <br /><br />
+      </div>
+{% endblock content %}

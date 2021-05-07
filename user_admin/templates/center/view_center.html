@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %} {% block content %}
+
+<div id="box">
+
+  <p>
+  <label>Center Name :</label>
+      {{f.center_name}}</p>
+  <p>
+  <label>Address :</label>
+  {{f.address_1}}</p>
+  <p>
+  <label>Mobile Number :</label>
+  {{f.mobile_number}}</p>
+  <p>
+  <label>Email ID :</label>
+  {{f.email_id}}</p>
+  <p>
+  <label>Contact Person :</label>
+  {{f.contact_person}}</p>
+  <p>
+  <label>Center Type :</label>
+  {{f.center_type}}</p>
+  <p>
+  <label>Comments:</label>
+  {{f.comments}}</p>
+
+
+<br><br>
+<button
+        type="button"
+        class="button"
+        onclick="back()"
+       style="margin-left:110px;" >
+            Go Back
+        </button>
+</div>
+{% endblock content %}

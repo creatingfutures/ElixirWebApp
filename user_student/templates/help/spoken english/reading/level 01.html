@@ -1,0 +1,122 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %} 
+  <div class="StudentModuleClass">
+
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a>
+      </li>
+        <li>
+            <a href="#">LEVEL 1 LESSON</a>
+        </li>
+        
+    </ul>
+    <div class="container">
+      <div class="row">
+            <div class="col-md-12">
+              <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col"><h2 class="bg-white boxspace fonth2">Reading – Level 1 </h2></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td > 
+                            <h1  style="font-weight: bold !important; " class="bg-white boxspace" >What is Reading?</h1>
+                            
+                            <p>
+                              Reading is one of the modules within spoken English to understand the written letters, punctuation and spaces.</p>
+                      <p>
+                        Reading is one of the 4 language skills, which are: 1. Listening 2. Speaking 3. Reading 4. Writing
+                      </p>  
+                      <p>
+                          
+                        When your reading skills improve, your listening, speaking and writing skills also improve. When we read, the visual information we see is converted by our brain into words, sentences and paragraphs. 
+
+                      </p>
+                        <p>All these parts of speech have their own roles in the formation of sentences. </p>
+                      </td>
+                      </tr>
+                      <tr >
+                    <td class=" mleft" > <h2 class="bg-white boxspace"><b> Two types of Reading: </b></h2>
+                      <ul class="list space">
+                            <li>Silent </li>
+                            <li>  Reading out loud </li>
+                        </ul>
+                        <p>
+                                Reading helps us improve our vocabulary, grammar and also writing skills. 
+                              </p>
+                              <p>
+                                This module has 6 levels and we will cover the following in each of the levels.
+                              </p>
+                            <h2 class="bg-white boxspace">Reading Level 1 </h2>
+                            <p>
+                                This level is for the beginners who are ready to read in English. In this, you will begin to know the letters, letter sounds and read simple words. 
+                                <br> At this level, you are advised to read out loud. This section offers reading practice to help you understand simple information, words and sentences about known topics
+                            </p>
+                            
+                      <tr>
+                        <td>
+                              
+                          <h2 class="bg-white boxspace">Examples </h2>
+
+                          <p>Understand each letter and know one simple word for each letter. For example: </p>
+                              <ul class="list space">
+                                  <li>A for Apple</li>
+                                  <li>B for Ball
+                                  </li>
+                                  <li> C for Cat 
+                                  </li>
+                                      <li>
+                                        D for Dog 
+                                      </li>
+                                      <li>
+                                        E for Ear 
+                                      </li>
+                                      <li>
+                                        F for Fan 
+                                      </li>
+                                      <li>
+                                        G for Gun
+                                      </li>
+                                      <li>
+                                        H for Hen
+                                      </li>
+                                      <li>
+                                        I for Ice
+                                      </li>
+                                    </ul>
+                              <p>Few simple words to begin with: for example say each letter and then read the whole word. </p>
+                              <ul class="list space">
+                                <li>As in : say c-a-t which is CAT. </li>
+                                <li>D-o-g which is DOG</li>
+                              </ul>
+                              <p>Simple Sentences & Information </p>
+                              <ul>
+                                <li>I am fine</li>
+                                <li>My father is working</li>
+                                <li>How are you?</li>
+                                <li>My name is Deepak</li>
+                              </ul>
+                            </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+      </div>
+  </div>
+
+{% endblock content %} 

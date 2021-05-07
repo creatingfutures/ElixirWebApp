@@ -1,0 +1,68 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 1 LESSON</a></li>
+            
+        </ul>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2">Writing – Level 1 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                
+                                <p>
+                                    Writing consists of letters, words, phrases, and sentences. In the beginner level, we would just focus on writing simple one line sentence for communicating an information.  </p>
+                                    <h2 class="bg-white boxspace">Example</h2>
+                                    <ul>
+                                    <li>If we have to communicate a congratulatory message, then the possible write ups can be, 
+                                        <ul>
+                                            <li>
+                                                “Congratulations on your promotion!!!”, 
+                                            </li>
+                                            <li>
+                                                “You have done a Great job. Congrats!!!”, 
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>If we have to communicate a simple message to acknowledge someone or thank someone, then we can have possible write-ups like 
+                                        <ul>
+                                            <li>
+                                                “Thank You very much!!”, 
+                                            </li>
+                                            <li>
+                                                “Thanks!!!”, 
+                                            </li>
+                                            <li>
+                                                “Thank you very much for your support and help!!!”
+                                            </li>
+                                        </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

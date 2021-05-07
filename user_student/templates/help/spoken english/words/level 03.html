@@ -1,0 +1,142 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+  <div class="StudentModuleClass">
+
+    <ul class="breadcrumb">
+      <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+      <li><a href="#">LEVEL 3 LESSON</a></li>
+        
+    </ul>
+    
+    
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col" ><h2 class="fonth2 bg-white  boxspace">Words-Level 3 Lesson</h2></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>    </td>
+                </tr>
+                <tr>
+                    <td > <h1 style="font-weight: bold !important;" class="bg-white  boxspace">Common Type of Words</h1></td>
+                  </tr>
+               
+                <tr>
+                  <td > 
+                  <p>English has four major word classes:<br>nouns,verbs,adjectives and adverbs</p>
+                  
+                      <h4 class="bg-white  boxspace"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Noun: </b></h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>              
+                      <p>A noun is a person, place, thing, quality, or act.</p>
+                  <p>Examples: Raj, Bangalore, shoes, turtle, anger, sadness, town</p>
+                </td>
+              </tr>
+              <tr>
+                      <td> <h4 class="bg-white  boxspace"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Verb:</h4></b></td>
+                    </tr>
+                    <tr>
+                   <td> <p>Verbs are action that tell what the nouns do.</p>
+                    <p>Examples:
+                      <ul class="list space">
+                        <li>Raj went to Bangalore</li>
+                        <li>Raj Laughed</li>
+                        <li>The Turtle walked slowly</li>
+                    </ul>
+                  </p></td>
+                </tr>
+                <tr><td >
+                  <h4 class="bg-white  boxspace"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Adjective: </b> </h4>
+                </td></tr>
+                <tr>
+                   <td>
+                    <p>An adjective describes a noun.</p>
+                    <p> Examples:
+                    <ul class="list space">
+                      <li>bald, heavy, useful</li>
+                        <li>The Turtle is heavy</li>
+                      </ul>
+                    </p>
+                  </td>
+                 </tr>
+                 <tr>
+                    <td ><h4 class="bg-white  boxspace"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4. Adverb:</h4></b></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>An adverb describes a verb, adjective, or adverb. It often ends in 'ly'.</p>
+                      <p> Examples:
+                      <ul class='list space'>
+                          <li>simply, patiently</li>
+                          <li>She drives carefully</li>
+                          <li>They lived happily</li>
+                          <li> The cricket team played badly last Saturday</li>
+                        </ul>
+                      </p> 
+                    </td>
+                  </tr>
+                  
+             
+            <tr>
+              <td >
+                <h1 class="bg-white  boxspace" style="font-weight: bold !important;"><b> Words-Level 3 Examples</b></h1>
+              </td>
+              <tr>
+                <td>
+                  
+                </td>
+              </tr>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="col-sm-5 table-responsive">
+      <table class="table table-condensed" align="center" >
+                <tr class="bg-light">
+                    <th >nouns</th>
+                    <th>verbs</th>
+                    <th>adjective</th>
+                    <th>adverbs</th>
+                </tr>
+                <tr>
+                  <td>Ram</td>
+                  <td>Ran</td>
+                  <td>Friendly</td>
+                  <td>carefully</td>
+                </tr>
+                <tr>
+                  <td>India</td>
+                    <td>Grow</td>
+                    <td>Warm</td>
+                    <td>easily</td>
+                  </tr>
+                <tr>
+                  <td>Car</td>
+                    <td>Fly</td>
+                    <td>Young</td>
+                    <td>sadly</td>
+                  </tr>
+                
+            </table>
+          </div>
+          
+    </div>
+  </div>
+{% endblock content %} 

@@ -1,0 +1,153 @@
+{% load static %}
+{% load student_tag %}
+
+
+
+
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css'%}">
+    <style>
+        ul.breadcrumb {
+      padding: 10px 16px;
+      list-style: none;
+      background-color:lightgray;
+    }
+    ul.breadcrumb li {
+      display: inline;
+      font-size: 18px;
+    }
+    ul.breadcrumb li+li:before {
+      padding: 8px;
+      color: black;
+      content: "/\00a0";
+    }
+    ul.breadcrumb li a {
+      color: darkblue;
+      text-decoration: none;
+    }
+    ul.breadcrumb li a:hover {
+      color: darkblue;
+      text-decoration: underline;
+    }
+    
+    </style>     
+          
+</head>
+
+
+    <div class="nav">
+      <div class="navig">
+        <div>
+      <img src="{% static 'elixir_logo.PNG' %}"alt="" style="width:20%;height:100%;margin:0;"/>
+      </div>
+      <div class="navv">
+      <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+      <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+      <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
+      </div>
+      </div>
+    </div>
+    <ul class="breadcrumb">
+		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+		<li><a href="#">QUESTIONS</a></li>
+		
+		
+	  </ul>
+	
+
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
+
+<h2 style="text-align:center"> CrossWord </h2>
+<br> <br>
+
+<script src="{% static 'commonjs.js'%}"></script>
+<script>
+
+//Globals
+//Adds the hint numbers
+
+
+function addHint(){
+	document.getElementById("txt_0_10").placeholder = "1";
+	document.getElementById("txt_2_8").placeholder = "2";
+	document.getElementById("txt_2_14").placeholder = "3";
+	document.getElementById("txt_3_6").placeholder = "4";
+	document.getElementById("txt_5_1").placeholder = "5";
+	document.getElementById("txt_6_4").placeholder = "6";
+    document.getElementById("txt_6_6").placeholder = "7";
+    document.getElementById("txt_6_9").placeholder = "8";
+    document.getElementById("txt_8_1").placeholder = "9";
+    document.getElementById("txt_10_0").placeholder="10";
+    document.getElementById("txt_11_6").placeholder="11";
+    
+    }
+//Stores ID of the selected cell into currentTextInput
+//Returns Array
+function preparePuzzleArray(){
+var items = [	[0,0,0,0,0,0,0,0,0,0,'g',0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,'r',0,0,0,0],
+                [0,0,0,0,0,0,0,0,'g','r','a','n','d','p','a'],
+                [0,0,0,0,0,0,'f',0,0,0,'n',0,0,0,'u'],
+                [0,0,0,0,0,0,'a',0,0,0,'d',0,0,0,'n'],
+                [0,'c',0,0,0,0,'t',0,0,0,'m',0,0,0,'t'],
+                [0,'o',0,0,'m',0,'h','a','s','b','a','n','d',0,0],
+                [0,'u',0,0,'o',0,'e',0,0,'r',0,0,0,0,0],
+                [0,'s','i','s','t','e','r',0,0,'o',0,0,0,0,0],
+                [0,'i',0,0,'h',0,0,0,0,'t',0,0,0,0,0],
+                ['u','n','c','l','e',0,0,0,0,'h',0,0,0,0,0],
+                [0,0,0,0,'r',0,'w','i','f','e',0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,'r',0,0,0,0,0]
+			];
+return items;
+}
+//Clear All Button
+</script>
+</head>
+<body onload="initializeScreen()">
+    
+<div id="leftBox">
+<table id="puzzle">
+
+</table>
+</div>
+
+<div id="rightBox">
+<table>
+	<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked()"></td>
+	<td><input class="butt"  type="submit" value="Check" onclick="checkClicked()"></td>
+	<td><input class="butt"  type="submit" value="Clue" onclick="clueClicked()"></td></tr>
+</table>
+</div>
+
+<table id="hintsTable">
+		<tr>
+			<td><strong>Horizontal:</strong></td><td><strong>Vertical:</strong></td>
+		</tr>
+		<tr>
+			<td>2.gr_ _d _ a</td><td>1.g_ _ _dm_</td>
+		</tr>
+		<tr>
+			<td>7.h_s_ _ _d</td><td>3.a_ _t</td>
+		</tr>
+		<tr>
+			<td>9.s_s_ _r</td><td>4.f_th_r</td>
+    </tr>
+         <tr>
+			<td>10.un_ _ _</td><td>5.c_ _s_n</td>
+		</tr>
+        <tr>
+			<td>11.w_f_</td><td>8.br_ _ _er</td>
+		</tr>
+      
+</table>
+
+
+
+</html>

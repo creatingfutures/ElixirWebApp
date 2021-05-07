@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %} {% block content %}
+<div id="box" >
+  <p>
+    <label>First Name:</label>
+    {{f.first_name}}
+  </p>
+  <p>
+    <label>Last Name:</label>
+    {{f.last_name}}
+  </p>
+  <p>
+    <label>Email:</label>
+    {{f.email_id}}
+  </p>
+  <p>
+    <label>Date Of Birth:</label>
+    {{f.dob}}
+  </p>
+  <p>
+    <label>Mobile Number:</label>
+    {{f.mobile_number}}
+  </p>
+  <p>
+    <label>Languages Known:</label>
+    {{f.languages}}
+  </p>
+  <p>
+    <label>Enrollment Date:</label>
+    {{f.enroll_date}}
+  </p>
+  <p></p>
+  <p>
+    <label>Address Line 1:</label>
+    {{f.address_1}}
+  </p>
+  <p>
+    <label>Gender :</label>
+    {{f.gender}}
+  </p>
+  <p>
+    <label>Status:</label>
+    {{f.status}}
+  </p>
+  <p>
+    <label>Password:</label>
+    {{f.password}}
+  </p>
+  <p>
+    <label>Comments:</label>
+    {{f.comments}}
+  </p>
+  <p>
+    <label>Image :</label>
+    <img
+      src="media/{{f.image}}"
+      style="width: 100%; height: auto"
+      alt="No image "
+    />
+  </p>
+
+  <br /><br />
+  <div class="buttonouter" style="display: flex; justify-content: center;">
+    <button
+    type="button"
+    class="button"
+    onclick="back()"
+    >
+        Go Back
+    </button>
+  </div>
+</div>
+{% endblock content %}

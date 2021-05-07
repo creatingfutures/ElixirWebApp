@@ -1,0 +1,77 @@
+{% load static %}
+{% load student_tag %}
+
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Word Search </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="exercise.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  ul.breadcrumb {
+padding: 10px 16px;
+list-style: none;
+background-color:white;
+}
+ul.breadcrumb li {
+display: inline;
+font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+padding: 8px;
+color: black;
+content: "/\00a0";
+}
+ul.breadcrumb li a {
+color: darkblue;
+text-decoration: none;
+font-family: 'Montserrat';
+}
+ul.breadcrumb li a:hover {
+color: darkblue;
+text-decoration: underline;
+}
+</style>
+
+</head>
+<body>
+  <div class="nav" style="height: 200px;">
+    <div class="navig">
+      <div>
+    <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:62px;margin:0;"/>
+    </div>
+    <div class="navv">
+    <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+    <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+    <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
+    </div>
+    </div>
+  </div>
+  <ul class="breadcrumb">
+		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+		<li><a href="#">QUESTIONS</a></li>
+		
+		
+	  </ul>
+	  
+<!-- partial:index.partial.html -->
+<div class="puzzleWrap">
+  <p>EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} Word Search </p>  <div id='puzzle'></div>
+  <div id='words'>
+    <button id='solve'>Solve Puzzle</button>
+  </div>
+  
+</div>
+<!-- partial -->
+<script>
+var words = ['book','desk','fun','map','paint','play','read','sums','teacher'];
+</script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script><script  src="{% static 'wordfind.js' %}"></script>
+
+</body>
+</html>

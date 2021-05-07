@@ -1,0 +1,238 @@
+          #top {
+          top: 0;
+          background-color: orange;
+          height: 100px;
+        }
+        body{
+        background: #FFFFFF;
+        font-family:'Century Gothic';
+        font-size:12px;
+        }
+        
+        *{transition:all 0.3s ease-in-out;}
+        
+        .container{
+        clear:both;
+        overflow:auto;
+        background: white;
+        
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          position: relative;
+          width: 1300;
+          top:45;
+          left:95;
+        
+        }
+        
+        nav{float:right;}
+        
+        .logo img{float:left; padding:8px;}
+        
+        ul li{
+        display: inline-block; padding:10px;
+        font-size:20px; font-family:"Century Gothic";
+        }
+        
+        ul li:hover{
+        color:orange;
+        
+        }
+        .outer{
+          background: orange;
+          position: relative;
+          height: 150px;
+        }
+        hr{
+          background-color: orange;
+          width: 8%;
+        
+          align-content: center;
+          height: 1px;
+          color: orange;
+          border: none;
+        }
+        h1{
+          font-family: "Century Gothic";
+          font-weight: 100;
+        
+         }
+         body {background-color: lightgrey;}
+        
+         #box1{
+             z-index: 1;
+             width:320;
+             height:370;
+             margin:auto;
+             position: absolute;
+        
+             background-color: white;
+             top: 350;
+             left: 580;
+             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         }
+        
+         
+         #adjust{
+          margin-left: 515px;
+          padding-left: 40px;
+        }
+        #pagecenter
+          {
+              width:80%;
+              margin-left:auto;
+              margin-right:auto;
+        }
+        
+        ul.breadcrumb {
+        padding: 10px 16px;
+        list-style: none;
+        background-color:lightgray;
+      }
+      ul.breadcrumb li {
+        display: inline;
+        font-size: 18px;
+      }
+      ul.breadcrumb li+li:before {
+        padding: 8px;
+        color: black;
+        content: "/\00a0";
+      }
+      ul.breadcrumb li a {
+        color: darkblue;
+        text-decoration: none;
+      }
+      ul.breadcrumb li a:hover {
+        color: darkblue;
+        text-decoration: underline;
+      }
+      
+      #clues{
+      
+      height: 10px;
+      width:470px;	
+      }
+        #wordbox{
+          width: 200%;
+        }
+
+        .button{
+         font-family: 'Century Gothic';
+         background-color: orange;
+         border: none;
+         color: black;
+         padding: 12px 22px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 14px;
+         margin: 4px 2px;
+         cursor: pointer;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+           outline: none;
+         }
+        
+         .butt{
+          font-family: 'Century Gothic';
+          background-color: orange;
+          border: none;
+          color: black;
+          padding: 12px 22px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 14px;
+          margin: 4px 2px;
+          cursor: pointer;
+         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            outline: none;
+          }
+         .nav
+         {
+           background-color:orange;
+           height:30%;
+           display:grid;
+           grid-template-rows:auto auto auto;
+           justify-content:center;
+           align-items:center;
+         }
+        
+         .navig
+         {
+           grid-row:2/3;
+           display:flex;
+           flex-wrap:nowrap;
+           background-color:white;
+           flex-direction:row;
+         }
+        
+         .navv
+         {
+           width:80%;
+           display:flex;
+           flex-direction:row;
+           justify-content:center;
+           align-items:center;
+           margin:10px;
+         }
+        
+        
+         #cross{
+             text-align: center;
+             width:30px;
+             height:30px;
+             margin: 0;
+             padding: 0;
+             border-collapse: collapse;
+             border: 1px solid white;
+         }
+         #buttons{
+             width:30%;
+             float: right;
+        
+         }
+         tr{
+             margin: 0;
+             padding: 0;
+             border-collapse: collapse;
+         }
+         td{
+             height: 30px;
+             width: 30px;
+         }
+         #leftBox{
+             float: left;
+         }
+         #rightBox{
+             float: left;
+             clear:left;
+         }
+         .butt{
+             height:50px;
+             width: 130px;
+             font-family: "Century Gothic";
+         }
+         #puzzle{
+             text-align: center;
+             margin: 0;
+             padding: 0;
+             border-collapse: collapse;
+             border: 1px solid black;
+         }
+         .inputBox{
+                 width: 40px;
+                 height:40px;
+                 border: 1px solid black;
+                 text-align: center;
+         }
+         #hintsTable{
+             width: 480px;
+             float: left;
+             clear: left;
+         }
+             h2{
+                 font-family: "Century Gothic";
+             }
+             table{
+                 font-family: "Century Gothic";
+             }
+        

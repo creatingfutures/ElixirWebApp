@@ -4,9 +4,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level, question
-from user_admin.models import student_module_level, student_batch
-
-
+from user_admin.models import student_module_level, student_batch,question_content,assessment_type
+#from user_admin.models import assessment_type
+'''
 class student_status(models.Model):
     class Meta:
         verbose_name_plural = "student_statuses"
@@ -16,7 +16,7 @@ class student_status(models.Model):
     level_id = models.ForeignKey(module_level, on_delete=models.CASCADE)
     batch_id = models.ForeignKey(batch, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
-    score = models.IntegerField(validators=[MinValueValidator(0)])
+    score = models.IntegerField(validators=[MinValueValidator(0)]) # total score of all exams
     type_choices = (
         ('S_Pass', 'S_Pass'),
         ('S_Fail', 'S_Fail'),
@@ -31,3 +31,18 @@ class student_status(models.Model):
 
     def __str__(self):
         return ''+self.student_id.first_name+'__'+self.program_id.program_name+'__'+self.module_id.module_name+'__'+self.level_id.level_description
+'''
+
+
+
+class scores(models.Model):
+    student_id = models.ForeignKey(student, on_delete=models.CASCADE,null=False, blank=False)
+    batch_id      = models.ForeignKey(batch, on_delete=models.CASCADE,null=False, blank=False)
+    level_id      = models.ForeignKey(module_level, on_delete=models.CASCADE,null=False, blank=False)
+    date_time     = models.TextField(null=False, blank=False)
+    user_score    = models.IntegerField(null=False) # for particular test 
+    total_score   = models.IntegerField(null=False) # no.of tests taken 
+    question_content_id = models.IntegerField(null=True, blank=True)
+    assessment_type_id = models.ForeignKey(assessment_type,on_delete=models.DO_NOTHING, null=True, blank=True)
+    def __str__(self):
+        return str(self.user_score)

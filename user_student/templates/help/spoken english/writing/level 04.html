@@ -1,0 +1,55 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 4 LESSON</a></li>
+            
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Writing – Level 4 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    This involves combining a set of sentences together to convey some meaning. In the previous level, we focussed on writing a couple of sentences. In this level, we will focus on writing simple texts, notes, personal introductions etc, which would involve a group of sentences. 
+                                </p>
+                                <h2 class="bg-white boxspace fonth2">Example </h2>
+                                <ul class="list space">
+                                    <li>Question) Give a short introduction of yourself?</li>
+                                    <li>Answer) While giving an introduction to yourself, a standard set of information, usually required are your name, your address, your hobbies, your job etc. So to frame your introduction, it can be something like: 
+                                        <ul class="list space">
+                                            <li>
+                                            I am Abhishek. I hail from Bangalore. I have been working for Creating Futures  since last couple of years. My interests include gardening, music, Singing.
+                                        </li>
+                                    </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

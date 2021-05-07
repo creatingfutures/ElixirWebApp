@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div id="box">
+    <form method="POST" onsubmit="return check(this)">
+
+        {% csrf_token %}
+        <p><label>Program <span style="color:red">*</span> :</label>{{form.program_id}}</p>
+
+        <p>
+            <label>Batch Name <span style="color:red">*</span> : </label>
+            {{form.batch_name}}{{form.batch_name.errors}}
+        </p>
+        <p>
+            <label>Start Date <span style="color:red">*</span> :</label>
+            {{form.start_date}}
+        <p><p>Format : yyyy-mm-dd</p></p>{{form.start_date.errors}}</p>
+        <p>
+            <label>End Date:</label>
+            {{form.end_date}}
+        <p><p>Format : yyyy-mm-dd</p></p>{{form.end_date.errors}}</p>
+
+        <p>
+            <label>Partner Org:</label>
+            {{form.partner_org}}{{form.partner_org.errors}}
+        </p>
+        <p>
+            <label>Batch Incharge Name <span style="color:red">*</span> :</label>
+            {{form.batch_incharge_id}}
+        </p>
+
+        <p>
+            <label>Center Id <span style="color:red">*</span> </label>
+            {{form.center_id}}
+        </p>
+
+        <p>
+            <label>No of Students:</label>
+            {{form.student_count}}{{form.student_count.errors}}
+        </p>
+        <p>
+            <label>No of Sessions:</label>
+            {{form.sessions_count}}{{form.sessions_count.errors}}
+        </p>
+        <p>
+            <label>Status <span style="color:red">*</span> :</label>
+            {{form.status}}
+        </p>
+        <p>
+            <label>Comments:</label>
+            {{form.comments}}{{form.comments.errors}}
+        </p>
+
+        <br><br>
+        <div id="container">
+            <input type="submit" class="button" value="Submit">
+            <button
+            type="button"
+            class="button"
+            onclick="back()"
+          >
+            Cancel
+          </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

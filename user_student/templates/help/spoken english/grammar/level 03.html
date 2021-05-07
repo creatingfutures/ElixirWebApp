@@ -1,0 +1,139 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %} 
+      <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+          <li>
+            <a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a>
+          </li>
+            <li>
+                <a href="#">LEVEL 3 LESSON</a>
+            </li>
+            
+        </ul>
+        
+      
+    <div class="container">
+      <div class="row">
+            <div class="col-md-12">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col" ><h2 class="bg-white boxspace" class="fonth2">Grammar - Level 3 Lesson</h2></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td > <h1 class="bg-white boxspace" style="font-weight: bold !important;">Pronoun </h1></td>
+                  </tr>
+                  
+                <tr>
+                  <td > 
+                  <p>A pronoun is a word used instead of a noun. Pronouns are short words and can 
+                    do everything that nouns can do and are one of the building blocks of a sentence Like - He, she, they, It`
+                  </p>
+                  
+                  <h2> Examples of Pronoun :</h2> 
+                  <ul class='list'>
+                    
+                        <li> He</li>
+                        <li>It</li>
+                        <li>You</li>
+                        <li>I</li>
+                        <li>They</li>
+                        <li>We</li>
+                        <li>Who</li>
+                        <li>Him</li>
+                        <li>Them</li>
+                        <li>Whoever</li>
+                        <li>Anyone</li>
+                        <li>Something</li>
+                        <li>Nobody</li>
+                        
+                      </ul>
+                  
+                    </td>
+              </tr>
+                  <tr>
+                    <td>
+                      <p>  <b>Sentences</b>
+                      <ul class='list'>
+                        <li><b> We </b>were playing cricket with friends.</li>
+                          <li> <b> She</b> loves watching movies, especially if <b> they </b> are comedies.</li>
+                          <li>	Will <b> he</b> be going <b> there</b> with <b> her? </b></li>
+                          
+                        </ul>
+                      </p> 
+                    </td>
+                  </tr>
+                         
+                  
+            <tr>
+              <td >
+                <h1 style="font-weight: bold !important;" class="bg-white boxspace"><b>Article </b></h1>
+              </td>
+              <tr>
+                <td>
+                  <p>
+                  The words ‘a’, ‘an’ and ‘the’ are called articles. They are used
+                  before nouns. There are two types of articles: indefinite <b> "a"</b> and <b> "an"</b> or the definite - <b> "the"</b>. 
+                </p>
+                <h2>
+                  Examples of Definite Article 
+                </h2>
+                <ul class="list space">
+                  <li>
+                    " <b>	The</b> car I bought broke down."
+                  </li>
+                  <li>
+                    " He has a son and a daughter. <b> The </b> daughter is a doctor."
+                  </li>
+                  <li>
+                    "<b> The </b>actors were really good."
+                  </li>
+                  <li>
+                    "I remember <b>the</b> day we first met."
+                  </li>
+                </ul>
+                <h2>
+                  Examples of Indefinite  
+                </h2>
+                <ul class="list space">
+                  <li>
+                    "I need <b> a </b>pen."
+                  </li>
+                  <li>
+                    "Lakshmi wants to see <b> a </b> movie”
+                  </li>
+                  <li>
+                    	"Arif has <b> a </b>car."
+                    </li>
+                  <li>
+                    "She is <b> a</b> dancer."
+                  </li>
+                  <li>
+                    	“I saw <b> an </b> elephant”
+                  </li>
+                </ul>
+                </td>
+              </tr>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+    
+  
+
+{% endblock content %} 

@@ -1,0 +1,70 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+        <li><a href="#">LEVEL 5 LESSON</a></li>
+        
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col" ><h2 class="    bg-white boxspace fonth2">Grammar - Level 5 Lesson</h2></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td > 
+                            <h1  style="font-weight: bold !important; " class="bg-white boxspace" >Conjunctions </h1>
+                            
+                            <p>
+                                A conjunction is a part of speech that is used to connect words, phrases, clauses, or sentences. </p>
+                                
+                          <h2 class="bg-white boxspace">Conjunctions List </h2>
+                          <p>
+                              There are only a few common conjunctions, yet these words perform many functions: <br> They present explanations, ideas, exceptions, consequences, and contrasts. Here is a list of conjunctions commonly used in American English:
+                            </p>
+                        <ul class="list">
+                            <li>And</li>
+                            <li>As</li>
+                            <li>Because</li>
+                            <li>But</li>
+                            <li>For</li>
+                            <li>Just as</li>
+                            <li>Or</li>
+                            <li>Neither</li>
+                            <li>Nor</li>
+                            <li>Not only</li>
+                            <li>So</li>
+                            <li>Whether</li>
+                            <li>Yet</li>
+                        </ul>
+                        <h2>Examples of Conjunctions</h2>
+                        <ul class="list space">
+                            <li>I tried to hit the nail <b>but</b>  hit my thumb instead.</li>
+                            <li>I have two goldfish <b> and </b>a cat.</li>
+                            <li>I’d like a bike <b> for </b>commuting to work.</li>
+                            <li>You can have peach ice cream <b> or </b>a brownie sundae.</li>
+                            <li>Neither the black dress <b>nor</b>  the grey one looks right on me.</li>
+                            <li>My dad always worked hard <b>so</b>  we could afford the things we wanted.</li>
+                            <li>I try very hard in school <b>yet </b> I am not receiving good marks.</li>
+                        </ul>
+                    </tbody>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %} 

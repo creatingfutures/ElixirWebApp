@@ -1,0 +1,66 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+      <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+          <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+          <li><a href="#">LEVEL 1 LESSON</a></li>
+        </ul>
+        
+        <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                            <th scope="col" ><h2 class="bg-white boxspace" >Sentences – Level 1 Lesson</h2></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                            <tr>
+                              <td > 
+                                <h1 class="bg-white boxspace" style="font-weight: bold !important;">What is a sentence?</h1>
+                        
+                                <p>
+                                    A sentence is a group of words that are put together to mean something. A sentence is the basic unit of English. A complete sentence has at least a subject and a main verb to state (declare) a complete thought</p>
+                                    
+                                    <ul class="space">
+                                  <li>A new sentence begins with a capital letter</li>
+                                  <li>A sentence ends with punctuation (a period, a question mark, or an exclamation point)</li>
+                            </ul>
+                            
+                            </td>
+                          </tr>
+                          <tr >
+                            <td class=" mleft" > <h1 style="font-weight: bold !important;" class="bg-white boxspace"><b>Sentences – Level 1 Examples</b></h1>
+                            <ul class="space">
+                                <li>My name is Ashwin</li>
+                                <li>I like Biriyani.</li>
+                                <li>The sky is blue.</li>
+                                <li>Today is Monday.</li>
+                                <li>Tomorrow is Tuesday.</li>
+                                <li>The baby is smiling.</li>
+                                <li>He is my friend.</li>
+                                <li>I love watching TV </li>
+                                <li>Today is my birthday.</li>
+                              </ul>
+                        </td>
+                      </tr>
+                        
+                        </tbody>
+                      </table>
+                </div>
+              </div>
+        </div>
+        
+      </div>
+   
+{% endblock content %} 

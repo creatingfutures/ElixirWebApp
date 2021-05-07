@@ -1,0 +1,90 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css">
+
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a>
+        </li>
+        <li>
+            <a href="#">LEVEL 1 LESSON</a>
+        </li>
+
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace ">Conversation - Level 1  </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+
+
+                             <b>   <p>Conversation consists of the following:</p></b>
+                               
+                               <ul class="list space" style="list-style: lower-roman;">
+                                <li><b> Express statements </b>(declarative sentences).
+                                    <ul>
+                                        <li>
+                                         End with a period. Example - We offer a 30-day return policy. 
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <b>  Ask questions </b>(interrogative sentences). 
+                                <ul>
+                                    <li>End with a question mark if direct questions. Example - Are the new brochures available yet?</li>
+                                    <li>End with a period if indirect questions. Example -  He asked whether I planned to revise the news	release. </li>
+                                </ul>
+                                </li>
+                                <li>
+                                    <b>   Give commands and requests  </b>(imperative sentences).
+                                    <ul>
+                                        <li>
+                                      End with a period. 
+                                            <ul>
+                                                <li>Direct Command. Example - Place your order within two days to receive a discount.</li>
+                                                <li>Courteous Request. Example - Will you please call me by the end of the week.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li>
+                                        <b> Express emotions</b> (exclamatory sentences). 
+                                        <ul>
+                                            <li>
+                                                	End with an exclamation point. Example - Always satisfy your customers! 
+                                            </li>
+                                        </ul>
+                                    </li>
+                               </ul>
+                               
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

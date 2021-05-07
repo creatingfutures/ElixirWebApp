@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row" style="margin-left: 5px;">
+      <div class="form-group col-md-10 " style="margin-left: 16%;">
+          <div class="search">
+            <input id="batch" type="text" class="searchTerm"  style="height: 50px;" placeholder="NAME" />
+            <button id="batch1" type="submit" class="searchButton" style="height: 50px;" >
+              <span class="fa fa-search" "aria-hidden="true"></span>
+            </button>
+          </div>
+ 
+      </div>
+    <br /> 
+
+    <div id="bat_done"></div>
+    <br /> 
+<div class="row">
+  <div class="col-sm-12 table-responsive">
+    <table class="table" align="center" style="width: 65%; font-family: Montserrat">
+      <tr>
+        <th>BATCH</th>
+        <th>PROGRAM</th>
+        <th>START DATE</th>
+        <th>END DATE</th>
+        <th>STATUS</th>
+        <th>ACTION</th>
+      </tr>
+      {% for s1 in p %}
+      <tr>
+        <td class="col-sm-1">{{s1}}</td>
+        <td class="col-sm-2">{{s1.program_id}}</td>
+        <td class="col-sm-1">{{s1.start_date}}</td>
+        <td class="col-sm-1">{{s1.end_date}}</td>
+        <td class="col-sm-1">{{s1.status}}</td>
+        <td class="col-sm-1">
+          <a href="{% url 'view_batch' s1.batch_id %} "  data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a>&nbsp; &nbsp;
+          <a href="{% url 'edit_batch' s1.batch_id %}"  data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> 
+          
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  </div>
+       <div class="row" style="margin-top: 15px"> 
+     {% include  'base/pagination.html' %} 
+    </div>
+  </div>
+</div>
+   </div>
+
+      <div class="row">
+        <div class="col-sm-12">  
+      <a style="margin-left: 240px; margin-top: 75px;" class="button" href="{% url 'add_batch' %}">ADD BATCH</a>
+    </div></div>
+
+ {% endblock content %}
+</div>

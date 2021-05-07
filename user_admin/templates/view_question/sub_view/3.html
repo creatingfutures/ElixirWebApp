@@ -1,29 +1,29 @@
 {% extends 'view_question/main.html' %} {% block sub_view %}
 <p>
   <label>Narrative:</label>
-  {{f.narrative}}
+  {{f.narrative}}<br/> 
 </p>
 <p>
   <label>Question: </label>
-  {{f.question}}
+  {{f.question}}<br/> 
 </p>
 
 {% for option in f.options %}
 <p>
   <label>Option {{ forloop.counter }}:</label>
-  {{option}}
+  {{option}}<br/> 
 </p>
 {% endfor %}
 <p>
   <label>Answer:</label>
-  {{f.answer}}
+  {{f.answer}}<br/> 
 </p>
 <p>
   <label>Comments:</label>
-  {{f.comments}}
+  {{f.comments}}<br/> 
 </p>
 <p>
   <label>Hint:</label>
-  {{f.hint}}
+  {{f.hint}}<br/> 
 </p>
 {% endblock sub_view %}

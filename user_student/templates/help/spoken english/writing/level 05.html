@@ -1,0 +1,126 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 5 LESSON</a></li>
+        
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Writing –
+                                    Level 5 </h1>
+                                </th>
+                            </tr>
+                        <tr>
+                            <td>
+                                <p>Level 4 would focus on sending emails. In today’s world of technology, gone are the
+                                    days of hand-written mails. The basic structure of an email involves your name, the
+                                    recipient’s name, Subject line and Content. Developing basic knowledge on email
+                                    etiquettes and contents are particularly important these days.</p>
+                                    <h2 class="bg-white boxspace">Example:</h2>
+                                    <ul class="list space">
+                                    <li>Email to your teacher submitting your project</li>
+                                </ul>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p> <b> To: </b> Parimala</p>
+                                <p> <b> From: Shanthi </b> </p>
+                                <p> <b> Subject: </b> Science Project Report</p>
+                                <p> Dear Sir / Madam: </p>
+                                <p> I have attached my project report along with this email. If you have any difficulty
+                                    opening it or reviewing it, please let me know.</p>
+                                    <p>Thank you.</p>
+                                    <p>Shanthi M</p>
+                                <p> 10 A </p>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <ul class="list space">
+                                    <li>
+                                        Email about a business event,
+                                    </li>
+                                </ul>
+                                <p> To: Jimmy </p>
+                                <p> From: Abhishek </p>
+                                <p> Subject: Report on Tech Conference </p>
+                                <p> Dear Jimmy,</p>
+                               <p> Thanks for making it possible for me to go to the Tech Conference in Bangalore last
+                                   week. As you know, it is the biggest technology conference in the country and very
+                                important to our work. I learned a lot and I have made some new contacts that will be
+                                good for our company. I think we should try to attend the ‘Innovation Day’ in April as
+                                well. I focused on talks about robotics, as that is our most interesting area at the
+                                moment. The presentations on robot ‘hands’ and robots for hospitals were particularly
+                                interesting for us. I am attaching a detailed report on this new research with some
+                                suggestions about how we can use it. Thanks again for this opportunity. I am happy to
+                                discuss the report further if you are interested.</p>
+                                <p>
+                                    Best regards, 
+                                </p>
+                                <p>
+                                    Abhishek
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul class="list space">
+                                    <li>
+                                        An email about expressing an interest or asking for more information
+                                    </li>
+                                </ul>
+                                <p> <b>  From: </b>Abhishek </p> 
+                            <p><b> To:</b> grants@bangalorcollege.in</p>
+                            <p> <b>  Subject: Scholarship </b></p>
+                          <p>
+                              Dear Sir/Madam,
+                            </p>
+                            <p>
+                                I am writing to express my interest in applying for the scholarship that your college is giving for one student.
+                          </p>
+                          <p>
+                            I have completed my graduate, BBA degree from St. Charles College, securing a percentage of 87. I am eager to do my master’s degree in MBA and I would like to apply for the scholarship to help me continue with my education.
+                        </p>
+                          <p>
+                            I am hoping that you will consider my application and allow me to fulfill my dream of completing my MBA. I look forward to hearing from you.
+                        </p>
+                        <p>
+                            Regards,
+                          </p>
+                          <p>
+                            Abhishek
+                          </p>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}

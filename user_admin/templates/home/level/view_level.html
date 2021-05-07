@@ -1,0 +1,86 @@
+{% extends '../../base/base.html' %} {% block content %}
+{% load static %}
+{% load user_tags %}
+<!doctype html>
+        <div class="row">
+          <div class="col-md-8">
+            {% if messages %}
+            {% for message in messages %}
+
+            <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
+
+              {{message}}
+            </div>
+
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+        <br>
+<div class="row">
+  <div class="col-md-12">
+<h1>LEVEL : {{l}}</h1>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+<table class="table" align="center" style="width:80%;font-family: Montserrat">
+<tr>
+  <th>QUESTION</th>
+  <th>LEVEL</th>
+  <th>MODULE</th>
+  <th>PROGRAM</th>
+  <th>QUESTION TYPE</th>
+  <th>EDIT</th>
+</tr>
+{% for c in p %}
+<tr>
+  <td class="col-md-5">{{c.question}}</td>
+  <td class="col-md-1">{{c.module_id}}</td>
+  <td class="col-md-1">{{c.level_id}}</td>
+  <td class="col-md-1">{{c.program_id}}</td>
+  <td class="col-md-2">{{c.question_type}}</td>
+  <td class="col-md-1"><a href="{% url 'edit_question' c.question_id %}" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a></td>
+</td>
+</tr>
+{% endfor %}
+</table>
+    
+</div>
+</div>
+<br><br>
+<div class="row">
+  <div class="col-md-12">
+
+<div class="pagination" style="width:20%;position:absolute;left:40%">
+<ul style="position:absolute;left:10%">
+  {% if p.has_previous %}
+  <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+ {% endif %}
+ {% for pg in p.paginator.page_range %}
+ {% if p.number == pg %}
+ <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
+{% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+<li><a href="?page={{ pg }}">{{pg}}</a></li>
+{% endif %}
+{% endfor %}
+
+{% if p.has_next %}
+<li><a href="?page={{p.next_page_number}}">Next</a></li>
+{% endif %}
+</ul>
+    
+</div>
+</div>
+</div>
+<br> <br> <br>
+<div class="row">
+  <div class="col-md-12">
+
+<a style="margin-left:150px" class="button" href="{% url 'delete_level' l.level_id %}">DELETE LEVEL</a>
+    
+</div>
+</div>
+
+   {% endblock content %}

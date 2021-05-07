@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <link rel="stylesheet" href="/static/css/Programs.css" />
+{% endblock%}
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="#">MODULES</a></li>
+    </ul>
+
+  <center>
+    <h1> {{p.program_name|allcaps}}</h1>
+  </center>
+
+  {% for i,lev in l %}
+    <button class="collapsible">
+        <h2><b>{{i.module_name|allcaps}}</b></h2>
+    </button>
+  <div class="content">
+    {% for j in lev %}
+        <table>
+          <tr>
+              <td class="t1">
+                <a href="{% url 'e2e_modules' pk pk1 pk2 i.pk j.pk  %}">{{j.level_description|allcaps}}</a> 
+              </td>
+              <td>
+                <a href="">Go To Lesson </a>
+              </td>
+              <td>
+                <b> Score : XX</b>
+              </td>
+
+           
+          </tr>
+        </table>
+    {% endfor %}
+
+  </div>
+    {% endfor %}
+
+  <script type="text/javascript">
+
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+
+ 
+
+
+
+  </script>
+
+
+
+{% endblock content %}
+

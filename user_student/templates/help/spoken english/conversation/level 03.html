@@ -1,0 +1,73 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a>
+            </li>
+            <li>
+                <a href="#">LEVEL 3 LESSON</a>
+            </li>
+            
+        </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2">Conversation  – Level 3 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h3 class="bg-white boxspace">
+                                    Effective Speaking
+                                </h3>
+
+                                <p>
+                                    Speaking effectively is defined as speaking in such a way that the message is clearly heard and,  acted upon. There are two main elements to speaking effectively: what you say, and how you say it.
+                                </p>
+                               
+                                <p>“What you say” means the choice of words. The words that will be used when chatting to a friend are likely to be different from those used in a formal presentation or interview.
+                                </p>
+                                <p>
+                                    Similarly, the way that you speak will also vary in different situations. However, there are also some common factors: for example, whether you naturally talk quietly or loudly, and how you use body language.
+                                </p>
+                                <p>There are three main elements of effective speaking</p>
+                                <ul class="list boxspace">
+                                    <li>
+                                        The words you use.
+                                    </li>
+                                    <li>
+                                        Your voice.
+                                    </li>
+                                    <li>
+                                        Your other non-verbal communication, particularly body language.
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock content %}

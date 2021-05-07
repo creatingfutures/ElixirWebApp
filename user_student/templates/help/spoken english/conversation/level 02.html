@@ -1,0 +1,134 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a>
+            </li>
+            <li>
+                <a href="#">LEVEL 2 LESSON</a>
+            </li>
+        
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Conversation  – Level 2 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    To converse effectively, one would need to focus on the following:
+                                </p>
+                                <ul class="list space" style="list-style: decimal;">
+                                <li>Listening</li>
+                                <li>Understanding</li>
+                                <li>Articulating</li>
+                                <li>Clarifying</li>
+                                <li>Asking Questions</li>
+                                </ul>
+                                <h2 class="bg-white boxspace fonth2">Example </h2>
+                                <p>Below is an example of a set of conversations of a tourist. This includes asking Questions, Listening, Responding</p>
+                                <h2 class="bg-white boxspace">Being A Tourist </h2>
+                                <ul class="list space" style="list-style: decimal;">
+                                    <li>You can’t find the town center in Bangalore. What do you ask someone?
+                                        <ul style="list-style: circle;">
+                                            <li>
+                                                    Excuse me, could you tell me how to get to the town center?
+                                                </li>
+                                        </ul>
+                                    </li>
+                                    <li>How do you ask for the Tourist Information center?
+                                        <ul style="list-style: circle;">
+                                                <li>
+                                                    Excuse me, could you tell me where the Tourist information Centre is?
+                                                </li>
+                                            </ul>
+                                    </li>
+                                    <li>Someone asks you for directions. What do you say?
+                                        <ul style="list-style: circle;">
+                                            <li>
+                                                    I’m afraid i can’t help you. I’m a stranger here myself.
+                                                </li>
+                                            </ul>
+                                    </li>
+                                    <li>You need to use a toilet. What do you ask someone?
+                                        <ul style="list-style: circle;">
+                                            <li>
+                                                Excuse me; are there any public toilets near here?
+                                                </li>
+                                            </ul>
+                                    </li>
+                                    <li>Someone asks you how long you’re staying. How do you say you’re on a day trip? 
+                                        <ul style="list-style: circle;">
+                                                <li>
+                                                    I’m just here for the day.
+                                                </li>
+                                            </ul>
+                                    </li>
+                                    <li>You decide to stay overnight but don’t want to spend too much. What do you ask at the Tourist Information?
+                                        <ul style="list-style: circle;">
+                                                <li>
+                                                    Could you please recommend a reasonable priced hotel?
+                                                </li>
+                                            </ul>
+                                    </li>
+                                    <li>Ask the distance to the hotel.
+                                        <ul style="list-style: circle;">
+                                                <li>
+                                                    How far is it from here?
+                                                </li>
+                                            </ul>
+                                    </li>
+                                    <li>Ask how to get there
+                                        <ul style="list-style: circle;">
+                                            <li>
+                                                Could you give me directions, please?
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>He tells you the address but you’d like it on a piece of paper. What do you ask?
+                                        <ul style="list-style: circle;">
+                                                <li>
+                                                    Could you write it down for me, please?
+                                                </li>
+                                            </ul>
+                                    </li>
+                                    <li>How do you ask a travel agent about holidays in Paris?
+                                        <ul style="list-style: circle;">
+                                            <li>
+                                                    Could you give me some information about holidays in Paris, please?
+                                                </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

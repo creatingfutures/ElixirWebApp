@@ -1,0 +1,170 @@
+{% load static %}
+{% load student_tag %}
+
+
+
+
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css'%}">
+    <style>
+        ul.breadcrumb {
+      padding: 10px 16px;
+      list-style: none;
+      background-color:lightgray;
+    }
+    ul.breadcrumb li {
+      display: inline;
+      font-size: 18px;
+    }
+    ul.breadcrumb li+li:before {
+      padding: 8px;
+      color: black;
+      content: "/\00a0";
+    }
+    ul.breadcrumb li a {
+      color: darkblue;
+      text-decoration: none;
+    }
+    ul.breadcrumb li a:hover {
+      color: darkblue;
+      text-decoration: underline;
+    }
+    
+    </style>     
+          
+</head>
+
+
+    <div class="nav">
+      <div class="navig">
+        <div>
+      <img src="{% static 'elixir_logo.PNG' %}"alt="" style="width:20%;height:100%;margin:0;"/>
+      </div>
+      <div class="navv">
+      <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+      <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+      <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
+      </div>
+      </div>
+    </div>
+    <ul class="breadcrumb">
+		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+		<li><a href="#">QUESTIONS</a></li>
+		
+		
+	  </ul>
+	
+
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}} </h1>
+
+<h2 style="text-align:center"> CrossWord </h2>
+<br> <br>
+
+<script src="{% static 'commonjs.js' %}"></script>
+<script>
+
+//Globals
+//Adds the hint numbers
+
+
+function addHint(){
+	document.getElementById("txt_0_9").placeholder = "1";
+	document.getElementById("txt_1_3").placeholder = "2";
+	document.getElementById("txt_3_6").placeholder = "3";
+	//document.getElementById("txt_4_0").placeholder = "4";
+	document.getElementById("txt_5_3").placeholder = "5";
+	document.getElementById("txt_5_5").placeholder = "6";
+    document.getElementById("txt_5_7").placeholder = "7";
+    document.getElementById("txt_6_2").placeholder = "8";
+    document.getElementById("txt_6_10").placeholder = "9";
+    document.getElementById("txt_7_5").placeholder="10";
+    document.getElementById("txt_9_13").placeholder="11";
+    document.getElementById("txt_10_0").placeholder="12";
+    document.getElementById("txt_10_9").placeholder="13";
+    document.getElementById("txt_12_9").placeholder="14";
+    document.getElementById("txt_12_10").placeholder="15";
+    document.getElementById("txt_15_6").placeholder="16";
+    }
+//Stores ID of the selected cell into currentTextInput
+//Returns Array
+function preparePuzzleArray(){
+var items = [	[0,0,0,0,0,0,0,0,0,'d',0,0,0,0,0,0,0],
+                [0,0,0,'p','o','l','i','c','e','o','f','f','i','c','e','r',0],
+                [0,0,0,0,0,0,0,0,0,'c',0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,'p','o','s','t','o','f','f','i','c','e',0],
+                [0,0,0,0,0,0,0,0,0,'o',0,0,0,0,0,0,0],
+                [0,0,0,'t','e','a','c','h','e','r',0,0,0,0,0,0,0],
+                [0,0,'c',0,0,'i',0,0,0,0,'w',0,0,0,0,0,0],
+                [0,0,'l',0,0,'r','e','s','t','a','u','r','a','n','t',0,0],
+                [0,0,'i',0,0,'p',0,0,0,0,'r',0,0,0,0,0,0],
+                [0,0,'n',0,0,'o',0,0,0,0,'s',0,0,'p',0,0,0],
+                ['w','a','i','t','e','r',0,0,0,'d','e','n','t','i','s','t',0],
+                [0,0,'c',0,0,'t',0,0,0,0,0,0,0,'l',0,0,0],
+                [0,0,0,0,0,0,0,0,0,'s','c','h','o','o','l',0,0],
+                [0,0,0,0,0,0,0,0,0,0,'h',0,0,'t',0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,'e',0,0,0,0,0,0],
+                [0,0,0,0,0,0,'f','i','r','e','f','i','g','h','t','e','r']
+			];
+return items;
+}
+//Clear All Button
+</script>
+</head>
+<body onload="initializeScreen()">
+    
+<div id="leftBox">
+<table id="puzzle">
+
+</table>
+</div>
+
+<div id="rightBox">
+<table>
+	<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked()"></td>
+	<td><input class="butt"  type="submit" value="Check" onclick="checkClicked()"></td>
+	<td><input class="butt"  type="submit" value="Clue" onclick="clueClicked()"></td></tr>
+</table>
+</div>
+
+<table id="hintsTable">
+		<tr>
+			<td><strong>Horizontal:</strong></td><td><strong>Vertical:</strong></td>
+		</tr>
+		<tr>
+			<td>2.A ____ keeps us safe</td><td>1.A _____ looks after sick person/td>
+		</tr>
+		<tr>
+			<td>3.A postal worker works in a ______</td><td>6.A pilot works at the _____</td>
+		</tr>
+		<tr>
+			<td>5.A____ works in a school</td><td>7.A doctor and nurse work in the ______</td>
+    </tr>
+         <tr>
+			<td>10.A chef and waiter work in a ____</td><td>8.A dentist works in a dental________</td>
+		</tr>
+        <tr>
+			<td>12.A____ serves food in a restaurant</td><td>9.A _____ helps doctor</td>
+		</tr>
+    <tr>
+			<td>13.A____ takes care of teeth</td><td>11.A____ flies planes</td>
+		</tr>
+    <tr>
+			<td>14.A teacher teaches students in a_____</td><td>15.A______ cooks food in a restaurant</td>
+		</tr>
+    <tr>
+			<td>16.A____ puts out fires</td><td></td>
+		</tr>
+      
+      
+</table>
+
+
+
+</html>

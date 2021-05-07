@@ -1,0 +1,102 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+        <div class="StudentModuleClass">
+
+            
+            <ul class="breadcrumb">
+                <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+                <li><a href="#">LEVEL 2 LESSON</a></li>
+            </ul>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                            <th scope="col" ><h2 class="bg-white boxspace" >Sentences – Level 2 Lesson</h2></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                <td > 
+                                    <h1 class="bg-white boxspace" style="font-weight: bold !important;">Simple Sentence</h1>
+                        
+                                    <p>
+                                    A simple sentence has a subject and ONLY ONE verb:</p>
+                                    
+                          <ul class="space">
+                              <li>The girl ran after the dog.</li>
+                              <li>The cat is sleeping.</li>
+                            </ul>
+                           <h1>Simple sentence = subject + ONE verb</h1>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class=" mleft" > <h1 style="font-weight: bold !important;" class="bg-white boxspace"><b>Sentences – Level 2 Examples</b></h1>
+                            <h2 class="bg-white boxspace"> &nbsp; &nbsp; &nbsp; &nbsp; Simple Sentence</h2>
+                            <ul class="space list">
+                                <li>She opened the door.</li>
+                                <li>Aaron made a picture.</li>
+                                <li>I am sorry.</li>
+                                <li>I danced.</li>
+                            </ul>
+                            <h2 class="bg-white boxspace">&nbsp; &nbsp; &nbsp; &nbsp;About Capitals</h2>
+                            <p>There are 6 uses of capitals: </p>
+                            <p>1)	The 1st word in a sentence or a direct quotation:</p>
+                            <p>For Example:</p>
+                            <ul class="space list">
+                                <li>She wanted to go to the beach.</li>
+                                <li>She said, "Let's go to the beach."</li>
+                            </ul>
+                            <p>2)	The word 'I' and people's names:</p>
+                            <p>For Example:</p>
+                            <ul class="space list">
+                                <li>	I feel like sleeping.</li>
+                                <li>She said, "Let's go to the beach." </li>
+                            </ul>
+                            <p>3)	The names of specific places, institutions, and languages:</p>
+                            <p>For Example:</p>
+                            <ul class="space list">
+                                <li>Did you know that Bishop Cottons is a college in Karnataka?</li>
+                                <li>Kannada is the language of Bangaloreans </li>
+                            </ul>
+                            <p>4)	Product names:</p>
+                            <p>For Example:</p>
+                            <ul class="space list">
+                                <li>Xerox makes copiers. </li>
+                                <li>A smartphone can be an iPhone or a Blackberry or an Android. </li>
+                            </ul>
+                            <p>5)	Calendar items:</p>
+                            <p>For Example:</p>
+                            <ul class="space list">
+                                <li> sent my friend a Diwali card while she sent me a Christmas card. </li>
+                                <li>Eid falls on the fourth Thursday of June. </li>
+                            </ul>
+                            <p>6)	Titles:</p>
+                            <p>For example:</p>
+                            <ul class="space list">
+                                <li> My doctor is named Dr. Sreejish. </li>
+                                <li>She always keeps the latest issue of India Today in her waiting room. </li>
+                            </ul>
+                            
+                        </td>
+                          </tr>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+{% endblock content %} 

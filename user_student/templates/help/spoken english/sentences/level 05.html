@@ -1,0 +1,116 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+        <div class="StudentModuleClass">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+                <li><a href="#">LEVEL 5 LESSON</a></li>
+            </ul>
+        
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                            <th scope="col" ><h2 class="bg-white boxspace" >Sentences – Level 5 Lesson</h2></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td > 
+                                    <h2 style="font-weight: bold !important;">Run-on sentences</h2>
+                        
+                                <p>These are two sentences that has not separated with an end punctuation mark, or has not joined with a conjunction. I went to Paris in the vacation it is the most beautiful place I have ever visited.</p>
+                                <h3>Examples</h3>
+                                <ul class="space list">
+                                  <li>	It's never too late to learn to swim. You never know when you may fall from a boat.</li>
+                                    <li>If you're going to the shops, can you buy me some eggs and flour? I want to make a cake.</li>
+                                    <li>I like our new math teacher. She always explains the work very clearly.</li>
+                                    <li>He was late to school again. His bus got caught in heavy traffic.</li>
+                                </ul>
+                            <p>
+                                It is helpful to read your written work aloud. When you speak, you will make natural pauses to mark the end of your sentences or clauses. If there is no corresponding end punctuation mark in your writing, <br> you can be almost certain that you have written a run-on sentence.
+                                
+
+                            </p>
+                            <h1 class="bg-white boxspace" style="font-weight: bold !important;">Subject/predicate</h1>
+                            
+                            <p>All sentences are about something or someone. The something or someone that the sentence is about is called the <b> subject </b> of the sentence. <br>    In the following sentences the subjects are shown in red. </p>
+                                    <h3>Examples</h3>
+                          <ul class="space list">
+                              <li>John often comes late to class.</li>
+                                    <li>My friend and I both have a dog named Tiger.</li>
+                                    <li>Many parts of the Asian coastline were destroyed by a tsunami in 2004.</li>
+                            </ul>
+                            <p>
+                                The <b> predicate </b>contains information about the someone or something that is the subject. The example sentences above are shown again, this time with the predicate marked in green.
+
+                                
+                            </p>
+                            <ul class="list space">
+                                <li>
+                                	John often comes late to class.
+                                </li>
+                           <li>My friend and I both have a dog named Tiger.</li>
+                           <li> Many parts of the Asian coastline were destroyed by a tsunami in 2004.</li>
+                        </ul>
+                    </td>
+                          </tr>
+                          
+                          <tr>
+                              <td>
+                                <h1 class="bg-white boxspace" style="font-weight: bold !important;">Sentences – Level 5 Examples</h1>
+                                <h2 class="">Run-on sentences</h2>
+                                <ul class="space list">
+                                <li>It's never too late to learn to swim. You never know when you may fall from a boat.</li>
+                                <li>If you're going to the shops, can you buy me some eggs and flour? I want to make a cake.</li>
+                                <li>I like our new math teacher. She always explains the work very clearly.</li>
+                                <li>He was late to school again. His bus got caught in heavy traffic.</li>
+                            </ul>
+                            <h2 class="">Subject/predicate</h2>
+                                <p>Example for Subject</p>
+                                
+                                
+                                
+                                <ul class="space list">
+                                <li> John often comes late to class.</li>
+                                <li> My friend and I both have a dog named Tiger.</li>
+                                <li>Many parts of the Asian coastline were destroyed by a tsunami in 2004.</li>
+                                <li>The old hotel at the end of the street is going to be knocked down to make way for a new supermarket.</li>
+                                <li>Sitting in a tree at the bottom of the garden was a huge black bird with long blue tail feathers.</li>
+                                <li>The class 7 boy who has just started at Creating Futures speaks excellent English.</li>
+                                <li>On Saturdays I never get up before 9 o'clock.</li>
+                                <li>Before giving a test, the teacher should make sure that the students are well-prepared.</li>
+                                <li>Lying on the sofa watching old films is my favourite hobby.</li>
+                                <li>John often comes late to class.</li>
+                                <li>My friend and I both have a dog named Tiger.</li>
+                                <li>Many parts of the Asian coastline were destroyed by a tsunami in 2004.</li>
+                                <li>The old hotel at the end of the street is going to be knocked down to make way for a new supermarket.</li>
+                                <li>Sitting in a tree at the bottom of the garden was a huge black bird with long blue tail feathers.</li>
+                                <li>The class 7 boy who has just started at Creating Futures speaks excellent English.</li>
+                                <li>On Saturdays I never get up before 9 o'clock.</li>
+                                <li>Before giving a test the teacher should make sure that the students are well-prepared.</li>
+                                <li>Lying on the sofa watching old films is my favourite hobby.</li>
+                            </ul>
+                              </td>
+                              
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+    
+{% endblock content %} 

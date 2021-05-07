@@ -1,0 +1,83 @@
+
+#top {
+top: 0;
+background-color: orange;
+height: 100px;
+}
+
+
+
+
+#top {
+  top: 0;
+  background-color: orange;
+  height: 100px;
+}
+
+.StudentModuleClass h2{
+font-size: 16px !important;
+font-weight: bold !important;
+}
+
+
+
+
+.StudentModuleClass h1 {
+  font-family: "Century Gothic";
+  font-weight: bold !important;
+  font-size: 18px !important;
+
+
+}
+
+
+.StudentModuleClass p,
+.StudentModuleClass  ul.list,
+.StudentModuleClass  ol,
+.StudentModuleClass  h4,
+.StudentModuleClass  h3 {
+  font-family: "Century Gothic";
+  font-size: 10px !important;
+  font-size: 14px !important;
+
+}
+.StudentModuleClass h3{
+  font-weight: bold !important;
+  font-size: 14px;
+
+  
+}
+.StudentModuleClass h4{
+  font-weight: bold !important;
+  font-size: 14px;
+ 
+
+}
+.StudentModuleClass .boxspace{
+  padding: 6px !important;
+}
+.StudentModuleClass td,
+.StudentModuleClass  th {
+ /* border: 1px solid black;
+  border-collapse: collapse;
+  color: black;*/
+  font-size: large;
+  font-size: 14px !important;
+}
+
+.StudentModuleClass th,
+.StudentModuleClass  td {
+  padding: 20px;
+  background-color: none;
+}
+
+
+.StudentModuleClass  .space li{
+  margin-bottom: 9px !important;
+  
+}
+.StudentModuleClass  .space ul{
+  margin-bottom: 8px !important;
+  font-size: 14px !important;
+}
+

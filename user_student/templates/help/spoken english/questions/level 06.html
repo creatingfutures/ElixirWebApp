@@ -1,0 +1,94 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 6 LESSON</a></li>
+            
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Questions Level 6  </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                
+                                
+                                <p>
+                                    This level will involve questions which need decision making. We will introduce you to various questioning techniques at this level. These questions collect information and could be used for research purposes. This includes the following</p>
+                                    <p>
+                                        1.	Multiple Choice Questions <br>
+                                        2.	Survey Related Questions
+                                        
+                            </p>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class=" mleft">
+                                <h2 class="bg-white boxspace"><b> Example </b></h2>
+                                <h3 class="bg-white boxspace"><b> Multiple choice questions  </b></h3>
+                                <p>1.	Which flavour of ice cream do you like? (select all that is applicable) </p>
+                                <ul class="list space">
+                                    <li>Chocolate  </li>
+                                    <li> Vanilla</li>
+                                    <li>Strawberry </li>
+                                    <li>Pista </li>
+                                    <li>Orange</li>
+                                </ul>
+                                <p>2.	Which state do you live in? (select only one option) </p>
+
+                                <ul class="list space">
+                                    <li>Karnataka</li>
+                                    <li>Maharashtra </li>
+                                    <li>Kerala </li>
+                                    <li>Tamil Nadu</li>
+                                </ul>
+                                
+
+                                <h3 class="bg-white boxspace">Survey related questions </h3>
+                                
+                                <ul class="list space" style="list-style: decimal;">
+                                    <li>How do you rate the course?
+                                <ul style="list-style: circle;">
+                                    <li>
+                                        1 being low and 5 being highest (Can add slider/radio buttons) 
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Did you learn something useful today? 
+                                <ul style="list-style: circle;">
+                                    <li>
+                                        Yes / No 
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

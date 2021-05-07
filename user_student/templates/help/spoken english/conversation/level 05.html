@@ -1,0 +1,61 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a>
+            </li>
+            <li>
+                <a href="#">LEVEL 5 LESSON</a>
+            </li>
+            
+        </ul>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Conversation  –
+                                    Level 5 </h1>
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    Conversations involve interactions between two or more people about something of interest. In other words, conversation is simply talking to someone else. Below are some points for a good conversation
+                                </p>
+                                <ul class="list space">
+                                   <li>Conversation is always Two-Way - The first and most important rule of conversation is that it is not all about you, but it’s not all about the other person either</li>
+                                   <li>Be Friendly and Polite - Smiling, and being nice, will take you a long way in conversational terms. Everyone would rather chat to someone friendly and pleasant.</li>
+                                   <li>Respond to What They are Saying - To respond genuinely to what someone has just said means that we have to listen.</li>
+                                   <li>Use Signalling to Help the Other Person - When a conversation is flowing well, it moves naturally from one person to the other. However, if one or both are finding it more of a struggle to continue, you may use ‘signals’ to show the other person that it is their turn to talk. The most common type of signal is questions. These may be either open or closed.</li>
+                                   <li>Closed questions invite a yes/no answer. In conversation, they might include “Don’t you agree?”, and “Are you enjoying the party?”</li>
+                                   <li>Open questions invite more information.</li>
+                                   <li>Create Emotional Connections - Conversation is also a way to explore whether you wish to know someone better and build a relationship with them. It can therefore be useful to understand how to use conversation to create and build emotional connections.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

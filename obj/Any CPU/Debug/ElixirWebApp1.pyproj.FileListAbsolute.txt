@@ -1,0 +1,3 @@
+C:\Users\DELL\Documents\GitHub\new\ElixirWebApp\obj\Any CPU\Debug\ElixirWebApp1.pyproj.CoreCompileInputs.cache
+C:\Users\DELL\Documents\GitHub\new\ElixirWebApp\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\DELL\Documents\GitHub\new\ElixirWebApp\bin\wfastcgi.py

@@ -58,7 +58,7 @@ class add_question_form(forms.ModelForm):
     class Meta:
         model = question
         fields = ['question_type', 'level', 'question', 'narrative', 'hint', 'comments',
-                  'created_by', 'updated_by', 'question_content']
+                  'created_by', 'updated_by', 'assessment_type', 'question_content']
         widgets = {'comments': forms.Textarea,
                    'question': forms.Textarea}
 
@@ -84,16 +84,19 @@ class add_question_form(forms.ModelForm):
                 pass
         elif self.instance.pk:
             self.fields['module'].queryset = self.instance.program.program_module_set
+            self.fields['program'].initial = self.instance.program
 
         if 'module' in self.data:
             try:
                 module = int(self.data.get('module'))
                 self.fields['level'].queryset = module_level.objects.filter(
                     module=module)
+
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
             self.fields['level'].queryset = self.instance.module.module_level_set
+            self.fields['module'].initial = self.instance.module
 
 
 class add_option_base_formset(forms.BaseFormSet):

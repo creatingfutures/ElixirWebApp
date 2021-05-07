@@ -1,0 +1,77 @@
+h1
+     {
+        font-family: "Roboto", sans-serif;
+        color:lightgrey;
+        text-shadow: 2px 2px #FF0000;
+    }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6{
+        font-family: "Roboto", sans-serif;
+        color:orangered;
+    }
+
+    body {
+        font-family: "Roboto", sans-serif;
+        color:lightgrey;
+        
+        background: lightgrey;
+        font-family: Montserrat;
+        font-size: 20px;
+    }
+
+    p{
+        color: black;
+    }
+
+    ol,ul {
+        color: black;
+    }
+    table,td,th{
+        border: 3px solid black;
+        border-collapse: collapse;
+        color: black;
+    }
+    th, td { 
+        padding: 20px; 
+        background-color:none; 
+    } 
+
+    .content {
+             
+        max-width: 980px;
+    }
+
+    .margin {
+        outline-style: dashed;
+        outline-color:red;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    .marginbottom {
+        margin-bottom: 16px;
+    }
+
+    .block {
+        display: block;
+        width: 100%;
+    }
+
+    .container {
+        padding: 16px;
+        background-color: white;
+    }
+
+    .card {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        color: #FFFAF0;
+    }
+
+    .opacity {
+        opacity: 0.75;
+    }

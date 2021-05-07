@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+ 
+       
+{% endblock page_specific_htmlhead%}
+{% block content %}     
+    <ul class="breadcrumb">
+    <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}" >MODULES</a></li>
+    </ul>
+
+    <ul class="breadcrumb">
+        <li>{{name}}</li>
+      </ul>
+    <table  cellpadding= "1" >
+          {% for i in d  %}   
+          <tr>
+            <td  style="padding-left: 7%;">  {{i}} </td>
+            <td  style="padding-left: 7%;">
+                <ul class="breadcrumb" style="padding:0px 10px;">
+                  <li class="Match The Following"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'match' pk pk1 pk2 m.pk l.pk i assessment_type_id %}'">Start Test</button></li>
+                </ul>
+                <ul class="breadcrumb" style="padding:0px 10px;">
+                  <li class="Word Search"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'word_find' pk pk1 pk2 m.pk l.pk i assessment_type_id %}'">Start Test</button></li>
+                </ul>
+                <ul class="breadcrumb" style="padding:0px 10px;">
+                  <li class="Crossword"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'crossword' pk pk1 pk2 m.pk l.pk i assessment_type_id %}'">Start Test</button></li>
+                </ul>
+                <ul class="breadcrumb" style="padding:0px 10px;">
+                  <li class="Audio"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'av_test' pk pk1 pk2 m.pk l.pk assessment_type_id i %}'">Start Test</button></li>
+                </ul>
+                <ul class="breadcrumb" style="padding:0px 10px;">
+                  <li class="Video"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'av_test' pk pk1 pk2 m.pk l.pk assessment_type_id i %}'">Start Test</button></li>
+                </ul>
+                <ul class="breadcrumb" style="padding:0px 10px;">
+                  <li class="Text Test"><button id="submit" class="button" style="width:120px" onclick="location.href='{% url 'av_test' pk pk1 pk2 m.pk l.pk assessment_type_id i %}'">Start Test</button></li>
+                </ul>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+    <script type="text/javascript">
+        var name = "{{assessment_type|safe}}";
+        console.log(name);
+        var len = {{d|safe}};
+        var len = len.length;
+        if(name=="Word Search"){
+          console.log(name);
+          for (var i = 0;i<len;i++){
+            document.getElementsByClassName('Match The Following')[i].style.display='none';
+            document.getElementsByClassName('Crossword')[i].style.display='none';
+            document.getElementsByClassName('Text Test')[i].style.display='none';
+            document.getElementsByClassName('Video')[i].style.display='none';
+            document.getElementsByClassName('Audio')[i].style.display='none';
+          }
+        }
+        if(name=="Match The Following"){
+          console.log(name);  
+          for (var i = 0;i<len;i++){
+            document.getElementsByClassName('Word Search')[i].style.display='none';
+            document.getElementsByClassName('Crossword')[i].style.display='none';
+            document.getElementsByClassName('Text Test')[i].style.display='none';
+            document.getElementsByClassName('Video')[i].style.display='none';
+            document.getElementsByClassName('Audio')[i].style.display='none';
+          }
+        }
+
+        if(name=="Crossword"){
+          console.log(name);
+          for (var i = 0;i<len;i++){
+            document.getElementsByClassName('Match The Following')[i].style.display='none';
+            document.getElementsByClassName('Word Search')[i].style.display='none';
+            document.getElementsByClassName('Text Test')[i].style.display='none';
+            document.getElementsByClassName('Video')[i].style.display='none';
+            document.getElementsByClassName('Audio')[i].style.display='none';
+          }
+        }
+
+        if(name=="Video"){
+          console.log(name);
+          for (var i = 0;i<len;i++){
+            document.getElementsByClassName('Match The Following')[i].style.display='none';
+            document.getElementsByClassName('Word Search')[i].style.display='none';
+            document.getElementsByClassName('Text Test')[i].style.display='none';
+            document.getElementsByClassName('Audio')[i].style.display='none';
+            document.getElementsByClassName('Crossword')[i].style.display='none';
+          }
+        }
+
+        if(name=="Audio"){
+          console.log(name);
+          for (var i = 0;i<len;i++){
+            document.getElementsByClassName('Match The Following')[i].style.display='none';
+            document.getElementsByClassName('Word Search')[i].style.display='none';
+            document.getElementsByClassName('Text Test')[i].style.display='none';
+            document.getElementsByClassName('Video')[i].style.display='none';
+            document.getElementsByClassName('Crossword')[i].style.display='none';
+          }
+        }
+        if(name=="Text Test"){
+          console.log(name);
+          for (var i = 0;i<len;i++){
+            document.getElementsByClassName('Match The Following')[i].style.display='none';
+            document.getElementsByClassName('Word Search')[i].style.display='none';
+            document.getElementsByClassName('Video')[i].style.display='none';
+            document.getElementsByClassName('Audio')[i].style.display='none';
+            document.getElementsByClassName('Crossword')[i].style.display='none';
+          }
+        }
+
+
+
+    </script>
+
+{% endblock content %} 

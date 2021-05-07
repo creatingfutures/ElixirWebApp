@@ -1,0 +1,21 @@
+{% extends 'edit_question/main.html' %}
+{% load static %}
+{% block question_type_form %}
+<p>
+    <label>Question <span style="color:red">*</span> :</label>
+    {{form.question}}
+</p>
+
+<div class="options">
+    {{option_formset.management_form}}
+    {% for option_form in option_formset%}
+    <div class="option">
+        <p>
+            <label>{{option_form.is_right_option.label}}<span style="color:red">*</span></label>
+            {{option_form.option_description}}
+        </p>
+    </div>
+    {%endfor%}
+</div>
+<script src={% static 'edit_question/js/add_question_option.js' %}></script>
+{% endblock question_type_form %}

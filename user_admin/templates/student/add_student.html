@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %} {% block content %}
+{% load static %}
+<!doctype html>
+<br>
+         <div id="box">
+           <form  method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+
+               <p>
+               <label>First Name <span style="color:red">*</span> :</label>
+               {{form.first_name}}{{form.first_name.errors}}</p>
+              <p>
+               <label>Middle Name :</label>
+               {{form.middle_name}}{{form.middle_name.errors}}</p>
+               <p>
+               <label>Last Name <span style="color:red">*</span> :</label>
+               {{form.last_name}}{{form.last_name.errors}}</p>
+               <p>
+               <label>DOB <span style="color:red">*</span> :</label>
+                   {{form.dob}} <p><p>Format : yyyy-mm-dd</p></p>{{form.dob.errors}}
+               <p>
+               <label>Address <span style="color:red">*</span> :</label>
+               {{form.address_1}}{{form.address_1.errors}}</p>
+               <p>
+               <label>Mobile No <span style="color:red">*</span> :</label>
+               {{form.mobile_number}}{{form.mobile_number.errors}}</p>
+
+               <p>
+               <label>Email ID <span style="color:red">*</span> :</label>
+               {{form.email_id}}{{form.email_id.errors}}</p>
+               <p>
+               <label>Gender <span style="color:red">*</span> :</label>
+               {{form.gender}}{{form.gender.errors}}</p>
+
+               <p>
+               <label>Language Known <span style="color:red">*</span> :</label>
+               {{form.languages}}{{form.languages.errors}}</p>
+
+               <p>
+               <label>Password:</label>
+               {{form.password}}{{form.password.errors}}</p>
+               <p>
+               <label>Enrollment Date:</label>
+               {{form.enroll_date}}<p><p>Format : yyyy-mm-dd</p></p>{{form.enroll_date.errors}}</p>
+
+                 <p>
+                 <label>Status <span style="color:red">*</span> :</label>
+                 {{form.status}}{{form.status.errors}}</p>
+
+               <p><label>Photo Upload:</label>
+               {{form.image}}  <img src="{{form.instance.image.url}}" style="width:100%;height:auto"  alt=" ">{{form.image.errors}}</p>
+
+               <p>
+               <label>Comments:</label>
+               {{form.comments}}{{form.comments.errors}}</p>
+
+
+               <div id="container">
+               <input type="submit" class="button" value="Submit">&ensp;
+               <button
+               type="button"
+               class="button"
+               onclick="back()"
+             >
+               Cancel
+             </button>
+               </div>
+             
+           </form>
+
+           </div>
+    {% endblock content %}

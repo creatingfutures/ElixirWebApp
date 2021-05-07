@@ -1,0 +1,127 @@
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.collapsible1 {
+    background-color: #777;
+    color: white;
+    width: 1550px;
+}
+
+.collapsible1 >h4 {
+text-align:left;
+margin-left:100px;
+}
+
+.clickableLvl {
+    background-color: #777;
+    color: white;
+    width: 1550px;
+    text-align:left;
+}
+
+    .clickableLvl > h4, clickableLvl > h4 > a {
+        margin-left: 80px;
+        font-family: 'Century Gothic' !important;
+        font-size: 15px;
+        color: white !important;
+        font-weight: bold;
+    }
+
+.collapsible > h2, .collapsible > b {
+    font-family: 'Century Gothic' !important;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+/*.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}*/
+
+.collapsible > h2:after, .collapsible > b:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+/*.active:after {
+    content: "\2212";
+}*/
+
+.active > h2:after, .active > b:after {
+    content: "\2212";
+}
+
+.content {
+    padding: 0 0px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #777;
+    font-family: 'Century Gothic';
+    font-weight: bold;
+    color: white;
+}
+
+.content > button {
+    font-family:'Century Gothic';
+    font-weight:bold;
+    color:white;
+
+}
+
+.content1 {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: white;
+    width:1515px;
+}
+
+.content > table {
+    /*width: 100%;*/
+    color: white;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.content1 > table {
+    width: 100%;
+}
+
+    .content1 > table > tBody > tr > :first-child {
+        width: 90%;
+        padding-left:125px;
+    }
+
+.content > table > tbody > tr > td {
+    width: 33%;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 35px;
+}
+
+ .content > table > tbody > tr > td > a {
+        color: white;
+        font-weight: bold;
+ }
+

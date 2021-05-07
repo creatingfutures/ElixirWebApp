@@ -1,0 +1,66 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+        <div class="StudentModuleClass">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+                <li><a href="#">LEVEL 3 LESSON</a></li>
+            </ul>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                            <th scope="col" ><h2 class="bg-white boxspace" >Sentences – Level 3 Lesson</h2></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td > 
+                                    <h1 class="bg-white boxspace" style="font-weight: bold !important;">Compound Sentence</h1>
+                        
+                                <p>
+                                    A compound sentence is formed when you join two main clauses with a connective. In a compound sentence the clauses are linked by a conjunctions (and, but, so, or). </p>
+                          
+                                    <ul class="space">
+                                        <li>I like bananas and I like grapes.</li>
+                                        <li>Chandini can be naughty at times but she is a nice girl.</li>
+                                    </ul>
+                                    <p><b>Compound Sentence = main clause +connective +main clause</b></p>
+                           <p>  We could separate the compound sentence into two smaller, complete thoughts </p>
+                           <p> <b>Compound Sentence = main clause +connective +main clause </b></p>
+                           <ul class="list space">
+                                <li>Senthil enjoys watching movies. Sridevi enjoys watching movies too. -> Senthil and Sridevi both enjoy watching movies</li>
+                                <li>I like to walk in the park. I also like watching the ducks there. -> I like to walk in the park and watch the ducks there.</li>
+                            </ul>
+                            <h1  style="font-weight: bold !important;" class="bg-white boxspace">
+                                Sentences – Level 3 Examples
+                            </h1 >
+                            <ul class="list space">
+                                <li>I really need to go to school, but I am too sick</li>
+                                <li>I have a cat, and I have a dog</li>
+                                <li>I want to go to the party, but I have too much homework to do.</li>
+                                <li>My family went to the park yesterday, and we had a wonderful time.</li>
+                                <li>She had to go, so she called a friend to drive her.</li>
+                                
+                            </ul>
+                        </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %} 

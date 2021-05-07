@@ -1,0 +1,122 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %} 
+    
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a>
+            </li>
+            <li>
+                <a href="#">LEVEL 4 LESSON</a>
+            </li>
+        
+         </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                            <th scope="col" ><h2 class="    bg-white boxspace fonth2">Grammar - Level 4 Lesson</h2></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td > 
+                                <h1  style="font-weight: bold !important; " class="bg-white boxspace" >Adjectives</h1>
+                            
+                                <p>
+                                    Adjectives are words that describe the nouns. Adjectives are words that modify or describe nouns. enormous, doglike, silly, 
+                                    yellow, fun, fast. <br> They can also describe the quantity of nouns: many, few, millions, eleven.</p>
+                                    <p>
+                              <p>
+                                  In some sentences, adjectives are easy to identify because they come immediately before the nouns they modify.
+                              </p>
+                              <p>
+                                They can also act as a complement to linking verbs or the verb to be. A linking verb is a verb like to feel, to seem, or to taste that describes a state of being 
+                            </p>
+                            </p>  
+                            <h1 class="bg-white boxspace" style="font-weight: bold !important;">Grammar – Level 4 Examples</h1>
+                            <p>Common list of adjectives</p>
+                        
+                        </tbody>
+                    </table>
+                      <table class="table col-md-5"  >
+                          <tr>
+                         <td>able</td>
+                         <td>Big</td>
+                         <td>different</td>
+                         <td>federal</td>
+                         <td>great</td>
+                         <td>important</td>
+                         <td>local</td>
+                         <td>old</td>
+                        </tr>
+                        <tr>
+                         <td>bad</td> 
+                         <td>black</td>
+                         <td>early</td>
+                         <td>free</td>
+                         <td>hard</td>
+                         <td>large</td>
+                         <td>long</td>
+                         <td>right</td>
+                        </tr>
+                        <tr>
+                        <td>best</td> 
+                        <td>certain</td>
+                        <td>easy</td>
+                        <td>full</td>
+                        <td>high</td>
+                        <td>late</td>
+                        <td>major</td>
+                        <td>small</td>
+                      </tr>
+                      <tr>
+                          <td>better</td>
+                          <td>clear</td>
+                          <td>economic</td>
+                          <td>good</td>
+                          <td>human</td>
+                          <td>little</td>
+                          <td>new</td>
+                          <td>young</td>
+                        </tr>
+                    </table>
+                    <table class="table table-borderless">
+                        <td>
+                            <tr>
+                                <p>
+                                    Adjectives that modify the noun
+                                </p>
+                                <ul class="list">
+                                    <li>Mahesh wore a <b> beautiful </b> hat to the dance contest.</li>
+                                    <li>My cake should have <b> sixteen </b> candles.</li>
+                                    <li>The  <b> scariest</b> villain of all time is Puri.</li>
+                                </ul>
+                                <p>
+                                    Adjectives that act as a complement to linking verb
+                                </p>
+                                <ul class="list">
+                                    <li>That cow is <b> happy</b>.</li>
+                                    <li>It smells <b> gross  </b>in the storeroom.</li>
+                                    <li>Driving is <b> faster</b> than walking.</li>
+                                </ul>
+                            </tr>
+                        </td>
+                    </table>
+                </div>
+            </div>
+    </div>
+    </div>
+
+{% endblock content %} 
