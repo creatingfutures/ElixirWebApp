@@ -41,77 +41,128 @@ def s_home(request, pk, pk1):
     return render(request, 's_home.html', {"p1": programs, "pk": pk, "pk1": pk1, "s": stud})
 
 
+# def spoken_english(request, pk, pk1, programName):
+#     respective_scores = scores.objects.filter(student_id=pk,batch_id=pk1).values('student_id','batch_id','level_id','user_score','total_score','assessment_type_id')
+#     # question_type_name = str(assessment_type.objects.get(assessment_type='General Assessment'))
+#     # print(question_type_name)
+#     A = []
+#     L = []
+#     F = []
+#     for i in respective_scores:
+#         i['assessment_type_id'] = str(assessment_type.objects.get(assessment_type_id=i['assessment_type_id']))
+#         if(i['assessment_type_id'] not in A):
+#             A.append(i['assessment_type_id'])
+#         if(i['level_id'] not in L):
+#             L.append(i['level_id'])
+#     #print(A,L,respective_scores)
+#     for j in L:
+#         L_score = 0
+#         T_score = 0
+#         level = 0
+#         for k in A:
+#             score_U = 0
+#             score_T = 0
+#             for x in respective_scores:
+#                 if(x['assessment_type_id']==k and x['level_id']==j):
+#                     a = k
+#                     score_U+=x['user_score']
+#                     score_T+=x['total_score']
+#                     level = x['level_id']
+#             if(level!=0 and not (score_T==0)):
+#                 F.append(str(a)+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(score_U)+','+str(score_T))
+#                 L_score+=score_U
+#                 T_score+=score_T
+#         F.append('L'+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(L_score)+','+str(T_score))
+#     #assessment = assessment_type.objects.exclude(assessment_type='General Assessment')
+#     #print(assessment)
+#     respective_scores = json.dumps(list(respective_scores))
+#     programObj=program.objects.filter(program_name=programName)
+#     programId = 0
+#     if len(programObj)>0:
+#         programId=programObj[0].program_id
+#     else:
+#          return render(request,'error.html',{"pk": pk, "pk1": pk1})
+#     print(respective_scores)
+
+#     if programName.lower() == "education to employability":
+#         modules = program_module.objects.filter(program_id=programId)
+#         program1 = program.objects.get(pk=programId)
+#         levels=[]
+#         for i in modules:
+#             levels.append(module_level.objects.filter(
+#             module_id=i.module_id).order_by('level_description'))
+#         return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+
+#     if programName.lower() == "computer coaching":
+#         modules = program_module.objects.filter(program_id=programId)
+#         program1 = program.objects.get(pk=programId)
+#         levels=[]
+#         for i in modules:
+#             levels.append(module_level.objects.filter(
+#             module_id=i.module_id).order_by('level_description'))
+#         return render(request, "computer_coaching.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
+
+    # else:
+    #     modules = program_module.objects.filter(program_id=programId)    
+    #     if len(modules)>0:
+    #         # order = [4, 1, 0, 7, 3, 2, 6, 5]
+    #         #modules = [modules[i] for i in order]
+    #         program1 = program.objects.get(pk=programId)
+    #         levels=[]
+    #         for i in modules:
+    #             levels.append(module_level.objects.filter(
+    #             module_id=i.module_id).order_by('level_description'))
+    #         return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
+    #     else:
+    #         return render(request,'error.html',{"pk": pk, "pk1": pk1})
 def spoken_english(request, pk, pk1, programName):
-    respective_scores = scores.objects.filter(student_id=pk,batch_id=pk1).values('student_id','batch_id','level_id','user_score','total_score','assessment_type_id')
-    question_type_name = str(assessment_type.objects.get(assessment_type='General Assessment'))
-    #print(question_type_name)
-    A = []
-    L = []
-    F = []
-    for i in respective_scores:
-        i['assessment_type_id'] = str(assessment_type.objects.get(assessment_type_id=i['assessment_type_id']))
-        if(i['assessment_type_id'] not in A):
-            A.append(i['assessment_type_id'])
-        if(i['level_id'] not in L):
-            L.append(i['level_id'])
-    #print(A,L,respective_scores)
-    for j in L:
-        L_score = 0
-        T_score = 0
-        level = 0
-        for k in A:
-            score_U = 0
-            score_T = 0
-            for x in respective_scores:
-                if(x['assessment_type_id']==k and x['level_id']==j):
-                    a = k
-                    score_U+=x['user_score']
-                    score_T+=x['total_score']
-                    level = x['level_id']
-            if(level!=0 and not (score_T==0)):
-                F.append(str(a)+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(score_U)+','+str(score_T))
-                L_score+=score_U
-                T_score+=score_T
-        F.append('L'+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(L_score)+','+str(T_score))
-    #assessment = assessment_type.objects.exclude(assessment_type='General Assessment')
-    #print(assessment)
-    respective_scores = json.dumps(list(respective_scores))
+
     programObj=program.objects.filter(program_name=programName)
     programId = 0
     if len(programObj)>0:
         programId=programObj[0].program_id
     else:
          return render(request,'error.html',{"pk": pk, "pk1": pk1})
-    print(respective_scores)
-    # if programName.lower() == "education to employability":
-    #     modules = program_module.objects.filter(program_id=programId)
-    #     program1 = program.objects.get(pk=programId)
-    #     levels=[]
-    #     for i in modules:
-    #         levels.append(module_level.objects.filter(
-    #         module_id=i.module_id).order_by('level_description'))
-    #     return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+    program_modules = program_module.objects.filter(program_id=programId)
+    print("modules")
+    print(program_modules)
+    program_module_ids = [module.module_id for module in program_modules];
+    program_levels= module_level.objects.filter(module_id__in=program_module_ids)
+   # for i in modules:
+       #levels.append(module_level.objects.filter(module_id=i.module_id).order_by('level_description'))
+    print ("levels")
+    print(program_levels)
+    program_level_ids= [level.level_id for level in program_levels]
+    program_scores = scores.objects.filter(student_id=pk,batch_id=pk1,level_id__in=program_level_ids).all()
+    question_type_name = str(assessment_type.objects.get(assessment_type='General Assessment'))
+    #print(question_type_name)
+    assesment_type_in_scores = [score.assessment_type_id for score in program_scores ]
+    levels_in_scores = [score.level_id for score in program_scores]
+    F = []
+    all_scores={}
+    scores_level={}
+    scores_module={}
+    scores_level_keys=[score.level_id.module.module_name +'-'+score.level_id.level_description  for score in program_scores]
+    scores_module_keys=[score.level_id.module.module_name for score in program_scores]
 
-    if programName.lower() == "computer coaching":
-        modules = program_module.objects.filter(program_id=programId)
-        program1 = program.objects.get(pk=programId)
-        levels=[]
-        for i in modules:
-            levels.append(module_level.objects.filter(
-            module_id=i.module_id).order_by('level_description'))
-        return render(request, "computer_coaching.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": program1,"l":zip(modules,levels)})
-
+    all_scores = {str(score.level_id.module.module_name)+'-'+str(score.level_id.level_description)+'-'+str(score.assessment_type_id.assessment_type) : round( ((score.user_score/score.total_score)*100),2) for score in program_scores}
+    scores_level = {}
+    for lvl_key in scores_level_keys:
+        level_scores = [value for key, value in all_scores.items() if lvl_key.lower() in key.lower()]
+        all_scores[lvl_key]= round( (sum(level_scores)/len(level_scores)),2)
+    for module_key in scores_module_keys:
+        module_scores = [value for key, value in all_scores.items() if module_key.lower() in key.lower()]
+        all_scores[module_key]= round((sum(module_scores)/len(module_scores)),2)
+    if programName.lower() == "education to employability":
+        return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    
+    elif programName.lower() == "computer coaching":
+        return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    
     else:
-        modules = program_module.objects.filter(program_id=programId)    
-        if len(modules)>0:
-            order = [4, 1, 0, 7, 3, 2, 6, 5]
-            #modules = [modules[i] for i in order]
-            program1 = program.objects.get(pk=programId)
-            levels=[]
-            for i in modules:
-                levels.append(module_level.objects.filter(
-                module_id=i.module_id).order_by('level_description'))
-            return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
+       # modules = program_module.objects.filter(program_id=programId)    
+        if len(program_modules)>0:
+           return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l": program_levels,'scores':all_scores})
         else:
             return render(request,'error.html',{"pk": pk, "pk1": pk1})
           
@@ -394,10 +445,12 @@ def standard_test(request, pk, pk1, pk2, pk3, pk4):
     data = serializers.serialize('json', result)
     request.session['questions'] = data
     module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1)
     level1 = module_level.objects.get(pk=pk4)
     i = -1
+    print(module1)
     return render(request, "standard_test.html",
-                  { "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "m": module1, "l": level1})
+                  { "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"m": module1,"l": level1})
 
 
 def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
@@ -417,9 +470,11 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
         score = s
         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
         total_score = len(questions1)
+        module1 = program_module.objects.get(pk=pk3)
+        programName = program.objects.get(program_module=module1)
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_score)
         return render(request, "test_submit.html",
-                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len": len(questions1)})
 
     if questions1[i].question_type.question_type == "Multiple Choice":
         return render(request, "mcq.html",

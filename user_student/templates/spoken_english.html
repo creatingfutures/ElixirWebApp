@@ -20,73 +20,82 @@
         <h1> {{p.program_name|allcaps}}</h1>
     </center>
     
-    {% for i,lev in l %}
-    
-    <button class="collapsible"><b>{{i.module_name|allcaps}} </b></button>
-    <div class="content">
-    {% for j in lev %}
-  <button class="collapsible1"><h4>{{j.level_description|allcaps}}
-      <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
-      <b id='L,{{pk}},{{pk1}},{{j.pk}}' style="color:white;margin-left:1050px;" > Score : XX</b></h4>
-  </button>    
-  <div class="content1"> 
-    <table class="myTable">
-      {% for b in j.level_id|prefix %}
-        {% if b.assessment_type == "General Assessment" %}  
-        <tr>
-          <td><a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> </td>
-          <td id='General Assessment,{{pk}},{{pk1}},{{j.pk}}' style="color:red">Y</td>
-        </tr>
-        {% else %}
-        <tr>      
-          <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk b.assessment_type_id %}">{{b.assessment_type}}</a></td>
-          <td id='{{b.assessment_type}},{{pk}},{{pk1}},{{j.pk}}'style="color:red" >Y  </td>
-          </tr>
+    {% for i in m %}
+        {% with modulename=i.module_name %}
+         <button class="collapsible">
+                <b>{{modulename|allcaps}} </b>
+         </button>
+        <div class="content">
+       {% for j in l %}
+        {% if j.module == i %}
+         {% with levelname=j.level_description levelkey=i.module_name|add_str:j.level_description %}
+           
+           
+      
+              <button class="collapsible1">
+                  <h4>
+                      {{levelname|allcaps}}
+                          <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
+                          <b id='score-{{modulename}}-{{levelname}}' style="color:white;margin-left:1050px;" data-score='{{scores|get_dictionary_item:levelkey}}'>
+                            Score : {{scores|get_dictionary_item:levelkey}}%
+                          </b>
+                  </h4>
+              </button>    
+              <div class="content1"> 
+                <table class="myTable">
+                  {% for b in j.level_id|prefix %}
+                    {% with assesmentname=b.assessment_type assesmentkey=levelkey|add_str:b.assessment_type %}
+                        {% if assesmentname == "General Assessment" %}
+                        <tr>
+                          <td>
+                            <a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> 
+                          </td>
+                          {% with assesmentscore=scores|get_dictionary_item:assesmentkey %}
+                          <td id='score-{{assesmentKey}}' data-score='{{assesmentscore}}'>
+                            {{assesmentscore}} %
+                          </td>
+                          {% endwith %}
+                        </tr>
+                        {% else %}
+                        <tr>      
+                          <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk b.assessment_type_id %}">{{b.assessment_type}}</a></td>
+                         {% with assesmentscore=scores|get_dictionary_item:assesmentkey %}
+                          <td id='score-{{assesmentKey}}'data-score='{{assesmentscore}}'>
+                            {{assesmentscore}} %
+                          </td>
+                          {% endwith %}
+                          </tr>
+                        {% endif %}
+                    {% endwith %}
+                  {% endfor %}
+                </table>
+              </div> 
+            
+         {% endwith %}
         {% endif %}
+     {% endfor %}
+        </div>
+     {% endwith %}
     {% endfor %}
-       </table>
-      </div> 
-      {% endfor %}
-    </div>
-      {% endfor %}
       
   
   
     <script type="text/javascript">
-
+        $( document ).ready(function() {
+            $('[id^=score]').each(function(index,val){
+                var score=parseInt($(this).attr('data-score'));
+                if (score >80){
+                    $(this).addClass("green")
+                     $(this).removeClass("red")
+                }
+                else{
+                     $(this).addClass("red")
+                     $(this).removeClass("green")
+                }
+            });
+    });
     
-      var score = 0;
-      var respective_scores = {{respective_scores|safe}};
-      var F = {{F|safe}};
-      var user_score = 0;
-      var total_score = 1;
-      var total_user_score = 0;
-      var total_total_score = 1;
-      //console.log(F);
-      for(var i=0;i<F.length;i++){
-        res = F[i].split(',');
-        console.log('res',String(res.slice(0,4)));
-        res = String(res.slice(0,4));
-        console.log('find',F);
-        user_score = F[i].split(',').slice(4)[0];
-        total_score = F[i].split(',').slice(4)[1];
-        console.log('2020',user_score,total_score);
-        if(F[i].split(',').slice(0)[0]=='L'){
-          var score_style = document.getElementById(res);
-          score_style.innerHTML= ' Score: '+ Math.round((user_score/total_score)*100)+'%';
-          score_style.style.margin = "0px 0px 0px 1050px";
-        }
-        else{
-          score_style = document.getElementById(res);
-          console.log(score_style);
-          score_style.innerHTML= Math.round((user_score/total_score)*100)+'%';
-          
-          if(user_score>=0.8*total_score){
-            score_style.style.color = "green";
-          }
-        }
-       
-      }
+  
       
       var coll=document.getElementsByClassName("collapsible");
           var i;
