@@ -1,0 +1,3 @@
+C:\CF\Elixir\obj\Any CPU\Debug\Elixir.pyproj.CoreCompileInputs.cache
+C:\CF\Elixir\bin\Microsoft.PythonTools.WebRole.dll
+C:\CF\Elixir\bin\wfastcgi.py
