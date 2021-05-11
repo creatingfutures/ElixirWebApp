@@ -82,6 +82,10 @@ def spoken_english(request, pk, pk1, programName):
         all_scores[module_key]= round((sum(module_scores)/len(module_scores)),2)
     if programName.lower() == "education to employability":
         return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    
+    elif programName.lower() == "computer coaching":
+        return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    
     else:
 
        # modules = program_module.objects.filter(program_id=programId)    
@@ -368,10 +372,12 @@ def standard_test(request, pk, pk1, pk2, pk3, pk4):
     data = serializers.serialize('json', result)
     request.session['questions'] = data
     module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1)
     level1 = module_level.objects.get(pk=pk4)
     i = -1
+    print(module1)
     return render(request, "standard_test.html",
-                  { "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "m": module1, "l": level1})
+                  { "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"m": module1,"l": level1})
 
 
 def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
@@ -391,9 +397,11 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
         score = s
         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
         total_score = len(questions1)
+        module1 = program_module.objects.get(pk=pk3)
+        programName = program.objects.get(program_module=module1)
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_score)
         return render(request, "test_submit.html",
-                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len": len(questions1)})
 
     if questions1[i].question_type.question_type == "Multiple Choice":
         return render(request, "mcq.html",
