@@ -163,7 +163,15 @@ urlpatterns = [
          s_views.test_submit, name="test_submit"),
 
 
-    path('error/', views.error, name="error")
+    path('error/', views.error, name="error"),
+    path('LifeSkills/', s_views.Mi, name="Lifeskills" ),
+    path('Out/', s_views.Out, name="Out" ),
+    path('LT/', s_views.Listen, name="LT" ),
+    path('Lscore/', s_views.LScore, name="Lscore" ),
+    path('LHome/', s_views.LHome, name="LHome" ),
+     path('Mview/', s_views.Module_view_SK, name="Mview" ),
+     path('Mview1/', s_views.Module_view_LS, name="Mview1" ),
+     path('Mhome/', s_views.Mhome, name="Mhome" ),
 
 
 

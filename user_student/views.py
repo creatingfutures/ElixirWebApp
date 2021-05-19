@@ -576,3 +576,23 @@ def test_submit(request, pk, pk1, pk2, pk3, pk4):
         s.save()
 
     return render(request, "dummy.html")
+
+def Mi(request):
+    return render(request, "Mi.html")
+    
+def Out(request):
+     return render(request, "Out.html")
+
+def Listen(request):
+    return render(request, "listening.html")
+    
+def LScore(request):
+    return render(request, "Lscoring.html")  
+def LHome(request):
+    return render(request, "LHome.html")   
+def Module_view_SK(request):
+    return render(request, "module_view_lifeskills.html")    
+def Module_view_LS(request):
+    return render(request, "module_view_ss.html") 
+def Mhome(request):
+    return render(request, "Mhome.html")    
