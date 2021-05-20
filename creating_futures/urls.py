@@ -164,9 +164,10 @@ urlpatterns = [
 
 
     path('error/', views.error, name="error"),
-    path('LifeSkills/', s_views.Mi, name="Lifeskills" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/Mi/', s_views.Mi, name="Mi" 
+         ),
     path('Out/', s_views.Out, name="Out" ),
-    path('LT/', s_views.Listen, name="LT" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/LT/', s_views.Listen, name="LT" ),
     path('Lscore/', s_views.LScore, name="Lscore" ),
     path('LHome/', s_views.LHome, name="LHome" ),
      path('Mview/', s_views.Module_view_SK, name="Mview" ),

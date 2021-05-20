@@ -80,19 +80,20 @@ def spoken_english(request, pk, pk1, programName):
     for module_key in scores_module_keys:
         module_scores = [value for key, value in all_scores.items() if module_key.lower() in key.lower()]
         all_scores[module_key]= round((sum(module_scores)/len(module_scores)),2)
-    if programName.lower() == "education to employability":
-        return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+
+    #if programName.lower() == "education to employability":
+    #    return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
     
-    elif programName.lower() == "computer coaching":
-        return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    #elif programName.lower() == "computer coaching":
+    #    return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
     
-    else:
+    #else:
 
        # modules = program_module.objects.filter(program_id=programId)    
-        if len(program_modules)>0:
-           return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l": program_levels,'scores':all_scores})
-        else:
-            return render(request,'error.html',{"pk": pk, "pk1": pk1})
+    if len(program_modules)>0:
+     return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l": program_levels,'scores':all_scores})
+    else:
+      return render(request,'error.html',{"pk": pk, "pk1": pk1})
           
 def resumebuilder(request, pk, pk1, pk2, pk3, pk4):
     module = program_module.objects.get(pk=pk3)
@@ -577,14 +578,14 @@ def test_submit(request, pk, pk1, pk2, pk3, pk4):
 
     return render(request, "dummy.html")
 
-def Mi(request):
-    return render(request, "Mi.html")
+def Mi(request,pk, pk1):
+    return render(request, "Mi.html",{"pk":pk,"pk1":pk1})
     
 def Out(request):
      return render(request, "Out.html")
 
-def Listen(request):
-    return render(request, "listening.html")
+def Listen(request, pk, pk1):
+    return render(request, "listening.html",{"pk":pk,"pk1":pk1})
     
 def LScore(request):
     return render(request, "Lscoring.html")  
