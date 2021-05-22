@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from user_admin import views
 from user_student import views as s_views
+from chatbot import views as chat_views
 from django.contrib.auth import views as auth_views
 
 from django.conf import settings
@@ -161,6 +162,10 @@ urlpatterns = [
 
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/test/submit/',
          s_views.test_submit, name="test_submit"),
+
+     path('chatbot/', chat_views.home),
+
+     path('get-response/', chat_views.get_response),
 
 
     path('error/', views.error, name="error")

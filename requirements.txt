@@ -21,6 +21,9 @@ six==1.15.0
 sqlparse==0.3.1
 toml==0.10.1
 zipp==3.1.0
+ChatterBot==0.8.7
+chatterbot-corpus==1.1.2
+ipython==6.4.0
 pyexcel_xlsx
 pyexcel_xls
 
