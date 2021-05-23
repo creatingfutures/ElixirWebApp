@@ -1,188 +1,54 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
-
-<html>
-<head>
-     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-	 
+{% block page_specific_htmlhead%}
     <style>
-        
-table, th, td {
-  border: 2px solid white;
-  font-size: 15px;
-  font-family: Montserrat;
-}
-th, td {
-  padding: 15px;
-  text-align: left;
-}
-table {
-  border-collapse: collapse;
-  
-}
-
-table {
-  width: 100%;
-}
-    .nav {
-  background-color:lightgray; 
-  list-style-type: none;
-  text-align: right;
-  margin: 0;
-  padding: 0;
-  font-family: 'Montserrat';
-        
-}
-    .nav1 li {
-  display: inline-block;
-  font-size: 12px;
-  padding: 75px;
-        font-family: 'Montserrat';
-}
-    .nav1 {
-  background-color: rgb(229,149,13); 
-  list-style-type: none;
-  text-align: right;
-  margin: 0;
-  padding: 0;
-        font-family: 'Montserrat';
-        font-size: 12px;
-}
-    .nav2 li {
-  display: inline-block;
-  font-size: 12px;
-  padding: 75px;
-        font-family: 'Montserrat';
-}
- .nav2 {
-  background-color:rgb(255,161,0) ; 
-  list-style-type: none;
-  text-align: right;
-  margin: 0;
-  padding: 0;
-     font-family: 'Montserrat';
-     font-size: 12px;
-}
-.nav5
- {
-   background-color:orange;
-   height:30%;
-   display:grid;
-   grid-template-rows:auto auto auto;
-   justify-content:center;
-   align-items:center;
- }
-
- .navig
- {
-   grid-row:2/3;
-   display:flex;
-   flex-wrap:nowrap;
-   background-color:white;
-   flex-direction:row;
- }
-
- .navv
- {
-   width:80%;
-   display:flex;
-   flex-direction:row;
-   justify-content:center;
-   align-items:center;
-   margin:10px;
- }
- ul.breadcrumb {
-padding: 10px 16px;
-list-style: none;
-background-color:lightgray;
-}
-ul.breadcrumb li {
-display: inline;
-font-size: 18px;
-}
-ul.breadcrumb li+li:before {
-padding: 8px;
-color: black;
-content: "/\00a0";
-}
-ul.breadcrumb li a {
-color: darkblue;
-text-decoration: none;
-font-family: 'Montserrat';
-}
-ul.breadcrumb li a:hover {
-color: darkblue;
-text-decoration: underline;
-}
-       
-            .button {
-  background-color: orange;
-  border: none;
-  color: black;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  font-family: Montserrat;
-  box-shadow: 1px 2px 2px grey;
-}
-.para {
-background-color:white;
-width:28%;
-text-align:center;
-font-family: Montserrat;
-}
-.para1 {
-background-color:white;
-text-align:left;
-font-family: Montserrat;
-padding: 15px;
-}
-
-        
-
-    
-    </style> </head>
-    <title>MI Questionere</title>
-    <body style="background-color:lightgray;">
-        <div class="nav5">
-  <div class="navig">
-    <div>
-      <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;margin:0;" />
-    </div>
-    <div class="navv">
-      <a href="{% url 's_home' 9 8 %}" style="font-size:150%;margin:10px; font-family:'Montserrat'; ">HOME</a>
-      <a href="" style="font-size:150%;margin:10px;font-family:'Montserrat';">ABOUT US</a>
-      <a href="" style="font-size:150%;margin:10px;font-family:'Montserrat';">REPORTS</a>
-          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;font-family:'Montserrat';">LOG OUT</a>
-      </div>
-      </div>
-    </div>
+        .para1 {
+            background-color:white;
+            width:30%;
+        }
+    </style>
+{% endblock %}
+   
+{% block content %}
     <ul class="breadcrumb">
-      <li><a href="{%url 's_home' 9 8 %}" >MODULES</a></li>
-      <li><a href="{%url 'LT' %}">LISTENING SKILLS</a></li>
-      </ul>
-
-<h1 style="font-size: 15px; color: black; font-family: Montserrat;"><center><br><br>
-    LISTENING SKILLS - SELF ASSESSMENT</center>
+      <li>
+        <a href="{% url 'spoken_english' pk pk1 p %}">MODULES</a>
+      </li>
+      <li>
+        <a href="#">LISTENING SKILLS</a>
+      </li>
+    </ul>
+<h1>
+    
+    LISTENING SKILLS - SELF ASSESSMENT
     
 </h1>
-<center><div class="para">
-<br>
-<p id="score"> SCORE: <script type="text/javascript">
-        document.write(localStorage.getItem("total"));
-    </script>   <b><b><p>
-<div class="para1">
-        <b>61-70 points = Effecive listener</b><br>
-	<b>41-60 points = Good listener</b><br>
-	<b>28-40 points = Not-so-good listener</b><br>
-	<b>28 points or less = Need to focus on istening</b><br><br></div>
-        <center><a href="" class="button"><b>Next Level</b></a>&nbsp
-        <a href="{% url 'LT' %}" class="button"><b>Try Again</b></a></center>
-<br>
-<br>
-</p></div></center>
+<center>
+    <div class="container1">
+        <br>
+        <h1> SCORE: 
+        <script type="text/javascript">
+            document.write(localStorage.getItem("total"));
+        </script>
+        </h1>
+       
+       
+            <div class="para1">
+                    <h2>61-70 points = Effecive listener</h2>
+	                <h2>41-60 points = Good listener</h2>
+	                <h2>28-40 points = Not-so-good listener</h2>
+	                <h2>28 points or less = Need to focus on istening</h2>
+            </div>
+            <center>
+                <a href="" class="button"><b>Next Level</b></a>&nbsp
+                <a href="{% url 'LT' pk pk1 p %}" class="button"><b>Try Again</b></a>
+            </center>
+            <br>
+            <br>
+        
+    </div>
+ </center>
 <script>
    function getResult() {
       var firstQues = document.getElementsByName('firstQues');
@@ -303,6 +169,4 @@ padding: 15px;
    }
    alert("Please select all");
 </script>
-</body>
-
-</html>
+{% endblock %}

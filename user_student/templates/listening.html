@@ -4,45 +4,54 @@
 
 {% block page_specific_htmlhead%}
     <title> Listening </title>
+    {#<link rel="stylesheet" href="/static/css/custom_style.css" />#}
     <style>
-
+        table[name='listen'] {
+            width:100%;
+        }
     </style>
+
 {% endblock%}
     
 {% block content %}
 
     <ul class="breadcrumb">
-      <li><a href="{%url 's_home' 9 8 %}" >MODULES</a></li>
-      <li><a href="{% url 'LHome' %}">LISTENING SKILLS</a></li>
+      <li>
+        <a href="{% url 'spoken_english' pk pk1 p %}">MODULES</a>
+      </li>
+      <li>
+        <a href="#">LISTENING SKILLS</a>
+      </li>
     </ul>
     <h1>
-        <center>
-            <br>
-            <br>
+      
             LISTENING SKILLS - SELF ASSESSMENT
-        </center>
+       
     
     </h1>
+    <form name="listeningForm" action="{% url 'Lscore' pk pk1 p %}">
     <table name = "listen">
+      <thead>
       <tr>
-        <th
-            >SI. No</th>
-        <th style="background-color:#ffffff">When listening to another person, I...</th>
-        <th style="background-color:#ffffff">Always<br>(1 pt.)</th> 
-        <th style="background-color:#ffffff">Usually<br>(2 pt.)</th>
-        <th style="background-color:#ffffff">Often<br>(3 pt.)</th>
-        <th style="background-color:#ffffff">Rarely<br>(4 pt.)</th>
-        <th style="background-color:#ffffff">Never<br>(5 pt.)</th>
-      </tr>
-
+          
+        <th>SI. No</th>
+        <th>When listening to another person, I...</th>
+        <th>Always<br>(1 pt.)</th> 
+        <th>Usually<br>(2 pt.)</th>
+        <th>Often<br>(3 pt.)</th>
+        <th>Rarely<br>(4 pt.)</th>
+        <th>Never<br>(5 pt.)</th>
+      </t>
+      </thead>
+      <tbody>
       <tr>
-        <td style="background-color:rgb(231,231,231)">1</td>
-        <td style="background-color:rgb(231,231,231)">Get distracted</td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="firstQues" id="gt1" value="1" required = "required"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="firstQues" id="gt1" value = "2" ></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="firstQues" id="gt1" value = "3" ></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="firstQues" id="gt1" value = "4" ></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="firstQues" id="gt1"value = "5" ></td>
+        <td>1</td>
+        <td>Get distracted</td>
+        <td><input type="radio" name="firstQues" id="gt1" value="1" required = "required"></td>
+        <td><input type="radio" name="firstQues" id="gt1" value = "2" ></td>
+        <td><input type="radio" name="firstQues" id="gt1" value = "3" ></td>
+        <td><input type="radio" name="firstQues" id="gt1" value = "4" ></td>
+        <td><input type="radio" name="firstQues" id="gt1"value = "5" ></td>
       </tr>
       <tr>
         <td>2</td>
@@ -54,13 +63,13 @@
         <td><input type="radio" name="secondQues" id="gt2" value = "5" ></td>
       </tr>
       <tr>
-        <td style="background-color:rgb(231,231,231)">3</td>
-        <td style="background-color:rgb(231,231,231)">Interrupt</td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirdQues" id="gt3" value = "1" required></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirdQues" id="gt3" value = "2"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirdQues" id="gt3" value = "3"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirdQues" id="gt3" value = "4"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirdQues" id="gt3" value = "5"></td>
+        <td>3</td>
+        <td>Interrupt</td>
+        <td><input type="radio" name="thirdQues" id="gt3" value = "1" required></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "2"></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "3"></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "4"></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "5"></td>
       </tr>
      <tr>
         <td>4</td>
@@ -72,13 +81,13 @@
         <td><input type="radio" name="fourthQues" id="gt4" value = "5"></td>
       </tr>
      <tr>
-         <td style="background-color:rgb(231,231,231)">5</td>
-         <td style="background-color:rgb(231,231,231)">Prejudice</td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="fifthQues" id="gt5" value = "1" required></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="fifthQues" id="gt5" value = "2"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="fifthQues" id="gt5" value = "3"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="fifthQues" id="gt5" value = "4"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="fifthQues" id="gt5" value = "5"></td>
+         <td >5</td>
+         <td >Prejudice</td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "1" required></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "2"></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "3"></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "4"></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "5"></td>
       </tr>
      <tr>
     <td>6</td>
@@ -90,13 +99,13 @@
         <td><input type="radio" name="sixthQues" id="gt6" value = "5"></td>
       </tr>
      <tr>
-    <td style="background-color:rgb(231,231,231)">7</td>
-         <td style="background-color:rgb(231,231,231)">Ignore nonverbal clues</td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="seventhQues" id="gt7" value = "1" required></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="seventhQues" id="gt7" value = "2"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="seventhQues" id="gt7" value = "3"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="seventhQues" id="gt7" value = "4"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="seventhQues" id="gt7" value = "5"></td>
+    <td >7</td>
+         <td >Ignore nonverbal clues</td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "1" required></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "2"></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "3"></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "4"></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "5"></td>
       </tr>
 
       <tr>
@@ -109,13 +118,13 @@
         <td><input type="radio" name="eightQues" id="gt8" value = "5"></td>
       </tr>
       <tr>
-    <td style="background-color:rgb(231,231,231)">9</td>
-         <td style="background-color:rgb(231,231,231)">Get Tired easily</td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="ninthQues" id="gt9" value = "1" required></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="ninthQues" id="gt9" value = "2"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="ninthQues" id="gt9" value = "3"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="ninthQues" id="gt9" value = "4"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="ninthQues" id="gt9" value = "5"></td>
+    <td >9</td>
+         <td >Get Tired easily</td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "1" required></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "2"></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "3"></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "4"></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "5"></td>
       </tr>
       <tr>
     <td>10</td>
@@ -127,13 +136,13 @@
         <td><input type="radio" name="tenthQues" id="gt10" value = "5"></td>
       </tr>
      <tr>
-    <td style="background-color:rgb(231,231,231)">11</td>
-         <td style="background-color:rgb(231,231,231)">Daydreams or tunes out in class </td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="eleQues" id="gt11" value = "1" required></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="eleQues" id="gt11" value = "2"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="eleQues" id="gt11" value = "3"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="eleQues" id="gt11" value = "4"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="eleQues" id="gt11" value = "5"></td>
+    <td >11</td>
+         <td >Daydreams or tunes out in class </td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "1" required></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "2"></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "3"></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "4"></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "5"></td>
       </tr>
      <tr>
     <td>12</td>
@@ -145,13 +154,13 @@
         <td><input type="radio" name="twQues" id="gt12" value = "5"></td>
       </tr>
      <tr>
-    <td style="background-color:rgb(231,231,231)">13</td>
-         <td style="background-color:rgb(231,231,231)">Have Trouble immediately recalling spoken information</td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirteenQues" id="gt13" value = "1" required></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirteenQues" id="gt13" value = "2"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirteenQues" id="gt13" value = "3"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirteenQues" id="gt13" value = "4"></td>
-        <td style="background-color:rgb(231,231,231)"><input type="radio" name="thirteenQues" id="gt13" value = "5"></td>
+    <td >13</td>
+         <td >Have Trouble immediately recalling spoken information</td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "1" required></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "2"></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "3"></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "4"></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "5"></td>
       </tr>
      <tr>
     <td>14</td>
@@ -162,20 +171,23 @@
         <td><input type="radio" name="fourteenQues" id="gt14" value = "4"></td>
         <td><input type="radio" name="fourteenQues" id="gt14" value = "5"></td>
       </tr>
+    </tbody>
 </table>
 
        <br><br>
-        <div class="footer">
+    <div class="footer">
              <center>
-                <a href="" type="button" class="button" onclick="getResult();"><b>Submit</b></a> 
-                <a href="{% url 'LHome' %}" class="button"><b>Cancel</b></a></center>
-		        <button type="button" onclick="getResult()"> 
-                </button> 
+                <input type="submit" class="button" onclick="getResult();"/>
+                <a href="{% url 'LHome' %}" class="button"><b>Cancel</b></a>
+             </center>
+		        {#<button type="button" onclick="return getResult()"> 
+                </button>#} 
+              
         </div>
-	
-     <script>
+	</form>
+     <script type="text/javascript">
        function getResult() {
-          var firstQues = document.getElementsByName('firstQues');
+          /*var firstQues = document.getElementsByName('firstQues');
           var secondQues = document.getElementsByName('secondQues');
 	      var thirdQues = document.getElementsByName('thirdQues');
 	      var fourthQues = document.getElementsByName('fourthQues');
@@ -289,11 +301,21 @@
 		 
 		 
 
-          });
-	  
-	   
-
-	      localStorage.setItem("total",total);
+          });*/
+           var total = 0;
+           var rowCount = $("table[name='listen']>tbody>tr").length;
+           var selectedRows = $("table[name='listen']>tbody>tr>td:has(input[type='radio']:checked)");
+           if (selectedRows.length != rowCount) {
+               alert("Please ensure all questions are answered");
+               return false;
+           }
+           $(selectedRows).each(function (index) {
+               var radioBtn = $(this).find("input[type='radio']");
+               total = total + parseInt($(radioBtn).val());
+           });
+           localStorage.setItem("total", total);
+           //window.location.href = "Lscoring.html";
+           //alert("Score is"+total);
     
        }
   

@@ -167,8 +167,8 @@ urlpatterns = [
     path('s_home/<int:pk>/batch/<int:pk1>/Mi/', s_views.Mi, name="Mi" 
          ),
     path('Out/', s_views.Out, name="Out" ),
-    path('s_home/<int:pk>/batch/<int:pk1>/LT/', s_views.Listen, name="LT" ),
-    path('Lscore/', s_views.LScore, name="Lscore" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/LT/', s_views.Listen, name="LT" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Lscore/', s_views.LScore, name="Lscore" ),
     path('LHome/', s_views.LHome, name="LHome" ),
      path('Mview/', s_views.Module_view_SK, name="Mview" ),
      path('Mview1/', s_views.Module_view_LS, name="Mview1" ),

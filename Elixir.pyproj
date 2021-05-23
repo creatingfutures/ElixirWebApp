@@ -791,6 +791,7 @@
     <Content Include="user_student\templates\level_view.html" />
     <Content Include="user_student\templates\LHome.html" />
     <Content Include="user_student\templates\listening.html" />
+    <Content Include="user_student\templates\Lscoring.html" />
     <Content Include="user_student\templates\match\logic.js" />
     <Content Include="user_student\templates\match\match25.html" />
     <Content Include="user_student\templates\match\match26.html" />
