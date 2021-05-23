@@ -11,7 +11,6 @@ chatbot = ChatBot(
     trainer='chatterbot.trainers.ChatterBotCorpusTrainer'
 )
 
- 
 
 # Train based on the english corpus
 
