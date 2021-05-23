@@ -5,7 +5,10 @@
     <style>
         .para1 {
             background-color:white;
-            width:30%;
+            width:20%;
+            text-align:left;
+            padding-left:50px;
+            padding-right:50px;
         }
     </style>
 {% endblock %}
@@ -35,13 +38,13 @@
        
        
             <div class="para1">
-                    <h2>61-70 points = Effecive listener</h2>
-	                <h2>41-60 points = Good listener</h2>
-	                <h2>28-40 points = Not-so-good listener</h2>
-	                <h2>28 points or less = Need to focus on istening</h2>
+                    <h3>61-70 points = Effecive listener</h3>
+	                <h3>41-60 points = Good listener</h3>
+	                <h3>28-40 points = Not-so-good listener</h3>
+	                <h3>28 points or less = Need to focus on listening</h3>
             </div>
             <center>
-                <a href="" class="button"><b>Next Level</b></a>&nbsp
+                {#<a href="" class="button"><b>Next Level</b></a>&nbsp#}
                 <a href="{% url 'LT' pk pk1 p %}" class="button"><b>Try Again</b></a>
             </center>
             <br>
