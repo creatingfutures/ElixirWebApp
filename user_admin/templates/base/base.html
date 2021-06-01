@@ -143,14 +143,26 @@ $("#batch1").click(function () {
 });
 
     $("#btnSearch").click(function () {
+        var nameProg = $("#progName").val();
+        var nameModule = $("#moduleName").val();
+        var nameLevel = $ ("#levelName").val();
+        var questType = $("#questType").val();
         var searchTxt = $("#txtSearch").val();
         var dataSent = { batch_id: 1 };
         var url = "/ajax/batch_search";
         var type = $("#hidType").val();
-        console.log(type+" search , query="+searchTxt);
+        
+        console.log(type+"search , query="+searchTxt+questType+nameProg+nameModule+nameLevel);
         switch (type) {
             case "questions":
-                dataSent = { searchtext: searchTxt };
+                
+                dataSent = {
+                  progname:nameProg,
+                  modulename:nameModule,
+                  levelname:nameLevel,
+                  questiontype: questType,
+                  searchtext: searchTxt, 
+                 };
                 url = "/ajax/questions_search";
                 break;
             case "facilitators":
@@ -158,8 +170,7 @@ $("#batch1").click(function () {
                 dataSent = { facilitator_id: facId };
                 break;
             default:
-                break;
-                   
+                break;                   
         }
        
         $.ajax({

@@ -672,11 +672,14 @@ def questionss(request):
     except:
         page = 1
         searchText = ""
+        
     if searchText != "" and searchText != 'None':
         questions1 = question.objects.all().filter(question__contains=searchText)
     else:
         questions1 = question.objects.all()
+        
     paginator = Paginator(questions1, paginator_num_pages)
+    
     try:
         
         questions11 = paginator.page(page)
@@ -687,14 +690,32 @@ def questionss(request):
 
 def questions_search(request):
     try:
+        progName=str(request.GET.get('progname'))
+        moduleName=str(request.GET.get('modulename'))
+        levelName = str(request.GET.get('levelname'))
         searchText = str(request.GET.get('searchtext'))
+        questionType = str(request.GET.get('questiontype'))
     except:
-        searchText = ""
-    if searchText != "":
-        questions1 = question.objects.all().filter(question__contains=searchText)
-    else:
-        questions1 = question.objects.all()
-    paginator = Paginator(questions1, paginator_num_pages)
+        searchText = questionType = levelName = moduleName = progName = ""
+   
+    data = question.objects.all()
+    if searchText:
+        data = [rec for rec in data if searchText.lower() in rec.question.lower()]
+    
+    if questionType:
+        data = [ rec for rec in data if questionType.lower() in rec.question_type.question_type.lower()]
+
+    if progName:
+        data = [ rec for rec in data if progName.lower() in rec.program.program_name.lower()]
+
+    if moduleName:
+        data = [ rec for rec in data if moduleName.lower() in rec.module.module_name.lower()]
+
+    if levelName:
+        data = [ rec for rec in data if levelName.lower() in rec.level.level_description.lower()]
+  
+
+    paginator = Paginator(data, paginator_num_pages)
     page = 1
 
     try:
@@ -703,7 +724,6 @@ def questions_search(request):
         questions11 = paginator.page(paginator_num_pages)
 
     return render(request, 'ajax/questions_search.html', {"p": questions11})
-
 
 @login_required
 def add_question(request):
