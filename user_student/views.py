@@ -579,19 +579,19 @@ def test_submit(request, pk, pk1, pk2, pk3, pk4):
 
     return render(request, "dummy.html")
 
-def Mi(request,pk, pk1):
-    return render(request, "Mi.html",{"pk":pk,"pk1":pk1})
+def Mi_Test(request,pk, pk1,program):
+    return render(request, "Mi.html",{"pk":pk,"pk1":pk1,"program":program})
     
-def Out(request):
-     return render(request, "Out.html")
+def Mi_TestResult(request, pk, pk1, program):
+     return render(request, "MiScores.html", {"pk":pk,"pk1":pk1, "program":program})
 
 def Listen(request, pk, pk1,program):
     return render(request, "listening.html",{"pk":pk,"pk1":pk1, "p":program})
     
 def LScore(request, pk, pk1,program):
     return render(request, "Lscoring.html",{"pk":pk,"pk1":pk1,"p":program})  
-def LHome(request):
-    return render(request, "LHome.html")   
+#def LHome(request):
+#    return render(request, "LHome.html")   
 def Module_view_SK(request):
     return render(request, "module_view_lifeskills.html")    
 def Module_view_LS(request):

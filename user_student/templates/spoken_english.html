@@ -81,7 +81,7 @@
                         {% if levelname|lower == 'multiple intelligence' %}
                             <button class="clickableLvl">
                                <h4>
-                                      <a href="{% url 'Mi' pk pk1 %}" style="color:white;">{{levelname|allcaps}}</a>
+                                      <a href="{% url 'Mi' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
                                       <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
                               
                               </h4>
