@@ -661,6 +661,9 @@
     <Content Include="user_admin\templates\view_question\sub_view\7.html" />
     <Content Include="user_admin\templates\view_question\sub_view\8.html" />
     <Content Include="user_admin\templates\view_question\sub_view\9.html" />
+    <Content Include="user_student\module_view_lifeskills.html" />
+    <Content Include="user_student\module_view_ss.html" />
+    <Content Include="user_student\Out.html" />
     <Content Include="user_student\templates\all_hyperlink.html" />
     <Content Include="user_student\templates\audio.html" />
     <Content Include="user_student\templates\av_test.html" />
@@ -786,6 +789,9 @@
     <Content Include="user_student\templates\lesson\spoken english\writing\5.html" />
     <Content Include="user_student\templates\lesson\spoken english\writing\6.html" />
     <Content Include="user_student\templates\level_view.html" />
+    <Content Include="user_student\templates\LHome.html" />
+    <Content Include="user_student\templates\listening.html" />
+    <Content Include="user_student\templates\Lscoring.html" />
     <Content Include="user_student\templates\match\logic.js" />
     <Content Include="user_student\templates\match\match25.html" />
     <Content Include="user_student\templates\match\match26.html" />

@@ -1,0 +1,967 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+ <title>MI Questionaire</title>
+ <style>
+        table[name='mi'] {
+            width:100%;
+        }
+    </style>
+{% endblock%}
+   
+{% block content %}
+    <ul class="breadcrumb">
+      <li><a href="{% url 'spoken_english' pk pk1 program %}">MODULES</a></li>.
+      <li><a href="#">MULTIPLE INTELLIGENCE</a></li>
+    </ul>
+
+<h1>
+    MULTIPLE INTELLIGENCE SELF ASSESSMENT
+</h1>
+<form name="miForm" action="{% url 'MIResult' pk pk1 program %}">
+<table name="mi">
+  <thead>
+  <tr>
+    <th>SI. no</th>
+    <th>Questions.</th>
+    <th>This is not me at all<br>(1)</th> 
+    <th>I am very rarely like this<br>(2)</th>
+    <th>This is a bit like me<br>(3)</th>
+    <th>This is sometimes me<br>(4)</th>
+    <th>I am this more often than not<br>(5)</th>
+    <th>I am always like this<br>(6)</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1</td>
+    <td>I can pick out different instruments when I listen to a piece of music.</td>
+    <td> <input type="radio" name= "first"  id="gt" value ="1" keyname="ts1"></td>
+    <td><input type="radio" name= "first"  id="gt" value ="2" keyname="ts1"></td>
+    <td><input type="radio" name= "first"  id="gt" value= "3" keyname="ts1"></td>
+    <td><input type="radio" name= "first" id="gt" value="4" keyname="ts1"></td>
+    <td><input type="radio" name= "first" value="5" id="gt" keyname="ts1"/></td>
+    <td ><input type="radio" name= "first"  id="gt" value="6" keyname="ts1"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Pollution makes me angry</td>
+    <td><input type="radio" name= "second" value="1" id="gt" keyname="ts8"></td>
+    <td><input type="radio" name= "second" value ="2" id="gt" keyname="ts8"></td>
+    <td><input type="radio" name= "second" value= "3"  id="gt" keyname="ts8"></td>
+    <td><input type="radio" name= "second" value="4" id="gt" keyname="ts8"></td>
+    <td><input type="radio" name= "second" value="5" id="gt" keyname="ts8"></td>
+      <td><input type="radio" name= "second" value="6" id="gt" keyname="ts8"></td>
+  </tr>
+  <tr>
+    <td >3</td>
+    <td >I am observant. I often see things that others miss.</td>
+    <td ><input type="radio" name="third" value="1"  id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="third" value="2"  id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="third" value="3"   id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="third" value="4"   id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="third"  value="5"  id="gt" keyname="ts3"></td>
+      <td ><input type="radio" name="third" value="6"  id="gt" keyname="ts3"></td>
+  </tr>
+ <tr>
+    <td>4</td>
+    <td>I learn well from listening to others.</td>
+    <td><input type="radio" name="fourth" value ="1" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="fourth" value ="2" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="fourth" value ="3" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="fourth" value ="4" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="fourth" value ="5" id="gt" keyname="ts1"></td>
+     <td><input type="radio" name="fourth" value ="6" id="gt" keyname="ts1"></td>
+  </tr>
+ <tr>
+     <td >5</td>
+     <td >I find it easy to explain to others.</td>
+    <td ><input type="radio" name="fifth" value="1" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="fifth" value="2" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="fifth" value="3" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="fifth" value="4" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="fifth" value="5" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="fifth" value="6" id="gt" keyname="ts5"></td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>I need to see something in it for me before I want to learn something.</td>
+    <td><input type="radio" name="sixth" value="1" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="sixth" value="2" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="sixth" value="3" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="sixth" value="4" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="sixth" value="5" id="gt" keyname="ts2"></td>
+     <td><input type="radio" name="sixth" value="6" id="gt" keyname="ts2"></td>
+  </tr>
+ <tr>
+<td >7</td>
+     <td >I always do things one-step at a time</td>
+    <td ><input type="radio" name="seven" value= "1" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="seven" value="2" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="seven" value="3" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="seven" value="4" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="seven" value="5" id="gt" keyname="ts4"></td>
+     <td ><input type="radio" name="seven" value="6" id="gt" keyname="ts4"></td>
+  </tr>
+
+
+  <tr>
+<td>8</td>
+    <td>I am interested in why people do the things they do.</td>
+    <td> <input type="radio" name="eighth" value= "1" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="eighth" value= "2" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="eighth" value= "3" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="eighth" value= "4" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="eighth" value= "5" id="gt" keyname="ts2"></td>
+      <td><input type="radio" name="eighth" value= "6" id="gt" keyname="ts2"></td>
+  </tr>
+  <tr>
+<td >9</td>
+     <td >I enjoy making music.</td>
+    <td ><input type="radio" name="ninth" value="1" id="gt" keyname="ts1"></td>
+    <td ><input type="radio" name="ninth" value="2" id="gt" keyname="ts1"></td>
+    <td ><input type="radio" name="ninth" value="3" id="gt" keyname="ts1"></td>
+    <td ><input type="radio" name="ninth" value="4" id="gt" keyname="ts1"></td>
+    <td ><input type="radio" name="ninth" value="5" id="gt" keyname="ts1"></td>
+      <td ><input type="radio" name="ninth" value="6" id="gt" keyname="ts1"></td>
+  </tr>
+  <tr>
+<td>10</td>
+     <td>I enjoy writing things down.</td>
+    <td><input type="radio" name="tenth" value="1" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="tenth" value="2" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="tenth" value="3" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="tenth" value="4" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="tenth" value="5" id="gt" keyname="ts6"></td>
+      <td><input type="radio" name="tenth" value="6" id="gt" keyname="ts6"></td>
+  </tr>
+ <tr>
+<td >11</td>
+     <td >I can sort out arguments between friends.</td>
+    <td ><input type="radio" name="eleven" value="1" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="eleven" value="2" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="eleven" value="3" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="eleven" value="4" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="eleven" value="5" id="gt" keyname="ts5"></td>
+     <td ><input type="radio"name="eleven" value="6" id="gt" keyname="ts5"></td>
+  </tr>
+ <tr>
+<td>12</td>
+     <td>I learn best when I have to get up and do it for myself.</td>
+    <td><input type="radio" name="twelfth" value="1" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="twelfth" value="2" id="gt" keyname="ts7"></td>
+    <td><input type="radio"name="twelfth" value="3" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="twelfth" value="4" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="twelfth" value="5" id="gt" keyname="ts7"></td>
+     <td><input type="radio" name="twelfth" value="6" id="gt" keyname="ts7"></td>
+  </tr>
+ <tr>
+<td >13</td>
+     <td >I can link things together and pick out patterns easily.</td>
+    <td ><input type="radio" name="thirteenth" value="1" id="gt" keyname="ts2"></td>
+    <td ><input type="radio" name="thirteenth" value="2" id="gt" keyname="ts2"></td>
+    <td ><input type="radio" name="thirteenth" value="3" id="gt" keyname="ts2"></td>
+    <td ><input type="radio" name="thirteenth" value="4" id="gt" keyname="ts2"></td>
+    <td ><input type="radio" name="thirteenth" value="5" id="gt" keyname="ts2"></td>
+     <td ><input type="radio" name="thirteenth" value="6" id="gt" keyname="ts2"></td>
+  </tr>
+ <tr>
+<td>14</td>
+     <td>I am good at mathematical problems and using numbers.</td>
+    <td><input type="radio" name="fourteen" value="1" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="fourteen" value="2" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="fourteen" value="3" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="fourteen" value="4" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="fourteen" value="5" id="gt" keyname="ts2"></td>
+     <td><input type="radio" name="fourteen" value="6" id="gt" keyname="ts2"></td>
+  </tr>
+             <tr>
+<td >15</td>
+     <td >I can picture scenes in my head when I remember things.</td>
+    <td ><input type="radio" name="fifteen" value="1"id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="fifteen" value="2" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="fifteen" value="3" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="fifteen" value="4" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="fifteen" value="5" id="gt" keyname="ts3"></td>
+     <td ><input type="radio" name="fifteen" value="6"  id="gt" keyname="ts3"></td>
+  </tr>
+             <tr>
+<td>16</td>
+     <td>I have a good sense of balance and like to move around a lot.</td>
+    <td><input type="radio" name="sixteen" value="1" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="sixteen" value="2" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="sixteen" value="3" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="sixteen" value="4" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="sixteen" value="5" id="gt" keyname="ts7"></td>
+     <td><input type="radio" name="sixteen" value="6" id="gt" keyname="ts7"></td>
+  </tr>
+             <tr>
+<td >17</td>
+     <td >I like to use charts and diagrams in my learning.</td>
+    <td ><input type="radio" name="seventeen" value="1" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="seventeen" value="2" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="seventeen" value="3" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="seventeen" value="4" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="seventeen" value="5" id="gt" keyname="ts3"></td>
+     <td ><input type="radio" name="seventeen" value="6" id="gt" keyname="ts3"></td>
+  </tr>
+             <tr>
+<td>18</td>
+     <td>I remember things like telephone numbers by repeating them to a rhythm.</td>
+    <td><input type="radio" name="eighteen" value="1" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="eighteen" value="2" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="eighteen" value="3" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="eighteen" value="4" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="eighteen" value="5" id="gt" keyname="ts1"></td>
+     <td><input type="radio" name="eighteen" value="6" id="gt" keyname="ts1"></td>
+  </tr>
+             <tr>
+<td >19</td>
+     <td >I can recognise and name different types of birds, trees and plants</td>
+    <td ><input type="radio" name="ninteen" value="1" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="ninteen" value="2" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="ninteen" value="3" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="ninteen" value="4" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="ninteen" value="5" id="gt" keyname="ts8"></td>
+     <td ><input type="radio" name="ninteen" value="6" id="gt" keyname="ts8"></td>
+  </tr>
+     <tr>
+<td>20</td>
+     <td>I like to think through problems while I walk or run.</td>
+    <td><input type="radio" name="twenty" value="1" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="twenty" value="2" id="gt" keyname="ts7" ></td>
+    <td><input type="radio" name="twenty" value="3" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="twenty" value="4" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="twenty" value="5" id="gt" keyname="ts7"></td>
+     <td><input type="radio" name="twenty" value="6" id="gt" keyname="ts7"></td>
+  </tr> 
+ <tr>
+<td >21</td>
+     <td >I like to work with a team.</td>
+    <td ><input type="radio" name="twentyone" value="1" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="twentyone" value="2" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="twentyone" value="3" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="twentyone" value="4" id="gt" keyname="ts5"></td>
+    <td ><input type="radio" name="twentyone" value="5" id="gt" keyname="ts5"></td>
+     <td ><input type="radio" name="twentyone" value="6" id="gt"></td>
+  </tr> 
+             <tr>
+<td>22</td>
+     <td>I can use lots of different words to express myself.</td>
+    <td><input type="radio" name="twentytwo" value="1" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="twentytwo" value="2" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="twentytwo" value="3" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="twentytwo" value="4" id="gt" keyname="ts6"></td>
+    <td><input type="radio" name="twentytwo" value="5" id="gt" keyname="ts6"></td>
+     <td><input type="radio" name="twentytwo" value="6" id="gt" keyname="ts6"></td>
+  </tr>
+             <tr>
+<td >23</td>
+     <td >I enjoy being outdoors when I learn.</td>
+    <td ><input type="radio" name="twentythree" value="1" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentythree" value="2" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentythree" value="3" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentythree" value="4" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentythree" value="5" id="gt" keyname="ts8"></td>
+     <td ><input type="radio" name="twentythree" value="6" id="gt" keyname="ts8"></td>
+  </tr>
+  <tr>
+<td>24</td>
+     <td>I am an independent thinker. I know my own mind.</td>
+    <td><input type="radio" name="twentyfour" value="1" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyfour" value="2" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyfour" value="3" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyfour" value="4" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyfour" value="5" id="gt" keyname="ts4"></td>
+     <td><input type="radio" name="twentyfour" value="6" id="gt"></td>
+  </tr>
+  <tr>
+<td >25</td>
+     <td >I know myself well.</td>
+    <td ><input type="radio" name="twentyfive" value="1" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="twentyfive" value="2" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="twentyfive" value="3" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="twentyfive" value="4" id="gt" keyname="ts4"></td>
+    <td ><input type="radio" name="twentyfive" value="5" id="gt" keyname="ts4"></td>
+     <td ><input type="radio" name="twentyfive" value="6" id="gt" keyname="ts4"></td>
+  </tr>
+            <tr>
+            <td>26</td>
+     <td>I am sensitive to the moods and feelings of others.</td>
+    <td><input type="radio" name="twentysix" value="1" id="gt" keyname="ts5"></td>
+    <td><input type="radio" name="twentysix" value="2" id="gt" keyname="ts5"></td>
+    <td><input type="radio" name="twentysix" value="3" id="gt" keyname="ts5"></td>
+    <td><input type="radio" name="twentysix" value="4" id="gt" keyname="ts5"></td>
+    <td><input type="radio" name="twentysix" value="5" id="gt" keyname="ts5"></td>
+     <td><input type="radio" name="twentysix" value="6" id="gt" keyname="ts5"></td>
+  </tr>
+             
+             <tr>
+<td >27</td>
+     <td >I keep or like pets.</td>
+    <td ><input type="radio" name="twentyseven" value="1" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentyseven" value="2" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentyseven" value="3" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentyseven" value="4" id="gt" keyname="ts8"></td>
+    <td ><input type="radio" name="twentyseven" value="5" id="gt" keyname="ts8"></td>
+     <td ><input type="radio" name="twentyseven" value="6" id="gt" keyname="ts8"></td>
+  </tr>
+             <tr>
+<td>28</td>
+     <td>I enjoy working on my own.</td>
+    <td><input type="radio" name="twentyeight" value="1" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyeight" value="2" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyeight" value="3" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyeight" value="4" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="twentyeight" value="5" id="gt" keyname="ts4"></td>
+     <td><input type="radio" name="twentyeight" value="6" id="gt" keyname="ts4"></td>
+  </tr>
+             <tr>
+<td >29</td>
+     <td >I get restless easily.</td>
+    <td ><input name="twentynine" value="1" type="radio" id="gt" keyname="ts7"></td>
+    <td ><input name="twentynine" value="2" type="radio" id="gt" keyname="ts7"></td>
+    <td ><input name="twentynine" value="3" type="radio" id="gt" keyname="ts7"></td>
+    <td ><input name="twentynine" value="4" type="radio" id="gt" keyname="ts7"></td>
+    <td ><input name="twentynine" value="5" type="radio" id="gt" keyname="ts7"></td>
+     <td ><input name="twentynine" value="6" type="radio" id="gt" keyname="ts7"></td>
+  </tr>
+             <tr>
+<td>30</td>
+     <td>I like working and thinking on my own and quietly.</td>
+    <td><input type="radio" name="thirty" value="1" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="thirty" value="2" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="thirty" value="3" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="thirty" value="4" id="gt" keyname="ts4"></td>
+    <td><input type="radio" name="thirty" value="5" id="gt" keyname="ts4"></td>
+     <td><input type="radio" name="thirty" value="6" id="gt" keyname="ts4"></td>
+  </tr>
+             <tr>
+<td >31</td>
+     <td >I can remember pieces of music easily.</td>
+    <td ><input name="thirtyone" value="1" type="radio" id="gt" keyname="ts1"></td>
+    <td ><input name="thirtyone" value="2" type="radio" id="gt" keyname="ts1"></td>
+    <td ><input name="thirtyone" value="3" type="radio" id="gt" keyname="ts1"></td>
+    <td ><input name="thirtyone" value="4" type="radio" id="gt" keyname="ts1"></td>
+    <td ><input name="thirtyone" value="5" type="radio" id="gt" keyname="ts1"></td>
+     <td ><input name="thirtyone" value="6" type="radio" id="gt" keyname="ts1"></td>
+  </tr>
+             <tr>
+<td>32</td>
+     <td>I like to think out loud.</td>
+    <td><input type="radio" name="thirtytwo" value="1" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtytwo" value="2" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtytwo" value="3" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtytwo" value="4" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtytwo" value="5" id="gt" keyname="ts1"></td>
+     <td><input type="radio" name="thirtytwo" value="6" id="gt" keyname="ts1"></td>
+  </tr>
+             <tr>
+<td >33</td>
+     <td >I enjoy games involving other people.</td>
+    <td ><input  name="thirtythree" type="radio" value="1" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtythree" type="radio" value="2" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtythree" type="radio" value="3" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtythree" type="radio" value="4" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtythree" type="radio" value="5" id="gt" keyname="ts5"></td>
+     <td ><input name="thirtythree" type="radio" value="6" id="gt" keyname="ts5"></td>
+  </tr>
+             <tr>
+<td>34</td>
+     <td>I like to work with my hands.</td>
+    <td><input type="radio" name="thirtyfour" value="1" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="thirtyfour" value="2" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="thirtyfour" value="3" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="thirtyfour" value="4" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="thirtyfour" value="5" id="gt" keyname="ts7"></td>
+     <td><input type="radio" name="thirtyfour" value="6" id="gt" keyname="ts7"></td>
+  </tr>
+             <tr>
+<td >35</td>
+     <td >I have a good sense of direction.</td>
+    <td ><input type="radio" name="thirtyfive" value="1" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="thirtyfive" value="2" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="thirtyfive" value="3" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="thirtyfive" value="4" id="gt" keyname="ts3"></td>
+    <td ><input type="radio" name="thirtyfive" value="5" id="gt" keyname="ts3"></td>
+     <td ><input type="radio" name="thirtyfive" value="6" id="gt" keyname="ts3"></td>
+  </tr>
+             <tr>
+<td>36</td>
+     <td>I enjoy logic problems and puzzles.</td>
+    <td><input type="radio" name="thirtysix" value="1" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="thirtysix" value="2" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="thirtysix" value="3" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="thirtysix" value="4" id="gt" keyname="ts2"></td>
+    <td><input type="radio" name="thirtysix" value="5" id="gt" keyname="ts2"></td>
+     <td><input type="radio" name="thirtysix" value="6" id="gt" keyname="ts2"></td>
+  </tr>
+            
+             <tr>
+<td >37</td>
+     <td >I enjoy social events like parties.</td>
+    <td ><input name="thirtyseven" value="1" type="radio" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtyseven" value="2" type="radio" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtyseven" value="3" type="radio" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtyseven" value="4" type="radio" id="gt" keyname="ts5"></td>
+    <td ><input name="thirtyseven" value="5" type="radio" id="gt" keyname="ts5"></td>
+     <td ><input name="thirtyseven" value="6" type="radio" id="gt" keyname="ts5"></td>
+  </tr>
+             <tr>
+<td>38</td>
+     <td>My mood changes when I listen to music.</td>
+    <td><input type="radio" name="thirtyeight" value="1" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtyeight" value="2" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtyeight" value="3" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtyeight" value="4" id="gt" keyname="ts1"></td>
+    <td><input type="radio" name="thirtyeight" value="5" id="gt" keyname="ts1"></td>
+     <td><input type="radio" name="thirtyeight" value="6" id="gt" keyname="ts1"></td>
+  </tr>
+             <tr>
+<td >39</td>
+     <td >I like to make lists.</td>
+    <td ><input name="thirtynine" value="1" type="radio" id="gt" keyname="ts2"></td>
+    <td ><input name="thirtynine" value="2" type="radio" id="gt" keyname="ts2"></td>
+    <td ><input name="thirtynine" value="3" type="radio" id="gt" keyname="ts2"></td>
+    <td ><input name="thirtynine" value="4" type="radio" id="gt" keyname="ts2"></td>
+    <td ><input name="thirtynine" value="5" type="radio" id="gt" keyname="ts2"></td>
+     <td ><input name="thirtynine" value="6" type="radio" id="gt"></td>
+  </tr>
+             <tr>
+<td>40</td>
+     <td>I can take things apart and put them back together easily.</td>
+    <td><input type="radio" name="forty" value="1" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="forty" value="2" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="forty" value="3" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="forty" value="4" id="gt" keyname="ts7"></td>
+    <td><input type="radio" name="forty" value="5" id="gt" keyname="ts7"></td>
+     <td><input type="radio" name="forty" value="6" id="gt" keyname="ts7"></td>
+  </tr>
+ </tbody>
+</table>
+
+       <br><br>
+        <div class="footer">
+        <center>
+            <input type="submit" class="button" onclick="return getResult() ;" value="Submit"></input> 
+            <a href="{% url 'spoken_english' pk pk1 program %}" class="button"><b>Cancel</b></a>
+        </center>
+        
+        </div>
+</form>
+<script type="text/javascript">
+		  
+    function getResult() {
+        /*var firstQues = document.getElementsByName('first');
+        var secondQues = document.getElementsByName('second');
+        var thirdQues = document.getElementsByName('third');
+        var fourthQues = document.getElementsByName('fourth');
+        var fifthQues = document.getElementsByName('fifth');
+        var sixthQues = document.getElementsByName('sixth');
+        var seventhQues = document.getElementsByName('seven');
+        var eightQues = document.getElementsByName('eighth');
+        var ninthQues = document.getElementsByName('ninth');
+        var tenthQues = document.getElementsByName('tenth');
+        var eleQues = document.getElementsByName('eleven');
+        var twQues = document.getElementsByName('twelfth');
+        var thirteenQues = document.getElementsByName('thirteenth');
+        var fourteenQues = document.getElementsByName('fourteen');
+        var fifteenQues = document.getElementsByName('fifteen');
+        var sixteenQues = document.getElementsByName('sixteen');
+        var seventeenQues = document.getElementsByName('seventeen');
+        var eighteenQues = document.getElementsByName('eighteen');
+        var ninteenQues = document.getElementsByName('ninteen');
+        var twentyQues = document.getElementsByName('twenty');
+        var twentyoneQues = document.getElementsByName('twentyone');
+        var twentytwoQues = document.getElementsByName('twentytwo');
+        var twentythreeQues = document.getElementsByName('twentythree');
+        var twentyfourQues = document.getElementsByName('twentyfour');
+        var twentyfiveQues = document.getElementsByName('twentyfive');
+        var twentysixQues = document.getElementsByName('twentysix');
+        var twentysevenQues = document.getElementsByName('twentyseven');
+        var twentyeightQues = document.getElementsByName('twentyeight');
+        var twentynineQues = document.getElementsByName('twentynine');
+        var thirtyQues = document.getElementsByName('thirty');
+        var thirtyoneQues = document.getElementsByName('thirtyone');
+        var thirtytwoQues = document.getElementsByName('thirtytwo');
+        var thirtythreeQues = document.getElementsByName('thirtythree');
+        var thirtyfourQues = document.getElementsByName('thirtyfour');
+        var thirtyfiveQues = document.getElementsByName('thirtyfive');
+        var thirtysixQues = document.getElementsByName('thirtysix');
+        var thirtysevenQues = document.getElementsByName('thirtyseven');
+        var thirtyeightQues = document.getElementsByName('thirtyeight');
+        var thirtynineQues = document.getElementsByName('thirtynine');
+        var fortyQues = document.getElementsByName('forty');
+        var total1 = 0;
+        var total2 = 0;
+        var total3 = 0;
+        var total4 = 0;
+        var total5 = 0;
+        var total6 = 0;
+        var total7 = 0;
+        var total8 = 0;
+        var total9 = 0;
+        var total10 = 0;
+        var total11 = 0;
+        var total12 = 0;
+        var total13 = 0;
+        var total14 = 0;
+        var total15 = 0;
+        var total16 = 0;
+        var total17 = 0;
+        var total18 = 0;
+        var total19 = 0;
+        var total20 = 0;
+        var total21 = 0;
+        var total22 = 0;
+        var total23 = 0;
+        var total24 = 0;
+        var total25 = 0;
+        var total26 = 0;
+        var total27 = 0;
+        var total28 = 0;
+        var total29 = 0;
+        var total30 = 0;
+        var total31 = 0;
+        var total32 = 0;
+        var total33 = 0;
+        var total34 = 0;
+        var total35 = 0;
+        var total36 = 0;
+        var total37 = 0;
+        var total38 = 0;
+        var total39 = 0;
+        var total40 = 0;
+        var ts1 = 0;
+        var ts2 = 0;
+        var ts3 = 0;
+        var ts4 = 0;
+        var ts5 = 0;
+        var ts6 = 0;
+        var ts7 = 0;
+        var ts8 = 0;
+        var is1 = 0;
+        var is2 = 0;
+        var is3 = 0;
+        var is4 = 0;
+        var is5 = 0;
+        var is6 = 0;
+        var is7 = 0;
+        var is7 = 0;
+        
+         firstQues.forEach((evnt) => {
+           if (evnt.checked) {
+              
+              total1 = total1 + parseInt(evnt.value);
+              alert("Please select all values");
+              ts1= ts1+ parseInt(evnt.value);
+              return;
+           }		  
+        });
+        secondQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total2 = total2 + parseInt(evnt.value);
+              ts8= ts8+ parseInt(evnt.value);
+              return;
+           }
+       });
+        thirdQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total3 = total3 + parseInt(evnt.value);
+              ts3= ts3+ parseInt(evnt.value);
+              return;
+           }
+        });
+        fourthQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total4 = total4 + parseInt(evnt.value);
+              ts1= ts1+ parseInt(evnt.value);
+              return;
+           }
+        });
+        fifthQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total5 = total5 + parseInt(evnt.value);
+              ts6= ts5+ parseInt(evnt.value);
+              return;
+           }
+        });
+        sixthQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total6 = total6 + parseInt(evnt.value);
+              ts2 = ts2 + parseInt(evnt.value);
+              return;
+           }
+        });
+        seventhQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total7 = total7 + parseInt(evnt.value);
+              ts4= ts4+ parseInt(evnt.value);
+              return;
+           }
+        });
+        eightQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total8 = total8 + parseInt(evnt.value);
+              ts2 = ts2 + parseInt(evnt.value);
+              return;
+           }
+        });
+        ninthQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total9 = total9 + parseInt(evnt.value);
+              ts1= ts1+ parseInt(evnt.value);
+              return;
+           }
+        });
+        
+        tenthQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total10 = total10 + parseInt(evnt.value);
+              ts6= ts6+ parseInt(evnt.value);
+              return;
+           }
+        });
+        eleQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total11 = total11 + parseInt(evnt.value);
+              ts5= ts5+ parseInt(evnt.value);
+              return;
+           }
+        });
+        twQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total12 = total12 + parseInt(evnt.value);
+              ts7= ts7+ parseInt(evnt.value);
+          	
+              return;
+           }
+        });
+        thirteenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total13 = total13 + parseInt(evnt.value);
+              ts2 = ts2 + parseInt(evnt.value);
+              return;
+           }
+        });
+        fourteenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total14 = total14 + parseInt(evnt.value);
+              ts2 = ts2 + parseInt(evnt.value);
+              return;
+           }
+        });	 
+        fifteenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total15 = total15 + parseInt(evnt.value);
+              ts3= ts3+ parseInt(evnt.value);
+              return;
+           }
+        });	 
+        sixteenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total16 = total16 + parseInt(evnt.value);
+              ts7= ts7+ parseInt(evnt.value);
+              return;
+           }
+           });
+        seventeenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total17 = total17 + parseInt(evnt.value);
+              ts3= ts3+ parseInt(evnt.value);
+              return;
+           }
+           });
+        eighteenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total18 = total19 + parseInt(evnt.value);
+              ts1= ts1+ parseInt(evnt.value);
+              return;
+           }
+           });
+        ninteenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total19 = total19 + parseInt(evnt.value);
+              ts8= ts8+ parseInt(evnt.value);
+              return;
+           }
+           });
+        twentyQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total20 = total20 + parseInt(evnt.value);
+              ts7= ts7+ parseInt(evnt.value);
+              return;
+           }
+           });
+        twentyoneQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total21 = total21 + parseInt(evnt.value);
+              ts5= ts5+ parseInt(evnt.value);
+              return;
+           }
+           });
+        twentytwoQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total22 = total22 + parseInt(evnt.value);
+              ts6= ts6+ parseInt(evnt.value);
+              return;
+           }
+           });
+        twentythreeQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total23 = total23 + parseInt(evnt.value);
+              ts8= ts8+ parseInt(evnt.value);
+              return;
+           }
+           });
+        twentyfourQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total24 = total24 + parseInt(evnt.value);
+              ts4= ts4+ parseInt(evnt.value);
+              return;
+           }
+           });
+        twentyfiveQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total25 = total25 + parseInt(evnt.value);
+              ts4= ts4+ parseInt(evnt.value);
+              return;
+           }
+           });
+        twentysixQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total26 = total26 + parseInt(evnt.value);
+              ts5= ts5+ parseInt(evnt.value);
+              return;
+           }
+           });
+           twentysevenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total27 = total27 + parseInt(evnt.value);
+              ts8= ts8+ parseInt(evnt.value);
+              return;
+           }
+           });
+           twentyeightQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total28 = total28 + parseInt(evnt.value);
+              ts4= ts4+ parseInt(evnt.value);
+              return;
+           }
+           });
+           twentynineQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total29 = total29 + parseInt(evnt.value);
+              ts7= ts7+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtyQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total30 = total30 + parseInt(evnt.value);
+              ts4= ts4+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtyoneQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total31 = total31 + parseInt(evnt.value);
+              ts1= ts1+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtytwoQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total32 = total32 + parseInt(evnt.value);
+              ts1= ts1+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtythreeQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total33 = total33 + parseInt(evnt.value);
+              ts5= ts5+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtyfourQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total34 = total34 + parseInt(evnt.value);
+              ts7= ts7+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtyfiveQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total35 = total35 + parseInt(evnt.value);
+              ts3= ts3+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtysixQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total36 = total36 + parseInt(evnt.value);
+              ts2 = ts2 + parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtysevenQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total37 = total37 + parseInt(evnt.value);
+              ts5= ts5+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtyeightQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total38 = total38 + parseInt(evnt.value);
+              ts1= ts1+ parseInt(evnt.value);
+              return;
+           }
+           });
+           thirtynineQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total39 = total39 + parseInt(evnt.value);
+              ts2 = ts2 + parseInt(evnt.value);
+              return;
+           }
+           });
+           fortyQues.forEach((evnt) => {
+           if (evnt.checked) {
+              total40 = total40 + parseInt(evnt.value);
+              ts7= ts7+ parseInt(evnt.value);
+              return;
+           }
+           //else if(!evnt.checked){
+           //alert("Please select all values");
+           //return false;
+           }
+           });
+           
+          // ts1 = total1 + total4 + total9 + total18 + total31 + total32 + total38;
+           is1 = parseInt((ts1/42)*100);
+           is2 = parseInt((ts2/42)*100);
+           is3 = parseInt((ts3/42)*100);
+           is4 = parseInt((ts4/42)*100);
+           is5 = parseInt((ts5/42)*100);
+           is6 = parseInt((ts6/42)*100);
+           is7 = parseInt((ts7/42)*100);
+           is8 = parseInt((ts8/42)*100);
+           
+           
+  
+      //	else{
+      // alert("Please select all values");	 
+       //} 
+  
+  
+        
+        
+         
+  
+        localStorage.setItem("total1",total1);
+        localStorage.setItem("total2",total2); 
+        localStorage.setItem("total3",total3);
+        localStorage.setItem("total4",total4);
+        localStorage.setItem("total5",total5);
+        localStorage.setItem("total6",total6);
+        localStorage.setItem("total7",total7);
+        localStorage.setItem("total8",total8);
+        localStorage.setItem("total9",total9);
+        localStorage.setItem("total10",total10);
+        localStorage.setItem("total11",total11);
+        localStorage.setItem("total12",total12);
+        localStorage.setItem("total13",total13);
+        localStorage.setItem("total13",total13);
+        localStorage.setItem("total14",total14);
+        localStorage.setItem("total15",total15);
+        localStorage.setItem("total16",total16);
+        localStorage.setItem("total17",total17);
+        localStorage.setItem("total18",total18);
+        localStorage.setItem("total19",total19);
+        localStorage.setItem("total20",total20);
+        localStorage.setItem("total21",total21);
+        localStorage.setItem("total22",total22);
+        localStorage.setItem("total23",total23);
+        localStorage.setItem("total24",total24);
+        localStorage.setItem("total25",total25);
+        localStorage.setItem("total26",total26);
+        localStorage.setItem("total27",total27);
+        localStorage.setItem("total28",total28);
+        localStorage.setItem("total29",total29);
+        localStorage.setItem("total30",total30);
+        localStorage.setItem("total31",total31);
+        localStorage.setItem("total32",total32);
+        localStorage.setItem("total33",total33);
+        localStorage.setItem("total34",total34);
+        localStorage.setItem("total35",total35);
+        localStorage.setItem("total36",total36);
+        localStorage.setItem("total37",total37);
+        localStorage.setItem("total38",total38);
+        localStorage.setItem("total39",total39);
+        localStorage.setItem("total40",total40);
+        localStorage.setItem("ts1",ts1);
+        localStorage.setItem("ts2",ts2);
+        localStorage.setItem("ts3",ts3);
+        localStorage.setItem("ts4",ts4);
+        localStorage.setItem("ts5",ts5);
+        localStorage.setItem("ts6",ts6);
+        localStorage.setItem("ts7",ts7);
+        localStorage.setItem("is1",is1);
+        localStorage.setItem("is2",is2);
+        localStorage.setItem("is3",is3);
+        localStorage.setItem("is4",is4);
+        localStorage.setItem("is5",is5);
+        localStorage.setItem("is6",is6);
+        localStorage.setItem("is7",is7);
+        localStorage.setItem("is8",is8);
+        
+     }*/
+
+
+        var total = {};
+        total['is1'] = 42;
+        total['is2'] = 36;
+        total['is3'] = 24;
+        total['is4'] = 30;
+        total['is5'] = 30;
+        total['is6'] = 18;
+        total['is7'] = 36;
+        total['is8'] = 24;
+
+        //var ts = {};
+        //var is = {};
+        var rowCount = $("table[name='mi']>tbody>tr").length;
+        var selectedRows = $("table[name='mi']>tbody>tr>td:has(input[type='radio']:checked)");
+        if (selectedRows.length != rowCount) {
+            alert("Please ensure all questions are answered");
+            return false;
+        }
+        var rowIndex = 1;
+        $(selectedRows).each(function (index) {
+            var radioBtn = $(this).find("input[type='radio']");
+            var ts_keyname = $(radioBtn).attr("keyname");
+            var is_keyname = ts_keyname.replace('ts', 'is');
+            if (!('total' in total)) {
+                total['total'] = 0;
+            }
+            if (!(ts_keyname in total)) {
+                total[ts_keyname] = 0;
+            }
+            //if (!(is_keyname in total)) {
+            //    total[is_keyname] = 0;
+            //}
+            total['total' + rowIndex] = parseInt($(radioBtn).val());
+            total['total'] = parseInt(total['total']) + parseInt($(radioBtn).val());    
+            total[ts_keyname] = parseInt(total[ts_keyname]) + parseInt($(radioBtn).val());
+            //total[is_keyname] = ((parseInt(total[is_keyname])) / 42) * 100;
+            rowIndex = rowIndex + 1;
+        });
+        localStorage.setItem("totals", JSON.stringify(total));
+        return true;
+    }
+</script>   
+{% endblock %}

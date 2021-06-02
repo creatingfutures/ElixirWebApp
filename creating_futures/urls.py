@@ -163,7 +163,15 @@ urlpatterns = [
          s_views.test_submit, name="test_submit"),
 
 
-    path('error/', views.error, name="error")
+    path('error/', views.error, name="error"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Mi/', s_views.Mi_Test, name="Mi"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MIResult/', s_views.Mi_TestResult, name="MIResult" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/LT/', s_views.Listen, name="LT" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Lscore/', s_views.LScore, name="Lscore" ),
+    #path('LHome/', s_views.LHome, name="LHome" ),
+     #path('Mview/', s_views.Module_view_SK, name="Mview" ),
+     #path('Mview1/', s_views.Module_view_LS, name="Mview1" ),
+    # path('Mhome/', s_views.Mhome, name="Mhome" ),
 
 
 

@@ -80,19 +80,20 @@ def spoken_english(request, pk, pk1, programName):
     for module_key in scores_module_keys:
         module_scores = [value for key, value in all_scores.items() if module_key.lower() in key.lower()]
         all_scores[module_key]= round((sum(module_scores)/len(module_scores)),2)
-    if programName.lower() == "education to employability":
-        return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+
+    #if programName.lower() == "education to employability":
+    #    return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
     
-    elif programName.lower() == "computer coaching":
-        return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    #elif programName.lower() == "computer coaching":
+    #    return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
     
-    else:
+    #else:
 
        # modules = program_module.objects.filter(program_id=programId)    
-        if len(program_modules)>0:
-           return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l": program_levels,'scores':all_scores})
-        else:
-            return render(request,'error.html',{"pk": pk, "pk1": pk1})
+    if len(program_modules)>0:
+     return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj[0],"l": program_levels,'scores':all_scores})
+    else:
+      return render(request,'error.html',{"pk": pk, "pk1": pk1})
           
 def resumebuilder(request, pk, pk1, pk2, pk3, pk4):
     module = program_module.objects.get(pk=pk3)
@@ -521,13 +522,14 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5,narrative):
     print(i,c,s)
     request.session['score']=s
     j=len(questions1)
+    programName =program.objects.get(pk=pk2).program_name
     if c=='av':
             i=j
             print('total_score fren',j)
             total_score = question.objects.filter(narrative=narrative).count()
             score_save(request,pk,pk1,pk2,pk3,pk4,pk5,s,total_score)
             return render(request, "test_submit.html",
-                      { "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1),"narrative":narrative})
+                      { "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1),"narrative":narrative,"programName": programName})
     question_content = questions1
     #question_content = question.objects.filter(question_content_id=questions1[0].question_content_id)
     print('---question_content',question_content)
@@ -576,3 +578,23 @@ def test_submit(request, pk, pk1, pk2, pk3, pk4):
         s.save()
 
     return render(request, "dummy.html")
+
+def Mi_Test(request,pk, pk1,program):
+    return render(request, "Mi.html",{"pk":pk,"pk1":pk1,"program":program})
+    
+def Mi_TestResult(request, pk, pk1, program):
+     return render(request, "MiScores.html", {"pk":pk,"pk1":pk1, "program":program})
+
+def Listen(request, pk, pk1,program):
+    return render(request, "listening.html",{"pk":pk,"pk1":pk1, "p":program})
+    
+def LScore(request, pk, pk1,program):
+    return render(request, "Lscoring.html",{"pk":pk,"pk1":pk1,"p":program})  
+#def LHome(request):
+#    return render(request, "LHome.html")   
+def Module_view_SK(request):
+    return render(request, "module_view_lifeskills.html")    
+def Module_view_LS(request):
+    return render(request, "module_view_ss.html") 
+def Mhome(request):
+    return render(request, "Mhome.html")    
