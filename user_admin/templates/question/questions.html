@@ -79,15 +79,13 @@
                     >EXPORT QUESTIONS</a
                   >
 
-                  <form
-                    method="post"
-                    action="{% url 'questions_import' %}"
-                    enctype="multipart/form-data"
-                  >
-                    {% csrf_token %}
+                   <form  method="post" action="{% url 'questions_import' %}" enctype="multipart/form-data" style="margin: 20px;">
+                     {% csrf_token %}
+                    <div class="form-group">
                     <input type="file" name="myfile" />
                     <button class="button" type="submit">Upload</button>
-                  </form>
+                    </div>
+                   </form>
                 </div>
               </div>
             </div>
