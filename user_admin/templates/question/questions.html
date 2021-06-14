@@ -75,17 +75,15 @@
                 <br /><br /><br />
                 <div style="position: absolute; left: 10%" id="">
                   <a class="button" href="{% url 'add_question' %}">ADD QUESTION</a>
-                  <a class="button" onClick="func()" href="{% url 'questions_export' %}"
-                    >EXPORT QUESTIONS</a
-                  >
+                  <a class="button" onClick="func()" href="{% url 'questions_export' %}">EXPORT QUESTIONS</a>
 
-                   <form  method="post" action="{% url 'questions_import' %}" enctype="multipart/form-data" style="margin: 20px;">
+                  <form  method="post" action="{% url 'questions_import' %}" enctype="multipart/form-data" style="margin: 20px;">
                      {% csrf_token %}
-                    <div class="form-group">
-                    <input type="file" name="myfile" />
-                    <button class="button" type="submit">Upload</button>
-                    </div>
-                   </form>
+                   <div class="form-group">
+                   <input type="file" name="myfile" />
+                   <button class="button" type="submit">Upload</button>
+                   </div>
+                  </form>
                 </div>
               </div>
             </div>
