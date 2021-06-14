@@ -96,12 +96,37 @@ def questions_export(request):
 
 
 def questions_import(request):
+    
     try:
         excel_file = request.FILES['myfile']
+        # print (excel_file)
     except MultiValueDictKeyError:
         return redirect('questions')
-    
-    response = HttpResponse(content_type='text/plain')
+    data = None
+    if (str(excel_file).split('.')[-1] == 'zip'):
+       with ZipFile(excel_file, 'r') as zip:
+            listOfFileNames = zip.namelist()
+            # Iterate over the file names
+            for fileName in listOfFileNames:
+             # Check filename endswith jpg
+                if fileName.endswith('.jpg'):
+               # Extract a single file from zip
+                    
+                    zip.extract(fileName,os.path.join(base_dir, 'media/question_content'))
+                    exfilename = os.path.join(base_dir, 'media/question_content',fileName)
+                    new_content = question_content(
+                        content = exfilename
+                    )
+                    new_content.save()
+                if fileName.endswith('.xlsx'):
+                    zip.extract(fileName)
+                    excel_data = xlsx_get (fileName, column_limit=17)
+                    data= excel_data
+    elif ((str(excel_file).split('.')[-1] == "xlsx")):
+        data = xlsx_get(excel_file, column_limit=17)
+
+
+    response = HttpResponse(content_type='multipart/form-data')
     textWriter = csv.writer(response)
     textWriter.writerow(['Excel import started'])
     active = True
@@ -109,13 +134,7 @@ def questions_import(request):
     _question_type = None
     _assessment_type = None
     _module_level= None
-    if (str(excel_file).split('.')[-1] != 'xlsx') :
-        messages.error(request, f'You must select an valid excel format.')
-        return redirect('questions')
-    if (str(excel_file).split('.')[-1] == "xls"):
-        data = xls_get(excel_file, column_limit=16)
-    elif (str(excel_file).split('.')[-1] == "xlsx"):
-        data = xlsx_get(excel_file, column_limit=16)
+
     index = 0
     recordInserted = 0
     try:
@@ -133,7 +152,8 @@ def questions_import(request):
                         break;
                     if(index == 0):
                         if(str(questions_item) != "['ID', 'Program', 'Module', 'Level', 'Question', 'Narrative', 'Question Type', 'Assessment Type', 'Hint', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer', 'Comments']"):
-                            textWriter.writerow(['Header columns are mismatching'])                   
+                            textWriter.writerow(['Header columns are mismatching'])        
+                            print ("stage 1")           
                             messages.error(request, f'Header columns are mismatching.')
                             return redirect('questions')
                     else :
@@ -170,20 +190,41 @@ def questions_import(request):
 
                         if isValid == True :
                             #save question
-                            new_question = question(
-                            question =  questions_item[4],
-                            narrative = questions_item[5],
-                            question_type = _question_type,
-                            assessment_type = _assessment_type,
-                            hint = questions_item[8],
-                            created_by = 'admin_data_import',
-                            level = _module_level[0],
-                            comments = questions_item_comments,
-                            )
-                            new_question.save()
+
+                            if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11,12]: 
+
+                                new_question = question(
+                                
+                                question =  questions_item[4],
+                                narrative = questions_item[5],
+                                question_type = _question_type,
+                                assessment_type = _assessment_type,
+                                hint = questions_item[8],
+                                #question_content = question_content.objects.all().get(content__contains=questions_item[13]),
+                                created_by = 'admin_data_import',
+                                level = _module_level[0],
+                                comments = questions_item_comments,
+                                 )
+                                new_question.save()
+
+                            if _question_type.pk in [5,6]: 
+
+                                new_question = question(
+                                
+                                question =  questions_item[4],
+                                narrative = questions_item[5],
+                                question_type = _question_type,
+                                assessment_type = _assessment_type,
+                                hint = questions_item[8],
+                                question_content = question_content.objects.all().get(content__contains=questions_item[13]),
+                                created_by = 'admin_data_import',
+                                level = _module_level[0],
+                                comments = questions_item_comments,
+                                 )
+                                new_question.save()
 
                             #save options
-                            #10 Cross Words, 11 Word Search, 4 Unscramble,3 Riddles,2 Fill in the blanks, 1 Match the following
+                            #10 Cross Words, 11 Word Search, 4 Unscramble,3 Riddles,2 Fill in the blanks, 1 Match the following,
                             if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11]: 
                                 if questions_item[13] != '' :
                                     new_options = question_option(question = new_question, 
@@ -191,8 +232,8 @@ def questions_import(request):
                                     is_right_option =1)
                                     new_options.save()
                                     
-                            # 12 Multiple Choice questions
-                            if _question_type.pk in [12]: 
+                            # 12 Multiple Choice questions,  5 Single image based questions
+                            if _question_type.pk in [12, 5]: 
                                 #save options #1
                                 if questions_item[9] != '' :
                                     new_options = question_option(question = new_question, 
@@ -217,6 +258,35 @@ def questions_import(request):
                                     option_description= questions_item[12],
                                     is_right_option = (questions_item[12] == questions_item[13]) )
                                     new_options.save()
+
+                            # Multiple image based questions
+                            if _question_type.pk in [6]: 
+                                #save options #1
+                                if questions_item[9] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[9]),
+                                    is_right_option = (questions_item[9] == questions_item[13]))
+                                    new_options.save()
+                                #save options #2
+                                if questions_item[10] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[10]),
+                                    is_right_option = (questions_item[10] == questions_item[13]))
+                                    new_options.save()
+                                #save options #3
+                                if questions_item[11] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[11]),
+                                    is_right_option = (questions_item[11] == questions_item[13]) )
+                                    new_options.save()
+                                #save options #4
+                                if questions_item[12] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[12]),
+                                    is_right_option = (questions_item[12] == questions_item[13]) )
+                                    new_options.save()
+                                    
+
                     index = index +1;
                     recordInserted = recordInserted +1;
                 except Exception as ex:
@@ -237,9 +307,12 @@ def questions_import(request):
         response['Content-Disposition'] = 'attachment;filename="logs.txt"'
         return response
     else:
-        messages.success(request, f'Successfully Added Question')  
+        messages.success(request, f'Successfully Added Question')
+    for file in os.listdir():
+        if (str(file).split('.')[-1] == 'xlsx'):
+           os.remove(file)
     return  redirect('questions')
- 
+
 
 
 @login_required
