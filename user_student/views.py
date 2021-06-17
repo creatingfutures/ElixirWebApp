@@ -1,4 +1,5 @@
 from datetime import datetime
+from user_admin.views import password
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -6,11 +7,12 @@ from django.contrib.auth import views as auth_views
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.contrib.auth.models import User,auth
 #from .models import student_status
 import json
 from django.core import serializers
 from user_admin.models import entity, entity_type, entity_status
-from user_admin.models import student, facilitator, program, center
+from user_admin.models import student, facilitator, program, center,question
 from user_admin.models import batch, program_module, module_level,question_option, question, student_module_level, student_batch,question_content,question_type,assessment_type
 # from user_admin.models import image_question,images_question, av_question,av_sub_question
 from user_student.models import scores
@@ -19,6 +21,7 @@ import os
 import json
 import datetime
 from .crossword_puzzle import Crossword
+import random
 
 
 def login(request):
@@ -382,6 +385,10 @@ def standard_test(request, pk, pk1, pk2, pk3, pk4):
 def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questionss = request.session.get('questions')
     questions1 = []
+
+    module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1)
+
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
     i = int(request.GET.get('id'))
@@ -407,8 +414,23 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
     if questions1[i].question_type.question_type == "Fill in the blanks":
-        return render(request, "fill_ups.html",
-                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+        if (str(programName).lower()=="spoken english") and module1.module_name == "writing":
+                print(module_level.objects.get(pk=pk4))
+                level_dict = {
+                    "level 01": 2,
+                    "level 02": 2,
+                    "level 03": 10,                   
+                    "level 04": 5,
+                    "level 05": 3,
+                    "level 06": 1,   
+                }   
+                level_questions = question.objects.filter(level_id=pk4)
+                random_questions = random.sample(list(level_questions), level_dict[str(module_level.objects.get(pk=pk4)).lower()])
+                return render(request, "writing.html",
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"questions1":random_questions})
+        else:
+            return render(request, "fill_ups.html",
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "questions1":questions1})
 
     if questions1[i].question_type.question_type == "Riddles":
         return render(request, "riddles.html",
@@ -551,6 +573,13 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5,narrative):
         print(i)
         return render(request, "text.html",
                                             {"q1": question_content, "i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5,"narrative":narrative})
+    if questions1[i].question_type.question_type == "Text":
+        request.session['question_type'] = questions1[i].question_type.question_type
+        #question_content_id = questions1[i].question_content_id
+      #  print('text question_content_id',question_content_id)
+        print(i)
+        return render(request, "text.html",
+                                            {"q1": question_content, "i": i, "r": range(0, len(question_content)), "l": len(question_content), "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"pk5":pk5,"narrative":narrative})
 
 
 def test_submit(request, pk, pk1, pk2, pk3, pk4):
@@ -575,3 +604,36 @@ def test_submit(request, pk, pk1, pk2, pk3, pk4):
         s.save()
 
     return render(request, "dummy.html")
+
+def facilitator_login(request,pk,pk1,pk2,pk3,pk4):
+    if request.method=='POST':
+        username=request.POST['Username']
+        password=request.POST['Password']
+
+        user=auth.authenticate(username=username,password=password)
+
+        if user is not None:
+            print('login successful')
+            return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+        else:
+            print('login unsuccessful')
+            return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+
+def writing_scores(request,pk,pk1,pk2,pk3,pk4):
+    if request.method == "POST":
+        marks1 = request.POST['marks1']
+        marks2 = request.POST['marks2']
+
+        score = (int(marks1)+int(marks2))/2
+        typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
+        print('ran')
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,2)
+        return render(request, "test_submit.html",
+                {"i": 2, "score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": typ,"test_name": "standard", "len": 2})
+    # student_id = student.objects.get(student_id = pk)
+    # batch_id = batch.objects.get(batch_id = pk1)    
+    return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+
+
+
+            

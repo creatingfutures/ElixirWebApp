@@ -168,9 +168,11 @@ urlpatterns = [
      path('get-response/', chat_views.get_response),
 
 
-    path('error/', views.error, name="error")
+    path('error/', views.error, name="error"),
 
+    path('facilitator_login/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>',s_views.facilitator_login,name='facilitator_login'),
 
+    path('writing_scores/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>',s_views.writing_scores,name='writing_scores'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
