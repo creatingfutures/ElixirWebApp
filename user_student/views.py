@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
+from django.contrib import messages
 #from .models import student_status
 import json
 from django.core import serializers
@@ -418,7 +419,7 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
                 print(module_level.objects.get(pk=pk4))
                 level_dict = {
                     "level 01": 2,
-                    "level 02": 2,
+                    "level 02": 3,
                     "level 03": 10,                   
                     "level 04": 5,
                     "level 05": 3,
@@ -610,26 +611,45 @@ def facilitator_login(request,pk,pk1,pk2,pk3,pk4):
         username=request.POST['Username']
         password=request.POST['Password']
 
+        # try:
         user=auth.authenticate(username=username,password=password)
-
         if user is not None:
-            print('login successful')
-            return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+                print('login successful')
+                return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+        # except:
+            # elif user is None:
+            # print('login unsuccessful')
+            # return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+            # messages.error(request,'username or password not correct')
+            # return render()
+            # return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+            # JsonResponse({'response':'please! verify your Email first'})
         else:
-            print('login unsuccessful')
-            return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+            data = {}
+            data['error_message'] = 'Please check username or password'
+            return JsonResponse(data)
+
 
 def writing_scores(request,pk,pk1,pk2,pk3,pk4):
     if request.method == "POST":
-        marks1 = request.POST['marks1']
-        marks2 = request.POST['marks2']
-
-        score = (int(marks1)+int(marks2))/2
+        marks0 = request.POST.get('marks0',False)
+        marks1 = request.POST.get('marks1',False) 
+        marks2 = request.POST.get('marks2',False)
+        marks3 = request.POST.get('marks3',False)  
+        marks4 = request.POST.get('marks4',False)
+        marks5 = request.POST.get('marks5',False)  
+        marks6 = request.POST.get('marks6',False)  
+        marks7 = request.POST.get('marks7',False)          
+        marks8 = request.POST.get('marks8',False)  
+        marks9 = request.POST.get('marks9',False)  
+        marks = [int(marks0),int(marks1),int(marks2),int(marks3),int(marks4),int(marks5),int(marks6),int(marks7),int(marks8),int(marks9)]
+        print(marks)
+        score = sum(marks)
         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
         print('ran')
-        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,2)
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,len(marks))
         return render(request, "test_submit.html",
-                {"i": 2, "score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": typ,"test_name": "standard", "len": 2})
+                {"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": typ,"test_name": "standard", "len": sum(marks)})
     # student_id = student.objects.get(student_id = pk)
     # batch_id = batch.objects.get(batch_id = pk1)    
     return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})

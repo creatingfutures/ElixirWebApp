@@ -87,27 +87,17 @@
       opacity: 1;
     }
 
-
-
-/* The Close Button
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-} */
-
     </style>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 <div style="margin:10px;padding:10px">
-  <!-- <p><b id="questiontype">Fill The Blanks</b></p> -->
+
    <i id="questiontype"><b>{{request.session.questions|index_narrative:i}}</b></i>
   <br/><br/>
 
@@ -133,29 +123,34 @@
     <h1>Login</h1>
     {% csrf_token %}
     <label for="email"><b>Username</b><span style="color: red"> *mandatory</span> :</label>
-    <input type="text" placeholder="Email" id="Username" name="Username"  required>
+    <input type="text" placeholder="Email" id="form" name="Username"  required>
 
 
     <label for="psw"><b>Password</b><span style="color: red"> *mandatory</span> :</label>
-    <input type="password" placeholder="Password" name="Password" id="Password"  required>
+    <input type="password" placeholder="Password" name="Password" id="form"  required>
 
     <!-- <button type="submit" class="btn" id="myBtn">Login</button> -->
-    <button type="submit" class="btn">Login</button>
+    <button type="submit" class="btn" id="submit">Login</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
-
+<!-- /facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" -->
 <br>
 <script>
-
-// function check_Text(obj){
-//     var arrows = document.getElementsByClassName("");
-//     for(var i = 0; i < arrows.length; i++){
-//         if(obj != arrows[i]){
-//             arrows[i].style.display = "none";
-//         }
+// $("#submit").submit(function(e) {
+//   e.preventDefault(); 
+// $.ajax({
+//     url: "/facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}",
+//     type: 'post',
+//     data:
+//     success: function (data) {
+//       if(data.data == false){
+//       alert("Username or password incorrect");
+//       }
 //     }
-// }
+//   });
+// });
+
 
 function text_check(){
   k =document.getElementsByTagName("textarea")
@@ -169,7 +164,7 @@ function text_check(){
 
 function openForm(){
   if (text_check()){
-    alert("enter answers")
+    alert("Enter all fields to proceed!")
     return false
   }
   else{
@@ -288,7 +283,5 @@ function closeForm() {
 function goBack() {
   window.history.back();
 }
-
-
 
 </script>

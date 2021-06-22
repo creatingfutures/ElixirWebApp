@@ -11,14 +11,28 @@
   position: relative;
   top: 20px;
   bottom: 23px;
-  left: 300px;
-  width: 280px;
+  left: 0px;
+  width: 200px;
+  align:center
 }
 .panel-primary>.panel-heading {
 background-image: none !important;
 background-color: orange !important;
 color: white !important;
 }
+
+div .no-padding {
+  padding:0;
+}
+
+button .full-width{
+  width:100%;
+  //display:block; //only if you're having issues
+}
+.btn-warning {
+  background-color: orange !important;
+}
+
 {% endblock page_specific_styles%}
 
 {% block page_specific_htmlhead%}
@@ -94,15 +108,13 @@ color: white !important;
     </div>
   </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-2"></div>
+<div class="col-xs-3">
   <form action="/writing_scores/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" method="POST" id="form">
   {% csrf_token %}
-
 </form>
 </div>
-
 <script>
-
 function panel_text_check(){
   x = 10
   k = document.getElementsByClassName("panel-group")
@@ -116,10 +128,14 @@ function panel_text_check(){
 for (var j = 0; j < x; j++){
   var form_box = document.createElement("input");
   var br = document.createElement("br");
-  form_box.type = "text";
-  form_box.name = "marks"
+  form_box.type = "number";
+  form_box.min = "0"
+  form_box.max = "10"
+  form_box.name = "marks"+ j
+  form_box.size = 20;
   form_box.className = "form-control"
   form_box.placeholder = "Enter marks"
+  form_box.required = true;
   form.appendChild(form_box)
   form.appendChild(br)
   form.appendChild(br)
@@ -127,7 +143,9 @@ for (var j = 0; j < x; j++){
 var s = document.createElement("input");
 s.type = "submit";
 s.value = "Submit";
-s.className = "open-button"
+s.name = "submit"
+s.id = "submit";
+s.className = "btn btn-large btn-block btn-warning full-width"
 form.appendChild(s)
 }
 
@@ -172,8 +190,43 @@ if (sessionStorage.getItem("questions_10") != null) {
   document.getElementById("user_answer_10").innerHTML = sessionStorage.getItem("answer_10"); 
 }
 
+// $("#submit").click(
+//   function() {
+//           var x = form_inputs()
+//           if(x === false){
+//             alert("Enter Marks")
+//           }
+//           else{
+//           sessionStorage.clear();
+//           $.ajax({ // initialize an AJAX request
+//             url:'/writing/'+{{pk}}+'/'+{{pk1}}+'/'+{{pk2}}+'/'+{{pk3}}+'/'+{{pk4}},
+//             type:'POST',
+//             headers:{"X-CSRFToken":token},
+//             data: {'x':x},
+//             success: function(data) {
+//               $("#container").html(data)
+//             }
+//           });
+//         }
+//       });
+
+function form_inputs(){
+  var array = [];
+  var input = document.getElementsByClassName('form-control');
+    for (var i = 0; i < input.length; i++) {
+      var a = input[i];
+      if (a.value == ''){
+          return false
+      }
+      else{
+        array.push(a)
+      }
+    }
+  return array;
+}
+
 panel_text_check();
-sessionStorage.clear();
+
 </script> 
 
 {% endblock content %}
