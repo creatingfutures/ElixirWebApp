@@ -24,15 +24,25 @@ from django.db.models import Sum
 
 def login(request):
     batches = batch.objects.all()
+
     if request.method == "POST":
+        
         search_query1 = request.POST.get('student', None)
         search_query2 = request.POST.get('batch', None)
+        
         try:
             stud = student.objects.get(pk=int(search_query1))
+        
+            if stud.status.description == 'Active': 
+                return redirect('s_home', search_query1, search_query2)
+            else:
+                messages.success(request, f'Student ID {search_query1} is not active')
+                return redirect("student_login")
+
         except:
-            messages.success(request, f'No student of that ID exists')
+            messages.success(request, f'Student ID {search_query1} is not valid')
             return redirect("student_login")
-        return redirect('s_home', search_query1, search_query2)
+        
     return render(request, "student_login.html", {"b": batches})
 
 
