@@ -1,11 +1,63 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
+
 {% block page_specific_htmlhead%}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/crossword_styles.css' %}">     
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<link rel="stylesheet" href="{% static 'components/normalize/normalize.min.css' %}">
+  	<link rel="stylesheet" type="text/css" href="/static/css/crossword_styles.css">
+	<!-- <link rel="stylesheet" href="/static/css/Elixir.css"> -->
+	<script src="/static/components/jquery/jquery3.6.0.min.js"></script>
+  
+  	<script src="{% static 'js/commons.js' %}"></script>
+
+{% endblock page_specific_htmlhead%}
+
+{% block content %}   
+	<ul class="breadcrumb">
+		<li>
+			<a href="{% url 'spoken_english' pk pk1 'spoken english' %}" >MODULES</a>
+		</li>
+		<li>
+			<a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}">Crossword</a>
+		</li>
+	</ul>
+	 
+	<h1 style="text-align:center"> 
+		EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}
+	</h1>
+
+	<h2 style="text-align:center"> 
+		Crossword 
+	</h2>
+	<br> 
+	<br>
+
+	<div id='container1'>
+		<div id='pagecenter'">
+			<div id="leftBox">	
+				<table id="puzzle" "></table>
+			</div>
 		
-	<script src="{% static 'js/commons.js' %}"></script>
+			<div >
+				<table id="rightBox" style="margin-left:auto; margin-right: auto;">
+					<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked({{questions|safe}},{{across_or_down|safe}})"></td>
+					<td><input class="butt"  type="submit" value="Check" onclick="answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}})"></td>
+					<td><input class="butt" style="display: none;" type="submit" value="Clue" onclick="clueClicked({{questions|safe}},{{across_or_down|safe}},{{word_number|safe}})"></td></tr>
+				</table>
+			</div>
+		
+		
+			<div id='adjust' style="margin-left: auto;">
+				<table id="wordbox" style="margin: 40px;"></table>
+				<button id="submit" class="button">Submit</button>
+				<button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
+			</div>
+		
+			<table id="clues"></table>
+			</div>
+		</div>
 	<script type="text/javascript">
 		//initialize crossword screen on load
 		$( document ).ready(function() {
@@ -35,29 +87,6 @@
 		});
 		});
 	</script>
-{% endblock page_specific_htmlhead%}
-
-{% block content %}   
-	<ul class="breadcrumb">
-		<li>
-			<a href="{% url 'spoken_english' pk pk1 'spoken english' %}" >MODULES</a>
-		</li>
-		<li>
-			<a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}">Crossword</a>
-		</li>
-	</ul>
-	 
-	<h1 style="text-align:center"> 
-		EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}
-	</h1>
-
-	<h2 style="text-align:center"> 
-		Crossword 
-	</h2>
-	<br> 
-	<br>
-
-
 	<script type="text/javascript">
 		
 		//Globals
@@ -82,30 +111,5 @@
 		}
 		//Clear All Button
 	</script>
-
-	<div id='container'>
-		<div id='pagecenter'>
-			<div id="leftBox">	
-				<table id="puzzle">
-				</table>
-			</div>
-
-			<div id="rightBox">
-				<table>
-					<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked({{questions|safe}},{{across_or_down|safe}})"></td>
-					<td><input class="butt"  type="submit" value="Check" onclick="answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}})"></td>
-					<td><input class="butt" style="display: none;" type="submit" value="Clue" onclick="clueClicked({{questions|safe}},{{across_or_down|safe}},{{word_number|safe}})"></td></tr>
-				</table>
-			</div>
-
-			<div id='adjust'>
-				<table id="wordbox">		
-				</table>
-				<button id="submit" class="button">Submit</button>
-				<button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
-			</div>
-		</div>
-		<table id="clues"></table>
-	</div>
 
 {% endblock content %}

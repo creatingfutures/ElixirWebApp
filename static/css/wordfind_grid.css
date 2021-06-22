@@ -53,6 +53,7 @@ body {
 .puzzleWrap {
     width: 850px;
     margin: 50px auto 0;
+    display: inline;
 }
 
 h2 {
@@ -68,11 +69,14 @@ h2 {
     float: left;
     margin: 30px 20px;
     width: 500px;
+    touch-action: none; 
+    
 }
 
     #puzzle div {
         width: 100%;
         margin: 0 auto;
+        touch-action: none; 
     }
 
     /* style for each square in the puzzle */
@@ -85,6 +89,7 @@ h2 {
         outline: none;
         font: 1em 'Century Gothic';
         color: black;
+        touch-action: none; 
     }
 
 button::-moz-focus-inner {
