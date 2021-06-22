@@ -5,7 +5,7 @@
 
 
 {% block page_specific_htmlhead%}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% endblock page_specific_htmlhead%}
 {% block page_specific_styles%}
 
@@ -36,6 +36,15 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+  @media screen and (max-width: 768px) {
+
+    #box{
+      width:100%;
+      margin: 0px 50px 20px 50px;
+    }
+      
+  }
+  
 
 
 {% endblock page_specific_styles%}
