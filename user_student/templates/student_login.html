@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
     <link rel="stylesheet" href="login.css">
         <style>
 
@@ -11,15 +12,16 @@
           width:100%;
           height:100%;
         }
-          #box{
-          z-index: 1;
-          padding:10%;
-          /* margin:auto; */
-          /* position: absolute; */
-          background-color: white;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-        }
+      #box{
+      z-index: 1;
+      padding:10%;
+      /* margin:auto; */
+      /* position: absolute; */
+      background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-left: auto;
+      margin-right: auto;
+      }
 
         .button{
         font-family: 'Century Gothic';
@@ -55,13 +57,7 @@
         border: none;
         border-bottom: 1px solid #000000;
         }
-
-        .left
-        {
-          width:70%;
-          height:100%;
-        }
-
+        
         .right
         {
 
@@ -81,7 +77,40 @@
          
           text-align:left;
         }
-
+        .left
+        {
+          width:70%;
+          height:100%;
+        }
+        
+        @media only screen and (max-width: 768px) {
+        .left{
+        display: none;
+        }  
+        #box{
+          justify-content: center;
+          position:absolute;
+          margin-left: 400px;
+          width: 200px;
+                         
+        }
+        #box label{
+          position:relative;
+          text-align:right;
+          margin-left: 0;
+          margin-right: 4%;
+          margin-bottom: 5%;
+        }
+        #name{
+          position: absolute;
+          float: left;
+        }
+        #batch{
+          position: absolute;
+          float: left;
+        }
+        }
+        
 
         </style>
 </head>
@@ -107,7 +136,7 @@
         <form method="POST" onSubmit="return valid(this)" name="login">
           {% csrf_token %}
           <p> <label>Select Batch<span style="color:red">*</span> : </label>
-          <select name="batch" id="">
+          <select name="batch" id="batch">
             <option value="Choose Batch">Choose Batch</option>
             {% for i in b %}
             <option value="{{i.pk}}">{{i}}</option>
