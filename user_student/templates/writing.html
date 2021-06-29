@@ -1,7 +1,5 @@
 {% load student_tag %}
 
-
-{% load student_tag %}
 <style>
     body {font-family: Arial, Helvetica, sans-serif;}
     * {box-sizing: border-box;}
@@ -41,6 +39,9 @@
       left: 15px;
       border: 3px solid #f1f1f1;
       z-index: 9;
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
     }
     
     /* Add styles to the form container */
@@ -86,29 +87,26 @@
     .form-container .btn:hover, .open-button:hover {
       opacity: 1;
     }
-
+       .question{
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 16px;
+    }
     </style>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+
 
 <div style="margin:10px;padding:10px">
 
    <i id="questiontype"><b>{{request.session.questions|index_narrative:i}}</b></i>
   <br/><br/>
 
+  {% for h in questions1 %}
+  <br>
+  <br>
+ <i id="questions_{{ forloop.counter }}" class="question">{{ h }}<span style="color: red;">*</span></i>
+  <br>
+  <textarea name="message" id="answer_{{ forloop.counter }}" rows="20" cols="60" ></textarea><br>
 
-   {% for h in questions1 %}
-
-   <i id="questions_{{ forloop.counter }}">{{ h }}<span style="color: red">*</span></i>
-    
-    <li><textarea name="message" id="answer_{{ forloop.counter }}" rows="20" cols="60" ></textarea></li><br>
-
-    {% endfor %}
+  {% endfor %}
  
 </div>
 
@@ -119,37 +117,55 @@
 </div>
 
 <div class="form-popup" id="myForm">
-  <form action="/facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" class="form-container" method="POST">
+  {#<form class="form-container" method="POST">#}
     <h1>Login</h1>
     {% csrf_token %}
     <label for="email"><b>Username</b><span style="color: red"> *mandatory</span> :</label>
-    <input type="text" placeholder="Email" id="form" name="Username"  required>
+    <input type="text" placeholder="Email" id="txtusername" name="Username"  required>
 
-
+    <br />
     <label for="psw"><b>Password</b><span style="color: red"> *mandatory</span> :</label>
-    <input type="password" placeholder="Password" name="Password" id="form"  required>
-
+    <input type="password" placeholder="Password" name="Password" id="txtPassword"  required>
+    <br />
     <!-- <button type="submit" class="btn" id="myBtn">Login</button> -->
-    <button type="submit" class="btn" id="submit">Login</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
+    <button type="submit" class="button" id="submit">Login</button>
+    <button type="button" class="button" onclick="closeForm()">Close</button>
+ 
+  {#</form>#}
 </div>
 <!-- /facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" -->
 <br>
-<script>
-// $("#submit").submit(function(e) {
-//   e.preventDefault(); 
-// $.ajax({
-//     url: "/facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}",
-//     type: 'post',
-//     data:
-//     success: function (data) {
-//       if(data.data == false){
-//       alert("Username or password incorrect");
-//       }
-//     }
-//   });
-// });
+<script type="text/javascript">
+
+       $(document).ready(
+        function() {
+             $("#submit").click(function(e) {
+                // e.preventDefault(); 
+                 var token = "{{csrf_token}}";
+                 var username = $("#txtusername").val();
+                 var password = $("#txtPassword").val();
+                 $.ajax({
+                            url: "/facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}",
+                            type: 'post',
+                            headers:{"X-CSRFToken":token},
+                            data:{
+                                Username:username,
+                                Password:password
+                            },
+                            success: function (data) 
+                            {
+                               if(data.error_message){
+                                    alert("Username or password incorrect");
+                                }//end if
+                               else{
+                                 document.write(data);
+                                
+                               }
+                            }//end success
+                       });//end ajax
+            });//end submit
+
+        });//end document.ready
 
 
 function text_check(){
@@ -285,3 +301,4 @@ function goBack() {
 }
 
 </script>
+

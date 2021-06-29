@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load student_tag %}
+{% load static %}
+
+{% block page_specific_htmlhead%}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'match_styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/score_card.css' %}">
+<script src="/static/components/jquery/jquery3.6.0.min.js"></script>
+{% endblock%}
+
+{% block content %} 
+<div class="container1">
+
+    <h1>Score : {{score}}</h1>
+    <h1 id="status"></h1>
+
+    <h4 >
+      <a style="display:block" id="next_level" class="button" href="{% url 'spoken_english' pk pk1 programName %}">
+          Next Level
+      </a>
+    </h4>
+    
+  </div>
+
+
+
+  <script type="text/javascript">
+
+
+    $("#submit1").click(function () {
+      //var url = $("#form1").attr("data-modules-url");
+
+      $.ajax({ // initialize an AJAX request
+        url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/test/submit/',
+        type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          score: "{{score}}",
+          test_name: "{{test_name}}"
+        },
+        success: function(data) {
+          location.replace('/s_home/' + "{{ pk }}" + '/batch/' + "{{ pk1 }}" + '/program/' + "{{ pk2 }}")
+
+        }
+      });
+
+    });
+  </script>
+
+
+{% endblock content %}

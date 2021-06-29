@@ -36,82 +36,83 @@ button .full-width{
 {% endblock page_specific_styles%}
 
 {% block page_specific_htmlhead%}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="/static/components/bootstrap/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="/static/components/jquery/jquery3.6.0.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+
 {% endblock%}
 
 {% block content %} 
 <br>
 <br>
 <br>
+<div class="col-md-3"></div>
 <div class="container col-md-6">
-  <div class="panel-group">
+  <form action="/writing_scores/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" method="POST" id="form">
+    {% csrf_token %}
+  <div class="panel-group" id="panel-0">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_1"></div>
       <div class="panel-body" id="user_answer_1"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-1">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_2"></div>
       <div class="panel-body" id="user_answer_2"></div>
     </div>
   </div>  
-  <div class="panel-group">
+  <div class="panel-group" id="panel-2">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_3"></div>
       <div class="panel-body" id="user_answer_3"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-3">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_4"></div>
       <div class="panel-body" id="user_answer_4"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-4">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_5"></div>
       <div class="panel-body" id="user_answer_5"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-5">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_6"></div>
       <div class="panel-body" id="user_answer_6"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-6">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_7"></div>
       <div class="panel-body" id="user_answer_7"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-7">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_8"></div>
       <div class="panel-body" id="user_answer_8"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-8">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_9"></div>
       <div class="panel-body" id="user_answer_9"></div>
     </div>
   </div>
-  <div class="panel-group">
+  <div class="panel-group" id="panel-9">
     <div class="panel panel-primary">
       <div class="panel-heading" id="question_10"></div>
       <div class="panel-body" id="user_answer_10"></div>
     </div>
   </div>
-</div>
-<div class="col-md-2"></div>
-<div class="col-xs-3">
-  <form action="/writing_scores/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" method="POST" id="form">
-  {% csrf_token %}
 </form>
 </div>
 <script>
@@ -126,6 +127,8 @@ function panel_text_check(){
     } 
 }
 for (var j = 0; j < x; j++){
+  panel = "panel-"+j
+  var question_panel = document.getElementById(panel)
   var form_box = document.createElement("input");
   var br = document.createElement("br");
   form_box.type = "number";
@@ -136,9 +139,9 @@ for (var j = 0; j < x; j++){
   form_box.className = "form-control"
   form_box.placeholder = "Enter marks"
   form_box.required = true;
-  form.appendChild(form_box)
-  form.appendChild(br)
-  form.appendChild(br)
+  question_panel.appendChild(form_box)
+  // form.appendChild(br)
+  // form.appendChild(br)
 }
 var s = document.createElement("input");
 s.type = "submit";
@@ -190,42 +193,24 @@ if (sessionStorage.getItem("questions_10") != null) {
   document.getElementById("user_answer_10").innerHTML = sessionStorage.getItem("answer_10"); 
 }
 
-// $("#submit").click(
-//   function() {
-//           var x = form_inputs()
-//           if(x === false){
-//             alert("Enter Marks")
-//           }
-//           else{
-//           sessionStorage.clear();
-//           $.ajax({ // initialize an AJAX request
-//             url:'/writing/'+{{pk}}+'/'+{{pk1}}+'/'+{{pk2}}+'/'+{{pk3}}+'/'+{{pk4}},
-//             type:'POST',
-//             headers:{"X-CSRFToken":token},
-//             data: {'x':x},
-//             success: function(data) {
-//               $("#container").html(data)
-//             }
-//           });
-//         }
-//       });
-
-function form_inputs(){
-  var array = [];
-  var input = document.getElementsByClassName('form-control');
-    for (var i = 0; i < input.length; i++) {
-      var a = input[i];
-      if (a.value == ''){
-          return false
-      }
-      else{
-        array.push(a)
-      }
-    }
-  return array;
-}
 
 panel_text_check();
+
+// $("#submit").click(function () {
+//   $.ajax({ 
+//             url:'/writing_submit/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}/',
+//             type:'GET', 
+//             data: {
+//               correct: str,
+//               id: "{{i}}",
+//               "score": score
+//             },
+//             success: function (data) {
+//               $("#container").html(data) 
+//             }
+//           });
+
+//         });
 
 </script> 
 

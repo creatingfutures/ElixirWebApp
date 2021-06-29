@@ -642,17 +642,26 @@ def writing_scores(request,pk,pk1,pk2,pk3,pk4):
         marks7 = request.POST.get('marks7',False)          
         marks8 = request.POST.get('marks8',False)  
         marks9 = request.POST.get('marks9',False)  
-        marks = [int(marks0),int(marks1),int(marks2),int(marks3),int(marks4),int(marks5),int(marks6),int(marks7),int(marks8),int(marks9)]
+        marks = [marks0,marks1,marks2,marks3,marks4,marks5,marks6,marks7,marks8,marks9]
+        while False in marks:
+            marks.remove(False)
+        marks = [int(i) for i in marks]
         print(marks)
-        score = sum(marks)
+        score = sum(marks)/len(marks)
         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
-        print('ran')
+        module1 = program_module.objects.get(pk=pk3)
+        programName = program.objects.get(program_module=module1)
+        # print(typ)
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,len(marks))
-        return render(request, "test_submit.html",
-                {"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": typ,"test_name": "standard", "len": sum(marks)})
+        # return render(request, "test_submit.html",
+        #         {"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len":len(marks),"test_type":"writing"})
+        return writing_test_submit(request,score,pk,pk1,pk2,pk3,pk4,programName,len(marks))
     # student_id = student.objects.get(student_id = pk)
     # batch_id = batch.objects.get(batch_id = pk1)    
     return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
+
+def writing_test_submit(request,score,pk,pk1,pk2,pk3,pk4,programName,totalMarks):
+    return render(request,"test_submit.html",{"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len":totalMarks,"test_type":"writing"})
 
 
 

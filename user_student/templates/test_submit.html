@@ -4,8 +4,9 @@
 
 {% block page_specific_htmlhead%}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'match_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'match_styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/score_card.css' %}">
+    <script src="/static/components/jquery/jquery3.6.0.min.js"></script>
 {% endblock%}
 {% block content %}
     <div class="container1">
@@ -50,8 +51,8 @@
 
       var i = parseInt("{{score}}");
       var j = parseInt("{{len}}");
-      console.log("{{text_name}}")
-      if (i > j / 2) {
+      var test_type = "{{test_type}}"
+      if ((i > j / 2) || test_type == "writing") {
         $("#status").html("Status : Pass")
         $("#submit").css("display", "block")
         $("#next_level").css("display", "block")
