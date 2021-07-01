@@ -10,15 +10,23 @@
     <i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">&nbsp; 
         <a href='#' style="color: orange;" >Hint</a> 
     </i>
-
+    <br />
+    
+{% with q=request.session.questions|getObject:i %}
   <ol type="A">
-    <li> <input type="radio" name="options" value="{{request.session.questions|index1:i}}">{{request.session.questions|index1:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{request.session.questions|index2:i}}">{{request.session.questions|index2:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{request.session.questions|index3:i}}">{{request.session.questions|index3:i}}</li><br>
-    <li> <input type="radio" name="options" value="{{request.session.questions|index4:i}}">{{request.session.questions|index4:i}}</li><br>
-  </ol>
-  <input type="submit" id="submit" class="button" value="Submit">
+      
+        {% for option in q.options %}
+            <li>
+            <input type="radio" name="options" value="{{option}}">{{option}}</input>
+            </li>
+            <br/>
+        {% endfor %}
+    
+      </ol>
 
+  <input type="submit" id="submit" class="button" value="Submit">
+{% endwith %}
+   
 </div>
 
 <br>
