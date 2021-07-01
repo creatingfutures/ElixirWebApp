@@ -632,6 +632,20 @@ def facilitator_login(request,pk,pk1,pk2,pk3,pk4):
 
 
 def writing_scores(request,pk,pk1,pk2,pk3,pk4):
+
+        # return render(request, "test_submit.html",z
+        #         {"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len":len(marks),"test_type":"writing"})
+        # return writing_test_submit(request,score,pk,pk1,pk2,pk3,pk4,programName,len(marks))
+    # student_id = student.objects.get(student_id = pk)
+    # batch_id = batch.objects.get(batch_id = pk1)   
+    
+    module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1) 
+    return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName":programName})
+
+def writing_test_submit(request,pk,pk1,pk2,pk3,pk4,programName):
+    # score = 0
+    # marks = []
     if request.method == "POST":
         marks0 = request.POST.get('marks0',False)
         marks1 = request.POST.get('marks1',False) 
@@ -654,15 +668,7 @@ def writing_scores(request,pk,pk1,pk2,pk3,pk4):
         programName = program.objects.get(program_module=module1)
         # print(typ)
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,len(marks))
-        # return render(request, "test_submit.html",
-        #         {"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len":len(marks),"test_type":"writing"})
-        return writing_test_submit(request,score,pk,pk1,pk2,pk3,pk4,programName,len(marks))
-    # student_id = student.objects.get(student_id = pk)
-    # batch_id = batch.objects.get(batch_id = pk1)    
-    return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
-
-def writing_test_submit(request,score,pk,pk1,pk2,pk3,pk4,programName,totalMarks):
-    return render(request,"test_submit.html",{"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len":totalMarks,"test_type":"writing"})
+        return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len})
 
 
 
