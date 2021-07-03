@@ -643,33 +643,62 @@ def writing_scores(request,pk,pk1,pk2,pk3,pk4):
     programName = program.objects.get(program_module=module1) 
     return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName":programName})
 
+# def writing_test_submit(request,pk,pk1,pk2,pk3,pk4,programName):
+#     # score = 0
+#     # marks = []
+#     if request.method == "POST":
+#         marks0 = request.POST.get('marks0',False)
+#         marks1 = request.POST.get('marks1',False) 
+#         marks2 = request.POST.get('marks2',False)
+#         marks3 = request.POST.get('marks3',False)  
+#         marks4 = request.POST.get('marks4',False)
+#         marks5 = request.POST.get('marks5',False)  
+#         marks6 = request.POST.get('marks6',False)  
+#         marks7 = request.POST.get('marks7',False)          
+#         marks8 = request.POST.get('marks8',False)  
+#         marks9 = request.POST.get('marks9',False)  
+#         marks = [marks0,marks1,marks2,marks3,marks4,marks5,marks6,marks7,marks8,marks9]
+#         while False in marks:
+#             marks.remove(False)
+#         marks = [int(i) for i in marks]
+#         print(marks)
+#         score = sum(marks)/len(marks)
+#         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
+#         module1 = program_module.objects.get(pk=pk3)
+#         programName = program.objects.get(program_module=module1)
+#         # print(typ)
+#         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,len(marks))
+#         return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len})
+
 def writing_test_submit(request,pk,pk1,pk2,pk3,pk4,programName):
     # score = 0
     # marks = []
     if request.method == "POST":
-        marks0 = request.POST.get('marks0',False)
-        marks1 = request.POST.get('marks1',False) 
-        marks2 = request.POST.get('marks2',False)
-        marks3 = request.POST.get('marks3',False)  
-        marks4 = request.POST.get('marks4',False)
-        marks5 = request.POST.get('marks5',False)  
-        marks6 = request.POST.get('marks6',False)  
-        marks7 = request.POST.get('marks7',False)          
-        marks8 = request.POST.get('marks8',False)  
-        marks9 = request.POST.get('marks9',False)  
-        marks = [marks0,marks1,marks2,marks3,marks4,marks5,marks6,marks7,marks8,marks9]
-        while False in marks:
-            marks.remove(False)
+        #marks0 = request.POST.get('marks0',False)
+        #marks1 = request.POST.get('marks1',False) 
+        #marks2 = request.POST.get('marks2',False)
+        #marks3 = request.POST.get('marks3',False)  
+        #marks4 = request.POST.get('marks4',False)
+        #marks5 = request.POST.get('marks5',False)  
+        #marks6 = request.POST.get('marks6',False)  
+        #marks7 = request.POST.get('marks7',False)          
+        #marks8 = request.POST.get('marks8',False)  
+        #marks9 = request.POST.get('marks9',False)  
+        #marks = [marks0,marks1,marks2,marks3,marks4,marks5,marks6,marks7,marks8,marks9]
+        #while False in marks:
+        #    marks.remove(False)
+        marks = json.loads(request.POST.get('marks'))
         marks = [int(i) for i in marks]
         print(marks)
-        score = sum(marks)/len(marks)
+        score = sum(marks)
+        total_marks = (10*len(marks))
         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
         module1 = program_module.objects.get(pk=pk3)
         programName = program.objects.get(program_module=module1)
         # print(typ)
-        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,len(marks))
-        return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len})
-
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_marks)
+        score = score/total_marks*10
+        return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len,"test_type":"writing","total_marks":total_marks})
 
 
             

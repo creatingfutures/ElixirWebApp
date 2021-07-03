@@ -52,6 +52,7 @@ button .full-width{
 <br>
 <br>
 <br>
+<div id="pageContent">
 <div class="col-md-3"></div>
 <div class="container col-md-6" id="container">
   <form action="/writing_scores/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" method="POST" id="form">
@@ -118,6 +119,7 @@ button .full-width{
   </div>
 </form>
 </div>
+</div>
 <script>
 function panel_text_check(){
   x = 10
@@ -140,14 +142,14 @@ for (var j = 0; j < x; j++){
   form_box.name = "marks"+ j
   form_box.size = 20;
   form_box.className = "form-control"
-  form_box.placeholder = "Enter marks"
+  form_box.placeholder = "Enter marks between 0 and 10"
   form_box.required = true;
   question_panel.appendChild(form_box)
   // form.appendChild(br)
   // form.appendChild(br)
 }
 var s = document.createElement("input");
-s.type = "button";
+s.type = "input";
 s.value = "Submit";
 s.name = "submit"
 s.id = "submit";
@@ -199,32 +201,28 @@ if (sessionStorage.getItem("questions_10") != null) {
 
 panel_text_check();
 
-$("#submit").click(function () {
-  var token = "{{csrf_token}}";
-  $.ajax({ 
-            url:'/writing_test_submit/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}/{{ programName }}',
-            // writing_test_submit/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>/<str:programName>/<int:score>/<int:len>
-            headers:{"X-CSRFToken":token},
-            type:'POST', 
-            // data: {
-            //   // correct: str,
-            //   pk:"{{ pk }}",
-            //   pk1: "{{ pk1 }}",
-            //   pk2:"{{ pk1 }}",
-            //   pk3:"{{ pk3 }}",
-            //   pk4:"{{ pk4 }}",
-            //   score: "{{ score }}",
-            //   programName: "{{ programName }}",
-              
-            // },
-            success: function (data) {
-              alert("alert")
-              $("#container").html(data) 
-            }
-          });
+      $("#submit").click(function () {
+      var token = "{{csrf_token}}";
+      var markTextboxes = $('[name^=marks]');
+      var marks = [];
+      $(markTextboxes).each(function(count){
+                                            marks.push($(this).val());
+                                        });
+      $.ajax({ 
+                url:'/writing_test_submit/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}/{{ programName }}',
+                // writing_test_submit/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>/<str:programName>/<int:score>/<int:len>
+                headers:{"X-CSRFToken":token},
+                type:'POST', 
+                 data: {
+                    marks:JSON.stringify(marks)
+                },
+                success: function (data) {
+                  $("#pageContent").replaceWith(data) ;
+                }
+              });
 
-        });
-
+            });
+sessionStorage.clear()
 </script> 
 
 {% endblock content %}

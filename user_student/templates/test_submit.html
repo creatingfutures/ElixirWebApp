@@ -49,10 +49,11 @@
 
     <script type="text/javascript">
 
-      var i = parseInt("{{score}}");
+      var i = parseFloat("{{score}}");
       var j = parseInt("{{len}}");
+      var total_marks = parseInt("{{total_marks}}")
       var test_type = "{{test_type}}"
-      if ((i > j / 2) || test_type == "writing") {
+      if (i/j >= 0.8  || (test_type == "writing" && i >= 0.8)) {
         $("#status").html("Status : Pass")
         $("#submit").css("display", "block")
         $("#next_level").css("display", "block")
