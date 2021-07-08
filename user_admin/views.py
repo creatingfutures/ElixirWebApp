@@ -741,15 +741,13 @@ def questionss(request):
     #paginator = Paginator(questions1, paginator_num_pages)
     try:
         page = int(request.GET.get('page'))
-        searchText = str(request.GET.get('searchtext'))
+        
     except:
         page = 1
-        searchText = ""
         
-    if searchText != "" and searchText != 'None':
-        questions1 = question.objects.all().filter(question__contains=searchText)
-    else:
-        questions1 = question.objects.all()
+        
+
+    questions1 = question.objects.all()
         
     paginator = Paginator(questions1, paginator_num_pages)
     
@@ -788,15 +786,19 @@ def questions_search(request):
         data = [ rec for rec in data if levelName.lower() in rec.level.level_description.lower()]
   
 
-    paginator = Paginator(data, paginator_num_pages)
-    page = 1
+    p = Paginator(data,25)
+    print(p.num_pages)
+    
 
+    page_num = int(request.GET.get('page',1))
+    print (page_num)
     try:
-        questions11 = paginator.page(page)
-    except:
-        questions11 = paginator.page(paginator_num_pages)
-
-    return render(request, 'ajax/questions_search.html', {"p": questions11})
+        page = p.page(page_num)
+    except EmptyPage:
+        page= p.page(1)
+    
+    context={'p':page}
+    return render(request, 'question/questions.html', context)
 
 @login_required
 def add_question(request):

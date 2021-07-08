@@ -11,18 +11,20 @@ body {
 .nav {
     background-color: orange;
     height: 200px;
-    display: grid;
+    display: inline-flex;
     grid-template-rows: auto auto auto;
     justify-content: center;
     align-items: center;
+    width: 100vw;
 }
 
 .navig {
     grid-row: 2/3;
-    display: flex;
+    display: inline-flex;
     flex-wrap: nowrap;
     background-color: white;
     flex-direction: row;
+    width: 80vw;
 }
 
 .navv {
@@ -45,7 +47,6 @@ nav {
 
 .button {
     font-family: 'Century Gothic';
-    font-weight:bold;
     background-color: orange;
     border: none;
     color: black;
@@ -123,49 +124,3 @@ ul.breadcrumb li a {
 .red{
     color:red;
 }
-
-
-
-table[name='listen'],
-table[name='listen'] > thead > th,
-table[name='listen'] > thead > th > td,
-table[name='listen'] > tbody > tr > td {
-    border: 1px solid #696969;
-    border-collapse: collapse;
-    text-align: center;
-    background-color: #c4c4c4;
-    font-size: 12px;
-}
- 
-    table[name='listen'] > thead > tr > th,
-    table[name='listen'] > tbody > tr >td {
-        padding: 15px;
-    }
-
-    table[name='listen'] > thead > tr > th {
-        background-color: #ffffff;
-    }
-
-    table[name='mi'],
-    table[name='mi'] > thead > th,
-    table[name='mi'] > thead > th > td,
-    table[name='mi'] > tbody > tr > td {
-        border: 1px solid #696969;
-        border-collapse: collapse;
-        text-align: center;
-        background-color: #c4c4c4;
-        font-size: 12px;
-    }
-
-        table[name='mi'] > thead > tr > th,
-        table[name='mi'] > tbody > tr > td {
-            padding: 15px;
-        }
-
-        table[name='mi'] > thead > tr > th,
-        table[name='mi'] > tfoot > tr > td,
-        table[name='mi'] > tfoot > tr > th {
-            background-color: #ffffff;
-            border: 1px solid #696969;
-        }
-       
