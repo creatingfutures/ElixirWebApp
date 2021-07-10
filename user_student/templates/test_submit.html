@@ -50,8 +50,10 @@
 
       var i = parseInt("{{score}}");
       var j = parseInt("{{len}}");
+      var total_marks = parseInt("{{total_marks}}")
+      var test_type = "{{test_type}}"
       console.log("{{text_name}}")
-      if (i > j / 2) {
+      if (i > j / 2  || (test_type == "writing" && i >= 0.8)) {
         $("#status").html("Status : Pass")
         $("#submit").css("display", "block")
         $("#next_level").css("display", "block")

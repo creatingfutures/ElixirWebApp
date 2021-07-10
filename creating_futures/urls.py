@@ -165,6 +165,14 @@ urlpatterns = [
 
 
     path('error/', views.error, name="error"),
+
+
+    path('facilitator_login/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>',s_views.facilitator_login,name='facilitator_login'),
+
+    path('writing_scores/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>',s_views.writing_scores,name='writing_scores'),
+
+    path('writing_test_submit/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>/<str:programName>',s_views.writing_test_submit,name='writing_test_submit'),
+    
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Mi/', s_views.Mi_Test, name="Mi"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MIResult/', s_views.Mi_TestResult, name="MIResult" ),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/LT/', s_views.Listen, name="LT" ),

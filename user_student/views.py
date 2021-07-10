@@ -9,6 +9,7 @@ from django.contrib import messages
 #from .models import student_status
 import json
 from django.core import serializers
+from django.contrib.auth.models import User,auth
 from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level,question_option, question, student_module_level, student_batch,question_content,question_type,assessment_type
@@ -394,6 +395,10 @@ def standard_test(request, pk, pk1, pk2, pk3, pk4):
 def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questionss = request.session.get('questions')
     questions1 = []
+
+    module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1)
+
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
     i = int(request.GET.get('id'))
@@ -419,6 +424,20 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
     if questions1[i].question_type.question_type == "Fill in the blanks":
+        if (str(programName).lower()=="spoken english") and module1.module_name == "writing":
+                print(module_level.objects.get(pk=pk4))
+                level_dict = {
+                    "level 01": 2,
+                    "level 02": 3,
+                    "level 03": 10,                   
+                    "level 04": 5,
+                    "level 05": 3,
+                    "level 06": 1,   
+                }   
+                level_questions = question.objects.filter(level_id=pk4)
+                random_questions = random.sample(list(level_questions), level_dict[str(module_level.objects.get(pk=pk4)).lower()])
+                return render(request, "writing.html",
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"questions1":random_questions})
         return render(request, "fill_ups.html",
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
@@ -588,6 +607,73 @@ def test_submit(request, pk, pk1, pk2, pk3, pk4):
         s.save()
 
     return render(request, "dummy.html")
+
+def facilitator_login(request,pk,pk1,pk2,pk3,pk4):
+    if request.method=='POST':
+        username=request.POST['Username']
+        password=request.POST['Password']
+
+        # try:
+        user=auth.authenticate(username=username,password=password)
+        if user is not None:
+                print('login successful')
+                return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+        # except:
+            # elif user is None:
+            # print('login unsuccessful')
+            # return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+            # messages.error(request,'username or password not correct')
+            # return render()
+            # return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+            # JsonResponse({'response':'please! verify your Email first'})
+        else:
+            data = {}
+            data['error_message'] = 'Please check username or password'
+            return JsonResponse(data)
+
+def writing_scores(request,pk,pk1,pk2,pk3,pk4):
+
+        # return render(request, "test_submit.html",z
+        #         {"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len":len(marks),"test_type":"writing"})
+        # return writing_test_submit(request,score,pk,pk1,pk2,pk3,pk4,programName,len(marks))
+    # student_id = student.objects.get(student_id = pk)
+    # batch_id = batch.objects.get(batch_id = pk1)   
+    
+    module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1) 
+    return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName":programName})
+
+def writing_test_submit(request,pk,pk1,pk2,pk3,pk4,programName):
+    # score = 0
+    # marks = []
+    if request.method == "POST":
+        #marks0 = request.POST.get('marks0',False)
+        #marks1 = request.POST.get('marks1',False) 
+        #marks2 = request.POST.get('marks2',False)
+        #marks3 = request.POST.get('marks3',False)  
+        #marks4 = request.POST.get('marks4',False)
+        #marks5 = request.POST.get('marks5',False)  
+        #marks6 = request.POST.get('marks6',False)  
+        #marks7 = request.POST.get('marks7',False)          
+        #marks8 = request.POST.get('marks8',False)  
+        #marks9 = request.POST.get('marks9',False)  
+        #marks = [marks0,marks1,marks2,marks3,marks4,marks5,marks6,marks7,marks8,marks9]
+        #while False in marks:
+        #    marks.remove(False)
+        marks = json.loads(request.POST.get('marks'))
+        marks = [int(i) for i in marks]
+        print(marks)
+        score = sum(marks)
+        total_marks = (10*len(marks))
+        typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
+        module1 = program_module.objects.get(pk=pk3)
+        programName = program.objects.get(program_module=module1)
+        # print(typ)
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_marks)
+        score = score/total_marks*10
+        return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len,"test_type":"writing","total_marks":total_marks})
+
+
 
 def Mi_Test(request,pk, pk1,program):
     return render(request, "Mi.html",{"pk":pk,"pk1":pk1,"program":program})
