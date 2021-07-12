@@ -26,7 +26,7 @@ chatbot = ChatBot(
 			'import_path':'chatterbot.logic.BestMatch',
 			
 			#'threshold': 0.65,
-			#'default_response': 'OhNo'
+			# 'default_response': 'I do not know'
 						
 		}
 		
@@ -40,7 +40,7 @@ path= os.getcwd()
 
 #trainer = ChatterBotCorpusTrainer(chatbot)
 chatbot.set_trainer(ChatterBotCorpusTrainer)
-chatbot.train(path+"\\chatbot\\static\\chatbot.yml")
+chatbot.train(path+"/chatbot/static/chatbot.yml")
 
 # Train based on the english corpus
 

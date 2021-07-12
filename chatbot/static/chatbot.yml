@@ -60,6 +60,54 @@ conversations:
 #user
 - - I usually eat biryani for lunch
   - What is your favourite food?
+#user
+- - My favourite food is 
+  - What is your favorite colour?
+#user
+- - My favourite colour is
+  - Whom you are most closest to and why?
+#user
+- - I am closest
+  - What makes you happy?
+#user
+- - The person I am closest to
+  - What makes you happy?
+#user
+- - makes me happy
+  - What was your Happiest moment in your life?
+#user
+- - was the happiest moment in my life
+  - When does the museum open on Sundays?
+#user
+- - The museum opens
+  - If you were invisible, what would you do? 
+#user
+- - If I was invisible
+  - If you had a money machine, what would you do?
+#user
+- - If I was invisible
+  - If you had a money machine, what would you do?
+#user
+- - If I had a money machine
+  - What is your goal in life?
+#user
+- - My goal in life is
+  - Who inspires you the most and why?
+#user
+- - inspires me the most
+  - What are your strengths?
+#user
+- - My strengths are
+  - Okay
+
+
+
+
+
+
+
+
+
 
 
 
