@@ -11,18 +11,20 @@ body {
 .nav {
     background-color: orange;
     height: 200px;
-    display: grid;
+    display: inline-flex;
     grid-template-rows: auto auto auto;
     justify-content: center;
     align-items: center;
+    width: 100vw;
 }
 
 .navig {
     grid-row: 2/3;
-    display: flex;
+    display: inline-flex;
     flex-wrap: nowrap;
     background-color: white;
     flex-direction: row;
+    width: 80vw;
 }
 
 .navv {
@@ -113,4 +115,12 @@ ul.breadcrumb li a {
 
 #questiontype{
     font-size:16px;
+}
+
+.green{
+    color:green
+}
+
+.red{
+    color:red;
 }

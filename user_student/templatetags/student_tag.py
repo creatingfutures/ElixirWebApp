@@ -5,6 +5,14 @@ from user_admin.models import *
 register = template.Library()
 
 @register.filter
+def get_dictionary_item(dictionary,key):
+    return dictionary.get(key)
+
+@register.filter
+def add_str(string,strToAdd):
+    return str(string)+'-'+str(strToAdd)
+
+@register.filter
 def prefix(a):
     distinct = []
     for i in question.objects.filter(level_id=a):

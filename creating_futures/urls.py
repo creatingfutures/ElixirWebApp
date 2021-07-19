@@ -57,7 +57,8 @@ urlpatterns = [
     path('ajax/load_fac_home/', views.load_fac_home, name='load_fac_home'),
     path('ajax/student_search/', views.student_search, name='student_search'),
     path('ajax/batch_search/', views.batch_search, name='batch_search'),
-    path('ajax/questions_search', views.questions_search, name='questions_search'),
+    path('questions/ajax/questions_search', views.questions_search, name='questions_search'),
+    path('ajax/pagination_search', views.questions_search, name='pagination_search'),
     path('ajax/question_type_form/',views.question_type_form, name='question_type_form'),
     path('delete_program/<int:pk>', views.delete_program, name='delete_program'),
     path('delete_module/<int:pk>', views.delete_module, name='delete_module'),
@@ -107,7 +108,7 @@ urlpatterns = [
          views.password_management_facilitator, name='password_management_facilitator'),
     path('password_management_students', views.password_management_students,
          name='password_management_students'),
-    path('password_management_student/<int:pk>',
+    path('password_management_student/<int:pk>', 
          views.password_management_student, name='password_management_student'),
     path('admin_login', views.LoginView1.as_view(), name='admin_login'),
     path('logout/', views.LogoutView1.as_view(), name='admin_logout'),
@@ -137,7 +138,7 @@ urlpatterns = [
 #   path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/crossword/',
 #          s_views.crossword, name="crossword"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<int:pk2>/module/<int:pk3>/level/<int:pk4>/resume_builder/',
-         s_views.e2e_modules, name="e2e_modules"),
+         s_views.resumebuilder, name="resumebuilder"),
 
 
 
@@ -163,7 +164,23 @@ urlpatterns = [
          s_views.test_submit, name="test_submit"),
 
 
-    path('error/', views.error, name="error")
+    path('error/', views.error, name="error"),
+
+
+    path('facilitator_login/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>',s_views.facilitator_login,name='facilitator_login'),
+
+    path('writing_scores/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>',s_views.writing_scores,name='writing_scores'),
+
+    path('writing_test_submit/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>/<str:programName>',s_views.writing_test_submit,name='writing_test_submit'),
+    
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Mi/', s_views.Mi_Test, name="Mi"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MIResult/', s_views.Mi_TestResult, name="MIResult" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/LT/', s_views.Listen, name="LT" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Lscore/', s_views.LScore, name="Lscore" ),
+    #path('LHome/', s_views.LHome, name="LHome" ),
+     #path('Mview/', s_views.Module_view_SK, name="Mview" ),
+     #path('Mview1/', s_views.Module_view_LS, name="Mview1" ),
+    # path('Mhome/', s_views.Mhome, name="Mhome" ),
 
 
 

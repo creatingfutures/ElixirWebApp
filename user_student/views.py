@@ -9,6 +9,7 @@ from django.contrib import messages
 #from .models import student_status
 import json
 from django.core import serializers
+from django.contrib.auth.models import User,auth
 from user_admin.models import entity, entity_type, entity_status
 from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level,question_option, question, student_module_level, student_batch,question_content,question_type,assessment_type
@@ -19,19 +20,30 @@ import os
 import json
 import datetime
 from .crossword_puzzle import Crossword
+from django.db.models import Sum
 
 
 def login(request):
     batches = batch.objects.all()
+
     if request.method == "POST":
+        
         search_query1 = request.POST.get('student', None)
         search_query2 = request.POST.get('batch', None)
+        
         try:
             stud = student.objects.get(pk=int(search_query1))
+        
+            if stud.status.description == 'Active': 
+                return redirect('s_home', search_query1, search_query2)
+            else:
+                messages.success(request, f'Student ID {search_query1} is not active')
+                return redirect("student_login")
+
         except:
-            messages.success(request, f'No student of that ID exists')
+            messages.success(request, f'Student ID {search_query1} is not valid')
             return redirect("student_login")
-        return redirect('s_home', search_query1, search_query2)
+        
     return render(request, "student_login.html", {"b": batches})
 
 
@@ -42,78 +54,65 @@ def s_home(request, pk, pk1):
 
 
 def spoken_english(request, pk, pk1, programName):
-    respective_scores = scores.objects.filter(student_id=pk,batch_id=pk1).values('student_id','batch_id','level_id','user_score','total_score','assessment_type_id')
-    question_type_name = str(assessment_type.objects.get(assessment_type='General Assessment'))
-    #print(question_type_name)
-    A = []
-    L = []
-    F = []
-    for i in respective_scores:
-        i['assessment_type_id'] = str(assessment_type.objects.get(assessment_type_id=i['assessment_type_id']))
-        if(i['assessment_type_id'] not in A):
-            A.append(i['assessment_type_id'])
-        if(i['level_id'] not in L):
-            L.append(i['level_id'])
-    #print(A,L,respective_scores)
-    for j in L:
-        L_score = 0
-        T_score = 0
-        level = 0
-        for k in A:
-            score_U = 0
-            score_T = 0
-            for x in respective_scores:
-                if(x['assessment_type_id']==k and x['level_id']==j):
-                    a = k
-                    score_U+=x['user_score']
-                    score_T+=x['total_score']
-                    level = x['level_id']
-            if(level!=0 and not (score_T==0)):
-                F.append(str(a)+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(score_U)+','+str(score_T))
-                L_score+=score_U
-                T_score+=score_T
-        F.append('L'+','+str(x['student_id'])+','+str(x['batch_id'])+','+str(level)+','+str(L_score)+','+str(T_score))
-    #assessment = assessment_type.objects.exclude(assessment_type='General Assessment')
-    #print(assessment)
-    respective_scores = json.dumps(list(respective_scores))
+
     programObj=program.objects.filter(program_name=programName)
     programId = 0
     if len(programObj)>0:
         programId=programObj[0].program_id
     else:
          return render(request,'error.html',{"pk": pk, "pk1": pk1})
-    #print(respective_scores)
-    if programName.lower() == "education to employability":
-        modules = program_module.objects.filter(program_id=programId)
-        program1 = program.objects.get(pk=programId)
-        levels=[]
-        for i in modules:
-            levels.append(module_level.objects.filter(
-            module_id=i.module_id).order_by('level_description'))
-        return render(request, "e2e.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": pk2, "p": program1,"l":zip(modules,levels)})
+    program_modules = program_module.objects.filter(program_id=programId)
+    print("modules")
+    print(program_modules)
+    program_module_ids = [module.module_id for module in program_modules];
+    program_levels= module_level.objects.filter(module_id__in=program_module_ids)
+   # for i in modules:
+       #levels.append(module_level.objects.filter(module_id=i.module_id).order_by('level_description'))
+    print ("levels")
+    print(program_levels)
+    program_level_ids= [level.level_id for level in program_levels]
+    program_scores = scores.objects.filter(student_id=pk,batch_id=pk1,level_id__in=program_level_ids).all()
+    question_type_name = str(assessment_type.objects.get(assessment_type='General Assessment'))
+    #print(question_type_name)
+    assesment_type_in_scores = [score.assessment_type_id for score in program_scores ]
+    levels_in_scores = [score.level_id for score in program_scores]
+    F = []
+    all_scores={}
+    scores_level={}
+    scores_module={}
+    scores_level_keys=[score.level_id.module.module_name +'-'+score.level_id.level_description  for score in program_scores]
+    scores_module_keys=[score.level_id.module.module_name for score in program_scores]
+
+    all_scores = {str(score.level_id.module.module_name)+'-'+str(score.level_id.level_description)+'-'+str(score.assessment_type_id.assessment_type) : round( ((score.user_score/score.total_score)*100),2) for score in program_scores}
+    scores_level = {}
+    for lvl_key in scores_level_keys:
+        level_scores = [value for key, value in all_scores.items() if lvl_key.lower() in key.lower()]
+        all_scores[lvl_key]= round( (sum(level_scores)/len(level_scores)),2)
+    for module_key in scores_module_keys:
+        module_scores = [value for key, value in all_scores.items() if module_key.lower() in key.lower()]
+        all_scores[module_key]= round((sum(module_scores)/len(module_scores)),2)
+
+    #if programName.lower() == "education to employability":
+    #    return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    
+    #elif programName.lower() == "computer coaching":
+    #    return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj,"l":program_levels,'scores':all_scores})
+    
+    #else:
+
+       # modules = program_module.objects.filter(program_id=programId)    
+    if len(program_modules)>0:
+     return render(request, "spoken_english.html", {"m": program_modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": programObj[0],"l": program_levels,'scores':all_scores})
     else:
-        
-        modules = program_module.objects.filter(program_id=programId)    
-        if len(modules)>0:
-            order = [4, 1, 0, 7, 3, 2, 6, 5]
-            #modules = [modules[i] for i in order]
-            program1 = program.objects.get(pk=programId)
-            levels=[]
-            for i in modules:
-                levels.append(module_level.objects.filter(
-                module_id=i.module_id).order_by('level_description'))
-            return render(request, "spoken_english.html", {"m": modules, "pk": pk, "pk1": pk1, "pk2": programId, "p": program1,"l":zip(modules,levels),'respective_scores':respective_scores,'F':F})
-        else:
-            return render(request,'error.html',{"pk": pk, "pk1": pk1})
+      return render(request,'error.html',{"pk": pk, "pk1": pk1})
           
-def e2e_modules(request, pk, pk1, pk2, pk3, pk4):
+def resumebuilder(request, pk, pk1, pk2, pk3, pk4):
     module = program_module.objects.get(pk=pk3)
-    if pk3 == 20:
+    if module.module_name.lower() == 'resume builder':
        level = module_level.objects.get(pk=pk4)
        return render(request, "resume_builder/index.html", {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
     else:
-         level = module_level.objects.get(pk=pk4)
-         return redirect('standard_test',pk,pk1,pk2,pk3,pk4)   
+       return render(request,'error.html',{"pk": pk, "pk1": pk1})
 
 def module_view(request, pk, pk1, pk2, pk3):
     levels = module_level.objects.filter(
@@ -385,15 +384,21 @@ def standard_test(request, pk, pk1, pk2, pk3, pk4):
     data = serializers.serialize('json', result)
     request.session['questions'] = data
     module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1)
     level1 = module_level.objects.get(pk=pk4)
     i = -1
+    print(module1)
     return render(request, "standard_test.html",
-                  { "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "m": module1, "l": level1})
+                  { "score": 0, "i": i, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"m": module1,"l": level1})
 
 
 def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
     questionss = request.session.get('questions')
     questions1 = []
+
+    module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1)
+
     for copy in serializers.deserialize("json", questionss):
         questions1.append(copy.object)
     i = int(request.GET.get('id'))
@@ -408,15 +413,31 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
         score = s
         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
         total_score = len(questions1)
+        module1 = program_module.objects.get(pk=pk3)
+        programName = program.objects.get(program_module=module1)
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_score)
         return render(request, "test_submit.html",
-                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "test_name": "standard", "len": len(questions1)})
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len": len(questions1)})
 
     if questions1[i].question_type.question_type == "Multiple Choice":
         return render(request, "mcq.html",
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
     if questions1[i].question_type.question_type == "Fill in the blanks":
+        if (str(programName).lower()=="spoken english") and module1.module_name == "writing":
+                print(module_level.objects.get(pk=pk4))
+                level_dict = {
+                    "level 01": 2,
+                    "level 02": 3,
+                    "level 03": 10,                   
+                    "level 04": 5,
+                    "level 05": 3,
+                    "level 06": 1,   
+                }   
+                level_questions = question.objects.filter(level_id=pk4)
+                random_questions = random.sample(list(level_questions), level_dict[str(module_level.objects.get(pk=pk4)).lower()])
+                return render(request, "writing.html",
+                      {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"questions1":random_questions})
         return render(request, "fill_ups.html",
                       {"i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4})
 
@@ -530,13 +551,14 @@ def ajax_av_test(request, pk, pk1, pk2, pk3, pk4,pk5,narrative):
     print(i,c,s)
     request.session['score']=s
     j=len(questions1)
+    programName =program.objects.get(pk=pk2).program_name
     if c=='av':
             i=j
             print('total_score fren',j)
             total_score = question.objects.filter(narrative=narrative).count()
             score_save(request,pk,pk1,pk2,pk3,pk4,pk5,s,total_score)
             return render(request, "test_submit.html",
-                      { "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1),"narrative":narrative})
+                      { "i": i, "score": s, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4, "pk5":pk5,"test_name": "av_test", "len": len(questions1),"narrative":narrative,"programName": programName})
     question_content = questions1
     #question_content = question.objects.filter(question_content_id=questions1[0].question_content_id)
     print('---question_content',question_content)
@@ -585,3 +607,90 @@ def test_submit(request, pk, pk1, pk2, pk3, pk4):
         s.save()
 
     return render(request, "dummy.html")
+
+def facilitator_login(request,pk,pk1,pk2,pk3,pk4):
+    if request.method=='POST':
+        username=request.POST['Username']
+        password=request.POST['Password']
+
+        # try:
+        user=auth.authenticate(username=username,password=password)
+        if user is not None:
+                print('login successful')
+                return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+        # except:
+            # elif user is None:
+            # print('login unsuccessful')
+            # return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+            # messages.error(request,'username or password not correct')
+            # return render()
+            # return redirect('writing_scores',pk,pk1,pk2,pk3,pk4)
+            # JsonResponse({'response':'please! verify your Email first'})
+        else:
+            data = {}
+            data['error_message'] = 'Please check username or password'
+            return JsonResponse(data)
+
+def writing_scores(request,pk,pk1,pk2,pk3,pk4):
+
+        # return render(request, "test_submit.html",z
+        #         {"score": score, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName": programName,"test_name": "standard", "len":len(marks),"test_type":"writing"})
+        # return writing_test_submit(request,score,pk,pk1,pk2,pk3,pk4,programName,len(marks))
+    # student_id = student.objects.get(student_id = pk)
+    # batch_id = batch.objects.get(batch_id = pk1)   
+    
+    module1 = program_module.objects.get(pk=pk3)
+    programName = program.objects.get(program_module=module1) 
+    return render(request,"writing_grading.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"programName":programName})
+
+def writing_test_submit(request,pk,pk1,pk2,pk3,pk4,programName):
+    # score = 0
+    # marks = []
+    if request.method == "POST":
+        #marks0 = request.POST.get('marks0',False)
+        #marks1 = request.POST.get('marks1',False) 
+        #marks2 = request.POST.get('marks2',False)
+        #marks3 = request.POST.get('marks3',False)  
+        #marks4 = request.POST.get('marks4',False)
+        #marks5 = request.POST.get('marks5',False)  
+        #marks6 = request.POST.get('marks6',False)  
+        #marks7 = request.POST.get('marks7',False)          
+        #marks8 = request.POST.get('marks8',False)  
+        #marks9 = request.POST.get('marks9',False)  
+        #marks = [marks0,marks1,marks2,marks3,marks4,marks5,marks6,marks7,marks8,marks9]
+        #while False in marks:
+        #    marks.remove(False)
+        marks = json.loads(request.POST.get('marks'))
+        marks = [int(i) for i in marks]
+        print(marks)
+        score = sum(marks)
+        total_marks = (10*len(marks))
+        typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
+        module1 = program_module.objects.get(pk=pk3)
+        programName = program.objects.get(program_module=module1)
+        # print(typ)
+        score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_marks)
+        score = score/total_marks*10
+        return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len,"test_type":"writing","total_marks":total_marks})
+
+
+
+def Mi_Test(request,pk, pk1,program):
+    return render(request, "Mi.html",{"pk":pk,"pk1":pk1,"program":program})
+    
+def Mi_TestResult(request, pk, pk1, program):
+     return render(request, "MiScores.html", {"pk":pk,"pk1":pk1, "program":program})
+
+def Listen(request, pk, pk1,program):
+    return render(request, "listening.html",{"pk":pk,"pk1":pk1, "p":program})
+    
+def LScore(request, pk, pk1,program):
+    return render(request, "Lscoring.html",{"pk":pk,"pk1":pk1,"p":program})  
+#def LHome(request):
+#    return render(request, "LHome.html")   
+def Module_view_SK(request):
+    return render(request, "module_view_lifeskills.html")    
+def Module_view_LS(request):
+    return render(request, "module_view_ss.html") 
+def Mhome(request):
+    return render(request, "Mhome.html")    

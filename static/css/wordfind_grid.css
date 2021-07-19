@@ -53,6 +53,7 @@ body {
 .puzzleWrap {
     width: 850px;
     margin: 50px auto 0;
+    display: inline;
 }
 
 h2 {
@@ -67,24 +68,28 @@ h2 {
     padding: 0px;
     float: left;
     margin: 30px 20px;
-    width: 500px;
+   /* width: 500px;*/
+    touch-action: none; 
+    
 }
 
     #puzzle div {
         width: 100%;
         margin: 0 auto;
+        touch-action: none; 
     }
 
     /* style for each square in the puzzle */
     #puzzle .puzzleSquare {
-        height: 25px;
-        width: 25px;
+        height: 2em;
+        width: 2em;
         text-transform: uppercase;
         background-color: orange;
         border: 0;
         outline: none;
-        font: 1em 'Century Gothic';
+        font: 1.5em 'Century Gothic';
         color: black;
+        touch-action: none; 
     }
 
 button::-moz-focus-inner {
@@ -104,7 +109,8 @@ button::-moz-focus-inner {
 
 /* indicates that the square is part of a word that has been found */
 #puzzle .found {
-    color: #c4c4c4;
+    /*color: #c4c4c4;*/
+    background-color:lightgray;
 }
 
 #puzzle .solved {
@@ -133,10 +139,11 @@ button::-moz-focus-inner {
 
     #words li {
         padding: 0 0 7px;
-        font: 1em 'Century Gothic';
+        font: 1.5em 'Century Gothic';
         display: inline-block;
         float: left;
         width: 100px;
+        text-align:left;
     }
 
     /* indicates that the word has been found */

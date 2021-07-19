@@ -1,0 +1,540 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead %}
+    <title>MI Questionaire</title>
+    <style>
+        table[name='mi'] {
+            width:100%;
+        }
+    </style>
+  
+    <script type="text/javascript">
+        var totals = {};
+        $( document ).ready(function() {
+            var table = $("table[name='mi']");
+            totals = JSON.parse(localStorage.getItem("totals"));
+            var totalElements = $(table).find("tbody>tr>td[id^=total]");
+            //alert totalElements.length;
+            var tsElements = $(table).find("tfoot>tr>th[id^=ts]");
+            var isElements = $(table).find("tfoot>tr>td[id^=is]");
+            var tsAndIsElements = $.merge(tsElements, isElements);
+
+            $.each(totalElements, populateTotal);
+            $.each(tsElements, populateTotal);
+            $.each(isElements, populateTotal);
+            
+
+        });
+
+        function populateTotal(key, value) {
+            var id = $(value).attr("id");
+            $(value).html(totals[id]);
+            if (id.startsWith('ts')) {
+                var strIsId = id.replace('ts', 'is') + 'pct';
+                var isPct = ((parseInt(totals[id]) / parseInt(totals[id.replace('ts', 'is')])) * 100).toFixed(2);
+                $("table[name='mi']>tfoot>tr>td[id='" + strIsId + "']>p").html(isPct+" %");
+
+            }
+        }
+
+        
+
+    </script>
+{% endblock%}
+   
+{% block content %}
+    <ul class="breadcrumb">
+      <li><a href="{% url 'spoken_english' pk pk1 program %}">MODULES</a></li>.
+      <li><a href="#">MULTIPLE INTELLIGENCE</a></li>
+    </ul>
+
+    <h1>
+        MULTIPLE INTELLIGENCE - COMPUTATION
+    </h1>
+    <br>
+    <table name="mi">
+      <thead>
+          <tr>
+            <th colspan="2" >Musical</th>
+            <th colspan="2" >Logical</th>
+            <th colspan="2" >Spatial</th>
+            <th colspan="2" >Intrapersonal</th>
+            <th colspan="2" >Interpersonal</th>
+            <th colspan="2" >Linguistic</th>
+            <th colspan="2" >Kiesthetic<br>(Bodily)</th>
+            <th colspan="2" >Natural</th>
+          </tr>
+          <tr>
+            <th >Q No.</th>
+            <th >Score</th>
+            <th >Q No.</th>
+            <th >Score</th>
+            <th >Q No.</th>
+            <th >Score</th>
+            <th >Q No.</th>
+            <th >Score</th>
+            <th >Q No.</th>
+            <th >Score</th>
+            <th >Q No.</th>
+            <th >Score</th>
+            <th >Q No.</th>
+            <th >Score</th>
+            <th >Q No.</th>
+            <th >Score</th>
+          </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>
+                <b>1</b>
+            </td>
+            <td id="total1">
+                  
+            </td>
+            <td>
+             <b>6</b>
+            </td>
+            <td id="total6">
+             </td>
+            <td>
+                <b>3</b>
+            </td>
+            <td id="total3">
+             
+            </td>
+            <td><b>7</b></td>
+            <td id="total7"></td>
+            <td><b>11</b></td>
+            <td id="total11"></td>
+            <td><b>5</b></td>
+            <td id="total5"></td>
+            <td><b>12</b></td>
+            <td id="tota12"></td>
+            <td><b>2</b></td>
+            <td id="total2"></td>
+          </tr>
+        <tr>
+            <td ><b>4</b></td>
+            <td id="total4" ></td>
+            <td ><b>8</b></td>
+            <td id="total8" ></td>
+            <td ><b>15</b></td>
+            <td id="total15" ></td>
+            <td ><b>24</b></td>
+            <td id="total24"></td>
+            <td ><b>21</b></td>
+            <td id="total21" ></td>
+            <td ><b>10</b></td>
+            <td id="total10" ></td>
+            <td ><b>16</b></td>
+            <td ></td>
+            <td ><b>19</b></td>
+            <td id="total19" ></td>
+          </tr>
+        <tr>
+            <td><b>9</b></td>
+            <td id="total9"></td>
+            <td><b>13</b></td>
+            <td id="total13"></td>
+            <td><b>17</b></td>
+            <td id="total17"></td>
+            <td><b>25</b></td>
+            <td id="total25"></td>
+            <td><b>26</b></td>
+            <td id="total26"></td>
+            <td><b>22</b></td>
+            <td id="total22"></td>
+            <td><b>20</b></td>
+            <td id="total20"></td>
+            <td><b>23</b></td>
+            <td id="total23"></td>
+          </tr>
+        <tr>
+            <td ><b>18</b></td>
+            <td id="total18" ></td>
+            <td ><b>14</b></td>
+            <td id="total14"></td>
+            <td ><b>35</b></td>
+            <td id="total35"></td>
+            <td ><b>28</b></td>
+            <td id="total28"></td>
+            <td ><b>33</b></td>
+            <td id="total33"></td>
+            <td ></td>
+            <td ></td>
+            <td ><b>29</b></td>
+            <td id="total29"></td>
+            <td ><b>27</b></td>
+            <td id="total27"></td>
+          </tr>
+        <tr>
+            <td><b>31</b></td>
+            <td id="total31"></td>
+            <td><b>36</b></td>
+            <td id="total36"></td>
+            <td></td>
+            <td></td>
+            <td><b>30</b></td>
+            <td id="total30"></td>
+            <td><b>37</b></td>
+            <td id="total37"></td>
+            <td></td>
+            <td></td>
+            <td><b>34</b></td>
+            <td id="total34"></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <tr>
+            <td ><b>32</b></td>
+            <td id="total32"></td>
+            <td ><b>39</b></td>
+            <td id="total39" ></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+            <td ><b>40</b></td>
+            <td id="total40" ></td>
+            <td ></td>
+            <td ></td>
+          </tr>
+        <tr>
+            <td><b>38</b></td>
+            <td id="total38"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <tr>
+            <td colspan="16" >
+        </tr>
+           </tbody>
+        <tfoot>
+        <tr>
+            <th> Total Score (TS)</th>
+            <th id="ts1"></th>
+	        <th>TS</th>
+	        <th id="ts2"></th>
+	        <th>TS</th>
+	        <th id="ts3"></th>
+	        <th>TS</th>
+	        <th id="ts4"></th>
+	        <th>TS</th>
+	        <th id="ts5"></th>
+	        <th>TS</th>
+	        <th id="ts6"></th>
+	        <th>TS</th>
+	        <th id="ts7"></th>
+	        <th>TS</th>
+	        <th id="ts8"></th>
+        </tr>
+        <tr>
+            <td><b>Ideal Score (IS)</b></td>
+            <td id="is1"></td>
+            <td><b>IS</b></td>
+            <td id="is2"></td>
+            <td><b>IS</b></td>
+            <td id="is3"></td>
+            <td><b>IS</b></td>
+            <td id="is4"></td>
+            <td><b>IS</b></td>
+            <td id="is5"></td>
+             <td><b>IS</b></td>
+            <td id="is6"></td>
+             <td><b>IS</b></td>
+            <td id="is7"></td>
+             <td><b>IS</b></td>
+            <td id="is8"></td>
+          </tr>
+        <tr>
+            <td> 
+                <b>Intellligence (Int) % <br />(TS/IS)*100</b>
+                <p></p>
+            </td>
+           
+            <td id="is1pct" > 
+               
+                <p></p>
+            </td>
+            <td>
+                <b>Int %</b>
+            </td>
+            <td  id="is2pct">
+                    <p></p>
+            </td>
+             <td>
+               <b>Int %</b>
+            </td>
+	        <td  id="is3pct">
+                <p></p>
+            </td>
+             <td>
+               <b>Int %</b>
+            </td>
+	        <td id="is4pct">
+                 <p></p>
+            </td>
+             <td>
+                <b>Int %</b>
+            </td>
+            <td  id="is5pct">
+                    <p></p>
+            </td>
+             <td>
+                <b>Int %</b>
+            </td>
+	        <td id="is6pct">
+                 <p></p>
+            </td>
+             <td>
+                <b>Int %</b>
+            </td>
+	        <td id="is7pct">
+                 <p></p>
+            </td>
+             <td>
+                <b>Int %</b>
+            </td>
+            <td sid="is8pct">
+                     <p></p>
+            </td>
+	 
+	
+        </tr>
+            </tfoot>
+   
+    </table>
+    <br><br>
+    <div class="footer">
+    <center> 
+        <a href="{% url 'Mi' pk pk1 program %}" class="button">
+            <b>Go back</b>
+        </a> 
+    </center>
+    </div>
+    <br><br>
+		
+		<script>
+	// function getResult() {
+ //     var firstQues = document.getElementsByName('first');
+ //     var secondQues = document.getElementsByName('second');
+	//  var thirdQues = document.getElementsByName('third');
+	//  var fourthQues = document.getElementsByName('fourth');
+	//  var fifthQues = document.getElementsByName('fifth');
+	//  var sixthQues = document.getElementsByName('sixth');
+	//  var seventhQues = document.getElementsByName('seven');
+	//  var eightQues = document.getElementsByName('eighth');
+	//  var ninthQues = document.getElementsByName('ninth');
+	//  var tenthQues = document.getElementsByName('tenth');
+	//  var eleQues = document.getElementsByName('eleven');
+	//  var twQues = document.getElementsByName('twelfth');
+	//  var thirteenQues = document.getElementsByName('thirteenth');
+	//  var fourteenQues = document.getElementsByName('fourteen');
+	//  var fifteenQues = document.getElementsByName('fifteen');
+	//  var sixteenQues = document.getElementsByName('sixteen');
+	//  var seventeenQues = document.getElementsByName('seventeen');
+	//  var eighteenQues = document.getElementsByName('eighteen');
+	//  var ninteenQues = document.getElementsByName('ninteen');
+	//  var twentyQues = document.getElementsByName('twenty');
+	//  var twentyoneQues = document.getElementsByName('twentyone');
+	//  var twentytwoQues = document.getElementsByName('twentytwo');
+	//  var twentythreeQues = document.getElementsByName('twentythree');
+	//  var twentyfourQues = document.getElementsByName('twentyfour');
+	//  var twentyfiveQues = document.getElementsByName('twentyfive');
+ //     var total1 = 0;
+	//  var total2 = 0;
+	//  var total3 = 0;
+	//  var total4 = 0;
+	//  var total5 = 0;
+	//  var total6 = 0;
+	//  var total7 = 0;
+	//  var total8 = 0;
+	//  var total9 = 0;
+	//  var total10 = 0;
+	//  var total11 = 0;
+	//  var total12 = 0;
+	//  var total13 = 0;
+	//  var total14 = 0;
+	//  var total15 = 0;
+	//  var total16 = 0;
+	//  var total17 = 0;
+	//  var total18 = 0;
+	//  var total19 = 0;
+	//  var total20 = 0;
+	//  var total21 = 0;
+	//  var total22 = 0;
+	//  var total23 = 0;
+	//  var total24 = 0;
+	//  var total25 = 0;
+	//  var total26 = 0;
+ //      firstQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total1 = total1 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+ //     secondQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total2 = total2 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //    });
+	//  thirdQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total3 = total3 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  fourthQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total4 = total4 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  fifthQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total5 = total5 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  sixthQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total6 = total6 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  seventhQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total7 = total7 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  eightQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total8 = total8 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  ninthQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total9 = total9 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	  
+	//  tenthQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total10 = total10 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  eleQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total11 = total11 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  twQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total12 = total12 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  thirteenQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total13 = total13 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     });
+	//  fourteenQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total14 = total14 + parseInt(evnt.value);
+ //           return;
+ //        }
+	//  fifteenQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total15 = total15 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     sixteenQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total16 = total16 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     seventeenQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total17 = total17 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     eighteenQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total18 = total19 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     ninteenQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total19 = total19 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     twentyQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total20 = total20 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     twentyoneQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total21 = total21 + parseInt(evnt.value);
+ //           return;
+ //        }
+	//  twentytwoQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total22 = total22 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     twentythreeQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total23 = total23 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     twentyfourQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total24 = total24 + parseInt(evnt.value);
+ //           return;
+ //        }
+ //     twentyfiveQues.forEach((evnt) => {
+ //        if (evnt.checked) {
+ //           total25 = total25 + parseInt(evnt.value);
+ //           return;
+ //        }		 
+	////	else{
+ //   // alert("Please select all values");	 
+	// //} 
+
+
+ //     });
+	  
+	   
+
+	  
+ //  }
+</script>
+{% endblock%}

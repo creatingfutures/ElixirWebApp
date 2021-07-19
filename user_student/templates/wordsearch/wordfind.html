@@ -1,10 +1,11 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
 
 {% block page_specific_htmlhead%}
   <meta charset="UTF-8">
   <title>Word Search </title>
+  
   <link rel="stylesheet" href="{% static 'css/wordfind_grid.css' %}">
   <link rel="stylesheet" href="{% static 'components/normalize/normalize.min.css' %}">
   
@@ -20,17 +21,20 @@
 		        <li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'>Word search</a></li>
 	          </ul>
             <center>
-                <div id="container">
-                  <div class="puzzleWrap">
-                    <h1 style="text-align:center; font-weight: 100;" >EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
-                    <h1 style="text-align:center; font-weight: 100;">Word Search</h1>
-                      <h3 style="font-size: 18.72; font-weight: 700;">Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
-                    <div id='puzzle'></div>
+                <div class="container">
+                  <div class="puzzleWrap " style="display: inline;">
+                    <h1>EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
+                    <h1>Word Search</h1>
+                      <h3>Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
+                    </div>
+                      <div id='puzzle'></div>
+                    <br>
+                    <br>
                     <div id='words'></div>
                     <button id='s' class="button">Submit</button>
                     <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
                   </div>
-                </div> .
+                
             </center>
     </div> 
 

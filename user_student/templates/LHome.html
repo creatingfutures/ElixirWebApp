@@ -1,0 +1,141 @@
+{% load static %}
+{% load student_tag %}
+
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <style>
+    .nav {
+  background-color:lightgray; 
+  list-style-type: none;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat';
+        
+}
+    .nav1 li {
+  display: inline-block;
+  font-size: 12px;
+  padding: 75px;
+        font-family: 'Montserrat';
+}
+    .nav1 {
+  background-color: rgb(229,149,13); 
+  list-style-type: none;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+        font-family: 'Montserrat';
+        font-size: 12px;
+}
+    .nav2 li {
+  display: inline-block;
+  font-size: 12px;
+  padding: 75px;
+        font-family: 'Montserrat';
+}
+ .nav2 {
+  background-color:rgb(255,161,0) ; 
+  list-style-type: none;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+     font-family: 'Montserrat';
+     font-size: 12px;
+}
+.nav5
+ {
+   background-color:orange;
+   height:30%;
+   display:grid;
+   grid-template-rows:auto auto auto;
+   justify-content:center;
+   align-items:center;
+ }
+
+ .navig
+ {
+   grid-row:2/3;
+   display:flex;
+   flex-wrap:nowrap;
+   background-color:white;
+   flex-direction:row;
+ }
+
+ .navv
+ {
+   width:80%;
+   display:flex;
+   flex-direction:row;
+   justify-content:center;
+   align-items:center;
+   margin:10px;
+ }
+ ul.breadcrumb {
+padding: 10px 16px;
+list-style: none;
+background-color:lightgray;
+}
+ul.breadcrumb li {
+display: inline;
+font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+padding: 8px;
+color: black;
+content: "/\00a0";
+}
+ul.breadcrumb li a {
+color: darkblue;
+text-decoration: none;
+font-family: 'Montserrat';
+}
+ul.breadcrumb li a:hover {
+color: darkblue;
+text-decoration: underline;
+}
+       
+            .button {
+  background-color: orange;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-family: Montserrat;
+  box-shadow: 1px 2px 2px grey;
+}
+    </style> </head>
+    <title>Softskills Questionere</title>
+    <body style="background-color:lightgray;">
+        <div class="nav5">
+  <div class="navig">
+    <div>
+      <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;margin:0;"/>
+    </div>
+    <div class="navv">
+      <a href="{% url 's_home' 9 8 %}" style="font-size:150%;margin:10px; font-family:'Montserrat'; ">HOME</a>
+      <a href="" style="font-size:150%;margin:10px;font-family:'Montserrat';">ABOUT US</a>
+      <a href="" style="font-size:150%;margin:10px;font-family:'Montserrat';">REPORTS</a>
+      <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;font-family:'Montserrat';">LOG OUT</a>
+      </div>
+      </div>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="" >MODULES</a></li>
+      <li><a href="{% url 'Mview' %}" >LISTENING</a></li>
+      </ul>
+
+    <h1 style="font-size: 15px; color: black; font-family: Montserrat;"><center><br><br>
+    LISTENING SKILLS - SELF ASSESSMENT</center>
+    
+</h1><br>
+<center>
+<p style="font-family:'Montserrat'; font-size: 15px;"><b>Standard test</b><br><br><br>
+<a href="{% url 'LT' %}" class="button"><b>Start Test</b></a>
+</center>
+</body>
+</html>

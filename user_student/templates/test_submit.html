@@ -4,7 +4,7 @@
 
 {% block page_specific_htmlhead%}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'match_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'match_styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/score_card.css' %}">
 {% endblock%}
 {% block content %}
@@ -14,7 +14,7 @@
       <h1 id="status"></h1>
 
       <h4 >
-        <a style="display:none" id="next_level" class="button" href='{% url 'spoken_english' pk pk1 'spoken english' %}'>
+        <a style="display:none" id="next_level" class="button" href="{% url 'spoken_english' pk pk1 programName %}">
             Next Level
         </a>
       </h4>
@@ -50,8 +50,10 @@
 
       var i = parseInt("{{score}}");
       var j = parseInt("{{len}}");
+      var total_marks = parseInt("{{total_marks}}")
+      var test_type = "{{test_type}}"
       console.log("{{text_name}}")
-      if (i > j / 2) {
+      if (i > j / 2  || (test_type == "writing" && i >= 0.8)) {
         $("#status").html("Status : Pass")
         $("#submit").css("display", "block")
         $("#next_level").css("display", "block")

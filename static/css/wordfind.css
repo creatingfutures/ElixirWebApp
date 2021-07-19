@@ -29,11 +29,11 @@ padding: 8px;
 color: black;
 content: "/\00a0";
 }
-ul.breadcrumb li a {
-color: darkblue;
-text-decoration: none;
-font-family: 'Montserrat';
-}
+    ul.breadcrumb li a {
+        color: darkblue;
+        text-decoration: none;
+        font-family: 'Century Gothic';
+    }
 ul.breadcrumb li a:hover {
 color: darkblue;
 text-decoration: underline;
