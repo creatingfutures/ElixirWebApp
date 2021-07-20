@@ -25,7 +25,7 @@
 }
 
 .ml-3{
-    font-family:'Century Gothic';
+    font-family:'Century Gothic' !important;
     font-size:20px;
     margin-left:0px !important;
 
@@ -65,9 +65,13 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgb(255, 197, 138);
-    font-family: "Century Gothic";
+/*     background-color: rgb(255, 197, 138); */
+    font-family: 'Century Gothic' !important;
     font-size: 12px;
+  }
+
+  ul.pagination{
+    display: inline-flex!important;
   }
 
   ul.nav2 {
@@ -76,7 +80,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: "Century Gothic";
+    font-family: 'Century Gothic' !important;
     font-size: 12px;
   }
 
@@ -111,14 +115,14 @@ body {
     border-radius: 40px 0 0 40px;
     outline: none;
     color: #000000;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic' !important;
     font-size: 12px;
     height:50px;
   }
 
   .searchTerm:focus {
     color: #696969;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic' !important;
     font-size: 12px;
   }
 
@@ -132,12 +136,12 @@ body {
     border-radius: 0 40px 40px 0;
     cursor: pointer;
     font-size: 20px;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic' !important;
     height:50px;
   }
 
   label {
-    font-family: "Century Gothic";
+    font-family: 'Century Gothic' !important;
     text-align: center;
     font-weight: 100;
     display: inline-block;
@@ -147,7 +151,7 @@ body {
   }
 
   p.welcome {
-    font-family: "Century Gothic";
+    font-family: 'Century Gothic' !important;
     font-weight: 100;
     font-size: 12px;
     position: absolute;
@@ -157,7 +161,7 @@ body {
   }
 
   .button1 {
-    font-family: "Century Gothic";
+    font-family: 'Century Gothic' !important;
     font-weight: 100;
     font-size: 12px;
     position: absolute;
@@ -174,7 +178,7 @@ body {
   }
 
   .table{
-      font-family:'Century Gothic';
+      font-family:'Century Gothic' !important;
       width:80%;
 
   }
@@ -197,7 +201,7 @@ body {
     margin-top: 0%;
     left: 0;
     right: 0;
-    font-family: "Century Gothic";
+    font-family: 'Century Gothic' !important;
   }
 
   .button {
@@ -234,7 +238,7 @@ body {
   }
   .bodycss{
 background: lightgrey;
-font-family: 'Century Gothic';
+font-family: 'Century Gothic' !important;
 font-size: 12px;
 }
 select {
@@ -251,7 +255,7 @@ select {
 #mainselection select {
   border: 0;
   color: black;
-  font-family: "Century Gothic";
+  font-family: 'Century Gothic' !important;
   background: white;
   font-size: 15px;
   font-weight: 100;
@@ -305,7 +309,7 @@ li.nav3 {
 }
 
 .fontcl{
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic' !important;
 font-size: 14px !important;
 font-weight: lighter !important ;
 }
@@ -315,6 +319,6 @@ margin-left:4.5%;
 }
 
 .col-md-12>p{
-    font-family:'Century Gothic';
+    font-family:'Century Gothic' !important;
     font-size:14px;
 }
