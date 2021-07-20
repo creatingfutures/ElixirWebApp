@@ -668,10 +668,10 @@ def writing_test_submit(request,pk,pk1,pk2,pk3,pk4,programName):
         typ = assessment_type.objects.get(assessment_type__iexact='general assessment').assessment_type_id
         module1 = program_module.objects.get(pk=pk3)
         programName = program.objects.get(program_module=module1)
-        # print(typ)
+        level1 = module_level.objects.get(pk=pk4)
         score_save(request,pk,pk1,pk2,pk3,pk4,typ,score,total_marks)
         score = score/total_marks*10
-        return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len,"test_type":"writing","total_marks":total_marks})
+        return render(request,"test_submit.html",{"pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3, "pk4": pk4,"score": score,"programName":programName,"test_name": "standard","len":len,"test_type":"writing","total_marks":total_marks,"level":level1})
 
 
 
