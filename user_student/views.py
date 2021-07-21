@@ -427,8 +427,8 @@ def ajax_standard_test(request, pk, pk1, pk2, pk3, pk4):
         if (str(programName).lower()=="spoken english") and module1.module_name == "writing":
                 print(module_level.objects.get(pk=pk4))
                 level_dict = {
-                    "level 01": 2,
-                    "level 02": 3,
+                    "level 01": 10,
+                    "level 02": 10,
                     "level 03": 10,                   
                     "level 04": 5,
                     "level 05": 3,
