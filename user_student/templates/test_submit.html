@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="{% static 'css/score_card.css' %}">
 {% endblock%}
 {% block content %}
+    <ul class="breadcrumb" style="display:none" id="writing_breadcrumb">
+      <li>
+        <a href="/s_home/20/batch/12/program/spoken%20english">MODULES</a>
+      </li>
+      <li>
+        <a href="#">General Assessment</a>
+      </li>
+    </ul>
+
+    <h1 id="GAHeader" style="display:none"> 
+      <b>EXERCISES ON WRITING-<span style="text-transform: uppercase;">{{level}}</span></b>
+    </h1>
+
+    <h2 id="GASubHeader"> 
+     <b> Standard Test</b>
+   </h2>
+
     <div class="container1">
 
       <h1>Score : {{score}}</h1>
@@ -57,15 +74,16 @@
         $("#status").html("Status : Pass")
         $("#submit").css("display", "block")
         $("#next_level").css("display", "block")
-
+        if (test_type == "writing"){
+        $("#GAHeader").css("display", "block")
+        $("#writing_breadcrumb").css("display", "block")
+        }
       }
 
       else {
         $("#status").html("Status : Fail")
         $("#try_again").css("display", "block")
       }
-
-
 
 
       $("#submit1").click(function () {

@@ -143,6 +143,7 @@ for (var j = 0; j < x; j++){
   form_box.size = 20;
   form_box.className = "form-control"
   form_box.placeholder = "Enter marks between 0 and 10"
+  form_box.onkeyup = restrict_num;
   form_box.required = true;
   question_panel.appendChild(form_box)
   // form.appendChild(br)
@@ -155,6 +156,12 @@ s.name = "submit"
 s.id = "submit";
 s.className = "btn btn-large btn-block btn-warning full-width"
 form.appendChild(s)
+}
+
+function restrict_num(event){
+  if(this.value > 10 || this.value < 0){
+    this.value = null;
+  }
 }
 
 if (sessionStorage.getItem("questions_1") != null) {
