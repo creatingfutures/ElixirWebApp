@@ -44,8 +44,9 @@
 	                <h3>28 points or less = Need to focus on listening</h3>
             </div>
             <center>
-                {#<a href="" class="button"><b>Next Level</b></a>&nbsp#}
-                <a href="{% url 'LT' pk pk1 p %}" class="button"><b>Try Again</b></a>
+              
+                <a href="{% url 'LT' pk pk1 p %}" class="button">Try Again</a> &nbsp;
+                <a href="{% url 'spoken_english' pk pk1 p %}" class="button">Next Level</a>
             </center>
             <br>
             <br>
@@ -73,9 +74,10 @@
          if (evnt.checked) {
             total = total + parseInt(evnt.value);
             return;
-			else
-		   alert("Please select all values");
-         }b 
+			
+           }
+           else
+		        alert("Please select all values");
       });
       secondQues.forEach((evnt) => {
          if (evnt.checked) {
@@ -170,6 +172,6 @@
       
 	  //document.getElementById("score").innerHTML = localStorage.getItem("total");
    }
-   alert("Please select all");
+   //alert("Please select all");
 </script>
 {% endblock %}
