@@ -14,8 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from os import name
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+import chatbot
 from user_admin import views
 from user_student import views as s_views
 from django.contrib.auth import views as auth_views
@@ -182,7 +184,7 @@ urlpatterns = [
      #path('Mview1/', s_views.Module_view_LS, name="Mview1" ),
     # path('Mhome/', s_views.Mhome, name="Mhome" ),
 
-     path('chatbot/', chat_views.home),
+     path('chatbot/', chat_views.home, name="chatbot"),
 
      path('get-response/', chat_views.get_response),
 
