@@ -21,7 +21,7 @@ import chatbot
 from user_admin import views
 from user_student import views as s_views
 from django.contrib.auth import views as auth_views
-from chatbot import views as chat_views
+# from chatbot import views as chat_views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -184,9 +184,9 @@ urlpatterns = [
      #path('Mview1/', s_views.Module_view_LS, name="Mview1" ),
     # path('Mhome/', s_views.Mhome, name="Mhome" ),
 
-     path('chatbot/', chat_views.home, name="chatbot"),
+     path('chatbot/<int:pk>/<int:pk1>', s_views.home, name="chatbot"),
 
-     path('get-response/', chat_views.get_response),
+     path('get-response/', s_views.get_response),
 
 
      path('error/', views.error, name="error")

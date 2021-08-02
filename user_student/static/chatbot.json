@@ -1,0 +1,15 @@
+[
+    {
+      
+        "tag": "greeting",
+        "patterns": [ "Hello and good day!My name is Elixir. Nice to meet you" ],
+        "responses": [ "Hi", "Hello", "Greetings", "Good morning", "Good afternoon" ]
+      },
+      {
+        "tag": "conversations",
+        "patterns": [ "what is your name?" ],
+        "responses":  ["I am elixir"]
+      }
+  
+  ]
+  

@@ -65,12 +65,14 @@
 
     <script type="text/javascript">
 
-      var i = parseInt("{{score}}");
+      var i = parseFloat("{{score}}");
+      console.log(i)
       var j = parseInt("{{len}}");
+      console.log(j)
       var total_marks = parseInt("{{total_marks}}")
       var test_type = "{{test_type}}"
       console.log("{{text_name}}")
-      if (i > j / 2  || (test_type == "writing" && i >= 0.8)) {
+      if (i > j / 2  || (test_type == "writing" && i >= 8)) {
         $("#status").html("Status : Pass")
         $("#submit").css("display", "block")
         $("#next_level").css("display", "block")
