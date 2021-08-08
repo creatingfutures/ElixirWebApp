@@ -29,7 +29,7 @@
        {% for j in l %}
         {% if j.module == i %}
          {% with levelname=j.level_description levelkey=i.module_name|add_str:j.level_description %}
-              {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'listening skill'%}
+              {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'chatbot' %}
                   <button class="collapsible1">
                       <h4>
                           {{levelname|allcaps}}
@@ -86,12 +86,22 @@
                               
                               </h4>
                             </button>
+                    {% else %}
+                        {% if levelname|lower == 'chatbot' %}
+                            
+                                <button class="clickableLvl">
+                                   <h4>
+                                          <!-- <a href="{% url 'Mi' pk pk1 p.program_name %}" style="color:brown;">{{levelname|allcaps}}</a> -->
+                                          <a href="{% url 'chatbot' pk pk1%}"style="color:white;margin-left:50px;">{{levelname|allcaps}} </a>  
+                                  
+                                  </h4>
+                                </button>
                         {% else %}
                             {% if levelname|lower == 'listening skill' %}
                                 <button class="clickableLvl">
                                    <h4>
                                        {# {{p.program_name}}#}
-                                          <a href="{% url 'LT' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
+                                          <a href="{% url 'LT' pk pk1 p.program_name %}" style="color:brown;">{{levelname|allcaps}}</a>
                                           <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
                               
                                   </h4>
@@ -100,7 +110,7 @@
                      {% endif %}
                 {% endif %}
              {% endif %}
-            
+             {% endif %}           
          {% endwith %}
         {% endif %}
      {% endfor %}
