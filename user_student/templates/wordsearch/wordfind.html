@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
 
@@ -21,20 +21,21 @@
 		        <li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'>Word search</a></li>
 	          </ul>
             <center>
-                <div class="container">
+                <div class="container" id="container">
                   <div class="puzzleWrap " style="display: inline;">
                     <h1>EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
                     <h1>Word Search</h1>
                       <h3>Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
-                    </div>
-                      <div id='puzzle'></div>
+                   </div>
+                   <div id='puzzle'></div>
                     <br>
                     <br>
-                    <div id='words'></div>
-                    <button id='s' class="button">Submit</button>
-                    <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
-                  </div>
+                   <div id='words'></div>
+                   <button id='s' class="button">Submit</button>
+                   <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
                 
+                 </div>
+
             </center>
     </div> 
 
@@ -77,6 +78,7 @@
             narrative:"{{narrative}}",
             },
             success: function(data) {
+         
           $("#container").html(data) // `data` is the return of the `load_cities` view function
             }
           });
