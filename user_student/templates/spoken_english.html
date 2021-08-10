@@ -29,7 +29,7 @@
        {% for j in l %}
         {% if j.module == i %}
          {% with levelname=j.level_description levelkey=i.module_name|add_str:j.level_description %}
-              {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'chatbot' %}
+              {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'chatbot' and levelname|lower != 'listening skill' %}
                   <button class="collapsible1">
                       <h4>
                           {{levelname|allcaps}}
