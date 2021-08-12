@@ -14,14 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from os import name
 from django.contrib import admin
-from django.urls import path,include
-import chatbot
+from django.urls import path
 from user_admin import views
 from user_student import views as s_views
 from django.contrib.auth import views as auth_views
-# from chatbot import views as chat_views
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -176,6 +174,7 @@ urlpatterns = [
     path('writing_test_submit/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>/<str:programName>',s_views.writing_test_submit,name='writing_test_submit'),
     
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Mi/', s_views.Mi_Test, name="Mi"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MyStrengths/', s_views.My_Strengths, name="MyStrengths"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MIResult/', s_views.Mi_TestResult, name="MIResult" ),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/LT/', s_views.Listen, name="LT" ),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Lscore/', s_views.LScore, name="Lscore" ),
@@ -184,12 +183,7 @@ urlpatterns = [
      #path('Mview1/', s_views.Module_view_LS, name="Mview1" ),
     # path('Mhome/', s_views.Mhome, name="Mhome" ),
 
-     path('chatbot/<int:pk>/<int:pk1>', s_views.home, name="chatbot"),
 
-     path('get-response/', s_views.get_response),
-
-
-     path('error/', views.error, name="error")
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
