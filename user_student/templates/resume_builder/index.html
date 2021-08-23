@@ -8,12 +8,17 @@
     <link rel="stylesheet" type="text/css" href="{% static 'components/jsGrid/jsgrid.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'components/jsGrid/jsgrid-theme.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'components/jquery-ui-1.12.1/jquery-ui.css' %}" />
+    <link rel="stylesheet" href="/static/components/select2/select2.min.css">
+    <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="/static/components/jquery/jquery3.6.0.min.js" ></script>
+    <script src="/static/components/select2/select2.min.js"></script>
      <script src="{% static 'components/jquery-ui-1.12.1/jquery-ui.js' %}" type="text/javascript"></script>
     <script type="text/javascript" src="{% static 'components/jsGrid/jsgrid.js' %}"></script>
     <script type="text/javascript" src="{% static 'components/html-docx-js/FileSaver.js' %}"></script>
     <script type="text/javascript" src="{% static 'components/html-docx-js/html-docx.js' %}"></script>
     <script type="text/javascript" src="{% static 'components/tinymce/js/tinymce.min.js' %}"></script>
-    
+
 
 
 
@@ -552,7 +557,60 @@
             padding: 20px;
         }
 
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
 
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .select2-selection__choice{
+            margin: 5px 10px;
+            background: #fcb040 !important;
+        }
+
+        .select2-container{
+            width:100%!important;
+        }
+
+        .select2-selection__choice__remove{
+            font-size: 1.1rem !important;
+        }
+
+        .select2-results__option[aria-selected=true] {
+            display: none;
+        }
 
         /* Clear floats after the columns */
         /*   .row:after {
@@ -673,9 +731,31 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <label for="txtTechnicalStrengths">STRENGTHS - TECHNICAL </label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
-                        <i class="fa fa-question-circle"></i></a>
+                    <label for="txtTechnicalStrengths">STRENGTHS - TECHNICAL </label> <i class="fa fa-question-circle"></i>
+
+                    <button id="myBtn" class="button" onclick="hardskills(event)">Add Strengths</button>
+                    <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="card">
+                                <div class="card-header ">Hard Skills(Job Skills)</div>
+                                <div class="card-body ">
+                                    <select name="sel" multiple="multiple" class="mul-select hs" multiple="true">
+                                        {% for x in allskills %}
+                                            {% if x.skilltype == 'hardskills' %}
+                                                <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <button class="button" id="appndbtn" >Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
 
                 </div>
                 <div class="col-md-12">
@@ -714,10 +794,52 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <label for="txtQualities"> QUALITIES & SOFT SKILLS</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
-                        <i class="fa fa-question-circle"></i></a>
+                    <label for="txtQualities"> QUALITIES & SOFT SKILLS</label> <i class="fa fa-question-circle"></i>
 
+                    <button id="myBtn1" class="button" onclick="qualities(event)">Add Qualities</button>
+                    <div id="myModal1" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="card" data-toggle="popover">
+                                <div class="card-header ">Qualities</div>
+                                <div class="card-body ">
+                                    <select name="sel" multiple="multiple" class="mul-select qq" multiple="true">
+                                        {% for x in allskills %}
+                                            {% if x.skilltype == 'quality' %}
+                                                <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <button class="button" id="appndbtn1">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button id="myBtn2" class="button" onclick="softskills(event)">Add Soft-Skills</button>
+                        <div id="myModal2" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <div class="card" data-toggle="popover">
+                                    <div class="card-header ">Soft-Skills</div>
+                                    <div class="card-body ">
+                                        <select name="sel" multiple="multiple" class="mul-select ss" multiple="true">
+                                            {% for x in allskills %}
+                                                {% if x.skilltype == 'softskills' %}
+                                                    <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <button class="button" id="appndbtn2">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <div class="col-md-12">
                     <textarea class="form-control editResume" id="txtQualities" name="txtQualities"
@@ -1040,5 +1162,151 @@
         </footer>
 
     </form>
+
+
+
+
+    <script>
+        $(document).ready(function(){
+            $(".mul-select").select2({
+                placeholder: "Select options",
+                tags: true,
+                closeOnSelect: false
+
+            })
+        });
+
+
+        function hardskills(e) {
+            e.preventDefault();
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal
+            btn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var appndbtn = document.getElementById("appndbtn")
+            var menu = document.getElementById("txtTechnicalStrengths")
+
+            appndbtn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "none";
+                let ans = []
+                $(".hs > option:selected").each(function () {
+                    ans.push(this.text)
+                });
+                console.log(ans.join("\n"))
+                menu.value = ans.join("\n");
+            }
+        }
+
+        function qualities(e) {
+            e.preventDefault();
+            var modal = document.getElementById("myModal1");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn1");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[1];
+
+            // When the user clicks the button, open the modal
+            btn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var appndbtn = document.getElementById("appndbtn1")
+            var menu = document.getElementById("txtQualities")
+
+            appndbtn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "none";
+                let ans = []
+                $(".qq > option:selected").each(function () {
+                    ans.push(this.text)
+                });
+
+                menu.value += ans.join("\n");
+                menu.value += "\n";
+            }
+        }
+
+        function softskills(e) {
+            e.preventDefault();
+            var modal = document.getElementById("myModal2");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn2");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[2];
+
+            // When the user clicks the button, open the modal
+            btn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var appndbtn = document.getElementById("appndbtn2")
+            var menu = document.getElementById("txtQualities")
+
+            appndbtn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "none";
+                let ans = []
+                $(".ss > option:selected").each(function () {
+                    ans.push(this.text)
+                });
+
+                menu.value += ans.join("\n");
+                menu.value += "\n";
+            }
+        }
+    </script>
 
 {% endblock content %} 

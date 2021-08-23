@@ -115,11 +115,12 @@ def spoken_english(request, pk, pk1, programName):
 
 
 def resumebuilder(request, pk, pk1, pk2, pk3, pk4):
+    allskills = skillmaster.objects.all()
     module = program_module.objects.get(pk=pk3)
     if module.module_name.lower() == 'resume builder':
         level = module_level.objects.get(pk=pk4)
         return render(request, "resume_builder/index.html",
-                      {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3})
+                      {"m": module, "l": level, "pk": pk, "pk1": pk1, "pk2": pk2, "pk3": pk3,"allskills":allskills})
     else:
         return render(request, 'error.html', {"pk": pk, "pk1": pk1})
 
