@@ -1,4 +1,4 @@
-asgiref==3.2.7
+asgiref==3.2.10
 atomicwrites==1.4.0
 attrs==20.2.0
 colorama==0.4.3

@@ -2,7 +2,8 @@
 
 
 <div style="margin:10px;padding:10px">
-  <p><b id="questiontype">Fill The Blanks</b></p>
+  <p><b id="questiontype">Fill The Blanks</b>&nbsp;</p>
+    <h1 id="timer">15</h1>
   <br />
    <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
   <br/><br/>
@@ -23,19 +24,19 @@
 
 <br>
 
-
-
-
+<script src="/static/js/timer.js"></script>
 <script>
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
 var done=0;
+let time = 15;
+
 
 
   $("#submit").click(function () {
     //var url = $("#form1").attr("data-modules-url");
-    if ($("#ans").val() == undefined) {
+    if ($("#ans").val() === undefined) {
       alert("Please Select An option");
     }
 
@@ -97,7 +98,9 @@ var done=0;
 
       else {
         {
+            if(time >0)
           alert("Incorrect Answer, Please Try Again");
+            else alert("Time Up")
           document.getElementById('hint').style.display='block';
         }
       }

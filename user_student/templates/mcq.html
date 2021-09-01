@@ -2,6 +2,7 @@
 
 <div style="margin:10px;padding:10px">
   <p><b id="questiontype">Multiple Choice Question</b></p>
+<h1 id="timer">10</h1>
  <br/> 
     <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
     <br/>
@@ -33,16 +34,18 @@
 
 
 
-
+<script src="/static/js/timer.js"></script>
 <script>
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
 var done=0;
 
+let time = 10;
+
   $("#submit").click(function () {
     //var url = $("#form1").attr("data-modules-url");
-    if ($("input[name='options']:checked").val() == undefined) {
+    if ($("input[name='options']:checked").val() == undefined && time > 0) {
       alert("Please Select An option");
     }
 
@@ -55,7 +58,7 @@ var done=0;
       var option = $("input[name='options']:checked").val();
       var answer = "{{request.session.questions|index5:i}}"
       console.log(answer)
-      if (option.toLowerCase().trim() == answer.toLowerCase().trim()) {
+      if (time >0 && option.toLowerCase().trim() == answer.toLowerCase().trim()) {
         alert("Right Answer");
         if ($(this).data("count") == 1) {
           var str = "True"
@@ -99,6 +102,9 @@ var done=0;
 
       else {
         {
+
+            if(time <= 0){alert("Time Up!");time=1;}
+            else
           alert("Incorrect Answer, Please Try Again");
           document.getElementById('hint').style.display='block';
         }
