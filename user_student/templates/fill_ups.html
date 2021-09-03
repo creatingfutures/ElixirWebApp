@@ -30,24 +30,26 @@
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
 var done=0;
-let time = 15;
+var time = 15;
 
 
 
   $("#submit").click(function () {
+
     //var url = $("#form1").attr("data-modules-url");
+      time = 15;
     if ($("#ans").val() === undefined) {
       alert("Please Select An option");
     }
 
     else {
-      var count = $(this).data("count") || 0;
+      let count = $(this).data("count") || 0;
       $(this).data("count", ++count)
       console.log(count)
 
-      var question = $("#ques").html();
-      var option = $("#ans").val();
-      var answer = "{{request.session.questions|index5:i}}"
+      let question = $("#ques").html();
+      let option = $("#ans").val();
+      let answer = "{{request.session.questions|index5:i}}"
       console.log(answer)
       option=option.toString().toLowerCase();
       answer = answer.toString().toLowerCase();
@@ -57,8 +59,8 @@ let time = 15;
       if (option.toLowerCase().trim() == answer.toLowerCase().trim()) {
         alert("Right Answer");
         if ($(this).data("count") == 1) {
-          var str = "True"
-          var score = "{{score}}"
+          let str = "True"
+          let score = "{{score}}"
           $.ajax({ // initialize an AJAX request
             url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
             type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
@@ -76,8 +78,8 @@ let time = 15;
 
         else {
           {
-            var str = "False"
-            var score = "{{score}}"
+            let str = "False"
+            let score = "{{score}}"
             $.ajax({ // initialize an AJAX request
               url: '/s_home/' + "{{pk}}" + '/batch/' + "{{pk1}}" + '/program/' + "{{pk2}}" + '/module/' + "{{pk3}}" + '/level/' + "{{pk4}}" + '/standard_test/ajax/test/',
               type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
@@ -106,7 +108,6 @@ let time = 15;
       }
 
     }
-
 
   });
 

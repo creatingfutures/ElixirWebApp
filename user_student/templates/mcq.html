@@ -3,31 +3,31 @@
 <div style="margin:10px;padding:10px">
   <p><b id="questiontype">Multiple Choice Question</b></p>
 <h1 id="timer">10</h1>
- <br/> 
+ <br/>
     <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
     <br/>
     <br/>
     <i id="question">{{request.session.questions|index:i}}</i>
-    <i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">&nbsp; 
-        <a href='#' style="color: orange;" >Hint</a> 
+    <i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">&nbsp;
+        <a href='#' style="color: orange;" >Hint</a>
     </i>
     <br />
-    
+
 {% with q=request.session.questions|getObject:i %}
   <ol type="A">
-      
+
         {% for option in q.options %}
             <li>
             <input type="radio" name="options" value="{{option}}">{{option}}</input>
             </li>
             <br/>
         {% endfor %}
-    
+
       </ol>
 
   <input type="submit" id="submit" class="button" value="Submit">
 {% endwith %}
-   
+
 </div>
 
 <br>
@@ -41,28 +41,32 @@
 
 var done=0;
 
-let time = 10;
+var time = 10;
+
+
 
   $("#submit").click(function () {
-    //var url = $("#form1").attr("data-modules-url");
+      clearInterval(interval);
+    //let url = $("#form1").attr("data-modules-url");
+      time = 10;
     if ($("input[name='options']:checked").val() == undefined && time > 0) {
       alert("Please Select An option");
     }
 
     else {
-      var count = $(this).data("count") || 0;
+      let count = $(this).data("count") || 0;
       $(this).data("count", ++count)
       console.log(count)
-      
-      var question = $("#ques").html();
-      var option = $("input[name='options']:checked").val();
-      var answer = "{{request.session.questions|index5:i}}"
+
+      let question = $("#ques").html();
+      let option = $("input[name='options']:checked").val();
+      let answer = "{{request.session.questions|index5:i}}"
       console.log(answer)
       if (time >0 && option.toLowerCase().trim() == answer.toLowerCase().trim()) {
         alert("Right Answer");
         if ($(this).data("count") == 1) {
-          var str = "True"
-          var score = "{{score}}"
+          let str = "True"
+          let score = "{{score}}"
           $.ajax({ // initialize an AJAX request
             url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
             type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
@@ -80,8 +84,8 @@ let time = 10;
 
         else {
           {
-            var str = "False"
-            var score = "{{score}}"
+            let str = "False"
+            let score = "{{score}}"
             $.ajax({ // initialize an AJAX request
               url: '/s_home/' + "{{pk}}" + '/batch/' + "{{pk1}}" + '/program/' + "{{pk2}}" + '/module/' + "{{pk3}}" + '/level/' + "{{pk4}}" + '/standard_test/ajax/test/',
               type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
