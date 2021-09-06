@@ -2,7 +2,8 @@
 
 <div style="margin:10px;padding:10px">
   <p><b id="questiontype">Multiple Choice Question</b></p>
-<h1 id="timer">10</h1>
+<div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">10</h1></div>
+
  <br/>
     <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
     <br/>
@@ -48,7 +49,6 @@ var time = 10;
   $("#submit").click(function () {
       clearInterval(interval);
     //let url = $("#form1").attr("data-modules-url");
-      time = 10;
     if ($("input[name='options']:checked").val() == undefined && time > 0) {
       alert("Please Select An option");
     }

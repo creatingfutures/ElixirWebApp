@@ -3,7 +3,10 @@
 
 <div style="margin:10px;padding:10px">
   <p><b id="questiontype">Fill The Blanks</b>&nbsp;</p>
-    <h1 id="timer">15</h1>
+
+
+    <div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">15</h1></div>
+
   <br />
    <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
   <br/><br/>
@@ -30,14 +33,12 @@
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
 var done=0;
-var time = 15;
+ var time = 15;
 
 
-
-  $("#submit").click(function () {
+ $("#submit").click(function () {
 
     //var url = $("#form1").attr("data-modules-url");
-      time = 15;
     if ($("#ans").val() === undefined) {
       alert("Please Select An option");
     }
@@ -100,9 +101,10 @@ var time = 15;
 
       else {
         {
-            if(time >0)
+            if(time ===0){alert("Time Up");time=1;}
+            else
           alert("Incorrect Answer, Please Try Again");
-            else {alert("Time Up");time=1;}
+
           document.getElementById('hint').style.display='block';
         }
       }
