@@ -168,6 +168,9 @@ urlpatterns = [
 
     path('error/', views.error, name="error"),
 
+    path('sync/',views.sync_page,name="sync_page"),
+
+     path('export_csv/',views.export_csv,name="export_csv"),
 
     path('facilitator_login/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>',s_views.facilitator_login,name='facilitator_login'),
 

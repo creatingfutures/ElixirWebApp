@@ -12,16 +12,19 @@ from django.core import serializers
 from django import forms
 import django
 from .forms import *
-import re
+import re,os,logging
 from django.db.models import Q
 from pyexcel_xls import get_data as xls_get
 from pyexcel_xlsx import get_data as xlsx_get
 from django.db import connection
+from user_student.models import scores
+from user_admin.utils import download_csv, save_new_scores_from_csv
 
 # Create your views here.
 import csv
 from django.utils.datastructures import MultiValueDictKeyError
 
+BASE_DIR = 'bulk_upload/'
 program_modules = {}
 facilitators = {}
 mod_c = 0
@@ -1271,6 +1274,87 @@ def password_management_student(request, pk):
 
     return render(request, 'admin/password_management_student.html', {"form": form, "s": student1})
 
+def sync_page(request):
+    if request.method == 'GET':
+        form = scores_bulk_upload_form()
+        return render(request,'sync.html',{'form':form})
+
+    # If not GET method then proceed
+    if request.method == 'POST':    
+        form = scores_bulk_upload_form(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            csv_file = form.cleaned_data['csv_file']
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, 'File is not CSV type')
+                return redirect('sync_page')
+            # If file is too large
+            if csv_file.multiple_chunks():
+                messages.error(request, 'Uploaded file is too big (%.2f MB)' %(csv_file.size(1000*1000),))
+                return redirect('sync_page')
+
+            # save and upload file 
+            form.save()
+
+            # get the path of the file saved in the server
+            file_path = os.path.join(BASE_DIR, form.csv_file.url)
+
+            print(file_path,form.csv_file.url)
+
+            # a function to read the file contents and save the student details
+            save_new_scores_from_csv(file_path)
+            # do try catch if necessary
+            return redirect('sync_page')
+
+
+    # except Exception as e:
+    #     logging.getLogger('error_logger').error('Unable to upload file. ' + repr(e))
+    #     messages.error(request, 'Unable to upload file. ' + repr(e))
+    # return redirect('sync/')
+
+
+
+
+# def upload_csv(request):
+#     if request.method == 'GET':
+#         form = scores_bulk_upload_form()
+#         return sync_page(request)
+
+#     # If not GET method then proceed
+#     try:
+#         form = scores_bulk_upload_form(data=request.POST, files=request.FILES)
+#         if form.is_valid():
+#             csv_file = form.cleaned_data['csv_file']
+#             if not csv_file.name.endswith('.csv'):
+#                 messages.error(request, 'File is not CSV type')
+#                 return sync_page(request)
+#             # If file is too large
+#             if csv_file.multiple_chunks():
+#                 messages.error(request, 'Uploaded file is too big (%.2f MB)' %(csv_file.size(1000*1000),))
+#                 return sync_page(request)
+
+#             # save and upload file 
+#             form.save()
+
+#             # get the path of the file saved in the server
+#             file_path = os.path.join(BASE_DIR, form.csv_file.url)
+
+#             # a function to read the file contents and save the student details
+#             save_new_scores_from_csv(file_path)
+#             # do try catch if necessary
+                
+#     except Exception as e:
+#         logging.getLogger('error_logger').error('Unable to upload file. ' + repr(e))
+#         messages.error(request, 'Unable to upload file. ' + repr(e))
+#     return sync_page(request)
+
+
+
+
+def export_csv(request):
+  # Create the HttpResponse object with the appropriate CSV header.
+  data = download_csv(request, scores.objects.all())
+  response = HttpResponse(data, content_type='text/csv')
+  return response
 
 class LoginView1(auth_views.LoginView):
     template_name = 'admin_login.html'

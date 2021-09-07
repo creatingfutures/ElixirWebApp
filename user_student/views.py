@@ -693,19 +693,6 @@ def writing_test_submit(request,pk,pk1,pk2,pk3,pk4,programName):
     # score = 0
     # marks = []
     if request.method == "POST":
-        #marks0 = request.POST.get('marks0',False)
-        #marks1 = request.POST.get('marks1',False) 
-        #marks2 = request.POST.get('marks2',False)
-        #marks3 = request.POST.get('marks3',False)  
-        #marks4 = request.POST.get('marks4',False)
-        #marks5 = request.POST.get('marks5',False)  
-        #marks6 = request.POST.get('marks6',False)  
-        #marks7 = request.POST.get('marks7',False)          
-        #marks8 = request.POST.get('marks8',False)  
-        #marks9 = request.POST.get('marks9',False)  
-        #marks = [marks0,marks1,marks2,marks3,marks4,marks5,marks6,marks7,marks8,marks9]
-        #while False in marks:
-        #    marks.remove(False)
         marks = json.loads(request.POST.get('marks'))
         marks = [int(i) for i in marks]
         print(marks)
@@ -735,6 +722,14 @@ def get_response(request):
 			content_type="application/json"
 		)
 
+# def async_page(request,pk,pk1):
+#     return render(request, "async.html",{"pk":pk,"pk1":pk1})
+
+# def export_csv(request):
+#   # Create the HttpResponse object with the appropriate CSV header.
+#   data = download_csv(request, scores.objects.all())
+#   response = HttpResponse(data, content_type='text/csv')
+#   return response
 
 def home(request,pk,pk1,template_name="home.html"):
 	return render(request,template_name,{"pk":pk,"pk1":pk1})

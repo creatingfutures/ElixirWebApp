@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import program, program_module, facilitator, center
+from .models import program, program_module, facilitator, center,bulk_upload
 from .models import student, module_level, question, batch, entity, entity_status, question_option, question_type
 # from .models import image_question,images_question,av_question,av_sub_question
 import datetime
@@ -246,3 +246,8 @@ class add_center_form(forms.ModelForm):
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")
         return mob
+
+class scores_bulk_upload_form(forms.ModelForm):
+  class Meta:
+    model = bulk_upload
+    fields = ("csv_file",)
