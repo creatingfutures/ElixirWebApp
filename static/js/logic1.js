@@ -15,8 +15,10 @@ myfun = {
 
         }
         if (er != 0) {
+            if(time <= 0)alert("Time up!");
+            else
             alert("Please fill all the answers");
-            for (i = 1; i <= len; i++) {
+         for (i = 1; i <= len; i++) {
                 if (document.getElementById("r" + i).value == "") {
                     document.getElementById("r" + i).style.borderColor = "red";
                 }

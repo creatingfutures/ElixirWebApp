@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_settings_export.settings_export',
             ],
         },
     },
@@ -135,3 +136,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+GEN_ASSNMT_TIME = 15
+MATCH_TIME = 30
+
+SETTINGS_EXPORT = [
+    'GEN_ASSNMT_TIME',
+    'MATCH_TIME'
+]

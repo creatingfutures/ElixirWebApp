@@ -13,6 +13,8 @@ myfun = {
 
         }
         if (er != 0) {
+            if(time <= 0){alert("Time up!");console.log(time)}
+            else
             alert("Please fill all the answers");
             for (i = 1; i <= len; i++) {
                 if (document.getElementById("r" + i).value == "") {
