@@ -34,6 +34,8 @@
 	<br> 
 	<br>
 
+    <div style="text-align: center; height: 75px;"><h1 id="timer" style="padding: 1rem;display: inline; background: orange;">{{ settings.CROSSWORD_TIME }}</h1></div>
+
 
 <div class='container-fluid d-flex align-items-center'>
 	<div class="col-xs-6" style="float: left; margin-left: 5%;margin-right: 20%;">
@@ -55,11 +57,20 @@
 
 </div>
 
+    <script src="/static/js/timer.js"></script>
+
 	<script type="text/javascript">
+
+    var time = {{ settings.CROSSWORD_TIME }};
 		//initialize crossword screen on load
 		$( document ).ready(function() {
 			initializeScreen({{questions|safe}},{{across_or_down|safe}});
 			$("#submit").click(function(){
+
+                if(time <= 0){
+                    alert("Time Up!");
+                }
+
 				var score = answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}});
 				console.log(score);
 				var token = "{{csrf_token}}";
