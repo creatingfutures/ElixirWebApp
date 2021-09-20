@@ -152,7 +152,7 @@
 
             /*    $("#btnSubmit").hide();
             $("#btnDownload").show();
-            $("#btnCancel").hide();
+            $("#btnClear").hide();
             $("#btnBack").show();
             var textboxes = $("input[type='text'],input[type='email'], input[type='tel']");
             //hide the textboxes and show the readonly labels containing values during preview
@@ -486,7 +486,7 @@
         /* #btnSubmit{
         margin-right:20px;
         }*/
-        #btnCancel {
+        #btnClear {
             margin-right: 20px;
         }
 
@@ -997,7 +997,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-10"></div>
+                <div class="col-md-9"></div>
                 <div class="col-md-1">
                     <button type="button" id="btnSubmit" class="button" style="width:90px;margin:10px"
                         onclick="onResumePreview();">Preview</button>
@@ -1005,9 +1005,16 @@
                         onclick="downloadResume();">Download Resume</button>
                 </div>
                 <div class="col-md-1">
-                    <button type="reset" id="btnCancel" class="button" style="width:90px;margin:10px;">Cancel</button>
+                    <button type="reset" id="btnClear" class="button" style="width:90px;margin:10px;">Clear</button>
                     <button type="button" id="btnBack" class="btn-light" style="display:none"
                         onclick="showEditResume();">Back</button>
+                </div>
+                <div class="col-md-1">
+                    <button class="button" id="btnCancel" style="width:90px;margin:10px;">
+                        <a href="{% url 'spoken_english' pk pk1 'education to employability'%}" style="color:black;">Cancel</a>
+                        
+                    </button>
+                   
                 </div>
 
             </div>
@@ -1158,7 +1165,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h3>AWARDS & ACHIEVEMENTS</h3>>
+                                <h3>AWARDS & ACHIEVEMENTS</h3>
                             </div>
                             <hr />
                             <div class="col-md-12">

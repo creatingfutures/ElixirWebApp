@@ -33,11 +33,19 @@
               {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'listening skill' and levelname|lower != 'my strengths' %}
                   <button class="collapsible1">
                       <h4>
-                          {{levelname|allcaps}}
-                              <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
-                              <b id='score-{{modulename}}-{{levelname}}' style="color:white;margin-left:calc(100% - 400px);" data-score='{{scores|get_dictionary_item:levelkey}}'>
+                          <div class="col-three">
+                                <label class="lvlName">{{levelname|allcaps}}</label>
+                           </div>
+                          <div class="col-three">
+                            <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}" class="gotolesson">Go To Lesson </a>  
+                           </div>
+                          <div class="col-three">
+                          
+                            <b id='score-{{modulename}}-{{levelname}}' class="scores" style=";" data-score='{{scores|get_dictionary_item:levelkey}}'>
                                 Score : {{scores|get_dictionary_item:levelkey}}%
-                              </b>
+                            </b>
+                          </div>
+                          
                       </h4>
                   </button>    
                   <div class="content1"> 
@@ -73,8 +81,13 @@
                   {% if levelname|lower == 'resume builder' %}
                       <button class="clickableLvl">
                            <h4>
-                                  <a href="{% url 'resumebuilder' pk pk1 pk2 i.pk j.pk  %}" style="color:white;">{{levelname|allcaps}}</a>
-                                  <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
+                                  
+                                  <div class="col-three">
+                                     <a href="{% url 'resumebuilder' pk pk1 pk2 i.pk j.pk  %}" class="lvlName">{{levelname|allcaps}}</a>
+                                  </div>
+                                  <div class="col-three">
+                                    <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}" class="gotolesson">Go To Lesson </a> 
+                                  </div>
                               
                           </h4>
                       </button>
@@ -82,8 +95,12 @@
                         {% if levelname|lower == 'multiple intelligence' %}
                             <button class="clickableLvl">
                                <h4>
-                                      <a href="{% url 'Mi' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
-                                      <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
+                                      <div class="col-three">
+                                        <a href="{% url 'Mi' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
+                                      </div>
+                                      <div class="col-three">
+                                         <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"class="gotolesson">Go To Lesson </a>  
+                                       </div>
                               
                               </h4>
                             </button>
@@ -91,7 +108,9 @@
                         {% if levelname|lower == 'my strengths' %}
                             <button class="clickableLvl">
                                 <h4>
-                                    <a href="{% url 'MyStrengths' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
+                                    <div class="col-three">
+                                        <a href="{% url 'MyStrengths' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
+                                    </div>
 
 
                                 </h4>
@@ -101,8 +120,12 @@
                                 <button class="clickableLvl">
                                    <h4>
                                        {# {{p.program_name}}#}
-                                          <a href="{% url 'LT' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
-                                          <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"style="color:white;margin-left:50px;">Go To Lesson </a>  
+                                          <div class="col-three">
+                                            <a href="{% url 'LT' pk pk1 p.program_name %}" class="lvlName">{{levelname|allcaps}}</a>
+                                          </div>
+                                          <div class="col-three">
+                                             <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"class="gotolesson">Go To Lesson </a> 
+                                           </div>
                               
                                   </h4>
                                 </button>

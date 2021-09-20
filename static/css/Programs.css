@@ -14,28 +14,67 @@
     background-color: #777;
     color: white;
     width: 1550px;
+    font-size:13px;
 }
 
-.collapsible1 >h4 {
-text-align:left;
-margin-left:100px;
-}
+    .collapsible1 > h4 {
+        text-align: left;
+        margin-left: 50px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        padding-top:5px;
+        padding-bottom:25px;
+    }
 
 .clickableLvl {
     background-color: #777;
     color: white;
     width: 1550px;
-    text-align:left;
+    text-align: left;
+    font-size: 13px;
 }
 
-    .clickableLvl > h4, clickableLvl > h4 > a {
-        margin-left: 80px;
-        font-family: 'Century Gothic' !important;
-        font-size: 15px;
-        color: white !important;
-        font-weight: bold;
+.gotolesson{
+    color:white;
+    margin-left:80px;
+}
+
+.lvlName{
+    color:white;
+    margin-left:10px;
+}
+
+.scores {
+    color: white;
+    margin-left: calc(100% - 400px);
+}
+
+.clickableLvl > h4, clickableLvl > h4 > a {
+    margin-left: 50px;
+   
+    font-family: 'Century Gothic' !important;
+    /*font-size: 15px;*/
+    color: white !important;
+    font-weight: bold;
+}
+
+.clickableLvl > h4 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top:5px;
+    padding-bottom:25px;
+}
+
+    .col-three {
+        float: left;
+        width: 30%;
+        /* border:1px solid blue;*/
     }
 
+/*.col-two {
+    float: left;
+    width: 33.33%;
+}*/
 .collapsible > h2, .collapsible > b {
     font-family: 'Century Gothic' !important;
     font-size: 15px;
