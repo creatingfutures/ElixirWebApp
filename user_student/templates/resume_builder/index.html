@@ -10,8 +10,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'components/jquery-ui-1.12.1/jquery-ui.css' %}" />
     <link rel="stylesheet" href="/static/components/select2/select2.min.css">
     <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
-    <script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+
     <script src="/static/components/jquery/jquery3.6.0.min.js" ></script>
+    <script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="/static/components/select2/select2.min.js"></script>
      <script src="{% static 'components/jquery-ui-1.12.1/jquery-ui.js' %}" type="text/javascript"></script>
     <script type="text/javascript" src="{% static 'components/jsGrid/jsgrid.js' %}"></script>
@@ -151,7 +152,7 @@
 
             /*    $("#btnSubmit").hide();
             $("#btnDownload").show();
-            $("#btnCancel").hide();
+            $("#btnClear").hide();
             $("#btnBack").show();
             var textboxes = $("input[type='text'],input[type='email'], input[type='tel']");
             //hide the textboxes and show the readonly labels containing values during preview
@@ -460,7 +461,11 @@
         $(document).ready(function () {
         $('[data-toggle="popover"]').popover({
             html: true,
-            title: 'User Info <a class="close" data-dismiss="alert">&times;</a>',
+            title: 'More information <a class="close" data-dismiss="alert">&times;</a>',
+            content:function(){
+                var popoverElementId = $(this).attr("popovercontentid");
+                return $(popoverElementId).html();
+        }
         });
         $(document).on("click", ".popover .close", function () {
             $(this).parents(".popover").popover('hide');
@@ -468,10 +473,20 @@
     });
     </script>
     <style>
+
+        .popover {
+            max-width:700px !important;
+        }
+
+        .popovercontent {
+           display:none;
+          
+        }
+
         /* #btnSubmit{
         margin-right:20px;
         }*/
-        #btnCancel {
+        #btnClear {
             margin-right: 20px;
         }
 
@@ -698,8 +713,9 @@
             <div class="row">
                 <div class="col-md-2">
                     <label for="txtObjective">OBJECTIVE</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#objectivepopovercontent">
                         <i class="fa fa-question-circle"></i></a>
+                    
 
                 </div>
                 <div class="col-md-12">
@@ -712,7 +728,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="tblEducation">EDUCATION DETAILS</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#educationpopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -731,8 +747,11 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <label for="txtTechnicalStrengths">STRENGTHS - TECHNICAL </label> <i class="fa fa-question-circle"></i>
-
+                    <label for="txtTechnicalStrengths">STRENGTHS - TECHNICAL </label> 
+                    
+                    <a data-toggle="popover" popovercontentid="#techstrengthspopovercontent">
+                        <i class="fa fa-question-circle"></i>
+                    </a>
                     <button id="myBtn" class="button" onclick="hardskills(event)">Add Strengths</button>
                     <div id="myModal" class="modal">
 
@@ -769,7 +788,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtNonTechStrengths">STRENGTHS - NON TECHNICAL (DOMAIN /MANAGEMENT SKILLS)</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#nontechstrengthspopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -794,8 +813,10 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <label for="txtQualities"> QUALITIES & SOFT SKILLS</label> <i class="fa fa-question-circle"></i>
-
+                    <label for="txtQualities"> QUALITIES & SOFT SKILLS</label> 
+                    <a data-toggle="popover" popovercontentid="#qualitiesandsoftskillspopovercontent">
+                        <i class="fa fa-question-circle"></i>
+                    </a>
                     <button id="myBtn1" class="button" onclick="qualities(event)">Add Qualities</button>
                     <div id="myModal1" class="modal">
 
@@ -852,7 +873,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtTechProjects"> ACADEMIC/TECHNICAL PROJECTS</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#academictechprojectpopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -872,7 +893,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtInternships"> INTERNSHIP EXPERIENCE </label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#internshippopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -887,7 +908,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtVolunteering">VOLUNTEERING EXPERIENCE</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#volunteeringpopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -901,7 +922,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtWorkEx">WORK EXPERIENCE</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#workexperiencepopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -915,7 +936,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtCertifications">CERTIFICATIONS</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#certificationpopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -930,7 +951,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtWebPresence"> WEB PRESENCE (IF ANY)</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#webpresencepopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -946,7 +967,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtInterests">INTERESTS</label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#interestspopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
 
@@ -962,7 +983,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="txtAwards"> AWARDS AND ACHIEVEMENTS </label>
-                    <a data-toggle="popover" data-content="Some content inside the popover">
+                    <a data-toggle="popover" popovercontentid="#awardspopovercontent">
                         <i class="fa fa-question-circle"></i></a>
 
                 </div>
@@ -976,7 +997,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-10"></div>
+                <div class="col-md-9"></div>
                 <div class="col-md-1">
                     <button type="button" id="btnSubmit" class="button" style="width:90px;margin:10px"
                         onclick="onResumePreview();">Preview</button>
@@ -984,9 +1005,16 @@
                         onclick="downloadResume();">Download Resume</button>
                 </div>
                 <div class="col-md-1">
-                    <button type="reset" id="btnCancel" class="button" style="width:90px;margin:10px;">Cancel</button>
+                    <button type="reset" id="btnClear" class="button" style="width:90px;margin:10px;">Clear</button>
                     <button type="button" id="btnBack" class="btn-light" style="display:none"
                         onclick="showEditResume();">Back</button>
+                </div>
+                <div class="col-md-1">
+                    <button class="button" id="btnCancel" style="width:90px;margin:10px;">
+                        <a href="{% url 'spoken_english' pk pk1 'education to employability'%}" style="color:black;">Cancel</a>
+                        
+                    </button>
+                   
                 </div>
 
             </div>
@@ -1137,7 +1165,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h3>AWARDS & ACHIEVEMENTS</h3>>
+                                <h3>AWARDS & ACHIEVEMENTS</h3>
                             </div>
                             <hr />
                             <div class="col-md-12">
@@ -1151,12 +1179,134 @@
 
             </article>
         </div>
+        <div id="popovers">
+                <div id="objectivepopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                          The purpose of the Objective is to convey to your employer what your goal is. It should be aimed towards getting a particular position in a specific industry<br/>
+                          Your objective should include the following:
+                        <ul>
+                            <li>
+                                Position wanted
+                            </li>
+                            <li>
+                                Functional area
+                            </li>
+                            <li>
+                                Industry wanted
+                            </li>
+                        </ul>
+                        <br/>
+                        Be specific and crisp. Restrict it to 15 words. Your objective will be different for each role you apply to. Keep the Employer's requirement in mind while writing the objective!
+                      </p>
+                    </div>
+                
+               <div id="educationpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                         The Purpose of this section is for the employer to know if you have the basic qualification for the job/internship you are applying for. <br/>
+                         Write all educational qualifications from class 10 till present. your past and present qualifications, from class 10 till present <br/>
+                         Write all your qualifications in a reverse chronological order. i.e. the latest qualifications on top
+                      </p>
+               </div>
 
+               <div id="techstrengthspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                        This includes the computer (e.g., Tally, Adobe, Network) and non-computer skills (e.g video creation, Digital photography, Fabrication).
+                        If you do not have any technical skills, skip this section
 
+                      </p>
+               </div>
+               <div id="nontechstrengthspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                       This section includes all domain or management skills that you have. Examples include Marketing, Project Management, Event Management, Payroll, Accounting, Tax, etc.
+
+                      </p>
+               </div>
+                <div id="qualitiesandsoftskillspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                       Qualities are attributes that define WHO YOU ARE! These include attributes like Hardworking, Calm, Patient, etc.
+
+                      </p>
+                       <p>
+                          Soft skills are non-technical skills that impact your performance in the workplace. These are character traits and interpersonal skills that characterize your relationships
+                          with other people. Examples include Communication Skill, Presentation Skill, Negotiation skill, etc
+                      </p>
+               </div>
+                <div id="academictechprojectpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                            This is a critical component of your resume, as your hands-on work and the initiatives you have done as part of your curriculum (or beyond) is what will reflect your real 
+                            potential as well as differentiate your resume from your peers'.
+
+                      </p>
+                      <p>
+                          This includes all the academic Projects and the technical projects that you may have done as part of your education.
+                      </p>
+                       <p>
+                          Example: <br/>
+			               Modelled a recycling system to treat Kitchen wastes( Jan 2008 - April 2008).<br/>
+                           This model of Liquid waste recycling system will treat and completely re- use the liquid wastes from the kitchens for irrigation in the nearby agricultural land. Volume:10000 lit/day.
+                      </p>
+                      
+               </div>
+                <div id="internshippopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                      This includes the Internships activities with companies (both paid and non-paid). Ensure that you have the right records or certificate for these
+                        <br />
+                           <b>The Hindu - Reporter Intern. April 2008-May 2008 ( 2 Months )</b>
+                      </p>
+                      <p>
+                          As a reporter for Hindu's daily supplementary "Metro Plus", I received 5 bylines for the articles I contributed in the technology section.
+                      </p>
+                      
+               </div>
+                <div id="volunteeringpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                     Describe all the volunteering activities, social work, initiatives for a cause or initiatives to help others (example teaching) here.
+                      </p>
+                     
+                      
+               </div>
+               <div id="workexperiencepopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                    List all the Part-time jobs, freelance work, starting up a company / business and other work related initiatives you have taken.
+                      </p>
+                     
+                      
+               </div>
+                <div id="certificationpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                    List all the certifications that you have. This includes both online and offline certifications
+                      </p>
+                     
+                      
+               </div>
+               <div id="webpresencepopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                           Do you have a great LinkedIn profile? A meaningful blog or a website? Are you into professional photography and have displayed your photos on Flickr?
+                           If so, add them here and it'll  definitely give you an edge when an employer screens it.
+                           
+                      </p>
+                     
+                      
+               </div>
+               <div id="interestspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                           Interest relates to Feeling, Hobby relates to "Action". Interests can include Hobbies. 
+                           Basically, an interest is something one likes to do or something that one has a feeling for. For example, she has an interest in poetry, or he is interested in watching the game.
+                      </p>
+                     
+                      
+               </div>
+                <div id="awardspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                  List all awards and achievements that you may have received over the years
+                      </p>
+                     
+                      
+               </div>
 
         </div>
 
-        </div>
+       
         <footer>
             <button type="button" id="btnBack" class="button" onclick="showEditResume();">Back</button>
         </footer>
