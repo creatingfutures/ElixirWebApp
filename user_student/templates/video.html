@@ -1,6 +1,9 @@
 {% load student_tag %}
 {% load static %}
 
+<div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.VIDEO_TIME }}</h1></div>
+
+
 <div style="margin:10px;padding:10px">
   <p id="questiontype"><b>Watch the Video and Answer Below Questions</b></p>
   <video width="520" height="440" controls>
@@ -41,6 +44,7 @@
 <br>
 
 <script src="{% static 'js/hints.js' %}"></script>
+<script src="/static/js/timer.js"></script>
 
 <script>
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
@@ -49,6 +53,8 @@
 var len=parseInt("{{l}}");
 var solved=0
 var score=parseInt("{{score}}");
+var time = {{ settings.VIDEO_TIME }};
+
 
 function check(a)
 {
@@ -130,12 +136,11 @@ $("#submit").click(function() {
         });
 
       }
-
       else {
-
+          if(time <= 0)alert("Time up!");
+          else
               alert("Please Solve All Questions First")
       }
-
 });
 
 </script>

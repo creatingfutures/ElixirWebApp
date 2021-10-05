@@ -1,5 +1,7 @@
 {% load student_tag %}
 {% load static %}
+<div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.AUDIO_TIME }}</h1></div>
+
 <div style="margin:10px;padding:10px">
     <p>
     <b id="questiontype">Listen to Audio and Answer Below Questions</b></p>
@@ -48,6 +50,7 @@
 
 
 <script src="{% static 'js/hints.js' %}"></script>
+<script src="/static/js/timer.js"></script>
 
 <script>
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
@@ -56,6 +59,8 @@
 var len=parseInt("{{l}}");
 var solved=0
 var score=parseInt("{{score}}");
+var time = {{ settings.AUDIO_TIME }};
+
 
 function check(a)
 {
@@ -139,7 +144,8 @@ $("#submit").click(function() {
       }
 
       else {
-
+          if(time <= 0)alert("Time up!");
+          else
               alert("Please Solve All Questions First")
       }
 

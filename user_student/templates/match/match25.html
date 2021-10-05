@@ -4,7 +4,12 @@
 
 {% block page_specific_htmlhead%}
     <link rel="stylesheet" href="{% static 'match_styles.css' %}">
+
     <script src="{% static 'js/logic1.js' %}"></script>
+
+
+
+
     <script type="text/javascript">
         var col1 ={{ colq|safe }};
         var col2 ={{ cola|safe }};
@@ -33,7 +38,8 @@
      </h1>
 
     <h2 style="text-align:center"> Match The Following </h2>
-    <h3 style="text-align:center"> Match the "Questions" on the left side with "Options" on the right side</h3>
+    <h3 style="text-align:center;"> Match the "Questions" on the left side with "Options" on the right side</h3>
+    <div style="text-align: center; margin-top: 1.5rem;"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.MATCH_TIME }}</h1></div>
     <br> 
     <br>
 
@@ -79,10 +85,11 @@
         </center>
 
 
-        
+          <script src="/static/js/timer.js"></script>
 
 
-    <script type="text/javascript">
+    <script>
+    let time = {{ settings.MATCH_TIME }};
         $("#submit").click(function(){
         var score = check();
         var token = "{{csrf_token}}";

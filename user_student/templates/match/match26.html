@@ -36,6 +36,7 @@
  <h1 style="text-align:center">EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}</h1>
 
 <h2 style="text-align:center"> Match The Following </h2>
+    <div style="text-align: center; margin-top: 1.5rem;"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">30</h1></div>
 <br> <br>
 
 
@@ -130,8 +131,11 @@
     </center>
 </body>
 
+  <script src="/static/js/timer.js"></script>
+
 
 <script>
+        let time = {{ settings.MATCH_TIME }};
     function check() {
 
         var ans = [3, 5, 6, 2, 1, 4];

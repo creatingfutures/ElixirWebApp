@@ -37,6 +37,7 @@ function drop(ev) {
 
 
 <p> <b id="questiontype">Jumbled Words</b></p>
+<div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.GEN_ASSNMT_TIME }}</h1></div>
 <br/>
 <p id="question">Arrange Below words in proper Order To form sentences</p>
 <i id='hint' style="display:none;" onclick="alert('{{hint|safe}}')">&nbsp; <a href='#' style="color: orange;" >Hint</a> </i>
@@ -50,13 +51,13 @@ function drop(ev) {
   {% endfor %}
 </div>
 <br>
-<button class="button" onClick="show()">SUBMIT</button>
+<button id="submit" class="button" onClick="show()">SUBMIT</button>
 
-
-
+<script src="/static/js/timer.js"></script>
 
 
 <script type="text/javascript">
+    var time = {{ settings.GEN_ASSNMT_TIME }};
 
   function show()
   {
@@ -125,11 +126,12 @@ function drop(ev) {
 
     else {
       {
+          if(time <= 0)alert("Time Up!");
+          else
         alert("Incorrect Answer, Please Try Again");
         document.getElementById('hint').style.display='block';
       }
     }
-
 
   }
 </script>

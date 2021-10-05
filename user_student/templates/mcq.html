@@ -2,64 +2,71 @@
 
 <div style="margin:10px;padding:10px">
   <p><b id="questiontype">Multiple Choice Question</b></p>
- <br/> 
+<div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.GEN_ASSNMT_TIME }}</h1></div>
+
+ <br/>
     <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
     <br/>
     <br/>
     <i id="question">{{request.session.questions|index:i}}</i>
-    <i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">&nbsp; 
-        <a href='#' style="color: orange;" >Hint</a> 
+    <i id = 'hint' onclick="alert('{{request.session.questions|get_hint:i}}')" style="display: none;">&nbsp;
+        <a href='#' style="color: orange;" >Hint</a>
     </i>
     <br />
-    
+
 {% with q=request.session.questions|getObject:i %}
   <ol type="A">
-      
+
         {% for option in q.options %}
             <li>
             <input type="radio" name="options" value="{{option}}">{{option}}</input>
             </li>
             <br/>
         {% endfor %}
-    
+
       </ol>
 
   <input type="submit" id="submit" class="button" value="Submit">
 {% endwith %}
-   
+
 </div>
 
 <br>
 
 
 
-
+<script src="/static/js/timer.js"></script>
 <script>
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
 var done=0;
 
+var time = {{ settings.GEN_ASSNMT_TIME }};
+
+
+
   $("#submit").click(function () {
-    //var url = $("#form1").attr("data-modules-url");
-    if ($("input[name='options']:checked").val() == undefined) {
+      clearInterval(interval);
+    //let url = $("#form1").attr("data-modules-url");
+    if ($("input[name='options']:checked").val() == undefined && time > 0) {
       alert("Please Select An option");
     }
 
     else {
-      var count = $(this).data("count") || 0;
+      let count = $(this).data("count") || 0;
       $(this).data("count", ++count)
       console.log(count)
-      
-      var question = $("#ques").html();
-      var option = $("input[name='options']:checked").val();
-      var answer = "{{request.session.questions|index5:i}}"
+
+      let question = $("#ques").html();
+      let option = $("input[name='options']:checked").val();
+      let answer = "{{request.session.questions|index5:i}}"
       console.log(answer)
-      if (option.toLowerCase().trim() == answer.toLowerCase().trim()) {
+      if (time >0 && option.toLowerCase().trim() == answer.toLowerCase().trim()) {
         alert("Right Answer");
         if ($(this).data("count") == 1) {
-          var str = "True"
-          var score = "{{score}}"
+          let str = "True"
+          let score = "{{score}}"
           $.ajax({ // initialize an AJAX request
             url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
             type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
@@ -77,8 +84,8 @@ var done=0;
 
         else {
           {
-            var str = "False"
-            var score = "{{score}}"
+            let str = "False"
+            let score = "{{score}}"
             $.ajax({ // initialize an AJAX request
               url: '/s_home/' + "{{pk}}" + '/batch/' + "{{pk1}}" + '/program/' + "{{pk2}}" + '/module/' + "{{pk3}}" + '/level/' + "{{pk4}}" + '/standard_test/ajax/test/',
               type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
@@ -99,6 +106,9 @@ var done=0;
 
       else {
         {
+
+            if(time <= 0){alert("Time Up!");time=1;}
+            else
           alert("Incorrect Answer, Please Try Again");
           document.getElementById('hint').style.display='block';
         }
