@@ -149,7 +149,7 @@ function checkClicked(new_cells_allowed,answers,across_or_down){
 	}
 
 	if(across_or_down.length == score){
-		score = 1;	
+		score = 100;	
 	}
 	else{
 		score = 0

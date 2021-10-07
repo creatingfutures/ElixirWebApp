@@ -178,6 +178,7 @@ urlpatterns = [
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MIResult/', s_views.Mi_TestResult, name="MIResult" ),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/LT/', s_views.Listen, name="LT" ),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Lscore/', s_views.LScore, name="Lscore" ),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Careerpath/', s_views.test_path, name="Careerpath"),
     #path('LHome/', s_views.LHome, name="LHome" ),
      #path('Mview/', s_views.Module_view_SK, name="Mview" ),
      #path('Mview1/', s_views.Module_view_LS, name="Mview1" ),

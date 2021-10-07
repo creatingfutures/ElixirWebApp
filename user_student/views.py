@@ -17,7 +17,7 @@ from user_admin.models import student, facilitator, program, center
 from user_admin.models import batch, program_module, module_level, question_option, question, student_module_level, \
     student_batch, question_content, question_type, assessment_type
 # from user_admin.models import image_question,images_question, av_question,av_sub_question
-from user_student.models import scores, skillmaster, skills
+from user_student.models import scores, skillmaster, skills, Stream, Job, Exam, Course
 import random
 import os
 import json
@@ -826,3 +826,10 @@ def Module_view_LS(request):
 
 def Mhome(request):
     return render(request, "Mhome.html")
+
+def test_path(request, pk, pk1, program):
+    stream = Stream.objects.all()
+    job = Job.objects.all()
+    exam = Exam.objects.all()
+    course = Course.objects.all()
+    return render(request, "career_path.html", {'stream': stream, 'job': job, 'exams': exam, 'course' : course, "pk": pk, "pk1": pk1, "p": program})
