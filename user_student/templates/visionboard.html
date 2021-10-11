@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load student_tag %}
+
+
+
+
+{% block page_specific_htmlhead %}
+    <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+{#<link rel="stylesheet" href="/static/css/strengths.css">#}
+
+
+    <title>Vision Board</title>
+
+{% endblock %}
+
+
+{% block page_specific_styles %}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<ul class="breadcrumb m-3">
+    <li><a href="{% url 'spoken_english' pk pk1 program %}">MODULES</a></li>.
+    <li><a href="#">Vision Board</a></li>
+</ul>
+
+<div class="container mt-5">
+
+
+    <h2 class="mb-5 ml-2">
+        Vision Board
+    </h2>
+        {% if messages %}
+        {% for m in messages %}
+    {%  if forloop.first  %}
+
+    <h4 style="background: #10b910" class="p-2 text-white">{{m}}</h4>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+asfafaf
+</div>
+{% endblock %}
