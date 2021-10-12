@@ -30,7 +30,7 @@
        {% for j in l %}
         {% if j.module == i %}
          {% with levelname=j.level_description levelkey=i.module_name|add_str:j.level_description %}
-              {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'listening skill' and levelname|lower != 'my strengths' and levelname|lower != 'vision board' %}
+              {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'listening skill' and levelname|lower != 'my strengths' and levelname|lower != 'vision board' and levelname|lower != 'career path'%}
                   <button class="collapsible1">
                       <h4>
                           <div class="col-three">
@@ -136,6 +136,18 @@
                                     <a href="{% url 'VisionBoard' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
                                 </h4>
                             </button>
+                         {% else %}
+                              {% if levelname|lower == 'career path' %}
+
+                              <button class="clickableLvl">
+                                <h4>
+                                    <div class="col-three">
+                                      <a href="{% url 'Careerpath' pk pk1 p.program_name %}" class="lvlName">{{levelname|allcaps}}</a>
+                                    </div>
+                                </h4>
+                            </button>
+                            
+                            {% endif %}
                          {% endif %}
                                 {% endif %}
                      {% endif %}
