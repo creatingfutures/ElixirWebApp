@@ -775,10 +775,10 @@ def Vision_Board(request,pk,pk1,program):
     ss = skillmaster.objects.filter(skilltype='softskills')
     hs = skillmaster.objects.filter(skilltype='hardskills')
 
-    talents = []
-    qualities = []
-    hard = []
-    soft = []
+    talents = ''
+    qualities = ''
+    hard = ''
+    soft = ''
 
     for cur in old:
         i = cur.skillid
@@ -787,25 +787,30 @@ def Vision_Board(request,pk,pk1,program):
         if s:
             for j in tal:
                 if str(j.skillname) == str(i):
-                    talents.append(j.skillname)
+                    talents += j.skillname+","
                     s = False
                     break
         if s:
             for j in qal:
                 if str(j.skillname) == str(i):
-                    qualities.append(j.skillname)
+                    qualities += j.skillname+","
                     s = False
                     break
 
         if s:
             for j in ss:
                 if str(j.skillname) == str(i):
-                    soft.append(j.skillname)
+                    soft += j.skillname+","
                     s = False
                     break
 
         if s:
-            hard.append(str(i.skillid))
+            hard += str(i)+","
+
+    talents = talents[:-1]
+    qualities = qualities[:-1]
+    soft = soft[:-1]
+    hard = hard[:-1]
 
     return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program,"name":name,"skills":old,"talents":talents,"qualities":qualities,"soft":soft,"hard":hard})
 
