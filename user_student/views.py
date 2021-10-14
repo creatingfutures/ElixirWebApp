@@ -766,7 +766,8 @@ def Mi_TestResult(request, pk, pk1, program):
     return render(request, "MiScores.html", {"pk": pk, "pk1": pk1, "program": program})
 
 def Vision_Board(request,pk,pk1,program):
-    return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program})
+    name = student.objects.get(pk=pk)
+    return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program,"name":name})
 
 
 def My_Strengths(request, pk, pk1, program):
