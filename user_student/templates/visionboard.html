@@ -44,17 +44,42 @@
 <div class="container mt-5">
 
     <div class="wrapper pt-1 pb-1" style="background: orange"><h4>My Name</h4></div>
-    <div style="display: inline-block;margin: 0.5rem" ><h4>{{ name }}</h4></div>
+    <div style="display: inline-block;margin: 0.5rem;"  class="bg-light wrapper"><h4>{{ name }}</h4></div>
     <br>
-    <div class="wrapper pt-1 pb-1 mb-0"><h4>My Qualities</h4></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h4>My Soft Skills</h4></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h4>My Hard Skills</h4></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h4>My Talents</h4></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h4>{{ qualities }}</h4></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h4>My Qualities</h4></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h4>My Qualities</h4></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h4>My Qualities</h4></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Qualities</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Soft Skills</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Hard Skills</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Talents</h5></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ qualities }}</h5></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ soft }}</h5></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ hard }}</h5></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ talents }}</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0" style="width: 100%"><h5>My Career Vision Statement</h5></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2" style="width: 100%"><textarea style="width: 100%; font-size: 1.5rem"></textarea></div>
+    <div class="d-flex justify-content-center">
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>Job I will do to meet my Vision</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>Educational Qualifications needed for my Job</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>Trainings I need For he Job</h5></div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+    </div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>Qualities I need to develop</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>Soft Skills I need to develop</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>Hard Skills I need to develop</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Talents</h5></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
 
+<div class="d-flex justify-content-end mt-3">
+        <button class="button" >Download</button>
+        <button class="button" >Cancel</button>
+
+</div>
 
         {% if messages %}
         {% for m in messages %}
@@ -68,4 +93,11 @@
 
 
 </div>
+
+<script>
+     var a = "{{ hard }}"
+     if (a.length === 0){
+         alert("Please Fill My Strengths")
+     }
+</script>
 {% endblock %}

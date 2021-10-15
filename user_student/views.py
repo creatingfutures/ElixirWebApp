@@ -811,8 +811,14 @@ def Vision_Board(request,pk,pk1,program):
     qualities = qualities[:-1]
     soft = soft[:-1]
     hard = hard[:-1]
+    if True:
+        return render(request, "visionboard.html",
+                      {"pk": pk, "pk1": pk1, "program": program, "name": name, "skills": old, "talents": talents,
+                       "qualities": qualities, "soft": soft, "hard": hard})
 
-    return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program,"name":name,"skills":old,"talents":talents,"qualities":qualities,"soft":soft,"hard":hard})
+        return render(request, "Strengths.html",{"pk":pk, "pk1":pk1,"program": program})
+    else:
+        return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program,"name":name,"skills":old,"talents":talents,"qualities":qualities,"soft":soft,"hard":hard})
 
 
 def My_Strengths(request, pk, pk1, program):
