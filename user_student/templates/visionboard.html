@@ -41,7 +41,7 @@
     <li><a href="#">Vision Board</a></li>
 </ul>
 
-<div class="container mt-5">
+<div class="container mt-5" id="target">
 
     <div class="wrapper pt-1 pb-1" style="background: orange"><h4>My Name</h4></div>
     <div style="display: inline-block;margin: 0.5rem;"  class="bg-light wrapper"><h4>{{ name }}</h4></div>
@@ -55,28 +55,29 @@
     <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ hard }}</h5></div>
     <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ talents }}</h5></div>
     <div class="wrapper pt-1 pb-1 mb-0" style="width: 100%"><h5>My Career Vision Statement</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2" style="width: 100%"><textarea style="width: 100%; font-size: 1.5rem"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2" style="width: 100%"><textarea id="careerVisionStm" style="width: 100%; font-size: 1.5rem"></textarea></div>
     <div class="d-flex justify-content-center">
     <div class="wrapper pt-1 pb-1 mb-0"><h5>Job I will do to meet my Vision</h5></div>
     <div class="wrapper pt-1 pb-1 mb-0"><h5>Educational Qualifications needed for my Job</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>Trainings I need For he Job</h5></div>
+    <div class="wrapper pt-1 pb-1 mb-0"><h5>Trainings I need for the Job</h5></div>
     </div>
     <div class="d-flex justify-content-center">
-        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
-        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
-        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="jobs" style="width: 100%;"></textarea></div>
+        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="qualifs" style="width: 100%;"></textarea></div>
+        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="trainings" style="width: 100%;"></textarea></div>
     </div>
     <div class="wrapper pt-1 pb-1 mb-0"><h5>Qualities I need to develop</h5></div>
     <div class="wrapper pt-1 pb-1 mb-0"><h5>Soft Skills I need to develop</h5></div>
     <div class="wrapper pt-1 pb-1 mb-0"><h5>Hard Skills I need to develop</h5></div>
     <div class="wrapper pt-1 pb-1 mb-0"><h5>My Talents</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea style="width: 100%;"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="quals" style="width: 100%;"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="soft" style="width: 100%;"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="hard" style="width: 100%;"></textarea></div>
+    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="tals" style="width: 100%;"></textarea></div>
+
 
 <div class="d-flex justify-content-end mt-3">
-        <button class="button" >Download</button>
+        <button class="button" id="dwnld" >Download</button>
         <button class="button" >Cancel</button>
 
 </div>
@@ -94,10 +95,220 @@
 
 </div>
 
+
+    <form id="frmPreview" >
+        <link rel="stylesheet" type="text/css" href="{% static 'css/wordstyles.css' %}" />
+        <div id="divExport">
+{#            <header>#}
+{#                <div class="container" id="divResumePreview">#}
+{##}
+{#                    <div class="row">#}
+{##}
+{#                        <div class="col-md-12">#}
+{#                            <strong id="lblFName">{{ name }}</strong>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </header>#}
+            <article>
+                <div class="container">
+                    <section>
+
+                        <div class="row">
+                            <!--<div class="col-md-12">
+                            <h3>OBJECTIVE</h3>
+                        </div>-->
+                            <div class="fName col-md-12">
+                                <strong id="lblObjective">{{ name }}</strong>
+                            </div>
+                        </div>
+                        <br>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>My Qualities</strong>
+                            </div>
+
+                            <div class="col-md-12">
+                                <p id="divEducation">
+                                      {{ qualities }}
+                                </p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>My Soft Skills</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <p id="lblTechnicalStrengths">{{ soft }}</p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>My Hard Skills</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <p id="lblNonTechStrengths">{{ hard }}</p>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>My Talents</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <p id="lblQualities">{{ talents }}</p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>My Career Vision Statement</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="cvstm"></div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Job I will do to meet my Vision</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="jb"></div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Educational Qualifications needed for my Job</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="eq"></div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Trainings I need for the Job</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="tr"></div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Qualities I need to develop</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="ql"></div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Soft Skills I need to develop</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="ss"></div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Hard Skills I need to develop</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="hs"></div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>My Talents</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="tl"></div>
+                            </div>
+                        </div>
+
+
+
+                    </section>
+                </div>
+
+
+            </article>
+        </div>
+
+    </form>
+
+
+        <script src="/static/components/jquery/jquery3.6.0.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha512-cLuyDTDg9CSseBSFWNd4wkEaZ0TBEpclX0zD3D6HjI19pO39M58AgJ1SjHp6c7ZOp0/OCRcC2BCvvySU9KJaGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
      var a = "{{ hard }}"
      if (a.length === 0){
          alert("Please Fill My Strengths")
      }
+     var markup = document.documentElement.innerHTML;
+console.log(markup)
+</script>
+{#    <script src="/static/js/jspdf.js"></script>#}
+
+
+    <script>
+  var doc = new jsPDF('p', 'pt', 'letter');
+
+
+  var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+      return true;
+    }
+  };
+  $('#dwnld').click(function () {
+       var cvs = document.getElementsByTagName("textarea");
+  var valid = true;
+
+  for(let a =0; a <8; a++){
+      let ss = cvs[a].value;
+
+      if(ss === undefined || ss.length === 0)valid = false;
+      else{
+          ss.trim();
+          if(ss.length === 0)valid = false;
+      }
+  }
+        if(!valid){
+            alert("Please Fill all fields");
+        }
+        else {
+            document.getElementById("cvstm").innerHTML = document.getElementById("careerVisionStm").value;
+            document.getElementById("jb").innerHTML = document.getElementById("jobs").value;
+            document.getElementById("eq").innerHTML = document.getElementById("qualifs").value;
+            document.getElementById("tr").innerHTML = document.getElementById("trainings").value;
+            document.getElementById("ql").innerHTML = document.getElementById("quals").value;
+            document.getElementById("ss").innerHTML = document.getElementById("soft").value;
+            document.getElementById("hs").innerHTML = document.getElementById("hard").value;
+            document.getElementById("tl").innerHTML = document.getElementById("tals").value;
+
+            doc.fromHTML($('#frmPreview').html(), 25, 25, {
+                'width': 790,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('careervision.pdf');
+            window.location.reload();
+        }
+  });
 </script>
 {% endblock %}
