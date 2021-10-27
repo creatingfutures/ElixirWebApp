@@ -96,7 +96,7 @@
 </div>
 
 
-    <form id="frmPreview" >
+    <form id="frmPreview" style="display: none" >
         <link rel="stylesheet" type="text/css" href="{% static 'css/wordstyles.css' %}" />
         <div id="divExport">
 {#            <header>#}
@@ -118,11 +118,14 @@
                             <!--<div class="col-md-12">
                             <h3>OBJECTIVE</h3>
                         </div>-->
-                            <div class="fName col-md-12">
-                                <strong id="lblObjective">{{ name }}</strong>
+                            <div class="col-md-12">
+                                <strong id="lblObjective">&nbsp;</strong>
+                            </div>
+                             <div class="col-md-12">
+                               <p><strong id="divEducation">{{ name }}
+                                </strong></p>
                             </div>
                         </div>
-                        <br>
                         <hr />
                         <div class="row">
                             <div class="col-md-12">
@@ -169,7 +172,7 @@
                                 <strong>My Career Vision Statement</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="cvstm"></div>
+                                <p id="cvstm"></p>
                             </div>
                         </div>
                         <hr />
@@ -179,7 +182,7 @@
                                 <strong>Job I will do to meet my Vision</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="jb"></div>
+                                <p id="jb"></p>
                             </div>
                         </div>
                         <hr />
@@ -188,7 +191,7 @@
                                 <strong>Educational Qualifications needed for my Job</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="eq"></div>
+                                <p id="eq"></p>
                             </div>
                         </div>
                         <hr />
@@ -198,7 +201,7 @@
                                 <strong>Trainings I need for the Job</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="tr"></div>
+                                <p id="tr"></p>
                             </div>
                         </div>
                         <hr />
@@ -208,7 +211,7 @@
                                 <strong>Qualities I need to develop</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="ql"></div>
+                                <p id="ql"></p>
                             </div>
                         </div>
                         <hr />
@@ -218,7 +221,7 @@
                                 <strong>Soft Skills I need to develop</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="ss"></div>
+                                <p id="ss"></p>
                             </div>
                         </div>
                         <hr />
@@ -228,7 +231,7 @@
                                 <strong>Hard Skills I need to develop</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="hs"></div>
+                                <p id="hs"></p>
                             </div>
                         </div>
                         <hr />
@@ -238,7 +241,7 @@
                                 <strong>My Talents</strong>
                             </div>
                             <div class="col-md-12">
-                                <div id="tl"></div>
+                                <p id="tl"></p>
                             </div>
                         </div>
 
