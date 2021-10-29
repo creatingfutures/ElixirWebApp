@@ -43,9 +43,9 @@ def save_new_scores_from_csv(file_path):
     # open csv file, read lines
     from user_student.models import scores
     with open(file_path, 'r') as fp:
-        scores = csv.reader(fp, delimiter=',')
+        csv_scores = csv.reader(fp, delimiter=',')
         row = 0
-        for score in scores:
+        for score in csv_scores:
             if row==0:
                 headers = score
                 row = row + 1

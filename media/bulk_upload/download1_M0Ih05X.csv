@@ -1,0 +1,19 @@
+id;student_id;batch_id;level_id;date_time;user_score;total_score;question_content_id;assessment_type_id
+31;jimmy;batch 1;level 04;2021-04-17 09:22:30.993921;9;10;0;General Assessment
+32;jimmy;batch 1;level 03;2021-04-19 05:41:54.190672;1;1;558;Crossword
+33;jimmy;batch 1;level 01;2021-07-19 08:51:28.815273;8;8;0;General Assessment
+34;jimmy;batch 1;level 01;2021-04-02 04:10:07.695282;1;1;566;Word Search
+35;jimmy;batch 1;level 01;2021-04-24 10:46:50.378966;1;1;573;Match The Following
+36;jimmy;batch 1;level 01;2021-04-23 06:20:12.145201;0;1;526;Crossword
+37;jimmy;batch 1;level 01;2021-04-10 08:46:32.933313;18;20;0;General Assessment
+38;jimmy;batch 1;level 01;2021-04-19 03:56:12.764185;1;1;568;Word Search
+39;jimmy;batch 1;level 04;2021-04-19 03:58:40.518407;4;5;59;Text Test
+40;jimmy;batch 1;level 01;2021-05-21 17:54:42.695527;3;3;60;Video
+41;jimmy;batch 1;level 04;2021-04-11 11:00:54.591387;7;9;0;General Assessment
+42;jimmy;batch 1;level 02;2021-04-25 15:00:39.947373;4;5;0;General Assessment
+43;jimmy;batch 1;level 01;2021-04-16 06:00:17.626918;0;1;534;Crossword
+44;jimmy;batch 1;level 02;2021-04-19 03:44:25.476099;3;5;58;Audio
+45;jimmy;batch 1;level 01;2021-04-25 15:03:07.953853;1;1;550;Crossword
+46;jimmy;batch 1;level 02;2021-04-17 09:23:06.614054;0;1;543;Crossword
+49;jimmy;batch 1;level 01;2021-07-30 06:24:41.949394;3;20;0;General Assessment
+50;jimmy;batch 1;level 01;2021-07-30 06:24:41.949394;3;20;0;General Assessment

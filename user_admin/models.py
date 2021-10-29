@@ -340,3 +340,15 @@ class student_batch(models.Model):
 class bulk_upload(models.Model):
   date_uploaded = models.DateTimeField(auto_now=True)
   csv_file = models.FileField(upload_to='bulk_upload/')
+
+class sync(models.Model):
+    syncid = models.AutoField(primary_key=True)
+    information_synchronized = models.CharField(max_length=150, null=False, blank=False)
+    date_of_sync = models.DateTimeField(auto_now=True,null=True, blank=True)
+    DOWNLOAD = 'D'
+    UPLOAD = 'U'
+    synchronization_choices = [ 
+        (DOWNLOAD, 'Download'),
+        (UPLOAD, 'Upload'),
+    ]
+    synchronization_type = models.CharField(choices=synchronization_choices,max_length=10)

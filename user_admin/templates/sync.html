@@ -13,11 +13,10 @@
     User Scores
     <a href="{% url 'export_csv' %}" class="btn btn-primary" style="background-color: orange; border-color: orange;">Download</a>
 
-    <form  action="" method="POST" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
-  
-      <input type="submit" class="btn btn-success" value="Upload">
-  </form>
+      <input type="file" name="myfile">
+      <button type="submit">Upload</button>
+    </form>
   </h5>
 {% endblock content %}
