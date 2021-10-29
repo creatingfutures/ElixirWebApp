@@ -175,7 +175,7 @@ urlpatterns = [
     
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Mi/', s_views.Mi_Test, name="Mi"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MyStrengths/', s_views.My_Strengths, name="MyStrengths"),
-path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/VisionBoard/', s_views.Vision_Board, name="VisionBoard"),
+    path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/VisionBoard/', s_views.Vision_Board, name="VisionBoard"),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/MIResult/', s_views.Mi_TestResult, name="MIResult" ),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/LT/', s_views.Listen, name="LT" ),
     path('s_home/<int:pk>/batch/<int:pk1>/program/<str:program>/Lscore/', s_views.LScore, name="Lscore" ),

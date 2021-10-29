@@ -766,7 +766,59 @@ def Mi_TestResult(request, pk, pk1, program):
     return render(request, "MiScores.html", {"pk": pk, "pk1": pk1, "program": program})
 
 def Vision_Board(request,pk,pk1,program):
-    return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program})
+    name = student.objects.get(pk=pk)
+    obj = skills()
+    old = skills.objects.filter(student_id=pk)
+    obj2 = skillmaster()
+    tal = skillmaster.objects.filter(skilltype='Talents')
+    qal = skillmaster.objects.filter(skilltype='quality')
+    ss = skillmaster.objects.filter(skilltype='softskills')
+    hs = skillmaster.objects.filter(skilltype='hardskills')
+
+    talents = ''
+    qualities = ''
+    hard = ''
+    soft = ''
+
+    for cur in old:
+        i = cur.skillid
+        s = True
+
+        if s:
+            for j in tal:
+                if str(j.skillname) == str(i):
+                    talents += j.skillname+","
+                    s = False
+                    break
+        if s:
+            for j in qal:
+                if str(j.skillname) == str(i):
+                    qualities += j.skillname+","
+                    s = False
+                    break
+
+        if s:
+            for j in ss:
+                if str(j.skillname) == str(i):
+                    soft += j.skillname+","
+                    s = False
+                    break
+
+        if s:
+            hard += str(i)+","
+
+    talents = talents[:-1]
+    qualities = qualities[:-1]
+    soft = soft[:-1]
+    hard = hard[:-1]
+    if True:
+        return render(request, "visionboard.html",
+                      {"pk": pk, "pk1": pk1, "program": program, "name": name, "skills": old, "talents": talents,
+                       "qualities": qualities, "soft": soft, "hard": hard})
+
+        return render(request, "Strengths.html",{"pk":pk, "pk1":pk1,"program": program})
+    else:
+        return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program,"name":name,"skills":old,"talents":talents,"qualities":qualities,"soft":soft,"hard":hard})
 
 
 def My_Strengths(request, pk, pk1, program):
