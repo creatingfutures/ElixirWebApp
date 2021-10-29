@@ -246,3 +246,8 @@ class add_center_form(forms.ModelForm):
         else:
             raise forms.ValidationError("The Mobile Number is not Valid")
         return mob
+
+class scores_bulk_upload_form(forms.ModelForm):
+  class Meta:
+    model = bulk_upload
+    fields = ("csv_file",)
