@@ -336,3 +336,6 @@ class student_batch(models.Model):
 #    assessment_type = models.TextField(null=False)
 #    def __str__(self):
 #        return self.assessment_type
+class bulk_upload(models.Model):
+  date_uploaded = models.DateTimeField(auto_now=True)
+  csv_file = models.FileField(upload_to='bulk_upload/')

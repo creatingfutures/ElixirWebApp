@@ -17,13 +17,14 @@ from django.db.models import Q
 from pyexcel_xls import get_data as xls_get
 from pyexcel_xlsx import get_data as xlsx_get
 from django.db import connection
-from utils import save_new_scores_from_csv,download_csv
+from user_admin.utils import save_new_scores_from_csv,download_csv
 from user_student.models import scores
 
 # Create your views here.
 import csv
 from django.utils.datastructures import MultiValueDictKeyError
 
+BASE_DIR = 'bulk_upload/'
 program_modules = {}
 facilitators = {}
 mod_c = 0
