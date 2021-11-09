@@ -9,15 +9,16 @@
       <a href="{% url 'export_csv' %}" class="btn btn-primary">Download</a>
     </div>
   </div> -->
-  <h5 class="card-header d-flex justify-content-between align-items-center" style="background-color: white;">
-    User Scores
-    <a href="{% url 'export_csv' %}" class="btn btn-primary" style="background-color: orange; border-color: orange;">Download</a>
 
-    <form  action="" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
+    <h5 class="card-header d-flex justify-content-between align-items-center" style="background-color: white;">
+      User Scores
+      <a href="{% url 'export_csv' %}" class="btn btn-primary" style="background-color: orange; border-color: orange;">Download</a>
   
-      <input type="submit" class="btn btn-success" value="Upload">
-  </form>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="myfile">
+        <button type="submit">Upload</button>
+      </form>
+    </h5>
   </h5>
 {% endblock content %}
