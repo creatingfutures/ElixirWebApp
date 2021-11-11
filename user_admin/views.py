@@ -21,7 +21,7 @@ from user_admin.utils import save_new_scores_from_csv,download_csv
 from user_student.models import scores
 from user_admin.resources import scoresResource
 from tablib import Dataset
-
+import io
 # Create your views here.
 import csv
 from django.utils.datastructures import MultiValueDictKeyError
@@ -1324,10 +1324,10 @@ def sync_page(request):
             print(imported_data)
             result = scores_resource.import_data(dataset, dry_run=True)  # Test the data import
 
-            print(result)
+            print(result.has_errors())
             if not result.has_errors():
                 sync_data.information_synchronized = 'user_scores' 
-                sync_data.synchronization_type = 'D'
+                sync_data.synchronization_type = 'U'
                 sync_data.save()
                 scores_resource.import_data(dataset, dry_run=False)
                 print('success')
