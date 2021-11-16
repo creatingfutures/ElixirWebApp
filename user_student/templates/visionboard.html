@@ -8,7 +8,16 @@
 
 {% block page_specific_htmlhead %}
     <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
-{#<link rel="stylesheet" href="/static/css/strengths.css">#}
+
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.8.0/dist/pptxgen.bundle.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    
+
+
 
 
     <title>Vision Board</title>
@@ -22,11 +31,41 @@
     background:rgba(0,0,0,0.1);
     display:inline-block;
     border-radius:10px;
-    width:22%;
-    margin:0.5rem;
+
+    width:335px;
+    height: 70px;
+
+  
+  margin:0.5rem;
     text-align:center;
     border:2px solid black;
     }
+
+
+    
+
+
+    input[type=label] {
+
+        width: 335px; 
+        height: 70px;
+
+        
+    }
+    .bootstrap-select .btn {
+        height: 50px;
+        border-radius: 10px;
+    }
+    .bootstrap-select {
+        border: 2px solid black;
+        border-radius: 10px;
+        
+    }
+    .bootstrap-select {
+        max-width: 600px;
+      }
+
+
 
 {% endblock %}
 
@@ -41,277 +80,107 @@
     <li><a href="#">Vision Board</a></li>
 </ul>
 
-<div class="container mt-5" id="target">
 
-    <div class="wrapper pt-1 pb-1" style="background: orange"><h4>My Name</h4></div>
-    <div style="display: inline-block;margin: 0.5rem;"  class="bg-light wrapper"><h4>{{ name }}</h4></div>
+<form action="" method="post">
+    {% csrf_token %}
+
+    <label class="wrapper pt-2 pb-1 mt-0" style="background: orange"><h4>My Name</h4></label>
+    
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="text" value={{name}} name="names"/>
+   
     <br>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Qualities</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Soft Skills</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Hard Skills</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Talents</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ qualities }}</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ soft }}</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ hard }}</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light"><h5>{{ talents }}</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0" style="width: 100%"><h5>My Career Vision Statement</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2" style="width: 100%"><textarea id="careerVisionStm" style="width: 100%; font-size: 1.5rem"></textarea></div>
-    <div class="d-flex justify-content-center">
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>Job I will do to meet my Vision</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>Educational Qualifications needed for my Job</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>Trainings I need for the Job</h5></div>
+    <label class="wrapper pt-2 pb-1 mb-1"><h5>My Qualities</h5></label>
+    <label class="wrapper pt-2 pb-1 mb-0"><h5>My Soft Skills</h5></label>
+    <label class="wrapper pt-2 pb-1 mb-0"><h5>My Hard Skills</h5></label>
+    <label class="wrapper pt-2 pb-1 mb-0"><h5>My Talents</h5></label>
+    <br>
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label" value="{{qualities}}" name="qualities"/>
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label"  value="{{soft}}" name="soft"/>
+    
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label" value="{{hard}}" name="hard"/>
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label" value="{{talents}}" name="talents"/>
+    <div >
+    <label for="mcv_statement" class="wrapper pt-1 pb-1 mb-0" style="width: 93%; " ><h5>My career Vision statement </h5></label>
+    
+    <input id="mcv_statement" type="text" name="mcv_statement" class="wrapper pt-1 pb-1 mt-0 bg-light p-2" style="width: 93%" value="{{ mcv_statement }}">
     </div>
+    <label class="d-flex justify-content-center">
+    <label for="new_job" class="wrapper pt-1 pb-1 mb-0"><h5>Job I will do to meet my Vision</h5></label>
+    <label for="new_edu" class="wrapper pt-1 pb-1 mb-0"><h5>Educational Qualifications needed for my Job</h5></label>
+    <label for="new_train" class="wrapper pt-3 pb-1 mb-0"><h5>Trainings I need for the Job</h5></label>
+     </label>
     <div class="d-flex justify-content-center">
-        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="jobs" style="width: 100%;"></textarea></div>
-        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="qualifs" style="width: 100%;"></textarea></div>
-        <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="trainings" style="width: 100%;"></textarea></div>
+	
+    <select name="new_job" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light" multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+                
+        {% for n in job %}
+        <option  value="{{ n.job_name }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ n.job_name }}</span>">{{ n.job_name }}</option>
+        
+        {% endfor %}
+    </select>
+        <input id="new_edu" type="text" name="new_edu" class="wrapper pt-1 pb-1 mt-0 bg-light p-2" value="{{ new_edu }}">
+	<input id="new_train" type="text" name="new_train" class="wrapper pt-1 pb-1 mt-0 bg-light p-2" value="{{ new_train }}">
+     
     </div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>Qualities I need to develop</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>Soft Skills I need to develop</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>Hard Skills I need to develop</h5></div>
-    <div class="wrapper pt-1 pb-1 mb-0"><h5>My Talents</h5></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="quals" style="width: 100%;"></textarea></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="soft" style="width: 100%;"></textarea></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="hard" style="width: 100%;"></textarea></div>
-    <div class="wrapper pt-1 pb-1 mt-0 bg-light p-2"><textarea id="tals" style="width: 100%;"></textarea></div>
+    <label class="d-flex justify-content-center">
+    <label for="new_qualites" class="wrapper pt-3 pb-1 mb-0"><h5>Qualities I need to develop</h5></label>
+    <label for="new_soft" class="wrapper pt-3 pb-1 mb-0" style="margin-left: 7px; margin-right: 7px;"><h5>Soft Skills I need to develop</h5></label>
+    <label for="new_hard" class="wrapper pt-1 pb-1 mb-0" style="margin-left: 7px; margin-right: 7px;"><h5>Hard Skills I need to develop</h5></label>
+    <label for="new_talent" class="wrapper pt-3 pb-1 mb-0"><h5>My Talents</h5></label>
+</label>
+    
+    <div style = "margin-left: 60px;">
+    <select name="new_qualites"  class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light"  multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+             
+        {% for x in objt %}
+        {% if x.skilltype == 'quality' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+   
+    <select name="new_soft" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light" multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+                
+        {% for x in objt %}
+        {% if x.skilltype == 'softskills' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
 
-
-<div class="d-flex justify-content-end mt-3">
-        <button class="button" id="dwnld" >Download</button>
-        <button class="button" >Cancel</button>
+    
+    <select name="new_hard" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light" multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+             
+        {% for x in objt %}
+        {% if x.skilltype == 'hardskills' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+    
+    <select name="new_talent" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light"  multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+             
+        {% for x in objt %}
+        {% if x.skilltype == 'Talents' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
 
 </div>
 
-        {% if messages %}
-        {% for m in messages %}
-    {%  if forloop.first  %}
+    <br>
+    
+    <div class="d-flex justify-content-end mt-3">
+        <input type="submit" class="button" value="Download">
+        <a href="{{ views.Vision_Board }}" class="button">Cancel</a>
+    </div>
 
-    <h4 style="background: #10b910" class="p-2 text-white">{{m}}</h4>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-
-
-
-</div>
+</form>
 
 
-    <form id="frmPreview" style="display: none" >
-        <link rel="stylesheet" type="text/css" href="{% static 'css/wordstyles.css' %}" />
-        <div id="divExport">
-{#            <header>#}
-{#                <div class="container" id="divResumePreview">#}
-{##}
-{#                    <div class="row">#}
-{##}
-{#                        <div class="col-md-12">#}
-{#                            <strong id="lblFName">{{ name }}</strong>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </header>#}
-            <article>
-                <div class="container">
-                    <section>
-
-                        <div class="row">
-                            <!--<div class="col-md-12">
-                            <h3>OBJECTIVE</h3>
-                        </div>-->
-                            <div class="col-md-12">
-                                <strong id="lblObjective">&nbsp;</strong>
-                            </div>
-                             <div class="col-md-12">
-                               <p><strong id="divEducation">{{ name }}
-                                </strong></p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>My Qualities</strong>
-                            </div>
-
-                            <div class="col-md-12">
-                                <p id="divEducation">
-                                      {{ qualities }}
-                                </p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>My Soft Skills</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="lblTechnicalStrengths">{{ soft }}</p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>My Hard Skills</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="lblNonTechStrengths">{{ hard }}</p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>My Talents</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="lblQualities">{{ talents }}</p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>My Career Vision Statement</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="cvstm"></p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>Job I will do to meet my Vision</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="jb"></p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>Educational Qualifications needed for my Job</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="eq"></p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>Trainings I need for the Job</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="tr"></p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>Qualities I need to develop</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="ql"></p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>Soft Skills I need to develop</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="ss"></p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>Hard Skills I need to develop</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="hs"></p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>My Talents</strong>
-                            </div>
-                            <div class="col-md-12">
-                                <p id="tl"></p>
-                            </div>
-                        </div>
-
-
-
-                    </section>
-                </div>
-
-
-            </article>
-        </div>
-
-    </form>
-
-
-        <script src="/static/components/jquery/jquery3.6.0.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha512-cLuyDTDg9CSseBSFWNd4wkEaZ0TBEpclX0zD3D6HjI19pO39M58AgJ1SjHp6c7ZOp0/OCRcC2BCvvySU9KJaGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-     var a = "{{ hard }}"
-     if (a.length === 0){
-         alert("Please Fill My Strengths")
-     }
-     var markup = document.documentElement.innerHTML;
-console.log(markup)
-</script>
-{#    <script src="/static/js/jspdf.js"></script>#}
+    $('select').selectpicker();
 
-
-    <script>
-  var doc = new jsPDF('p', 'pt', 'letter');
-
-
-  var specialElementHandlers = {
-    '#editor': function (element, renderer) {
-      return true;
-    }
-  };
-  $('#dwnld').click(function () {
-       var cvs = document.getElementsByTagName("textarea");
-  var valid = true;
-
-  for(let a =0; a <8; a++){
-      let ss = cvs[a].value;
-
-      if(ss === undefined || ss.length === 0)valid = false;
-      else{
-          ss.trim();
-          if(ss.length === 0)valid = false;
-      }
-  }
-        if(!valid){
-            alert("Please Fill all fields");
-        }
-        else {
-            document.getElementById("cvstm").innerHTML = document.getElementById("careerVisionStm").value;
-            document.getElementById("jb").innerHTML = document.getElementById("jobs").value;
-            document.getElementById("eq").innerHTML = document.getElementById("qualifs").value;
-            document.getElementById("tr").innerHTML = document.getElementById("trainings").value;
-            document.getElementById("ql").innerHTML = document.getElementById("quals").value;
-            document.getElementById("ss").innerHTML = document.getElementById("soft").value;
-            document.getElementById("hs").innerHTML = document.getElementById("hard").value;
-            document.getElementById("tl").innerHTML = document.getElementById("tals").value;
-
-            doc.fromHTML($('#frmPreview').html(), 25, 25, {
-                'width': 790,
-                'elementHandlers': specialElementHandlers
-            });
-            doc.save('careervision.pdf');
-            window.location.reload();
-        }
-  });
-</script>
+    </script>
 {% endblock %}

@@ -888,3 +888,229 @@ def test_path(request, pk, pk1, program):
     exam = Exam.objects.all()
     course = Course.objects.all()
     return render(request, "career_path.html", {'stream': stream, 'job': job, 'exams': exam, 'course' : course, "pk": pk, "pk1": pk1, "p": program})
+
+def createppt(data_input):
+    with open('test.pptx', 'rb') as f:
+        source_stream = BytesIO(f.read())
+    prs = Presentation(source_stream)
+   
+    prs = Presentation()
+    bullet_slide_layout = prs.slide_layouts[1]
+
+    slide = prs.slides.add_slide(bullet_slide_layout)
+    shapes = slide.shapes
+
+    title_shape = shapes.title
+    title_shape.text = 'Vision Board'
+    body_shape = shapes.placeholders[1]
+    tf = body_shape.text_frame
+    p = tf.add_paragraph()
+    p.font.size = Pt(2)
+    p.text = "Name: "    
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[0]
+    run.font.bold = False
+    
+
+    p = tf.add_paragraph()
+    p.text = "My Qualities: "
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[1]
+    run.font.bold = False
+   
+
+    p = tf.add_paragraph()
+    p.text = "My Soft Skills: "    
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[2]
+    run.font.bold = False
+
+    p = tf.add_paragraph()
+    p.text = "My Hard Skills: "
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[3]
+    run.font.bold = False 
+
+    p = tf.add_paragraph()
+    p.text = "My Talents: "
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[4]
+    run.font.bold = False
+    slide = prs.slides.add_slide(bullet_slide_layout)
+    shapes = slide.shapes
+    title_shape = shapes.title
+    title_shape.text = 'Vision Board'
+    body_shape = shapes.placeholders[1]
+    tf = body_shape.text_frame
+    p = tf.add_paragraph()
+    p.text = "My career Vision statement: " 
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[5]
+    run.font.bold = False
+
+    p = tf.add_paragraph()
+    p.text = "Job I will do to meet my Vision: " 
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[6]
+    run.font.bold = False
+
+    p = tf.add_paragraph()
+    p.text = "Educational Qualifications needed for my Job: "     
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[7]
+    run.font.bold = False
+
+    p = tf.add_paragraph()
+    p.text = "Trainings I need for the Job: " 
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[8]
+    run.font.bold = False
+
+    
+    p = tf.add_paragraph()
+    p.text =  "Qualities I need to develop: " 
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[9]
+    run.font.bold = False
+
+    p = tf.add_paragraph()
+    p.text = "Soft Skills I need to develop: "    
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[10]
+    run.font.bold = False
+
+    p = tf.add_paragraph()
+    p.text = "Hard Skills I need to develop: " 
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[11]
+    p.font.size = Pt(18)
+    run.font.bold = False
+
+    p = tf.add_paragraph()
+    p.text = "My Talents: "
+    p.font.size = Pt(18)
+    p.font.bold = True
+    run = p.add_run()
+    run.text = data_input[12]
+    run.font.bold = False
+
+
+    prs.save(source_stream)
+    ppt = source_stream.getvalue()
+    source_stream.close()
+    return ppt
+
+def Vision_Board(request,pk,pk1,program):
+    name = student.objects.get(pk=pk)
+    obj = skills()
+    old = skills.objects.filter(student_id=pk)
+    obj2 = skillmaster()
+    objt = skillmaster.objects.all()
+    tal = skillmaster.objects.filter(skilltype='Talents')
+    qal = skillmaster.objects.filter(skilltype='quality')
+    ss = skillmaster.objects.filter(skilltype='softskills')
+    hs = skillmaster.objects.filter(skilltype='hardskills')
+    job = Job.objects.all()
+    talents = ''
+    qualities = ''
+    hard = ''
+    soft = ''
+    
+
+    for cur in old:
+        i = cur.skillid
+        s = True
+
+        if s:
+            for j in tal:
+                if str(j.skillname) == str(i):
+                    talents += j.skillname+","
+                    s = False
+                    break
+        if s:
+            for j in qal:
+                if str(j.skillname) == str(i):
+                    qualities += j.skillname+","
+                    s = False
+                    break
+
+        if s:
+            for j in ss:
+                if str(j.skillname) == str(i):
+                    soft += j.skillname+","
+                    s = False
+                    break
+
+        if s:
+            hard += str(i)+","
+    
+    talents = talents[:-1]
+    qualities = qualities[:-1]
+    soft = soft[:-1]
+    hard = hard[:-1]
+    context ={}
+    context['form']= NameForm()
+    if request.method=="POST":
+
+        names = request.POST.get("names")
+        my_qualities = request.POST.get("qualities")
+        my_soft = request.POST.get("soft")
+        my_hard = request.POST.get("hard")
+        my_talents = request.POST.get("talents")
+        mcv_statement = request.POST.get("mcv_statement") 
+        n_job = request.POST.getlist("new_job")
+        new_job = ', '.join([str(elem) for elem in n_job])
+        new_edu = request.POST.get("new_edu")
+        new_train = request.POST.get("new_train")
+        n_qualites = request.POST.getlist("new_qualites")
+        new_qualites = ', '.join([str(elem) for elem in n_qualites])
+        print(n_qualites)
+        n_soft = request.POST.getlist ("new_soft")
+        new_soft = ', '.join([str(elem) for elem in n_soft])
+        print(n_soft)
+        n_hard =request.POST.getlist("new_hard")
+        new_hard = ', '.join([str(elem) for elem in n_hard])
+        print(n_hard)
+        n_talent =request.POST.getlist("new_talent")
+        new_talent = ', '.join([str(elem) for elem in n_talent])
+        print(n_talent)
+
+        data = [names, my_qualities, my_soft, my_hard, my_talents, mcv_statement , new_job, new_edu, new_train, new_qualites, new_soft, new_hard, new_talent]
+        print (data)
+
+        print(NameForm)
+        response = HttpResponse(content_type='application/vnd.ms-powerpoint')
+        response['Content-Disposition'] = 'attachment; filename="test.pptx"'
+    
+        response.write(createppt(data))
+        # response.write(createppt(job))
+        print (data)
+        return response
+        
+return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program, 'form':NameForm, "name": name, "skills": old, "talents": talents,
+                       "qualities": qualities, "soft": soft, "hard": hard, "ss": ss, "objt": objt, "job": job})
+
