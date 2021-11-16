@@ -8,6 +8,7 @@
 
 {% block page_specific_htmlhead %}
     <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.8.0/dist/pptxgen.bundle.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
@@ -15,7 +16,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     
-{#<link rel="stylesheet" href="/static/css/strengths.css">#}
+
+
 
 
     <title>Vision Board</title>
@@ -29,12 +31,16 @@
     background:rgba(0,0,0,0.1);
     display:inline-block;
     border-radius:10px;
+
     width:335px;
     height: 70px;
-    margin:0.5rem;
+
+  
+  margin:0.5rem;
     text-align:center;
     border:2px solid black;
     }
+
 
     
 
@@ -59,6 +65,8 @@
         max-width: 600px;
       }
 
+
+
 {% endblock %}
 
 
@@ -71,6 +79,7 @@
     <li><a href="{% url 'spoken_english' pk pk1 program %}">MODULES</a></li>.
     <li><a href="#">Vision Board</a></li>
 </ul>
+
 
 <form action="" method="post">
     {% csrf_token %}
