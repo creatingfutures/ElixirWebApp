@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user_admin',
     'user_student',
     'mptt',
+    'import_export',
     # 'chatbot',
 ]
 
