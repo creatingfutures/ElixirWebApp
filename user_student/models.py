@@ -45,7 +45,8 @@ class scores(models.Model):
     question_content_id = models.IntegerField(null=True, blank=True)
     assessment_type_id = models.ForeignKey(assessment_type,on_delete=models.DO_NOTHING, null=True, blank=True)
     updated_date = models.DateTimeField(auto_now=True,null=False, blank=False)
-    
+    class Meta:
+        db_table = "user_student_scores"
     def __str__(self):
         return str(self.user_score)
 
