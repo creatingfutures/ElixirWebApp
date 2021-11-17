@@ -72,7 +72,7 @@ class skills(models.Model):
         verbose_name_plural = "Skills"
         
         
- class Course(models.Model):
+class Course(models.Model):
     name = models.CharField(max_length=50, unique= True)
     def __str__(self):
         return self.name

@@ -24,6 +24,15 @@ import json
 import datetime
 from .crossword_puzzle import Crossword
 from django.db.models import Sum
+from django.db.models import Sum
+from pptx import Presentation
+from pptx.enum.shapes import MSO_SHAPE
+from pptx.util import Inches
+from io import BytesIO
+from django.template.loader import get_template, render_to_string
+from user_student.forms import NameForm
+from pptx.util import Inches, Pt
+
 
 
 def login(request):
@@ -892,8 +901,7 @@ def test_path(request, pk, pk1, program):
 def createppt(data_input):
     with open('test.pptx', 'rb') as f:
         source_stream = BytesIO(f.read())
-    prs = Presentation(source_stream)
-   
+     
     prs = Presentation()
     bullet_slide_layout = prs.slide_layouts[1]
 
@@ -1111,6 +1119,6 @@ def Vision_Board(request,pk,pk1,program):
         print (data)
         return response
         
-return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program, 'form':NameForm, "name": name, "skills": old, "talents": talents,
+    return render(request,"visionboard.html",{"pk":pk, "pk1":pk1, "program": program, 'form':NameForm, "name": name, "skills": old, "talents": talents,
                        "qualities": qualities, "soft": soft, "hard": hard, "ss": ss, "objt": objt, "job": job})
 
