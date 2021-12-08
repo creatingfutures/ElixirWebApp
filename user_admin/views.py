@@ -5,18 +5,22 @@ from django.contrib.auth import views as auth_views
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.conf import settings
+from django.conf.urls.static import static
 from .models import program, program_module, facilitator, center, student
 from .models import module_level, question, question_type, assessment_type, question_content, batch, entity_status
 import json
 from django.core import serializers
 from django import forms
 import django
+import os
 from .forms import *
 import re
 from django.db.models import Q
 from pyexcel_xls import get_data as xls_get
 from pyexcel_xlsx import get_data as xlsx_get
 from django.db import connection
+from zipfile import *
 
 # Create your views here.
 import csv
@@ -112,8 +116,8 @@ def questions_import(request):
                 if fileName.endswith('.jpg'):
                # Extract a single file from zip
                     
-                    zip.extract(fileName,os.path.join(base_dir, 'media/question_content'))
-                    exfilename = os.path.join(base_dir, 'media/question_content',fileName)
+                    zip.extract(fileName,os.path.join(settings.BASE_DIR, 'media/question_content'))
+                    exfilename = os.path.join(settings.BASE_DIR, 'media/question_content',fileName)
                     new_content = question_content(
                         content = exfilename
                     )
