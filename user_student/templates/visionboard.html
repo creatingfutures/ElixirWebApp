@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load student_tag %}
+
+
+
+
+{% block page_specific_htmlhead %}
+    <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.8.0/dist/pptxgen.bundle.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    
+
+
+
+
+    <title>Vision Board</title>
+
+{% endblock %}
+
+
+{% block page_specific_styles %}
+
+    .wrapper{
+    background:rgba(0,0,0,0.1);
+    display:inline-block;
+    border-radius:10px;
+
+    width:335px;
+    height: 70px;
+
+  
+  margin:0.5rem;
+    text-align:center;
+    border:2px solid black;
+    }
+
+
+    
+
+
+    input[type=label] {
+
+        width: 335px; 
+        height: 70px;
+
+        
+    }
+    .bootstrap-select .btn {
+        height: 50px;
+        border-radius: 10px;
+    }
+    .bootstrap-select {
+        border: 2px solid black;
+        border-radius: 10px;
+        
+    }
+    .bootstrap-select {
+        max-width: 600px;
+      }
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<ul class="breadcrumb m-3">
+    <li><a href="{% url 'spoken_english' pk pk1 program %}">MODULES</a></li>.
+    <li><a href="#">Vision Board</a></li>
+</ul>
+
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <label class="wrapper pt-2 pb-1 mt-0" style="background: orange"><h4>My Name</h4></label>
+    
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="text" value={{name}} name="names"/>
+   
+    <br>
+    <label class="wrapper pt-2 pb-1 mb-1"><h5>My Qualities</h5></label>
+    <label class="wrapper pt-2 pb-1 mb-0"><h5>My Soft Skills</h5></label>
+    <label class="wrapper pt-2 pb-1 mb-0"><h5>My Hard Skills</h5></label>
+    <label class="wrapper pt-2 pb-1 mb-0"><h5>My Talents</h5></label>
+    <br>
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label" value="{{qualities}}" name="qualities"/>
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label"  value="{{soft}}" name="soft"/>
+    
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label" value="{{hard}}" name="hard"/>
+    <input class="wrapper pt-1 pb-1 mt-0 bg-light" type="label" value="{{talents}}" name="talents"/>
+    <div >
+    <label for="mcv_statement" class="wrapper pt-1 pb-1 mb-0" style="width: 93%; " ><h5>My career Vision statement </h5></label>
+    
+    <input id="mcv_statement" type="text" name="mcv_statement" class="wrapper pt-1 pb-1 mt-0 bg-light p-2" style="width: 93%" value="{{ mcv_statement }}">
+    </div>
+    <label class="d-flex justify-content-center">
+    <label for="new_job" class="wrapper pt-1 pb-1 mb-0"><h5>Job I will do to meet my Vision</h5></label>
+    <label for="new_edu" class="wrapper pt-1 pb-1 mb-0"><h5>Educational Qualifications needed for my Job</h5></label>
+    <label for="new_train" class="wrapper pt-3 pb-1 mb-0"><h5>Trainings I need for the Job</h5></label>
+     </label>
+    <div class="d-flex justify-content-center">
+	
+    <select name="new_job" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light" multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+                
+        {% for n in job %}
+        <option  value="{{ n.job_name }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ n.job_name }}</span>">{{ n.job_name }}</option>
+        
+        {% endfor %}
+    </select>
+        <input id="new_edu" type="text" name="new_edu" class="wrapper pt-1 pb-1 mt-0 bg-light p-2" value="{{ new_edu }}">
+	<input id="new_train" type="text" name="new_train" class="wrapper pt-1 pb-1 mt-0 bg-light p-2" value="{{ new_train }}">
+     
+    </div>
+    <label class="d-flex justify-content-center">
+    <label for="new_qualites" class="wrapper pt-3 pb-1 mb-0"><h5>Qualities I need to develop</h5></label>
+    <label for="new_soft" class="wrapper pt-3 pb-1 mb-0" style="margin-left: 7px; margin-right: 7px;"><h5>Soft Skills I need to develop</h5></label>
+    <label for="new_hard" class="wrapper pt-1 pb-1 mb-0" style="margin-left: 7px; margin-right: 7px;"><h5>Hard Skills I need to develop</h5></label>
+    <label for="new_talent" class="wrapper pt-3 pb-1 mb-0"><h5>My Talents</h5></label>
+</label>
+    
+    <div style = "margin-left: 60px;">
+    <select name="new_qualites"  class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light"  multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+             
+        {% for x in objt %}
+        {% if x.skilltype == 'quality' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+   
+    <select name="new_soft" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light" multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+                
+        {% for x in objt %}
+        {% if x.skilltype == 'softskills' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+
+    
+    <select name="new_hard" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light" multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+             
+        {% for x in objt %}
+        {% if x.skilltype == 'hardskills' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+    
+    <select name="new_talent" class="selectpicker wrapper pt-1 pb-1 mt-0 bg-light"  multiple data-live-search="true" data-max-options="5" multiple title='' data-width="335px" data-size="auto" size='5'>
+             
+        {% for x in objt %}
+        {% if x.skilltype == 'Talents' %}
+        <option  value="{{ x.skillname }}" data-style="btn-primary" data-content="<span class='badge badge-warning'>{{ x.skillname }}</span>">{{ x.skillname }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+
+</div>
+
+    <br>
+    
+    <div class="d-flex justify-content-end mt-3">
+        <input type="submit" class="button" value="Download">
+        <a href="{{ views.Vision_Board }}" class="button">Cancel</a>
+    </div>
+
+</form>
+
+
+<script>
+    $('select').selectpicker();
+
+    </script>
+{% endblock %}
