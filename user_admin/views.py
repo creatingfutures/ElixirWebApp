@@ -17,6 +17,9 @@ from django.db.models import Q
 from pyexcel_xls import get_data as xls_get
 from pyexcel_xlsx import get_data as xlsx_get
 from django.db import connection
+from django.conf import settings
+import os
+from zipfile import ZipFile
 
 # Create your views here.
 import csv
@@ -111,7 +114,7 @@ def questions_import(request):
              # Check filename endswith jpg
                 if fileName.endswith('.jpg'):
                # Extract a single file from zip
-                    
+                    base_dir = settings.BASE_DIR
                     zip.extract(fileName,os.path.join(base_dir, 'media/question_content'))
                     exfilename = os.path.join(base_dir, 'media/question_content',fileName)
                     new_content = question_content(
