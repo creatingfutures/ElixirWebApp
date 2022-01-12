@@ -116,8 +116,8 @@ def questions_import(request):
             listOfFileNames = zip.namelist()
             # Iterate over the file names
             for fileName in listOfFileNames:
-             # Check filename endswith jpg
-                if fileName.endswith('.jpg'):
+             # Check filename endswith jpg or mp3 or mp4 or text
+                if fileName.endswith('.jpg' or '.mp3' or '.mp4' or '.txt'):
                # Extract a single file from zip
 
                     base_dir = settings.BASE_DIR
@@ -233,10 +233,24 @@ def questions_import(request):
                                 comments = questions_item_comments,
                                  )
                                 new_question.save()
+                            if _question_type.pk in [7,8]: 
 
+                                new_question = question(
+                                
+                                question =  questions_item[4],
+                                narrative = questions_item[5],
+                                question_type = _question_type,
+                                assessment_type = _assessment_type,
+                                hint = questions_item[8],
+                                question_content = question_content.objects.all().get(content__contains=questions_item[8]),
+                                created_by = 'admin_data_import',
+                                level = _module_level[0],
+                                comments = questions_item_comments,
+                                 )
+                                new_question.save()
                             #save options
                             #10 Cross Words, 11 Word Search, 4 Unscramble,3 Riddles,2 Fill in the blanks, 1 Match the following,
-                            if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11]: 
+                            if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11,7,8]: 
                                 if questions_item[13] != '' :
                                     new_options = question_option(question = new_question, 
                                     option_description= questions_item[13],
