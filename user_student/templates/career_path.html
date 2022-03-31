@@ -1,6 +1,7 @@
 {% extends 'bootstrap_base.html' %}
-{% load student_tag %}
 {% load static %}
+{% load student_tag %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,15 +89,7 @@
   .content-name{
     background-color: white;
   }
-  .nav {
-    background-color: orange;
-    height: 100px;
-    display: inline-flex;
-    grid-template-rows: auto auto auto;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-}
+  
 .spacing{
   margin-top: 50px;
 }
@@ -113,7 +106,12 @@
     
 {% block content %}
  
+<ul class="breadcrumb m-3">
+  <li><a href="{% url 'spoken_english' pk pk1 program %}">MODULES</a></li>
 
+
+  <li><a href="#">Career Path</a></li>
+</ul>
 
   <div class="content">
   	<div id="jquery-accordion-menu" class="jquery-accordion-menu">
