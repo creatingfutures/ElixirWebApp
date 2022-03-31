@@ -896,7 +896,7 @@ def test_path(request, pk, pk1, program):
     job = Job.objects.all()
     exam = Exam.objects.all()
     course = Course.objects.all()
-    return render(request, "career_path.html", {'stream': stream, 'job': job, 'exams': exam, 'course' : course, "pk": pk, "pk1": pk1, "p": program})
+    return render(request, "career_path.html", {'stream': stream, 'job': job, 'exams': exam, 'course' : course, "pk": pk, "pk1": pk1, "program": program})
 
 def createppt(data_input):
     with open('test.pptx', 'rb') as f:
