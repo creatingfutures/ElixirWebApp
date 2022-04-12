@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <link rel="stylesheet" href="{% static 'match_styles.css' %}">
+
+    <script src="{% static 'js/logic1.js' %}"></script>
+
+
+
+
+    <script type="text/javascript">
+        var col1 ={{ colq|safe }};
+        var col2 ={{ cola|safe }};
+        var length = col1.length;
+        var answers = {{final_options|safe}};
+        var total_score = 1;
+        var g = 0;
+        function check() {
+                var ans = {{final_options|safe}};
+                var c = myfun.res(ans);
+                g = (c*100);
+                return g;
+            }
+    </script>
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a>
+        </li>
+        <li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'>Match The Following</a></li>
+     </ul>
+     <h1 style="text-align:center">
+        EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}
+     </h1>
+
+    <h2 style="text-align:center"> Match The Following </h2>
+    <h3 style="text-align:center;"> Match the "Questions" on the left side with "Options" on the right side</h3>
+    <div style="text-align: center; margin-top: 1.5rem;"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.MATCH_TIME }}</h1></div>
+    <br> 
+    <br>
+
+
+     <center>
+
+            <div id="container">
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Questions</th>
+                    <th>Options</th>
+                    <th>Match</th>
+
+                </tr>
+                {% for i,j in two_cols.items %}
+                <tr>
+                    <td>
+                    {{forloop.counter}}
+                    </td>
+                    <td>
+                        <script type="text/javascript">
+                            document.write("{{i}}")
+                        </script>
+                    </td>
+                    <td>
+                        <script type="text/javascript">
+                            document.write("{{j}}")
+                        </script>
+                    </td>
+                    <td>
+                        <input type="number" id="r{{forloop.counter}}" name="r{{forloop.counter}}" min="1" max="10" oninput="this.style.borderColor ='black' "onkeyup="if(this.value>10) this.value = null;">
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <br>
+                <button id="submit" class="button">Submit</button>
+                <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
+                <h1 id="demo"></h1>
+            </div>
+        </center>
+
+
+          <script src="/static/js/timer.js"></script>
+
+
+    <script>
+    let time = {{ settings.MATCH_TIME }};
+        $("#submit").click(function(){
+        var score = check();
+        var token = "{{csrf_token}}";
+        $.ajax({ // initialize an AJAX request
+            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
+            type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            headers:{"X-CSRFToken":token},
+            data: {
+            user_score: score,
+            level_id: {{l.pk}},
+            batch_id: {{pk1}},
+            module_id: {{m.pk}},
+            student_id: {{pk}},
+            narrative:"{{narrative}}",
+            question_content_id:{{question_content_id}},    
+        },
+            success: function(data) {
+            $("#container").html(data) // `data` is the return of the `load_cities` view function
+            }
+            });
+        });
+        </script>
+
+{% endblock content %}

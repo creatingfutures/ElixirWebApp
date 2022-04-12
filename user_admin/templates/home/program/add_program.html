@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div id="box">
+      <form method="POST">
+            {% csrf_token %}
+            <p>
+            <label>Program Name <span style="color:red">*</span> :</label>
+            {{form.program_name}}{{form.program_name.errors}}</p>
+            <p>
+              <p>
+              <label>Prerequisite :</label>
+              {{form.prerequisite}}{{form.prerequisite.errors}}</p>
+              <p>
+                <p>
+                <label>Comments </label>
+              {{form.comments}}{{form.comments.errors}}</p>
+                <p>
+
+
+                            <div class="form-group">
+                            <br>
+                              <input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
+                              <input style="margin-left:10px" type="button" onclick="back()" class="button" value="Cancel">
+                            </div>
+
+      </form>
+
+      <br><br><br><br><br>
+      <div id="container">
+      </div>
+    </div>
+    {% endblock content %}

@@ -1,0 +1,149 @@
+{% load student_tag %}
+{% load static %}
+
+
+<body onload="myfunc()">
+    <div style="margin:10px;padding:10px">
+        <p id="questiontype"><b>Read the passage and Answer Below Questions</b></p>
+        <p id="output" style="font-size: 15px;"></p> 
+        <br/> 
+  
+        <p id="questiontype"><b>Multiple Choice Question</b></p>
+        {% for j in r %}
+        <form action="" onSubmit="return check(this)" id="{{j}}">
+            {% with  iteratedContent=request.session.question_content|getObject:j %}          
+            <p id="question">{{iteratedContent.question}} &nbsp;
+            <button id ='{{forloop.counter}}' onclick="hint_func({{forloop.counter}});return false" name="hint" style="font-size:75%;color:white;background-color: darkgray;" class="button" disabled >Hint</button></p>
+                <ol type="A">
+                    {% for option in iteratedContent.options %}
+                        <li>  
+                            <input type="radio" name="options" value="{{ option.option_description }}">{{ option.option_description }}</input>
+                        </li>
+                    {% endfor %}
+                </ol>
+                <input type="text" name="ans" value="{{ iteratedContent.answer }}" hidden>
+                <input type="text" name="c" value="0" hidden>
+                <input type="text" name="ques" value="{{iteratedContent.question}},{{forloop.counter}},{{iteratedContent.hint}}" hidden>
+                <input type="text" name="counter" value = "{{forloop.counter}}" hidden>
+                <input type="submit" name="sub" class="button" value="Check">
+            {% endwith %}
+        </form>
+
+    {% endfor %}
+    <br><br><br>
+
+    <input type="submit" id="submit" class="button" value="Submit" disabled style="color:white;background-color: darkgray;">
+
+    </div>
+
+    <script src="{% static 'js/hints.js' %}"></script>
+
+    <script>
+
+     // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
+     $(document).ready(function() {
+      
+       console.log("document");
+       jQuery.get('/media/{{request.session.questions|index_av:i}}',function(txt){
+           $('#output').text(txt);
+       });
+     });
+
+    var len=parseInt("{{l}}");
+    var solved=0
+    var score=parseInt("{{score}}");
+
+    function check(a)
+    {
+      if(a.options.value=="")
+      {
+        alert("Please Select An option");
+
+      }
+
+      else {
+        
+        a.c.value=(parseInt(a.c.value))+1
+        var answer = a.ans.value
+        var option = a.options.value
+        var button = document.getElementById('submit');
+        if(option.toLowerCase().trim()==answer.toLowerCase().trim())
+        {
+          a.sub.disabled=true
+          solved=solved+1
+          alert("Right Answer");
+          for(var i=0;i<window.attempted.length;i++){
+             if(window.attempted[i].split(',')[1] == String(a.counter.value)){
+               window.attempted.splice(i,1);
+              }
+          console.log(window.attempted);
+          }       
+          if(a.c.value==1)
+          {
+            score=score+1
+          }
+          if(solved==len){
+            button.disabled=false;
+            button.style.color='black';
+            button.style.backgroundColor = 'orange';
+          }
+          else{
+            button.disabled=true;
+          }
+
+        }
+
+        else {
+          console.log(a.ques.value);
+          window.attempted.push(a.ques.value);
+          window.attempted = [...new Set(window.attempted)];
+          alert("Incorrect Answer, Please Try Again");
+          document.getElementById(a.counter.value).style.backgroundColor = 'orange';
+          document.getElementById(a.counter.value).style.color = 'black';
+          document.getElementById(a.counter.value).disabled = false;
+        }
+
+      
+      }// console.log(len,score)
+      
+
+      return false
+    }
+
+    $("#submit").click(function() {
+
+          if(solved==len)
+          {
+            var b="{{i}}";
+            var c="{{l}}";
+            c= parseInt(c);
+            b=parseInt(b);
+            b=b+c;
+            var narrative = "{{narrative|safe}}";
+            alert("Solved all")
+            var str="av"
+            $.ajax({ // initialize an AJAX request
+              url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/type/'+{{pk5}}+'/av_test/ajax/test/'+narrative,
+              type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+              data: {
+                correct:str,
+                id:b,
+                "score":score,
+                
+              },
+              success: function(data) {
+                $("#container").html(data) // `data` is the return of the `load_cities` view function
+              }
+            });
+
+          }
+
+          else {
+
+                  alert("Please Solve All Questions First")
+          }
+
+    });
+
+    </script>
+    </body>

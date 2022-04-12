@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %} {% block content %} {% load user_tags %} {% load static %}
+
+<div class="container">
+  <br><br><br><br>
+
+  <div class="row">
+    <div class="col-md-12 table-reponsive">
+      <table
+        class="table text-center"
+        align="center"
+        style="width: 90%; font-family: Montserrat"
+      >
+        <tr>
+          <th>CENTER NAME</th>
+          <th>CENTER TYPE</th>
+          <th>EMAIL ID</th>
+          <th>ACTION</th>
+        </tr>
+        {% for s1 in p %}
+        <tr>
+          <td class="col-md-3">{{s1.center_name}}</td>
+          <td class="col-md-3">{{s1.center_type}}</td>
+          <td class="col-md-3">{{s1.email_id}}</td>
+          <td class="col-md-3">
+            <a
+              href="{% url 'view_center' s1.center_id %}"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="View"
+              ><span class="glyphicon glyphicon-eye-open actionview"></span
+            ></a>
+            &nbsp; &nbsp;
+            <a
+              href="{% url 'edit_center' s1.center_id %}"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Edit"
+              ><span class="glyphicon glyphicon-pencil actionedit"></span
+            ></a>
+            {% if s1.batch_check %} {% else %} &nbsp; &nbsp;
+            <a
+              href="{% url 'delete_center' s1.center_id %}"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Delete"
+              ><span class="glyphicon glyphicon-remove actionremove"></span
+            ></a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="row right" style="  margin-top: 15px">
+    {% include 'base/pagination.html' %}
+  </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col-md-12">
+      <br /><br /><br /><br />
+      <a style="margin-left: 112px" class="button" href="{% url 'add_center' %}"
+        >ADD CENTER</a
+      >
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

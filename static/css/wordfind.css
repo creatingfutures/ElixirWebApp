@@ -1,0 +1,40 @@
+.button {
+    font-family: 'Century Gothic';
+    background-color: orange;
+    border: none;
+    color: black;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 4px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+  ul.breadcrumb {
+padding: 10px 16px;
+list-style: none;
+/*background-color:white;*/
+}
+ul.breadcrumb li {
+display: inline;
+font-size: 18px;
+
+}
+ul.breadcrumb li+li:before {
+padding: 8px;
+color: black;
+content: "/\00a0";
+}
+    ul.breadcrumb li a {
+        color: darkblue;
+        text-decoration: none;
+        font-family: 'Century Gothic';
+    }
+ul.breadcrumb li a:hover {
+color: darkblue;
+text-decoration: underline;
+}

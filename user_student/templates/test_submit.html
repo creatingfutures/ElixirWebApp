@@ -1,168 +1,112 @@
+
 {% load student_tag %}
-<style>
-    body {background-color: lightgrey;}
-    #top {
-    top: 0;
-    background-color: orange;
-    height: 100px;
-  }
-  body{
-  background: #FFFFFF;
-  font-family:Montserrat;
-  font-size:12px;
-  }
+{% load static %}
 
-  *{transition:all 0.3s ease-in-out;}
-
-  .container{
-  clear:both;
-  overflow:auto;
-  background: white;
-
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    position: relative;
-    width: 1300;
-    top:45;
-    left:95;
-
-  }
-
-  nav{float:right;}
-
-  .logo img{float:left; padding:8px;}
-
-  ul li{
-  display: inline-block; padding:10px;
-  font-size:20px; font-family:"Montserrat";
-  }
-
-  ul li:hover{
-  color:orange;
-
-  }
-  .outer{
-    background: orange;
-    position: relative;
-    height: 150px;
-  }
-  hr{
-    background-color: orange;
-    width: 8%;
-
-    align-content: center;
-    height: 1px;
-    color: orange;
-    border: none;
-  }
-  h1{
-    font-family: "Montserrat";
-    font-weight: 100;
-
-   }
-   body {background-color: lightgrey;}
-
-
-  .button{
-   font-family: 'Montserrat';
-   background-color: orange;
-   border: none;
-   color: black;
-   padding: 12px 22px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 14px;
-   margin: 4px 2px;
-   cursor: pointer;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-     outline: none;
-   }
-
-   #box1{
-     z-index: 1;
-     width:200;
-     position:relative;
-     height:270;
-     top:40%;
-     left:0%;
-     display: flex;
-     flex-direction:column;
-     justify-content: center;
-     align-items: center;
-     margin:auto;
-     background-color: white;
-     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-   }
-
-
-
-</style>
-
-<html>
+{% block page_specific_htmlhead%}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;">
-<div id="box1">
+    <link rel="stylesheet" href="{% static 'match_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/score_card.css' %}">
+{% endblock%}
+{% block content %}
+    <ul class="breadcrumb" style="display:none" id="writing_breadcrumb">
+      <li>
+        <a href="/s_home/20/batch/12/program/spoken%20english">MODULES</a>
+      </li>
+      <li>
+        <a href="#">General Assessment</a>
+      </li>
+    </ul>
 
-  <h1>Score : {{score}}</h1>
+    <h1 id="GAHeader" style="display:none"> 
+      <b>EXERCISES ON WRITING-<span style="text-transform: uppercase;">{{level}}</span></b>
+    </h1>
 
-  <h1 id="status"></h1>
+    <h2 id="GASubHeader"> 
+     <b> Standard Test</b>
+   </h2>
 
-  <h4 style="display:none" id="submit"><input  class="button" type="submit" id="submit1" value="Next Level"></h4>
+    <div class="container1">
 
-  {% if test_name|standard %}
-  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'standard_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>
-  {% endif %}
-  {% if test_name|image %}
-  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'image_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>
-  {% endif %}
-  {% if test_name|av %}
-  <h4 style="display:none" id="try_again"><a class="button"  href="{% url 'av_test' pk pk1 pk2 pk3 pk4 %}">Try Again</a></h4>
-  {% endif %}
+      <h1>Score : {{score}}</h1>
+      <h1 id="status"></h1>
 
-</div>
-</div>
+      <h4 >
+        <a style="display:none" id="next_level" class="button" href="{% url 'spoken_english' pk pk1 programName %}">
+            Next Level
+        </a>
+      </h4>
+
+      {% if test_name|standard %}
+      <h4 >
+        <a style="display:none" id="try_again" class="button" style="display: none;" href="{% url 'standard_test' pk pk1 pk2 pk3 pk4 %}">
+            Try Again
+        </a>
+      </h4>
+  
+      {% endif %}
+      {% if test_name|image %}
+      <h4 >
+        <a style="display:none" id="try_again" class="button"  href="{% url 'image_test' pk pk1 pk2 pk3 pk4 %}">
+          Try Again
+        </a>
+      </h4>
+      {% endif %}
+      {% if test_name|av %}
+      <h4 >
+        <a style="display:none" id="try_again" class="button"  href="{% url 'av_test' pk pk1 pk2 pk3 pk4 pk5 narrative%}">
+          Try Again
+        </a>
+      </h4>
+      {% endif %}
+
+    </div>
 
 
-<script>
 
-  var i=parseInt("{{score}}");
-  var j = parseInt("{{len}}")
-  console.log("{{text_name}}")
-  if(i>j/2)
-  {
-    $("#status").html("Status : Pass")
-    $("#submit").css("display","block")
-    $("#try_again").css("display","block")
+    <script type="text/javascript">
 
-  }
-
-  else {
-    $("#status").html("Status : Fail")
-    $("#try_again").css("display","block")
-  }
-
-
-
-
-  $("#submit1").click(function() {
-    //var url = $("#form1").attr("data-modules-url");
-
-    $.ajax({ // initialize an AJAX request
-      url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test/submit/',
-      type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-      data: {
-        score:"{{score}}",
-        test_name:"{{test_name}}"
-      },
-      success: function(data) {
-       location.replace('/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}})
-
+      var i = parseFloat("{{score}}");
+      console.log(i)
+      var j = parseInt("{{len}}");
+      console.log(j)
+      var total_marks = parseInt("{{total_marks}}")
+      var test_type = "{{test_type}}"
+      console.log("{{text_name}}")
+      if (i > j / 2  || (test_type == "writing" && i >= 8)) {
+        $("#status").html("Status : Pass")
+        $("#submit").css("display", "block")
+        $("#next_level").css("display", "block")
+        if (test_type == "writing"){
+        $("#GAHeader").css("display", "block")
+        $("#writing_breadcrumb").css("display", "block")
+        }
       }
-    });
 
-  });
-</script>
+      else {
+        $("#status").html("Status : Fail")
+        $("#try_again").css("display", "block")
+      }
+
+
+      $("#submit1").click(function () {
+        //var url = $("#form1").attr("data-modules-url");
+
+        $.ajax({ // initialize an AJAX request
+          url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/test/submit/',
+          type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            score: "{{score}}",
+            test_name: "{{test_name}}"
+          },
+          success: function(data) {
+            location.replace('/s_home/' + "{{ pk }}" + '/batch/' + "{{ pk1 }}" + '/program/' + "{{ pk2 }}")
+
+          }
+        });
+
+      });
+    </script>
 
 
 
-</html>
+{% endblock content %} 

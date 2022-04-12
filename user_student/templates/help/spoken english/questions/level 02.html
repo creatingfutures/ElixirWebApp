@@ -1,0 +1,71 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+  <div class="StudentModuleClass">
+    <ul class="breadcrumb">
+      <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+      <li><a href="#">LEVEL 2 LESSON</a></li>
+    </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">
+                <h2 class="bg-white boxspace fonth2">Questions Level 2 </h2>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <p>
+                  In this level, you will be learning about the questions which ask for more detailed information. The
+                  responses to these questions will give you more details than Level 1. You may come across such
+                  questions in your examination or an interview. These are usually referred to as TED questions.  <b> T</b>
+                  stands for “Tell Me”. <b>E </b>stands for “Explain” and <b>D</b>  stands for “Describe”. Questions need not start
+                  with TED as seen in the examples below</p>
+                  
+                </td>
+            </tr>
+            <tr>
+              <td class=" mleft">
+                <h2 class="bg-white boxspace"><b>Examples</b></h2>
+                <ul class="list space">
+                  <li>
+                    Describe your summer vacation in a paragraph.
+                  </li>
+                  <li>
+                    Tell me more about yourself.
+                  </li>
+                  <li>
+                    Explain to the audience more details about your project.
+                  </li>
+                  <li>
+                    Give me details on your current roles and responsibilities.
+                  </li>
+                  <li>
+                    Write a letter to a friend describing your examination preparation.
+                  </li>
+                  <li>
+                    What is your idea behind the startup?
+                  </li>
+                </ul>
+                
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

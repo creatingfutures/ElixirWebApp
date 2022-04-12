@@ -1,0 +1,35 @@
+
+
+#frmPreview > label, #frmPreview> p {
+    font-family: Calibri !important;
+    font-size: 14px !important;
+}
+
+header > .container > .row > .col-md-12 > label, #lblObjective {
+    font-weight: bold;
+}
+
+h3 {
+    font-family: Calibri !important;
+    font-size: 14px !important;
+}
+
+hr {
+    border: 1px solid black !important;
+}
+
+table.mce-item-table {
+    border-collapse: collapse;
+    border: 1px solid rgb(187,187,187) !important;
+    outline:none !important;
+    font-family: Calibri !important;
+    font-size: 14px !important;
+}
+
+    table.mce-item-table > thead > tr > th {
+        border: 1px solid rgb(187,187,187) !important;
+    }
+
+    table.mce-item-table > tbody > tr > td {
+        border: 1px solid rgb(187,187,187) !important;
+    }

@@ -1,0 +1,66 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+        <div class="StudentModuleClass">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+                <li><a href="#">LEVEL 6 LESSON</a></li>
+            </ul>
+        
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-borderless">
+                            <thead>
+                          <tr>
+                              <th scope="col" ><h2 class="bg-white boxspace" >Sentences – Level 6 Lesson</h2></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td > 
+                                    <h1 class="bg-white boxspace" style="font-weight: bold !important;">Complex Sentence</h1>
+                                    
+                                <p>
+                                    Complex sentences is also known as multi-clause sentences. A complex sentence is formed when you join a main clause and a subordinate clause with a connective. A subordinate clause is one that relies on a main clause to make sense.</p>
+                                    <p>The connectives in complex sentences are conjunctions and they tell us about the order or the place in which things happened or specify a cause or effect relationship between events. </p>
+                          <p>Connectives used in complex sentences include after, although, as, because, if, since, unless, when.</p>
+                          <ul class="space list">
+                                  <li>I love roast chicken, although my mum prefers them with gravy.</li>
+                                  <li>You need to prepare for the spelling test tomorrow if you want to get all your spellings right.</li>
+                                  <li>The big dog barked whenever I knocked on the door.</li>
+                            </ul>
+                            <p><b>Complex sentence = main clause + connective + subordinate clause</b></p>
+
+                            
+                            <h2 class="bg-white boxspace">Sentences – Level 6 Examples</h2>
+                           <p>Complex Sentence </p>
+                           <ul class="space list">
+                           <li>    I love roast chicken, although my mum prefers them with gravy.</li>   
+                           <li>You need to prepare for the spelling test tomorrow if you want to get all your spellings right.</li>   
+                        <li>The big dog barked whenever I knocked on the door.</li>   
+                        <li>I don't like dogs that bark at me when I go in the night.</li>   
+                        <li>She did my homework, while her father cooked dinner.</li>   
+                        <li>You can write on paper, although a computer is better if you want to correct mistakes easily.</li>   
+                    </ul>
+                            </td>
+                        </tr>
+                         
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        </div>
+ 
+{% endblock content %} 

@@ -1,0 +1,100 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+  <meta charset="UTF-8">
+  <title>Word Search </title>
+  
+  <link rel="stylesheet" href="{% static 'css/wordfind_grid.css' %}">
+  <link rel="stylesheet" href="{% static 'components/normalize/normalize.min.css' %}">
+  
+    <link rel="stylesheet" href={% static 'components/font-awesome-4.7.0/css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href="{% static 'css/wordfind.css' %}">  
+    <script  src="{% static 'js/wordfind.js' %}"></script>
+{% endblock page_specific_htmlhead%}
+
+{% block content %} 
+      <div class="wordfind">
+          <ul class="breadcrumb">
+		        <li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+		        <li><a href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'>Word search</a></li>
+	          </ul>
+            <center>
+                <div class="container" id="container">
+                  <div class="puzzleWrap " style="display: inline;">
+                    <h1>EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}  </h1>
+                    <h1>Word Search</h1>
+                      <h3>Instructions : <i>Left click the mouse and drag it over</i> the letters to select the word</h3>
+                   </div>
+                       <div style="text-align: center; margin-top: 1.5rem;"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.WORD_SEARCH_TIME }}</h1></div>
+                   <div id='puzzle'></div>
+                    <br>
+                    <br>
+                   <div id='words'></div>
+                   <button id='submit' class="button">Submit</button>
+                   <button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>
+                
+                 </div>
+
+            </center>
+    </div>
+
+    <script src="/static/js/timer.js"></script>
+
+
+    <script type="text/javascript">
+    var words = {{ans|safe}};
+    var score_arr = [];
+    score_store = [];  
+    function score_reciever(s){
+        score_arr.push(s);
+      }
+
+        </script>
+
+
+
+    <script type="text/javascript">
+    var time = {{ settings.WORD_SEARCH_TIME }}
+
+       $("#submit").click(function(){
+
+           if(time <= 0){
+               alert("Time Up!");
+               return;
+           }
+
+        if (score_arr.length == 0) {alert("Please fill all the answers");return;}
+        var total_score = 1;
+        if(words.length==score_arr.length){
+          score=1;
+        }
+        else{
+          score=0;
+        }
+        console.log('your score is',score);
+        var token = "{{csrf_token}}";
+        $.ajax({ // initialize an AJAX request
+            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
+            type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            headers:{"X-CSRFToken":token},
+            data: {
+            user_score: score,
+            level_id: {{l.pk}},
+            batch_id: {{pk1}},
+            module_id: {{m.pk}},
+            student_id: {{pk}},
+            question_content_id:{{question_content_id}},
+            narrative:"{{narrative}}",
+            },
+            success: function(data) {
+         
+          $("#container").html(data) // `data` is the return of the `load_cities` view function
+            }
+          });
+        });
+    </script>
+
+
+{% endblock content %}

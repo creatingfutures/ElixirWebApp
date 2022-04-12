@@ -1,0 +1,303 @@
+{% load student_tag %}
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    
+    /* Button used to open the contact form - fixed at the bottom of the page */
+    .open-button {
+      background-color: orange;
+      color: black;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: relative;
+      bottom: 23px;
+      left: 28px;
+      width: 280px;
+    }
+
+    .cancel-button {
+      background-color: grey;
+      color: black;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: relative;
+      bottom: 23px;
+      left: 100px;
+      width: 280px;
+    }
+    
+    /* The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 15px;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
+    }
+    
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
+    }
+    
+    /* Full-width input fields */
+    .form-container input[type=text], .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+    
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+    
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+      background-color: orange;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+    }
+    
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+      background-color: grey;
+    }
+    
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+    }
+       .question{
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 16px;
+    }
+    </style>
+
+
+<div style="margin:10px;padding:10px">
+
+   <i id="questiontype"><b>{{request.session.questions|index_narrative:i}}</b></i>
+  <br/><br/>
+
+  {% for h in questions1 %}
+  <br>
+  <br>
+ <i id="questions_{{ forloop.counter }}" class="question">{{ h }}<span style="color: red;">*</span></i>
+  <br>
+  <textarea name="message" id="answer_{{ forloop.counter }}" rows="20" cols="60" ></textarea><br>
+
+  {% endfor %}
+ 
+</div>
+
+<br>
+<div>
+<button class="open-button" onclick="return openForm()" type="submit">Submit</button>
+<button class="cancel-button" onclick="goBack()">Cancel</button>
+</div>
+
+<div class="form-popup" id="myForm">
+  {#<form class="form-container" method="POST">#}
+    <h1>Login</h1>
+    {% csrf_token %}
+    <label for="email"><b>Username</b><span style="color: red"> *mandatory</span> :</label>
+    <input type="text" placeholder="Email" id="txtusername" name="Username"  required>
+
+    <br />
+    <label for="psw"><b>Password</b><span style="color: red"> *mandatory</span> :</label>
+    <input type="password" placeholder="Password" name="Password" id="txtPassword"  required>
+    <br />
+    <!-- <button type="submit" class="btn" id="myBtn">Login</button> -->
+    <button type="submit" class="button" id="submit">Login</button>
+    <button type="button" class="button" onclick="closeForm()">Close</button>
+ 
+  {#</form>#}
+</div>
+<!-- /facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" -->
+<br>
+<script type="text/javascript">
+
+       $(document).ready(
+        function() {
+             $("#submit").click(function(e) {
+                // e.preventDefault(); 
+                 var token = "{{csrf_token}}";
+                 var username = $("#txtusername").val();
+                 var password = $("#txtPassword").val();
+                 $.ajax({
+                            url: "/facilitator_login/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}",
+                            type: 'post',
+                            headers:{"X-CSRFToken":token},
+                            data:{
+                                Username:username,
+                                Password:password
+                            },
+                            success: function (data) 
+                            {
+                               if(data.error_message){
+                                    alert("Username or password incorrect");
+                                }//end if
+                               else{
+                                 document.write(data);
+                                
+                               }
+                            }//end success
+                       });//end ajax
+            });//end submit
+
+        });//end document.ready
+
+
+function text_check(){
+  k =document.getElementsByTagName("textarea")
+  for (var i = 0; i < k.length; i++) {
+    if(k[i].value == ''){
+      return true
+    } 
+}
+  return false
+}
+
+function openForm(){
+  if (text_check()){
+    alert("Enter all fields to proceed!")
+    return false
+  }
+  else{
+
+  if (document.getElementById('questions_1')!= null){
+    var questions_1 = document.getElementById('questions_1').textContent;
+    sessionStorage.setItem("questions_1", questions_1);
+  }
+
+  if (document.getElementById('questions_2')!= null){
+    var questions_2 = document.getElementById('questions_2').textContent;
+    sessionStorage.setItem("questions_2", questions_2);
+  }
+
+  if (document.getElementById('questions_3')!= null){
+    var questions_3 = document.getElementById('questions_3').textContent;
+    sessionStorage.setItem("questions_3", questions_3);
+  }
+
+  if (document.getElementById('questions_4')!= null){
+    var questions_4 = document.getElementById('questions_4').textContent;
+    sessionStorage.setItem("questions_4", questions_4);
+  }
+
+  if (document.getElementById('questions_5')!= null){
+    var questions_5 = document.getElementById('questions_5').textContent;
+    sessionStorage.setItem("questions_5", questions_5);
+  }
+
+  if (document.getElementById('questions_6')!= null){
+    var questions_6 = document.getElementById('questions_6').textContent;
+    sessionStorage.setItem("questions_6", questions_6);
+  }
+
+  if (document.getElementById('questions_7')!= null){
+    var questions_7 = document.getElementById('questions_7').textContent;
+    sessionStorage.setItem("questions_7", questions_7);
+  }  
+
+  if (document.getElementById('questions_8')!= null){
+    var questions_8 = document.getElementById('questions_8').textContent;
+    sessionStorage.setItem("questions_8", questions_8);
+  }
+
+  if (document.getElementById('questions_9')!= null){
+    var questions_9 = document.getElementById('questions_9').textContent;
+    sessionStorage.setItem("questions_9", questions_9);
+  }
+
+  if (document.getElementById('questions_10')!= null){
+    var questions_10 = document.getElementById('questions_10').textContent;
+    sessionStorage.setItem("questions_10", questions_10);
+  }
+
+  if (document.getElementById('answer_1')!= null){
+    var answer_1 = document.getElementById('answer_1').value;
+    sessionStorage.setItem("answer_1", answer_1);
+  }
+
+  if (document.getElementById('answer_2')!= null){
+    var answer_2 = document.getElementById('answer_2').value;
+    sessionStorage.setItem("answer_2", answer_2);
+  
+  }
+
+  if (document.getElementById('answer_3')!= null){
+    var answer_3 = document.getElementById('answer_3').value;
+    sessionStorage.setItem("answer_3", answer_3);
+  }
+
+  if (document.getElementById('answer_4')!= null){
+    var answer_4 = document.getElementById('answer_4').value;
+    sessionStorage.setItem("answer_4", answer_4);
+  }
+
+  if (document.getElementById('answer_5')!= null){
+    var answer_5 = document.getElementById('answer_5').value;
+    sessionStorage.setItem("answer_5", answer_5);
+  }
+
+  if (document.getElementById('answer_6')!= null){
+    var answer_6 = document.getElementById('answer_6').value;
+    sessionStorage.setItem("answer_6", answer_6);
+  }
+
+  if (document.getElementById('answer_7')!= null){
+    var answer_7 = document.getElementById('answer_7').value;
+    sessionStorage.setItem("answer_7", answer_7);
+  }
+
+  if (document.getElementById('answer_8')!= null){
+    var answer_8 = document.getElementById('answer_8').value;
+    sessionStorage.setItem("answer_8", answer_8);
+  }
+
+  if (document.getElementById('answer_9')!= null){
+    var answer_9 = document.getElementById('answer_9').value;
+    sessionStorage.setItem("answer_9", answer_9);
+  }
+
+  if (document.getElementById('answer_10')!= null){
+    var answer_10 = document.getElementById('answer_10').value;
+    sessionStorage.setItem("answer_10", answer_10);
+  }
+  
+  document.getElementById("myForm").style.display = "block";
+  return true
+}
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+
+function goBack() {
+  window.history.back();
+}
+
+</script>

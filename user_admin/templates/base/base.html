@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+{% load static %}
+{% load user_tags %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+      <link rel="stylesheet" type="text/css" href="/static/css/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="/static/components/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/static/css/custom_style.css">
+      <link rel="stylesheet" href="/static/css/Elixir.css">
+      <link rel= "stylesheet" href="/static/components/font-awesome-4.7.0/css/font-awesome.min.css">
+      <script type="text/javascript" src="/static/components/jquery-ui-1.12.1/jquery-ui.min.css"></script>
+      <script type="text/javascript" src="/static/components/jquery/jquery3.6.0.min.js"></script>
+      <title>Elixir</title>
+  </head>
+  <body>
+    <div id="top">
+      <br />
+      <center>
+        <img src="{% static 'elixir_logo.PNG' %}" width="60" height="60" />
+      </center>
+    </div>
+    <ul>
+      <li><a href="{% url 'password' %}">PASSWORD MANAGEMENT</a></li>
+      <li><a href="{% url 'batches' %}">BATCH MANAGEMENT</a></li>
+      <li><a href="{% url 'students' %}">STUDENT MANAGEMENT</a></li>
+      <li><a href="{% url 'centers' %}">CENTER MANAGEMENT</a></li>
+      <li><a href="{% url 'questions' %}">MANAGE QUESTIONS</a></li>
+      <li><a href="#reports">REPORTS</a></li>
+      <li style="float: right"><a href="#about">FAQs</a></li>
+      <li style="float: right">
+        <a href="{% url 'admin_logout' %}">Logout</a>
+      </li>
+      <li style="float: right"><a href="{% url 'home' %}">HOME</a></li>
+    </ul>
+
+    <br /><br />
+    <div class="row">
+      <div class="col-md-8">
+        {% if messages %} {% for message in messages %}
+
+        <div
+          class=""
+          style="
+            background-color: rgb(50, 221, 110);
+            padding: 20px;
+            margin: 20px;"
+          role="alert">
+          {{message}}
+        </div>
+
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+    {% block content %} {% endblock content %}
+
+    
+
+<script>
+    $("#module").change(function () {
+      //var url = $("#form1").attr("data-modules-url");
+
+      var programId = $(this).val();
+      console.log(programId) // get the selected country ID from the HTML input
+
+      $.ajax({ // initialize an AJAX request
+        url: '/ajax/load_modules_home/',
+        type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          program_id: programId, // add the country id to the GET parameters
+        },
+        success: function (data) { // `data` is the return of the `load_cities` view function
+          $("#modulesDone").html(data);
+          $("#modulesnotdone").remove();
+          // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+
+    $("#facilitator1").click(function () {
+        //var url = $("#form1").attr("data-modules-url");
+
+        var facId = $('#facilitator').val();
+        console.log(facId) // get the selected country ID from the HTML input
+
+        $.ajax({ // initialize an AJAX request
+          url: '/ajax/load_fac_home/',
+          type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            facilitator_id: facId, // add the country id to the GET parameters
+          },
+          success: function (data) { // `data` is the return of the `load_cities` view function
+            $("#facdone").html(data);
+            $("#facnotdone")
+              .remove(); // replace the contents of the city input with the data that came from the server
+          }
+        });
+
+      });
+
+
+$("#batch1").click(function () {
+        //var url = $("#form1").attr("data-modules-url");
+
+        var facId = $("#batch").val();
+        console.log(facId); // get the selected country ID from the HTML input
+
+        $.ajax({
+          // initialize an AJAX request
+          url: "/ajax/batch_search/",
+          type: "GET", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            batch_id: facId, // add the country id to the GET parameters
+          },
+          success: function (data) {
+            // `data` is the return of the `load_cities` view function
+            $("#bat_done").html(data); // replace the contents of the city input with the data that came from the server
+          },
+        });
+});
+
+    $("#btnSearch").click(function () {
+        var nameProg = $("#progName").val();
+        var nameModule = $("#moduleName").val();
+        var nameLevel = $ ("#levelName").val();
+        var questType = $("#questType").val();
+        var searchTxt = $("#txtSearch").val();
+        var dataSent = { batch_id: 1 };
+        
+        var type = $("#hidType").val();
+        
+        var urll = "./ajax/questions_search?progname="+encodeURIComponent(nameProg)+"&modulename="+encodeURIComponent(nameModule)+"&levelname="+encodeURIComponent(nameLevel)+"&questiontype="+encodeURIComponent(questType)+"&searchtext="+encodeURIComponent(searchTxt)+"&page=1"
+        
+       
+        window.location.href= urll
+        
+        
+        switch (type) {
+            case "questions":
+                
+                dataSent = {
+                  progname:nameProg,
+                  modulename:nameModule,
+                  levelname:nameLevel,
+                  questiontype: questType,
+                  searchtext: searchTxt, 
+                 };
+                url = "questions/ajax/questions_search";
+                
+                break;
+            case "facilitators":
+                url = "/ajax/load_fac_home";
+                dataSent = { facilitator_id: facId };
+                break;
+            default:
+                break;
+                   
+        }
+       
+        $.ajax({
+          // initialize an AJAX request
+          url: url,
+            type: "GET", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: dataSent,
+          success: function (data) {
+            // `data` is the return of the `load_cities` view function
+            $("#divData").html(data); // replace the contents of the city input with the data that came from the server
+          },
+        });
+    });
+
+
+      back = () => window.history.back();
+</script>
+  </body>
+</html>

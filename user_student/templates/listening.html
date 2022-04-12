@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <title> Listening </title>
+    {#<link rel="stylesheet" href="/static/css/custom_style.css" />#}
+    <style>
+        table[name='listen'] {
+            width:100%;
+        }
+    </style>
+
+{% endblock%}
+    
+{% block content %}
+
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'spoken_english' pk pk1 p %}">MODULES</a>
+      </li>
+      <li>
+        <a href="#">LISTENING SKILLS</a>
+      </li>
+    </ul>
+    <h1>
+      
+            LISTENING SKILLS - SELF ASSESSMENT
+       
+    
+    </h1>
+    <form name="listeningForm" action="{% url 'Lscore' pk pk1 p %}">
+    <table name = "listen">
+      <thead>
+      <tr>
+          
+        <th>SI. No</th>
+        <th>When listening to another person, I...</th>
+        <th>Always<br>(1 pt.)</th> 
+        <th>Usually<br>(2 pt.)</th>
+        <th>Often<br>(3 pt.)</th>
+        <th>Rarely<br>(4 pt.)</th>
+        <th>Never<br>(5 pt.)</th>
+      </t>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td>Get distracted</td>
+        <td><input type="radio" name="firstQues" id="gt1" value="1" required = "required"></td>
+        <td><input type="radio" name="firstQues" id="gt1" value = "2" ></td>
+        <td><input type="radio" name="firstQues" id="gt1" value = "3" ></td>
+        <td><input type="radio" name="firstQues" id="gt1" value = "4" ></td>
+        <td><input type="radio" name="firstQues" id="gt1"value = "5" ></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Listen only to facts</td>
+        <td><input type="radio" name="secondQues" id="gt2" value = "1" required></td>
+        <td><input type="radio" name="secondQues" id="gt2" value = "2" ></td>
+        <td><input type="radio" name="secondQues" id="gt2" value = "3" ></td>
+        <td><input type="radio" name="secondQues" id="gt2" value = "4" ></td>
+        <td><input type="radio" name="secondQues" id="gt2" value = "5" ></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Interrupt</td>
+        <td><input type="radio" name="thirdQues" id="gt3" value = "1" required></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "2"></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "3"></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "4"></td>
+        <td ><input type="radio" name="thirdQues" id="gt3" value = "5"></td>
+      </tr>
+     <tr>
+        <td>4</td>
+        <td>Assume the other person already knows</td>
+        <td><input type="radio" name="fourthQues" id="gt4" value = "1" required></td>
+        <td><input type="radio" name="fourthQues" id="gt4" value = "2"></td>
+        <td><input type="radio" name="fourthQues" id="gt4" value = "3"></td>
+        <td><input type="radio" name="fourthQues" id="gt4" value = "4"></td>
+        <td><input type="radio" name="fourthQues" id="gt4" value = "5"></td>
+      </tr>
+     <tr>
+         <td >5</td>
+         <td >Prejudice</td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "1" required></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "2"></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "3"></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "4"></td>
+        <td ><input type="radio" name="fifthQues" id="gt5" value = "5"></td>
+      </tr>
+     <tr>
+    <td>6</td>
+         <td>Tune Out</td>
+        <td><input type="radio" name="sixthQues" id="gt6" value = "1" required></td>
+        <td><input type="radio" name="sixthQues" id="gt6" value = "2"></td>
+        <td><input type="radio" name="sixthQues" id="gt6" value = "3"></td>
+        <td><input type="radio" name="sixthQues" id="gt6" value = "4"></td>
+        <td><input type="radio" name="sixthQues" id="gt6" value = "5"></td>
+      </tr>
+     <tr>
+    <td >7</td>
+         <td >Ignore nonverbal clues</td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "1" required></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "2"></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "3"></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "4"></td>
+        <td ><input type="radio" name="seventhQues" id="gt7" value = "5"></td>
+      </tr>
+
+      <tr>
+    <td>8</td>
+        <td>Have Short auditory attention span </td>
+        <td> <input type="radio" name="eightQues" id="gt8" value = "1" required></td>
+        <td><input type="radio" name="eightQues" id="gt8" value = "2"></td>
+        <td><input type="radio" name="eightQues" id="gt8" value = "3"></td>
+        <td><input type="radio" name="eightQues" id="gt8" value = "4"></td>
+        <td><input type="radio" name="eightQues" id="gt8" value = "5"></td>
+      </tr>
+      <tr>
+    <td >9</td>
+         <td >Get Tired easily</td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "1" required></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "2"></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "3"></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "4"></td>
+        <td ><input type="radio" name="ninthQues" id="gt9" value = "5"></td>
+      </tr>
+      <tr>
+    <td>10</td>
+         <td>Become sleepy when listening to speakers </td>
+        <td><input type="radio" name="tenthQues" id="gt10" value = "1" required></td>
+        <td><input type="radio" name="tenthQues" id="gt10" value = "2"></td>
+        <td><input type="radio" name="tenthQues" id="gt10" value = "3"></td>
+        <td><input type="radio" name="tenthQues" id="gt10" value = "4"></td>
+        <td><input type="radio" name="tenthQues" id="gt10" value = "5"></td>
+      </tr>
+     <tr>
+    <td >11</td>
+         <td >Daydreams or tunes out in class </td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "1" required></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "2"></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "3"></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "4"></td>
+        <td ><input type="radio" name="eleQues" id="gt11" value = "5"></td>
+      </tr>
+     <tr>
+    <td>12</td>
+         <td>Have difficulty hearing and understanding in background noise such as TV, others talking, music, children playing, etc</td>
+        <td><input type="radio" name="twQues"  id="gt12" value = "1" required></td>
+        <td><input type="radio" name="twQues" id="gt12" value = "2"></td>
+        <td><input type="radio" name="twQues" id="gt12" value = "3"></td>
+        <td><input type="radio" name="twQues" id="gt12" value = "4"></td>
+        <td><input type="radio" name="twQues" id="gt12" value = "5"></td>
+      </tr>
+     <tr>
+    <td >13</td>
+         <td >Have Trouble immediately recalling spoken information</td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "1" required></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "2"></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "3"></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "4"></td>
+        <td ><input type="radio" name="thirteenQues" id="gt13" value = "5"></td>
+      </tr>
+     <tr>
+    <td>14</td>
+         <td>Have Trouble remembering order or sequence of spoken information</td>
+        <td><input type="radio" name="fourteenQues" id="gt14" value = "1" required></td>
+        <td><input type="radio" name="fourteenQues" id="gt14" value = "2"></td>
+        <td><input type="radio" name="fourteenQues" id="gt14" value = "3"></td>
+        <td><input type="radio" name="fourteenQues" id="gt14" value = "4"></td>
+        <td><input type="radio" name="fourteenQues" id="gt14" value = "5"></td>
+      </tr>
+    </tbody>
+</table>
+
+       <br><br>
+    <div class="footer">
+             <center>
+                <input type="submit" class="button" onclick="getResult();"/>
+                <a href="{% url 'spoken_english' pk pk1 p %}" class="button" style="width:90px;">Cancel</a>
+             </center>
+		      
+              
+        </div>
+	</form>
+     <script type="text/javascript">
+       function getResult() {
+          /*var firstQues = document.getElementsByName('firstQues');
+          var secondQues = document.getElementsByName('secondQues');
+	      var thirdQues = document.getElementsByName('thirdQues');
+	      var fourthQues = document.getElementsByName('fourthQues');
+	      var fifthQues = document.getElementsByName('fifthQues');
+	      var sixthQues = document.getElementsByName('sixthQues');
+	      var seventhQues = document.getElementsByName('seventhQues');
+	      var eightQues = document.getElementsByName('eightQues');
+	      var ninthQues = document.getElementsByName('ninthQues');
+	      var tenthQues = document.getElementsByName('tenthQues');
+	      var eleQues = document.getElementsByName('eleQues');
+	      var twQues = document.getElementsByName('twQues');
+	      var thirteenQues = document.getElementsByName('thirteenQues');
+	      var fourteenQues = document.getElementsByName('fourteenQues');
+          var total = 0;
+           firstQues.forEach((evnt) => {
+             if (evnt.checked) {
+		      alert("Please select all values");
+                total = total + parseInt(evnt.value);
+                return;
+			
+             }
+		 
+		 
+          });
+          secondQues.forEach((evnt) => {
+             if (evnt.checked) {
+		
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      thirdQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      fourthQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      fifthQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      sixthQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      seventhQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      eightQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      ninthQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      fifthQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      tenthQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      eleQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      twQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      thirteenQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+          });
+	      fourteenQues.forEach((evnt) => {
+             if (evnt.checked) {
+                total = total + parseInt(evnt.value);
+                return;
+             }
+		 
+	   
+		 
+		 
+
+          });*/
+           var total = 0;
+           var rowCount = $("table[name='listen']>tbody>tr").length;
+           var selectedRows = $("table[name='listen']>tbody>tr>td:has(input[type='radio']:checked)");
+           if (selectedRows.length != rowCount) {
+               alert("Please ensure all questions are answered");
+               return false;
+           }
+           $(selectedRows).each(function (index) {
+               var radioBtn = $(this).find("input[type='radio']");
+               total = total + parseInt($(radioBtn).val());
+           });
+           localStorage.setItem("total", total);
+           //window.location.href = "Lscoring.html";
+           //alert("Score is"+total);
+    
+       }
+  
+   
+    </script>
+
+{% endblock %}
+	 

@@ -1,0 +1,80 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+     <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li><a href="#">LEVEL 5 LESSON</a></li>
+            
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Reading – Level 5 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h1 style="font-weight: bold !important; " class="bg-white boxspace">What is Reading?
+                                </h1>
+                                
+                                <p>
+                                    In this level, you should read out loud with good pace and fluency. You also should
+                                    be able to take note of punctuations and also expressions. </p>
+                                </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class=" mleft">
+                                <h2 class="bg-white boxspace"><b> Examples</b></h2>
+                                <ul class="list space">
+                                    <li>It's a beautiful day. </li>
+                                    <li> You are a nice person. </li>
+                                </ul>
+                                <p>
+                                    Notice the usage of an adjective and how it can be expressed when read aloud.
+                                </p>
+                                <ul class="list space">
+                                    <li>Some tricky pronunciation such as <b><i> f-r-o-g.</i></b> </li>
+                                    <li>Present tense and past tense such as <b><i>  r-e-a-d.</i></b> </li>
+                                </ul>
+                                <h3 class="bg-white boxspace">Bangkok </h3>
+                                <p>
+                                    Whether you're travelling to the islands or the mountains of Thailand, you're likely
+                                    to spend at least one night in its capital city on the way. Bangkok might be noisy
+                                    and polluted but it's also an exciting city with plenty of things to see and do. Why
+                                    not make it a longer stay? Bangkok's traffic can be a nightmare. Sure, you can
+                                    easily take a taxi – if you want to spend hours stuck in traffic jams – but there
+                                    are two much better ways to get around the city. To explore the temples and
+                                    historical sites, catch an express boat river taxi or a longtail boat along the Chao
+                                    Phraya river and the canals. For the modern part of the city, the Skytrain is a
+                                    fast, cheap way to travel from the river to the shopping malls and nightlife of
+                                    Sukhumvit, and the famous Chatuchak street market.
+                                </p>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %} {% block content %}
+<div class="row">
+  <div class="col-md-8">
+    {% if messages %} {% for message in messages %}
+    <div
+      class=""
+      style="background-color: rgb(50, 221, 110); padding: 20px; margin: 20px"
+      role="alert">
+      {{message}}
+    </div>
+
+    {% endfor %} {% endif %}
+  </div>
+</div>
+<style>
+
+
+</style>
+<div id="box">
+  <p>
+    <label>Program Name :</label>
+    {{f.program_id}}
+  </p>
+  <p>
+    <label>Batch Name :</label>
+    {{f.batch_name}}
+  </p>
+  <p>
+    <label>Start Date :</label>
+    {{f.start_date}}
+  </p>
+  <p>
+    <label>End Date :</label>
+    {{f.end_date}}
+  </p>
+  <p>
+    <label>Partner Org :</label>
+    {{f.partner_org}}
+  </p>
+  <p>
+    <label>Batch Incharge :</label>
+    {{f.batch_incharge_id}}
+  </p>
+  <p>
+    <label>Comments :</label>
+    {{f.comments}}
+  </p>
+
+  <p>
+    <label>NO. of Sessions:</label>
+    {{f.sessions_count}}
+  </p>
+  <p>
+    <label>NO. of Students:</label>
+    {{f.student_count}}
+  </p>
+  <p>
+    <label>Center Name :</label>
+    {{f.center_id}}
+  </p>
+
+  <br /><br />
+  <button style="margin-left: 80px;"
+  type="button"
+  class="button"
+  onclick="back()"
+>
+  Go Back
+</button>
+</div>
+{% endblock content %}

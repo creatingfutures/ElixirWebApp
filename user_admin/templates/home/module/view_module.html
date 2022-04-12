@@ -1,0 +1,110 @@
+{% extends '../../base/base.html' %} {% block content %}
+
+<!doctype html>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+  <br>
+  <h1 class="fontcl">PROGRAM NAME : {{p1}}</h1>
+  <h2 class="fontcl">MODULE NAME : {{m}}</h2>
+  <h2 class="fontcl">LEVELS :</h2>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+  {% if check %}
+  <table class="table" align="center" style="width:50%;font-family: Montserrat">
+    <tr>
+      <th>LEVEL NAME</th>
+      <th>ACTION</th>
+    </tr>
+    {% for c in l %}
+    <tr>
+      <td>{{c}}</td>
+      <td><a href="{% url 'edit_level' p1.program_id m.module_id c.level_id%}" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> &nbsp; &nbsp; <a
+          href="{% url 'delete_level' c.level_id %}" data-toggle="tooltip" data-placement="bottom" title="Delete"><span class="glyphicon glyphicon-remove actionremove"></span></a></td>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+  {% else %}
+
+  <p style="margin-left:21px">Module Has no Levels Yet</p>
+
+  {% endif %}
+
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12" style="margin-left: 150px;">
+  <a style="margin-left:150px" class="button" href="{% url 'add_level' p1.program_id m.module_id %}">ADD LEVEL</a>
+
+  <br><br>
+  <a style="margin-left:150px" class="button" href="{% url 'delete_module' m.module_id %}">DELETE MODULE</a>
+  <a style="margin-left:50px" class="button" href="{% url 'edit_module' p1.program_id m.module_id %}">EDIT MODULE</a>
+
+  <br><br>
+</div>
+</div>
+
+  <!-- <h2>QUESTIONS</h2>
+
+
+{% if check1 %}
+<table align="center" style="width:80%;font-family: Montserrat">
+<tr>
+  <th>QUESTION</th>
+  <th>LEVEL</th>
+  <th>MODULE</th>
+  <th>PROGRAM</th>
+  <th>QUESTION TYPE</th>
+  <th>EDIT</th>
+</tr>
+{% for c in p %}
+<tr>
+  <td>{{c.question}}</td>
+  <td>{{c.module_id}}</td>
+  <td>{{c.level_id}}</td>
+  <td>{{c.program_id}}</td>
+  <td>{{c.question_type}}</td>
+  <td><a href="{% url 'edit_question' c.question_id %}">EDIT</a></td>
+</td>
+</tr>
+{% endfor %}
+</table>
+
+<br>
+<div class="pagination" style="width:20%;position:absolute;left:40%">
+<ul style="position:absolute;left:10%">
+  {% if p.has_previous %}
+  <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+ {% endif %}
+ {% for pg in p.paginator.page_range %}
+ {% if p.number == pg %}
+ <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
+{% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+<li><a href="?page={{ pg }}">{{pg}}</a></li>
+{% endif %}
+{% endfor %}
+
+{% if p.has_next %}
+<li><a href="?page={{p.next_page_number}}">Next</a></li>
+{% endif %}
+</ul>
+
+</div>
+
+
+{% else %}
+
+<p style="margin-left:21px">Module Has no Questions Yet</p>
+
+
+{% endif %} -->
+
+{% endblock content %}
+</div>

@@ -1,26 +1,17 @@
 {% load student_tag %}
-
 <style>
-.div {
-  /* width: 350px;
-  height: 30px; */
-  width:100%;
-  padding:5px;
-  /* background-color: grey; */
-  color:black;
-  margin:20px;
-  font-size:150%;
-  border: 1px solid #aaaaaa;
+    #container1{
+        display:flex;
+        flex-direction:row;
+        width:100%;
+        padding:5px;
+        color:black;
+        margin:20px;
+        border: 1px solid #aaaaaa;
 
-}
-
-#container1{
-display:flex;
-flex-direction:row;
-
-}
+    }
 </style>
-<script>
+<script type="text/javascript">
 function allowDrop(ev) {
   ev.preventDefault();
 }
@@ -41,32 +32,32 @@ function drop(ev) {
 
 }
 </script>
-</head>
-<body>
 
 
-<p style="font-size:200%"> <b>Jumbled Words</b></p>
-<p style="font-size:150%">Arrange Below words in proper Order To form sentences</p>
+
+
+<p> <b id="questiontype">Jumbled Words</b></p>
+<div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">{{ settings.GEN_ASSNMT_TIME }}</h1></div>
+<br/>
+<p id="question">Arrange Below words in proper Order To form sentences</p>
+<i id='hint' style="display:none;" onclick="alert('{{hint|safe}}')">&nbsp; <a href='#' style="color: orange;" >Hint</a> </i>
 
 
 <div  id="container1">
   {% for i in len %}
-  <div class="div button" id="{{i}}" ondrop="drop(event)" done="1" ondragover="allowDrop(event)">
-    <p id="{{words|id:i}}" style=" cursor: pointer;"draggable="true" ondragstart="drag(event)">{{words|id:i|allcaps}}</p>
-    </div>
+      <div class="div button" id="{{i}}" ondrop="drop(event)" done="1" ondragover="allowDrop(event)">
+        <p id="{{words|id:i}}" style=" cursor: pointer;"draggable="true" ondragstart="drag(event)">{{words|id:i|allcaps}}</p>
+      </div>
   {% endfor %}
-
 </div>
-
 <br>
+<button id="submit" class="button" onClick="show()">SUBMIT</button>
 
-<button class="button" onClick="show()">SUBMIT</button>
-
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/static/js/timer.js"></script>
 
 
-<script>
+<script type="text/javascript">
+    var time = {{ settings.GEN_ASSNMT_TIME }};
 
   function show()
   {
@@ -86,9 +77,10 @@ function drop(ev) {
 
       }
 
-    var answer = "{{q|index5:i}}"
+    var answer = "{{request.session.questions|index5:i}}"
     ans=ans.trim()
-    if(ans==answer)
+    console.log(ans,answer);
+    if(ans.toLowerCase()==answer.toLowerCase())
     {
       alert("Right Answer");
       if($(this).data("count")==1)
@@ -134,10 +126,12 @@ function drop(ev) {
 
     else {
       {
+          if(time <= 0)alert("Time Up!");
+          else
         alert("Incorrect Answer, Please Try Again");
+        document.getElementById('hint').style.display='block';
       }
     }
-
 
   }
 </script>

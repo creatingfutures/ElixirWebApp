@@ -1,0 +1,44 @@
+﻿
+<script type="text/javascript">
+    function next_page(e) {
+       // alert(e);
+        var searchTextbox = $("#txtSearch");
+        if (searchTextbox.length > 0) {
+            console.log("pagination:searching for - " + $(searchTextbox).val());
+            var page_Element = $(e).find("a");
+            var href = $(page_Element).attr("href");
+            href = href + "&searchtext=" + $(searchTextbox).val() ;
+            $(page_Element).attr("href", href);
+        }
+    }
+</script>
+<div class="row" style="margin-left:20px">
+  <div class="col-md-5"></div>
+  <div class="col-md-4" >
+
+    <ul class="pagination">
+      {% if p.has_previous %}
+          <li onclick="next_page(this);"><a href="?page=1">&laquo;</a></li>
+          <li onclick="next_page(this);">
+            <a class="" href="?page={{p.previous_page_number}}">Prev</a>
+          </li>
+      {% else %}
+          <li onclick="next_page(this);"><a>&laquo;</a></li>
+      {% endif %} 
+      {% for pg in p.paginator.page_range %} 
+        {% if p.number == pg%}
+          <li onclick="next_page(this);"><a class="active" href="?page={{pg}}">{{pg}}</a></li>
+          {% elif pg > p.number|add:'-5' and pg < p.number|add:'5' %}
+          <li onclick="next_page(this);">
+            <a href="?page={{ pg }}"><span>{{pg}}</span></a>
+          </li>
+
+          {% endif %} {% endfor %} {% if p.has_next %}
+          <li onclick="next_page(this);"><a href="?page={{p.next_page_number}}">Next</a></li>
+          <li onclick="next_page(this);"><a href="?page={{p.paginator.num_pages}}">&raquo;</a></li>
+          {% else %}
+          <li><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

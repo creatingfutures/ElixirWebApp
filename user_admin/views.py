@@ -2,21 +2,34 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.contrib.auth import views as auth_views
-from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.conf import settings
+from django.conf.urls.static import static
 from .models import program, program_module, facilitator, center, student
-from .models import module_level, question, question_type, question_content, batch, entity_status
+from .models import module_level, question, question_type, assessment_type, question_content, batch, entity_status
 import json
 from django.core import serializers
 from django import forms
 import django
+import os
 from .forms import *
 import re
 from django.db.models import Q
+from pyexcel_xls import get_data as xls_get
+from pyexcel_xlsx import get_data as xlsx_get
+from django.db import connection
+
+from django.conf import settings
+import os
+from zipfile import ZipFile
+
 
 # Create your views here.
 import csv
+from django.utils.datastructures import MultiValueDictKeyError
+
 program_modules = {}
 facilitators = {}
 mod_c = 0
@@ -51,25 +64,280 @@ def questions_export(request):
     response = HttpResponse(content_type='text/csv')
 
     writer = csv.writer(response)
-    writer.writerow(['question_id', 'question', 'narrative',
-                     'question_type', 'program', 'module', 'level', 'options', 'answer'])
+    writer.writerow(['ID', 'Program', 'Module',
+                     'Level', 'Question', 'Narrative', 'Question Type', 'Assessment Type','Hint', 
+                     'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer', 'Comments'])
 
-    for i in question.objects.all().values_list('question_id', 'question', 'narrative', 'question_type'):
-        i = list(i)
+    for i in question.objects.all().values_list('question_id', 'question', 'narrative', 'question_type','assessment_type','hint', 'comments'):
         q = question.objects.get(pk=i[0])
+        i =[];
+        _assessment_type= None
+        if q.assessment_type_id != None:
+         _assessment_type = q.assessment_type
+        else:
+         _assessment_type = None
+        i.append(q.question_id)
         i.append(q.program)
         i.append(q.module)
         i.append(q.level)
-        options = ""
-        for j in q.options:
-            options += f'<{j}>'
-        i.append(options)
+        i.append(q.question)
+        i.append(q.narrative)
+        i.append(q.question_type)
+        i.append(_assessment_type)
+        i.append(q.hint)
+        if len(q.options) == 4:
+            for j in q.options:
+                i.append(j)
+        else :
+            _len = 4 - len(q.options)
+            for j in q.options:
+                i.append(j)
+            for j in range(_len):
+                i.append('')            
         i.append(q.answer)
+        i.append(q.comments)
         writer.writerow(i)
 
     response['Content-Disposition'] = 'attachment;filename="questions.csv"'
 
     return response
+
+
+def questions_import(request):
+    
+    try:
+        excel_file = request.FILES['myfile']
+        # print (excel_file)
+    except MultiValueDictKeyError:
+        return redirect('questions')
+    data = None
+    if (str(excel_file).split('.')[-1] == 'zip'):
+       with ZipFile(excel_file, 'r') as zip:
+            listOfFileNames = zip.namelist()
+            # Iterate over the file names
+            for fileName in listOfFileNames:
+             # Check filename endswith jpg or mp3 or mp4 or text
+                if fileName.endswith('.jpg' or '.mp3' or '.mp4' or '.txt'):
+               # Extract a single file from zip
+
+                    base_dir = settings.BASE_DIR
+                    zip.extract(fileName,os.path.join(base_dir, 'media/question_content'))
+                    exfilename = os.path.join(base_dir, 'media/question_content',fileName)
+
+
+                    new_content = question_content(
+                        content = exfilename
+                    )
+                    new_content.save()
+                if fileName.endswith('.xlsx'):
+                    zip.extract(fileName)
+                    excel_data = xlsx_get (fileName, column_limit=17)
+                    data= excel_data
+    elif ((str(excel_file).split('.')[-1] == "xlsx")):
+        data = xlsx_get(excel_file, column_limit=17)
+
+
+    response = HttpResponse(content_type='multipart/form-data')
+    textWriter = csv.writer(response)
+    textWriter.writerow(['Excel import started'])
+    active = True
+    isValid = True    
+    _question_type = None
+    _assessment_type = None
+    _module_level= None
+
+    index = 0
+    recordInserted = 0
+    try:
+        questions_data = None
+        try:
+            questions_data =  data["Questions"]
+        except :
+            messages.error(request, f'Questions excel tab - No data available')
+            return redirect('questions')
+
+        if (len(questions_data) > 0):
+            for questions_item in questions_data:
+                try:
+                    if(len(questions_item)) == 0:
+                        break;
+                    if(index == 0):
+                        if(str(questions_item) != "['ID', 'Program', 'Module', 'Level', 'Question', 'Narrative', 'Question Type', 'Assessment Type', 'Hint', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer', 'Comments']"):
+                            textWriter.writerow(['Header columns are mismatching'])        
+                            print ("stage 1")           
+                            messages.error(request, f'Header columns are mismatching.')
+                            return redirect('questions')
+                    else :
+                        if questions_item[1] == '' or questions_item[2] == '' or questions_item[3] == '' or questions_item[4] == '' or questions_item[6] == ''  or questions_item[7] == '' :
+                            textWriter.writerow(['fields data are missing in the line no ' + str(index)])
+                            messages.error(request, f'fields data are missing in the line no ' + str(index))
+                            return redirect('questions')
+                        
+
+                        cursor = connection.cursor();
+                        sql_query = """SELECT level_id from User_admin_module_level a inner join user_admin_program_module b on a.module_id = b.module_id where a.level_description = %s  COLLATE NOCASE and b.module_name = %s  COLLATE NOCASE """
+                        data_tuple = (questions_item[3], questions_item[2])
+                        cursor.execute(sql_query, data_tuple)
+                        result = cursor.fetchall();
+                        
+                        if len(result) > 0 :
+                            _question_type = question_type.objects.get(question_type__icontains = questions_item[6].lower())
+                            _assessment_type = assessment_type.objects.get(assessment_type__icontains = questions_item[7].lower())
+                            _module_level = module_level.objects.get(pk=result[0][0]),
+                        if len(result) == 0 :
+                            textWriter.writerow(['field level and module is not available on line no: ' + str(index)])
+                            isValid = False
+                        if _question_type is None :
+                            textWriter.writerow(['field question_type having issue on line no: ' + str(index)])
+                            isValid = False
+                        if _module_level is None :
+                            textWriter.writerow(['field module_level having issue on line no: ' + str(index)])
+                            isValid = False
+                        
+                        try:
+                            questions_item_comments = questions_item[14]
+                        except :
+                            questions_item_comments = ''
+
+                        if isValid == True :
+                            #save question
+
+                            if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11,12]: 
+
+                                new_question = question(
+                                
+                                question =  questions_item[4],
+                                narrative = questions_item[5],
+                                question_type = _question_type,
+                                assessment_type = _assessment_type,
+                                hint = questions_item[8],
+                                #question_content = question_content.objects.all().get(content__contains=questions_item[13]),
+                                created_by = 'admin_data_import',
+                                level = _module_level[0],
+                                comments = questions_item_comments,
+                                 )
+                                new_question.save()
+
+                            if _question_type.pk in [5,6]: 
+
+                                new_question = question(
+                                
+                                question =  questions_item[4],
+                                narrative = questions_item[5],
+                                question_type = _question_type,
+                                assessment_type = _assessment_type,
+                                hint = questions_item[8],
+                                question_content = question_content.objects.all().get(content__contains=questions_item[13]),
+                                created_by = 'admin_data_import',
+                                level = _module_level[0],
+                                comments = questions_item_comments,
+                                 )
+                                new_question.save()
+                            if _question_type.pk in [7,8]: 
+
+                                new_question = question(
+                                
+                                question =  questions_item[4],
+                                narrative = questions_item[5],
+                                question_type = _question_type,
+                                assessment_type = _assessment_type,
+                                hint = questions_item[8],
+                                question_content = question_content.objects.all().get(content__contains=questions_item[8]),
+                                created_by = 'admin_data_import',
+                                level = _module_level[0],
+                                comments = questions_item_comments,
+                                 )
+                                new_question.save()
+                            #save options
+                            #10 Cross Words, 11 Word Search, 4 Unscramble,3 Riddles,2 Fill in the blanks, 1 Match the following,
+                            if _question_type.pk in [1, 2, 3, 4, 9, 10 , 11,7,8]: 
+                                if questions_item[13] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= questions_item[13],
+                                    is_right_option =1)
+                                    new_options.save()
+                                    
+                            # 12 Multiple Choice questions,  5 Single image based questions
+                            if _question_type.pk in [12, 5]: 
+                                #save options #1
+                                if questions_item[9] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= questions_item[9],
+                                    is_right_option = (questions_item[9] == questions_item[13]))
+                                    new_options.save()
+                                #save options #2
+                                if questions_item[10] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= questions_item[10],
+                                    is_right_option = (questions_item[10] == questions_item[13]))
+                                    new_options.save()
+                                #save options #3
+                                if questions_item[11] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= questions_item[11],
+                                    is_right_option = (questions_item[11] == questions_item[13]) )
+                                    new_options.save()
+                                #save options #4
+                                if questions_item[12] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= questions_item[12],
+                                    is_right_option = (questions_item[12] == questions_item[13]) )
+                                    new_options.save()
+
+                            # Multiple image based questions
+                            if _question_type.pk in [6]: 
+                                #save options #1
+                                if questions_item[9] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[9]),
+                                    is_right_option = (questions_item[9] == questions_item[13]))
+                                    new_options.save()
+                                #save options #2
+                                if questions_item[10] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[10]),
+                                    is_right_option = (questions_item[10] == questions_item[13]))
+                                    new_options.save()
+                                #save options #3
+                                if questions_item[11] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[11]),
+                                    is_right_option = (questions_item[11] == questions_item[13]) )
+                                    new_options.save()
+                                #save options #4
+                                if questions_item[12] != '' :
+                                    new_options = question_option(question = new_question, 
+                                    option_description= question_content.objects.all().get(content__contains=questions_item[12]),
+                                    is_right_option = (questions_item[12] == questions_item[13]) )
+                                    new_options.save()
+                                    
+
+                    index = index +1;
+                    recordInserted = recordInserted +1;
+                except Exception as ex:
+                    message = str(ex)
+                    textWriter.writerow(['Exception on the line no: '+ str(index) +' Exception:' + message])
+                    isValid = False
+    except Exception as ex:
+        message = str(ex)
+        textWriter.writerow(['Exception on the line no: '+ str(index) +' Exception:' + message])
+        isValid = False
+
+      
+    if isValid == False:
+        # messages.success(request, f'Successfully Added Question')  
+        data = {'ok': True}
+        textWriter.writerow(['Total no of records : ' + str(recordInserted)])
+        textWriter.writerow(['Excel import End'])
+        response['Content-Disposition'] = 'attachment;filename="logs.txt"'
+        return response
+    else:
+        messages.success(request, f'Successfully Added Question')
+    for file in os.listdir():
+        if (str(file).split('.')[-1] == 'xlsx'):
+           os.remove(file)
+    return  redirect('questions')
+
 
 
 @login_required
@@ -123,7 +391,7 @@ def home(request):
 
     a = {"p": programs1,
          "pmc": module_count_dict, "p1": programs, "f": facilitator1, "m": modules1}
-    return render(request, 'home.html', a)
+    return render(request, 'home/home.html', a)
 
 
 def load_modules_home(request):
@@ -190,7 +458,7 @@ def add_program(request):
     else:
         form = add_program_form()
 
-    return render(request, 'add_program.html', {"form": form})
+    return render(request, 'home/program/add_program.html', {"form": form})
 
 
 def edit_program(request, pk):
@@ -205,7 +473,7 @@ def edit_program(request, pk):
     else:
         form = add_program_form(instance=a)
 
-    return render(request, 'add_program.html', {"form": form})
+    return render(request, 'home/program/add_program.html', {"form": form})
 
 
 def delete_program(request, pk):
@@ -217,7 +485,7 @@ def delete_program(request, pk):
         q.delete()
         return redirect('home')
 
-    return render(request, 'delete_program.html', {"a": a})
+    return render(request, 'home/program/delete_program.html', {"a": a})
 
 
 def add_module(request, pk):
@@ -231,7 +499,7 @@ def add_module(request, pk):
             return redirect('home')
     else:
         form = add_module_form()
-    return render(request, 'add_module.html', {"form": form})
+    return render(request, 'home/module/add_module.html', {"form": form})
 
 
 def edit_module(request, pk, pk1):
@@ -247,7 +515,7 @@ def edit_module(request, pk, pk1):
             return redirect('view_module', pk, pk1)
     else:
         form = add_module_form(instance=a1)
-    return render(request, 'add_module.html', {"form": form})
+    return render(request, 'home/module/add_module.html', {"form": form})
 
 
 def delete_module(request, pk):
@@ -259,7 +527,7 @@ def delete_module(request, pk):
         q.delete()
         return redirect('home')
 
-    return render(request, 'delete_module.html', {"a": a})
+    return render(request, 'home/module/delete_module.html', {"a": a})
 
 
 def add_level(request, pk, pk1):
@@ -274,7 +542,7 @@ def add_level(request, pk, pk1):
             return redirect('view_module', pk, pk1)
     else:
         form = add_level_form()
-    return render(request, 'add_level.html', {"form": form})
+    return render(request, 'home/level/add_level.html', {"form": form})
 
 
 def edit_level(request, pk, pk1, pk2):
@@ -288,7 +556,7 @@ def edit_level(request, pk, pk1, pk2):
             return redirect('view_module', pk, pk1)
     else:
         form = add_level_form(instance=a)
-    return render(request, 'add_level.html', {"form": form})
+    return render(request, 'home/level/add_level.html', {"form": form})
 
 
 def delete_level(request, pk):
@@ -300,7 +568,7 @@ def delete_level(request, pk):
         q.delete()
         return redirect('home')
 
-    return render(request, 'delete_level.html', {"a": a})
+    return render(request, 'home/level/delete_level.html', {"a": a})
 
 
 def view_module(request, pk, pk1):
@@ -332,12 +600,12 @@ def view_module(request, pk, pk1):
         questions11 = paginator.page(page)
     except:
         questions11 = paginator.page(paginator_num_pages)
-    return render(request, 'view_module.html', {"p1": program1, "m": module1, "l": levels, "p": questions11, "check": check, 'check1': check1})
+    return render(request, 'home/module/view_module.html', {"p1": program1, "m": module1, "l": levels, "p": questions11, "check": check, 'check1': check1})
 
 
 def view_facilitator(request, pk):
     facilitator1 = get_object_or_404(facilitator, pk=pk)
-    return render(request, 'view_facilitator.html', {"f": facilitator1})
+    return render(request, 'home/facilitator/view_facilitator.html', {"f": facilitator1})
 
 
 def view_level(request, pk, pk1, pk2):
@@ -354,31 +622,42 @@ def view_level(request, pk, pk1, pk2):
         questions11 = paginator.page(page)
     except:
         questions11 = paginator.page(paginator_num_pages)
-    return render(request, 'view_level.html', {"l": level1, "p": questions11})
+    return render(request, 'home/level/view_level.html', {"l": level1, "p": questions11})
 
 
 def view_student(request, pk):
     student1 = get_object_or_404(student, pk=pk)
-    return render(request, 'view_student.html', {"f": student1})
+    return render(request, 'student/view_student.html', {"f": student1})
 
 
 def view_batch(request, pk):
     batch1 = get_object_or_404(batch, pk=pk)
-    return render(request, 'view_batch.html', {"f": batch1})
+    return render(request, 'batch/view_batch.html', {"f": batch1})
 
 
 def view_center(request, pk):
     center1 = get_object_or_404(center, pk=pk)
-    return render(request, 'view_center.html', {"f": center1})
+    return render(request, 'center/view_center.html', {"f": center1})
 
 
 def view_questions(request, pk):
     question1 = get_object_or_404(question, pk=pk)
-    if question1.question_type.pk in [7, 8, 9]:
+    assessment_type = None
+    form_question_type = None
+    if question1.question_type.pk in [7, 8, 9] and question1.question_content is not None:
         question1.sub_questions = question.objects.filter(
             question_content=question1.question_content)
+    try: 
+      assessment_type = question1.assessment_type;
+    except:
+      assessment_type = None
 
-    template = f'view_question/sub_view/{question1.question_type.question_type_id}.html'
+    form_question_type  = question1.question_type.question_type_id
+    if form_question_type in [10, 11] :
+        form_question_type = 1
+
+    question1.assessment_type = assessment_type
+    template = f'view_question/sub_view/{form_question_type}.html'
     try:
         django.template.loader.get_template(template)
     except:
@@ -401,7 +680,7 @@ def students(request):
     except:
         students1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'students.html', {"p": students1})
+    return render(request, 'student/students.html', {"p": students1})
 
 
 def student_search(request):
@@ -436,7 +715,7 @@ def centers(request):
     except:
         centers1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'centers.html', {"p": centers1})
+    return render(request, 'center/centers.html', {"p": centers1})
 
 
 def facilitators(request):
@@ -452,7 +731,7 @@ def facilitators(request):
         fac1 = paginator.page(page)
     except:
         fac1 = paginator.page(paginator_num_pages)
-    return render(request, 'facilitators.html', {"p": fac1})
+    return render(request, 'home/facilitator/facilitators.html', {"p": fac1})
 
 
 def batches(request):
@@ -468,7 +747,7 @@ def batches(request):
         batch1 = paginator.page(page)
     except:
         batch1 = paginator.page(paginator_num_pages)
-    return render(request, 'batches.html', {"p": batch1})
+    return render(request, 'batch/batches.html', {"p": batch1})
 
 
 def batch_search(request):
@@ -483,20 +762,68 @@ def batch_search(request):
 
 
 def questionss(request):
-    questions1 = question.objects.all()
-    paginator = Paginator(questions1, paginator_num_pages)
+    #questions1 = question.objects.all()
+    #paginator = Paginator(questions1, paginator_num_pages)
     try:
         page = int(request.GET.get('page'))
+        
     except:
         page = 1
+        
+        
 
+    questions1 = question.objects.all()
+        
+    paginator = Paginator(questions1, paginator_num_pages)
+    
     try:
+        
         questions11 = paginator.page(page)
     except:
         questions11 = paginator.page(paginator_num_pages)
 
-    return render(request, 'questions.html', {"p": questions11})
+    return render(request, 'question/questions.html', {"p": questions11})
 
+def questions_search(request):
+    try:
+        progName=str(request.GET.get('progname'))
+        moduleName=str(request.GET.get('modulename'))
+        levelName = str(request.GET.get('levelname'))
+        searchText = str(request.GET.get('searchtext'))
+        questionType = str(request.GET.get('questiontype'))
+    except:
+        searchText = questionType = levelName = moduleName = progName = ""
+   
+    data = question.objects.all()
+    if searchText:
+        data = [rec for rec in data if searchText.lower() in rec.question.lower()]
+    
+    if questionType:
+        data = [ rec for rec in data if questionType.lower() in rec.question_type.question_type.lower()]
+
+    if progName:
+        data = [ rec for rec in data if progName.lower() in rec.program.program_name.lower()]
+
+    if moduleName:
+        data = [ rec for rec in data if moduleName.lower() in rec.module.module_name.lower()]
+
+    if levelName:
+        data = [ rec for rec in data if levelName.lower() in rec.level.level_description.lower()]
+  
+
+    p = Paginator(data,25)
+    print(p.num_pages)
+    
+
+    page_num = int(request.GET.get('page',1))
+    print (page_num)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page= p.page(1)
+    
+    context={'p':page}
+    return render(request, 'question/questions.html', context)
 
 @login_required
 def add_question(request):
@@ -507,7 +834,7 @@ def add_question(request):
         option_formset.data = option_formset.data.copy()
         form.data = form.data.copy()
 
-        if request.POST['question_type'] in ['2', '4']:
+        if request.POST['question_type'] in ['1', '2', '4', '10', '11']:
             option_formset.data['form-0-is_right_option'] = True
 
         if request.POST['question_type'] == '5':
@@ -577,15 +904,15 @@ def add_question(request):
     else:
         form = add_question_form()
         option_formset = add_option_formset()
-        form.fields['question_type'].queryset = question_type.objects.exclude(
-            Q(pk=1) | Q(pk=10) | Q(pk=11))
+        form.fields['question_type'].queryset = question_type.objects.all()
     return render(request, 'add_question/main.html', {"form": form, "option_formset": option_formset})
 
 
 @login_required
 def question_type_form(request):
     form_question_type = request.GET['question_type']
-
+    if form_question_type in ['10', '11'] :
+        form_question_type = '1'
     template = f"add_question/sub_form/{form_question_type}.html"
     try:
         django.template.loader.get_template(template)
@@ -603,18 +930,24 @@ def question_type_form(request):
 def edit_question(request, pk):
     a = question.objects.get(pk=pk)
     form_question_type = a.question_type.pk
+    try:
+      form_assessment_type = a.assessment_type.pk
+    except:
+      form_assessment_type = None
+
 
     if request.method == "POST":
         form = add_question_form(request.POST, request.FILES, instance=a)
         option_formset = add_option_formset(request.POST)
         option_formset.data = option_formset.data.copy()
         form.data = form.data.copy()
-        form.data['level'] = a.level.pk
-        form.data['module'] = a.module.pk
-        form.data['program'] = a.program.pk
+        # form.data['level'] = a.level.pk
+        # form.data['module'] = a.module.pk
+        # form.data['program'] = a.program.pk
         form.data['question_type'] = form_question_type
+        # form.data['assessment_type'] = form_assessment_type
 
-        if form_question_type in [2, 4]:
+        if form_question_type in [1, 2, 4, 10, 11]:
             option_formset.data['form-0-is_right_option'] = True
 
         if form_question_type == 5:
@@ -671,6 +1004,7 @@ def edit_question(request, pk):
             elif form_question_type in [7, 8, 9]:
                 form.cleaned_data['question_content'].save()
                 for sub_question in sub_questions:
+                    sub_question.level = form.cleaned_data['level']
                     sub_question.question_content = form.cleaned_data['question_content']
                     sub_question.save()
 
@@ -686,8 +1020,12 @@ def edit_question(request, pk):
             messages.success(request, f'Successfully Edited questions')
             return JsonResponse(data)
     else:
+        if form_question_type in [10, 11] :
+            form_question_type = 1
         template = f"edit_question/sub_form/{form_question_type}.html"
         form = add_question_form(instance=a)
+        form.fields['question_type'].queryset = question_type.objects.all()
+        form.fields['question_type'].widget.attrs['disabled'] = True
         option_formset = add_option_formset(initial=a.options.values())
         return render(request, template, {"form": form, 'option_formset': option_formset})
 
@@ -700,7 +1038,7 @@ def delete_question(request, pk):
         messages.success(request, f'Successfully Deleted {a1}')
         q.delete()
         return redirect('questions')
-    return render(request, 'delete_question.html', {"a": a})
+    return render(request, 'question/delete_question.html', {"a": a})
 
 
 def load_modules(request):
@@ -727,7 +1065,7 @@ def add_facilitator(request):
     else:
         form = add_facilitator_form()
 
-    return render(request, 'add_facilitator.html', {"form": form})
+    return render(request, 'home/facilitator/add_facilitator.html', {"form": form})
 
 
 @login_required
@@ -743,7 +1081,7 @@ def edit_facilitator(request, pk):
     else:
         form = add_facilitator_form(instance=a)
 
-    return render(request, 'add_facilitator.html', {"form": form, "f": a})
+    return render(request, 'home/facilitator/add_facilitator.html', {"form": form, "f": a})
 
 
 def delete_facilitator(request, pk):
@@ -755,7 +1093,7 @@ def delete_facilitator(request, pk):
         q.delete()
         return redirect('home')
 
-    return render(request, 'delete_facilitator.html', {"a": a})
+    return render(request, 'home/facilitator/delete_facilitator.html', {"a": a})
 
 
 @login_required
@@ -770,7 +1108,7 @@ def add_student(request):
     else:
         form = add_student_form()
 
-    return render(request, 'add_student.html', {"form": form})
+    return render(request, 'student/add_student.html', {"form": form})
 
 
 @login_required
@@ -786,7 +1124,7 @@ def edit_student(request, pk):
     else:
         form = add_student_form(instance=a)
 
-    return render(request, 'add_student.html', {"form": form, "f": a})
+    return render(request, 'student/add_student.html', {"form": form, "f": a})
 
 
 def delete_student(request, pk):
@@ -798,7 +1136,7 @@ def delete_student(request, pk):
         q.delete()
         return redirect('students')
 
-    return render(request, 'delete_student.html', {"a": a})
+    return render(request, 'student/delete_student.html', {"a": a})
 
 
 @login_required
@@ -813,7 +1151,7 @@ def add_center(request):
     else:
         form = add_center_form()
 
-    return render(request, 'add_center.html', {"form": form})
+    return render(request, 'center/add_center.html', {"form": form})
 
 
 @login_required
@@ -829,7 +1167,7 @@ def edit_center(request, pk):
     else:
         form = add_center_form(instance=a)
 
-    return render(request, 'add_center.html', {"form": form})
+    return render(request, 'center/add_center.html', {"form": form})
 
 
 def delete_center(request, pk):
@@ -841,7 +1179,7 @@ def delete_center(request, pk):
         q.delete()
         return redirect('centers')
 
-    return render(request, 'delete_center.html', {"a": a})
+    return render(request, 'center/delete_center.html', {"a": a})
 
 
 @login_required
@@ -849,7 +1187,7 @@ def add_batch(request):
     if request.method == "POST":
         form = add_batch_form(request.POST)
         if form.is_valid():
-            form.end()
+            #form.end()
             a = form.cleaned_data.get('batch_name')
             form.save()
             messages.success(request, f'Successfully edited {a}')
@@ -857,7 +1195,7 @@ def add_batch(request):
     else:
         form = add_batch_form()
 
-    return render(request, 'add_batch.html', {"form": form})
+    return render(request, 'batch/add_batch.html', {"form": form})
 
 
 def edit_batch(request, pk):
@@ -876,7 +1214,7 @@ def edit_batch(request, pk):
     else:
         form = add_batch_form(instance=a)
 
-    return render(request, 'add_batch.html', {"form": form, "f": a})
+    return render(request, 'batch/add_batch.html', {"form": form, "f": a})
 
 
 def delete_batch(request, pk):
@@ -887,11 +1225,11 @@ def delete_batch(request, pk):
         messages.success(request, f'Successfully Deleted {a1}')
         return redirect('batches')
 
-    return render(request, 'delete_batch.html', {"a": a})
+    return render(request, 'batch\delete_batch.html', {"a": a})
 
 
 def password(request):
-    return render(request, 'password.html')
+    return render(request, 'admin/password.html')
 
 
 def password_management_facilitators(request):
@@ -908,7 +1246,7 @@ def password_management_facilitators(request):
     except:
         facilitators1 = paginator.page(paginator_num_pages)
 
-    return render(request, 'password_management_facilitators.html', {"p": facilitators1})
+    return render(request, 'admin/password_management_facilitators.html', {"p": facilitators1})
 
 
 def password_management_students(request):
@@ -924,7 +1262,7 @@ def password_management_students(request):
         students1 = paginator.page(page)
     except:
         students1 = paginator.page(paginator_num_pages)
-    return render(request, 'password_management_students.html', {"p": students1})
+    return render(request, 'admin/password_management_students.html', {"p": students1})
 
 
 def password_management_facilitator(request, pk):
@@ -940,7 +1278,7 @@ def password_management_facilitator(request, pk):
     else:
         form = password_facilitator_form()
 
-    return render(request, 'password_management_facilitator.html', {"form": form, "f": facilitator1})
+    return render(request, 'admin/password_management_facilitator.html', {"form": form, "f": facilitator1})
 
 
 def password_management_student(request, pk):
@@ -952,11 +1290,11 @@ def password_management_student(request, pk):
             a = student1.first_name
             form.save()
             messages.success(request, f'Successfully changed password for {a}')
-            return redirect('password_management_students')
+            return redirect('admin/password_management_students')
     else:
         form = password_student_form()
 
-    return render(request, 'password_management_student.html', {"form": form, "s": student1})
+    return render(request, 'admin/password_management_student.html', {"form": form, "s": student1})
 
 
 class LoginView1(auth_views.LoginView):

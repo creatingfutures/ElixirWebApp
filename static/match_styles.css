@@ -1,0 +1,13 @@
+/* Match the following table */
+table,
+th,
+td {
+    border: 3px solid black;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    font-weight: bold;
+    padding: 10px;
+}

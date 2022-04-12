@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+
+{% block page_specific_styles%}
+.open-button {
+  background-color: orange;
+  color: black;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: relative;
+  top: 20px;
+  bottom: 23px;
+  left: 0px;
+  width: 200px;
+  align:center
+}
+.panel-primary>.panel-heading {
+background-image: none !important;
+background-color: orange !important;
+color: white !important;
+}
+
+div .no-padding {
+  padding:0;
+}
+
+button .full-width{
+  width:100%;
+  //display:block; //only if you're having issues
+}
+.btn-warning {
+  background-color: orange !important;
+}
+
+{% endblock page_specific_styles%}
+
+{% block page_specific_htmlhead%}
+<link rel="stylesheet" href="/static/components/bootstrap/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="/static/components/jquery/jquery3.6.0.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+
+{% endblock%}
+
+{% block content %} 
+{{ score }}
+<br>
+{{ len }}
+<br>
+<br>
+<br>
+<div id="pageContent">
+<div class="col-md-3"></div>
+<div class="container col-md-6" id="container">
+  <form action="/writing_scores/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}" method="POST" id="form">
+    {% csrf_token %}
+  <div class="panel-group" id="panel-0">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_1"></div>
+      <div class="panel-body" id="user_answer_1"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-1">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_2"></div>
+      <div class="panel-body" id="user_answer_2"></div>
+    </div>
+  </div>  
+  <div class="panel-group" id="panel-2">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_3"></div>
+      <div class="panel-body" id="user_answer_3"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_4"></div>
+      <div class="panel-body" id="user_answer_4"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_5"></div>
+      <div class="panel-body" id="user_answer_5"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-5">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_6"></div>
+      <div class="panel-body" id="user_answer_6"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_7"></div>
+      <div class="panel-body" id="user_answer_7"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-7">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_8"></div>
+      <div class="panel-body" id="user_answer_8"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_9"></div>
+      <div class="panel-body" id="user_answer_9"></div>
+    </div>
+  </div>
+  <div class="panel-group" id="panel-9">
+    <div class="panel panel-primary">
+      <div class="panel-heading" id="question_10"></div>
+      <div class="panel-body" id="user_answer_10"></div>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+<script>
+function panel_text_check(){
+  x = 10
+  k = document.getElementsByClassName("panel-group")
+  var form  = document.getElementById("form");
+  for (var i = 0; i < k.length; i++) {
+    if(k[i].getElementsByClassName("panel-body")[0].textContent == ''){
+      k[i].style.display = "none"
+      x = x - 1;
+    } 
+}
+for (var j = 0; j < x; j++){
+  panel = "panel-"+j
+  var question_panel = document.getElementById(panel)
+  var form_box = document.createElement("input");
+  var br = document.createElement("br");
+  form_box.type = "number";
+  form_box.min = "0"
+  form_box.max = "10"
+  form_box.name = "marks"+ j
+  form_box.size = 20;
+  form_box.className = "form-control"
+  form_box.placeholder = "Enter marks between 0 and 10"
+  form_box.onkeyup = restrict_num;
+  form_box.required = true;
+  question_panel.appendChild(form_box)
+  // form.appendChild(br)
+  // form.appendChild(br)
+}
+var s = document.createElement("input");
+s.type = "input";
+s.value = "Submit";
+s.name = "submit"
+s.id = "submit";
+s.className = "btn btn-large btn-block btn-warning full-width"
+form.appendChild(s)
+}
+
+function restrict_num(event){
+  if(this.value > 10 || this.value < 0){
+    this.value = null;
+  }
+}
+
+if (sessionStorage.getItem("questions_1") != null) {
+  document.getElementById("question_1").innerHTML = sessionStorage.getItem('questions_1');
+  document.getElementById("user_answer_1").innerHTML = sessionStorage.getItem("answer_1"); 
+}
+if (sessionStorage.getItem("questions_2") != null) {
+  document.getElementById("question_2").innerHTML = sessionStorage.getItem('questions_2');
+  document.getElementById("user_answer_2").innerHTML = sessionStorage.getItem("answer_2"); 
+}
+if (sessionStorage.getItem("questions_3") != null) {
+  document.getElementById("question_3").innerHTML = sessionStorage.getItem('questions_3');
+  document.getElementById("user_answer_3").innerHTML = sessionStorage.getItem("answer_3"); 
+}
+if (sessionStorage.getItem("questions_4") != null) {
+  document.getElementById("question_4").innerHTML = sessionStorage.getItem('questions_4');
+  document.getElementById("user_answer_4").innerHTML = sessionStorage.getItem("answer_4"); 
+}
+if (sessionStorage.getItem("questions_5") != null) {
+  document.getElementById("question_5").innerHTML = sessionStorage.getItem('questions_5');
+  document.getElementById("user_answer_5").innerHTML = sessionStorage.getItem("answer_5"); 
+}
+if (sessionStorage.getItem("questions_6") != null) {
+  document.getElementById("question_6").innerHTML = sessionStorage.getItem('questions_6');
+  document.getElementById("user_answer_6").innerHTML = sessionStorage.getItem("answer_6"); 
+}
+if (sessionStorage.getItem("questions_7") != null) {
+  document.getElementById("question_7").innerHTML = sessionStorage.getItem('questions_7');
+  document.getElementById("user_answer_7").innerHTML = sessionStorage.getItem("answer_7"); 
+}
+if (sessionStorage.getItem("questions_8") != null) {
+  document.getElementById("question_8").innerHTML = sessionStorage.getItem('questions_8');
+  document.getElementById("user_answer_8").innerHTML = sessionStorage.getItem("answer_8"); 
+}
+if (sessionStorage.getItem("questions_9") != null) {
+  document.getElementById("question_9").innerHTML = sessionStorage.getItem('questions_9');
+  document.getElementById("user_answer_9").innerHTML = sessionStorage.getItem("answer_9"); 
+}
+if (sessionStorage.getItem("questions_10") != null) {
+  document.getElementById("question_10").innerHTML = sessionStorage.getItem('questions_10');
+  document.getElementById("user_answer_10").innerHTML = sessionStorage.getItem("answer_10"); 
+}
+
+
+panel_text_check();
+
+      $("#submit").click(function () {
+      var token = "{{csrf_token}}";
+      var markTextboxes = $('[name^=marks]');
+      var marks = [];
+      $(markTextboxes).each(function(count){
+                                            marks.push($(this).val());
+                                        });
+      $.ajax({ 
+                url:'/writing_test_submit/{{ pk }}/{{ pk1 }}/{{ pk2 }}/{{ pk3 }}/{{ pk4 }}/{{ programName }}',
+                // writing_test_submit/<int:pk>/<int:pk1>/<int:pk2>/<int:pk3>/<int:pk4>/<str:programName>/<int:score>/<int:len>
+                headers:{"X-CSRFToken":token},
+                type:'POST', 
+                 data: {
+                    marks:JSON.stringify(marks)
+                },
+                success: function (data) {
+                  $("#pageContent").replaceWith(data) ;
+                }
+              });
+
+            });
+sessionStorage.clear()
+</script> 
+
+{% endblock content %}

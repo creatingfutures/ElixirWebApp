@@ -1,0 +1,90 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a>
+            </li>
+            <li>
+                <a href="#">LEVEL 6 LESSON</a>
+            </li>
+
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Conversation  – Level 6</h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h3 class="bg-white boxspace fonth2">Giving and Receiving Feedback </h3>
+                                <p>
+                                    In life as much as in work, it’s important to know how to provide feedback to others, effectively and constructively without causing offence.
+                                </p>
+                                <p>
+                                    The process of communicating with someone about something that they have done or said, with a view to changing or encouraging that behaviour is called ‘giving feedback’. And when we do give feedback, you want your feedback to be effective.
+                                </p>
+                                <h3 class="bg-white boxspace fonth2">What is Effective Feedback?</h3>
+                                <p>Effective feedback is that which is clearly heard, understood and accepted.</p>
+                                <ul class="list space" style="list-style: decimal;">
+                                    <li>
+                                        Feedback should be about behaviour not personality   
+                                    </li>
+                                    <li>
+                                        Feedback should describe the effect of the person’s behaviour on you
+                                    </li>
+                                    <li>
+                                        Feedback should be as specific as possible
+                                    </li>
+                                    <li>
+                                        Feedback should be as specific as possible
+                                    </li>
+                                    <li>
+                                        Pick your moment  
+                                    </li>
+                                </ul>
+                                <h3 class="bg-white boxspace fonth2">Receiving Feedback</h3>
+                                <p>It’s also important to think about what skills you need to receive feedback, especially when it is something you don’t want to hear, and also because not everyone is skilled at giving feedback.</p>
+                                <ul class="list space" style="list-style: decimal;">
+                                    <li>
+                                        Be Open To The Feedback  
+                                    </li>
+                                    <li>
+                                        Listen to The Feedback
+                                    </li>
+                                    <li>
+                                        thank the person who has given you the feedback
+                                    </li>
+                                    <li>
+                                        Clarify / Ask questions so that you have fully understood
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <style>
+        .para1 {
+            background-color:white;
+            width:20%;
+            text-align:left;
+            padding-left:50px;
+            padding-right:50px;
+        }
+    </style>
+{% endblock %}
+   
+{% block content %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'spoken_english' pk pk1 p %}">MODULES</a>
+      </li>
+      <li>
+        <a href="#">LISTENING SKILLS</a>
+      </li>
+    </ul>
+<h1>
+    
+    LISTENING SKILLS - SELF ASSESSMENT
+    
+</h1>
+<center>
+    <div class="container1">
+        <br>
+        <h1> SCORE: 
+        <script type="text/javascript">
+            document.write(localStorage.getItem("total"));
+        </script>
+        </h1>
+       
+       
+            <div class="para1">
+                    <h3>61-70 points = Effecive listener</h3>
+	                <h3>41-60 points = Good listener</h3>
+	                <h3>28-40 points = Not-so-good listener</h3>
+	                <h3>28 points or less = Need to focus on listening</h3>
+            </div>
+            <center>
+              
+                <a href="{% url 'LT' pk pk1 p %}" class="button">Try Again</a> &nbsp;
+                <a href="{% url 'spoken_english' pk pk1 p %}" class="button">Next Level</a>
+            </center>
+            <br>
+            <br>
+        
+    </div>
+ </center>
+<script>
+   function getResult() {
+      var firstQues = document.getElementsByName('firstQues');
+      var secondQues = document.getElementsByName('secondQues');
+	  var thirdQues = document.getElementsByName('thirdQues');
+	  var fourthQues = document.getElementsByName('fourthQues');
+	  var fifthQues = document.getElementsByName('fifthQues');
+	  var sixthQues = document.getElementsByName('sixthQues');
+	  var seventhQues = document.getElementsByName('seventhQues');
+	  var eightQues = document.getElementsByName('eightQues');
+	  var ninthQues = document.getElementsByName('ninthQues');
+	  var tenthQues = document.getElementsByName('tenthQues');
+	  var eleQues = document.getElementsByName('eleQues');
+	  var twQues = document.getElementsByName('twQues');
+	  var thirteenQues = document.getElementsByName('thirteenQues');
+	  var fourteenQues = document.getElementsByName('fourteenQues');
+      var total = 0;
+       firstQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+			
+           }
+           else
+		        alert("Please select all values");
+      });
+      secondQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  thirdQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  fourthQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  fifthQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  sixthQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  seventhQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  eightQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  ninthQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  fifthQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  tenthQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  eleQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  twQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  thirteenQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+         }
+      });
+	  fourteenQues.forEach((evnt) => {
+         if (evnt.checked) {
+            total = total + parseInt(evnt.value);
+            return;
+		 
+         }
+		 else{
+		 alert("Please select");
+		 }
+		 
+      });
+	  
+      
+	  //document.getElementById("score").innerHTML = localStorage.getItem("total");
+   }
+   //alert("Please select all");
+</script>
+{% endblock %}

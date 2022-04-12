@@ -1,5 +1,6 @@
 {% extends 'view_question/main.html' %} {% load static %} {% block sub_view %}
 <label>Video: </label>
+<br />
 {{f.question_content}}
 <video controls>
   <source src="{% get_media_prefix %}{{f.question_content}}" />
@@ -7,36 +8,42 @@
 <p>
   <label>Content Id: </label>
   {{f.question_content.pk}}
+    <br/> 
 </p>
+<br />
 <p>
   <label> Sub Questions: </label>
 </p>
-
+<br />
 {% for sub_question in f.sub_questions %}
 <p>
   <label>Narrative:</label>
   {{sub_question.narrative}}
+    <br/> 
 </p>
+<br />
 <label> Question {{ forloop.counter }}: </label>
+<br />
 {{sub_question.question}} {% for option in sub_question.options %}
 <p>
   <label>Option {{ forloop.counter }}:</label>
-  {{option}}
+  {{option}}<br/> 
 </p>
 {% endfor %}
-
+<br />
 <p>
   <label>Answer: </label>
-  {{sub_question.answer}}
+  {{sub_question.answer}}<br/> 
 </p>
-
+<br />
 <p>
   <label>Comments:</label>
-  {{sub_question.comments}}
+  {{sub_question.comments}}<br/> 
 </p>
+<br />
 <p>
   <label>Hint:</label>
-  {{sub_question.hint}}
+  {{sub_question.hint}}<br/> 
 </p>
 <br />
 {% endfor %} {% endblock sub_view %}

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<link rel="stylesheet" href="{% static 'components/normalize/normalize.min.css' %}">
+  	<link rel="stylesheet" type="text/css" href="/static/css/crossword_styles.css">
+	<!-- <link rel="stylesheet" href="/static/css/Elixir.css"> -->
+	<script src="/static/components/jquery/jquery3.6.0.min.js"></script>
+  
+  	<script src="{% static 'js/commons.js' %}"></script>
+
+{% endblock page_specific_htmlhead%}
+
+{% block content %}   
+	<ul class="breadcrumb">
+		<li>
+			<a href="{% url 'spoken_english' pk pk1 'spoken english' %}" >MODULES</a>
+		</li>
+		<li>
+			<a href="{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}">Crossword</a>
+		</li>
+	</ul>
+	 
+	<h1 style="text-align:center"> 
+		EXERCISES ON {{m.module_name|allcaps}} - {{l.level_description|allcaps}}
+	</h1>
+
+	<h2 style="text-align:center"> 
+		Crossword 
+	</h2>
+	<br> 
+	<br>
+
+    <div style="text-align: center; height: 75px;"><h1 id="timer" style="padding: 1rem;display: inline; background: orange;">{{ settings.CROSSWORD_TIME }}</h1></div>
+
+
+<div class='container-fluid d-flex align-items-center'>
+	<div class="col-xs-6" style="float: left; margin-left: 5%;margin-right: 20%;">
+	<table id="puzzle"></table>
+	<div style="margin-top: 10px;margin-bottom: 20px;">
+		<input class="butt" type="submit" value="Clear All" onclick="clearAllClicked({{questions|safe}},{{across_or_down|safe}})">
+		<input class="butt"  type="submit" value="Check" onclick="answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}})">
+		<input class="butt" style="display: none;" type="submit" value="Clue" onclick="clueClicked({{questions|safe}},{{across_or_down|safe}},{{word_number|safe}})">
+	</div>	
+	</div>	
+	
+	
+	<div class="col-xs-6" style="margin-left: 20px;">
+	<table id="wordbox" style="margin-bottom: 20px;"></table>
+	<button id="submit" class="button">Submit</button>
+	<button class="button" onclick="location.href='{% url 'list_narrative' pk pk1 pk2 m.pk l.pk typ %}'">Back</button>	
+	</div>
+
+
+</div>
+
+    <script src="/static/js/timer.js"></script>
+
+	<script type="text/javascript">
+
+    var time = {{ settings.CROSSWORD_TIME }};
+		//initialize crossword screen on load
+		$( document ).ready(function() {
+			initializeScreen({{questions|safe}},{{across_or_down|safe}});
+			$("#submit").click(function(){
+
+                if(time <= 0){
+                    alert("Time Up!");
+                }
+
+				var score = answerblueprint({{new_cells_allowed|safe}},{{answers|safe}},{{across_or_down|safe}});
+				console.log(score);
+				var token = "{{csrf_token}}";
+				var total_score = 1;
+				$.ajax({ // initialize an AJAX request
+				url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{m.pk}}+'/level/'+{{l.pk}}+'/score_save/'+{{typ}}+'/'+score+'/'+total_score,
+				type:'POST', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				headers:{"X-CSRFToken":token},
+				data: {
+				user_score: score,
+				level_id: {{l.pk}},
+				batch_id: {{pk1}},
+				module_id: {{m.pk}},
+				student_id: {{pk}},
+				question_content_id:{{question_content_id}},
+				narrative:"{{narrative}}",
+				},
+				success: function(data) {
+			  $("#container").html(data) // `data` is the return of the `load_cities` view function
+				}
+		  });
+		});
+		});
+	</script>
+	<script type="text/javascript">
+		
+		//Globals
+		//Adds the hint numbers
+
+		function addHint(){
+			var answer_start = {{answer_start|safe}};
+			var word_number = {{word_number|safe}};
+			placeholder = 0 
+			for(var i =0;i<answer_start.length;i++)
+			{
+				placeholder = placeholder+1
+				document.getElementById(answer_start[i]).placeholder = word_number[i];
+			}
+			clueClicked({{questions|safe}},{{across_or_down|safe}},{{word_number|safe}});
+		}
+		//Stores ID of the selected cell into currentTextInput
+		//Returns Array
+		function preparePuzzleArray(){
+		var items = {{nd_array|safe}};
+		return items;
+		}
+		//Clear All Button
+	</script>
+
+{% endblock content %}

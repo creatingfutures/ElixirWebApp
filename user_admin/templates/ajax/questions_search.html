@@ -1,0 +1,55 @@
+﻿{% load user_tags %}
+{% load static %}
+
+<table  class="table"  align="center" style="width: 90%; font-family: Montserrat">
+        <tr>
+            <th>
+                PROGRAM NAME
+                <br/>
+                {#<select id="ddlPgmName"></select>#}
+            </th>
+            <th>MODULE</th>
+            <th>LEVEL</th>
+            <th>QUESTION TYPE</th>
+            <th>QUESTION</th>
+            <th>ACTION</th>
+        </tr>
+        {% for q1 in p %}
+            <tr>
+                <td class="col-sm-2">{{q1.program}}</td>
+                <td class="col-sm-1">{{q1.module}}</td>
+                <td class="col-sm-1">{{q1.level}}</td>
+                <td class="col-sm-1">{{q1.question_type}}</td>
+                <td class="col-sm-6">{{q1.question}}</td>
+                <td class="col-sm-3">
+                <a
+                    href="{% url 'view_questions' q1.question_id %}"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="View"
+                    ><span class="glyphicon glyphicon-eye-open actionview"></span>
+                    </a>
+                &nbsp; &nbsp;
+                <a
+                    href="{% url 'edit_question' q1.question_id %}"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Edit"
+                    ><span class="glyphicon glyphicon-pencil actionedit"></span
+                ></a>
+                &nbsp; &nbsp;
+                <a
+                    href="{% url 'delete_question' q1.question_id %}"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Delete"
+                    ><span class="glyphicon glyphicon-remove actionremove"></span
+                ></a>
+                </td>
+            </tr>
+        {% endfor %}
+</table>
+
+<div class="row" style="margin-top: 15px"> 
+    {% include  'ajax/pagination_search.html' %} 
+</div>

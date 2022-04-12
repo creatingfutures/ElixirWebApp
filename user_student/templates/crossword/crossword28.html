@@ -1,0 +1,149 @@
+{% load static %}
+{% load student_tag %}
+
+
+
+
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="exercise.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <style>
+        ul.breadcrumb {
+      padding: 10px 16px;
+      list-style: none;
+      background-color:lightgray;
+    }
+    ul.breadcrumb li {
+      display: inline;
+      font-size: 18px;
+    }
+    ul.breadcrumb li+li:before {
+      padding: 8px;
+      color: black;
+      content: "/\00a0";
+    }
+    ul.breadcrumb li a {
+      color: darkblue;
+      text-decoration: none;
+    }
+    ul.breadcrumb li a:hover {
+      color: darkblue;
+      text-decoration: underline;
+    }
+    
+    </style>     
+          
+</head>
+
+
+    <div class="nav">
+      <div class="navig">
+        <div>
+      <img src="{% static 'elixir_logo.PNG' %}"alt="" style="width:20%;height:100%;margin:0;"/>
+      </div>
+      <div class="navv">
+      <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
+      <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
+      <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
+          <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOG OUT</a>
+      </div>
+      </div>
+    </div>
+    <ul class="breadcrumb">
+		<li><a href="{% url 'spoken_english' pk pk1 pk2 %}" >MODULES</a></li>
+		<li><a href="#">QUESTIONS</a></li>
+		
+		
+	  </ul>
+	
+
+<h1 style="text-align:center"> EXERCISES ON {{m.module_name|allcaps}} -  {{l.level_description|allcaps}} </h1>
+
+<h2 style="text-align:center"> CrossWord </h2>
+<br> <br>
+
+<script src="{% static 'commonjs.js'%}"></script>
+<script>
+
+//Globals
+//Adds the hint numbers
+
+
+function addHint(){
+	document.getElementById("txt_0_7").placeholder = "1";
+	document.getElementById("txt_0_11").placeholder = "2";
+	document.getElementById("txt_1_5").placeholder = "3";
+	document.getElementById("txt_2_7").placeholder = "4";
+	document.getElementById("txt_3_1").placeholder = "5";
+	document.getElementById("txt_4_5").placeholder = "6";
+    document.getElementById("txt_5_1").placeholder = "7";
+    document.getElementById("txt_5_3").placeholder = "8";
+    document.getElementById("txt_7_0").placeholder = "9";
+    document.getElementById("txt_8_3").placeholder="10";
+    
+    }
+//Stores ID of the selected cell into currentTextInput
+//Returns Array
+function preparePuzzleArray(){
+var items = [	[0,0,0,0,0,0,0,'m',0,0,0,'v'],
+                [0,0,0,0,0,'t',0,'o',0,0,0,'a'],
+                [0,0,0,0,0,'r',0,'t','r','a','i','n'],
+                [0,'s',0,0,0,'u',0,'o',0,0,0,0],
+                [0,'u',0,0,0,'c','a','r',0,0,0,0],
+                [0,'b','u','s',0,'k',0,'b',0,0,0,0],
+                [0,'w',0,'h',0,0,0,'i',0,0,0,0],
+                ['t','a','x','i',0,0,0,'k',0,0,0,0],
+                [0,'y',0,'p','l','a','n','e',0,0,0,0]
+
+			];
+return items;
+}
+//Clear All Button
+</script>
+</head>
+<body onload="initializeScreen()">
+    
+<div id="leftBox">
+<table id="puzzle">
+
+</table>
+</div>
+
+<div id="rightBox">
+<table>
+	<tr><td><input class="butt"  type="submit" value="Clear All" onclick="clearAllClicked()"></td>
+	<td><input class="butt"  type="submit" value="Check" onclick="checkClicked()"></td>
+	<td><input class="butt"  type="submit" value="Clue" onclick="clueClicked()"></td></tr>
+</table>
+</div>
+
+<table id="hintsTable">
+		<tr>
+			<td><strong>Horizontal:</strong></td><td><strong>Vertical:</strong></td>
+		</tr>
+		<tr>
+			<td>4.tr_ _ _</td><td>1.m_t_rb_k_</td>
+		</tr>
+		<tr>
+			<td>6.c _ _</td><td>2.v_n</td>
+		</tr>
+		<tr>
+			<td>7.b _ _</td><td>3.tr_ _ k</td>
+    </tr>
+         <tr>
+			<td>9.t _ x _</td><td>5.s _ b _ _ y</td>
+		</tr>
+        <tr>
+			<td>10.p _ _ _ _</td><td>8.s _ _ _</td>
+		</tr>
+      
+</table>
+
+
+
+</html>

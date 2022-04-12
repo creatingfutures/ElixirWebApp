@@ -1,0 +1,171 @@
+/**
+* Wordfind.js 0.0.1
+* (c) 2012 Bill, BunKat LLC.
+* Wordfind is freely distributable under the MIT license.
+* For all details and documentation:
+*     https://github.com/bunkat/wordfind
+*/
+/*.nav {
+    background-color: orange;
+    height: 30%;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    justify-content: center;
+    align-items: center;
+    font-family: Montserrat;
+    font-size: 12px;
+}
+
+.navig {
+    grid-row: 2/3;
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: white;
+    flex-direction: row;
+}
+
+.navv {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+nav {
+    float: right;
+}
+
+.logo img {
+    float: left;
+    padding: 8px;
+}
+
+* {
+    transition: all 0.3s ease-in-out;
+}
+
+body {
+    background: lightgray;
+}*/
+
+.puzzleWrap {
+    width: 850px;
+    margin: 50px auto 0;
+    display: inline;
+}
+
+h2 {
+    font-family: "Montserrat";
+    font-weight: 100;
+}
+
+/**
+* Styles for the puzzle
+*/
+#puzzle {
+    padding: 0px;
+    float: left;
+    margin: 30px 20px;
+   /* width: 500px;*/
+    touch-action: none; 
+    
+}
+
+    #puzzle div {
+        width: 100%;
+        margin: 0 auto;
+        touch-action: none; 
+    }
+
+    /* style for each square in the puzzle */
+    #puzzle .puzzleSquare {
+        height: 2em;
+        width: 2em;
+        text-transform: uppercase;
+        background-color: orange;
+        border: 0;
+        outline: none;
+        font: 1.5em 'Century Gothic';
+        color: black;
+        touch-action: none; 
+    }
+
+button::-moz-focus-inner {
+    border: none;
+    outline: none;
+}
+
+/* indicates when a square has been selected */
+#puzzle .selected {
+    color: #ee5426;
+    outline: none;
+}
+
+    #puzzle .selected:focus {
+        border: none;
+    }
+
+/* indicates that the square is part of a word that has been found */
+#puzzle .found {
+    /*color: #c4c4c4;*/
+    background-color:lightgray;
+}
+
+#puzzle .solved {
+    color: #ee5426;
+}
+
+/* indicates that all words have been found */
+#puzzle .complete {
+    background-color: green;
+}
+
+/**
+* Styles for the word list
+*/
+#words {
+    width: 200px;
+    color: black;
+    float: left;
+    margin-left: 18px;
+    margin-top: 1.5%;
+}
+
+    #words ul {
+        list-style-type: none;
+    }
+
+    #words li {
+        padding: 0 0 7px;
+        font: 1.5em 'Century Gothic';
+        display: inline-block;
+        float: left;
+        width: 100px;
+        text-align:left;
+    }
+
+    /* indicates that the word has been found */
+    #words .wordFound {
+        text-decoration: line-through;
+        color: #ee5426;
+    }
+
+/**
+* Styles for the button
+*/
+#solve {
+    margin: 30px 30px 0 40px;
+    background: transparent;
+    color: #ee5426;
+    padding: 10px 20px;
+    border: 2px solid #ee5426;
+    border-radius: 25px;
+    opacity: .5;
+    transition: opacity .25s ease-in;
+}
+
+    #solve:hover, #solve.gameSolved {
+        opacity: 1;
+    }

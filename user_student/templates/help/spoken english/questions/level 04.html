@@ -1,0 +1,60 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 4 LESSON</a></li>
+
+        </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Questions – Level 4 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    In this level, you will learn about questions that will help you analyse based on history or facts. 
+                                    Analysis is an important part of thinking. The responses to these questions need analysis accompanied with facts. 
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=" mleft">
+                                <h2 class="bg-white boxspace"><b> Examples </b></h2>
+                               <ul class="list space">
+                                   <li>Why is the sky blue? </li>
+                                   <li>What makes the Earth spin? </li>
+                                   <li>What is the difference between speed and velocity? </li>
+                                   <li>What are the planets in our solar system? </li>
+                                   <li>Why does metal rust? </li>
+                                   <li>Why did the First World War happen? </li>
+                                </ul>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

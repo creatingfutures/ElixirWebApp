@@ -1,0 +1,82 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 3 LESSON</a></li>
+        
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2">Writing  – Level 3 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                
+                                <h2 class="bg-white boxspace fonth2">Example </h2>
+                                    <ul class="list space">
+                                        <li>A Thank you message
+                                            <ul>
+                                                <li>
+                                                    “Hi Ajay. I am just writing to say thank you for your help on the project. This has helped me in understanding the concepts and most importantly, complete the project on time”
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li> A New Year Resolution
+                                            <ul>
+                                                <li>
+                                                    “I like to start every year with my New Year's resolutions. Here are my resolutions this year.
+                                                    <ul>
+                                                       <li>
+                                                           Learn English
+                                                        </li> 
+                                                       <li>
+                                                           Save some money 
+                                                        </li>
+                                                        <li>
+                                                        Cook More
+                                                    </li>
+                                                       <li>
+                                                           Travel by public transport  
+                                                       </li>
+                                                    </ul>
+                                                </li>
+                                                
+                                            </ul>
+                                        </li>
+                                        <li>Online Discussion Forum
+                                            <ul>
+                                                <li>
+                                                    For a better world, we should bring our own water bottle. I am starting with this one and it is the easiest things we can do to save mother earth, create less waste, and save money.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

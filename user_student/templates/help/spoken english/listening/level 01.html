@@ -1,0 +1,63 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %} 
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a>
+            </li>
+            <li>
+                <a href="#">LEVEL 1 LESSON</a>
+            </li>
+        
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Listening – Level 1 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h1 style="font-weight: bold !important; " class="bg-white boxspace">What is Listening?
+                                </h1>
+
+                                <p>
+                                    Listening is the ability to hear and understand the message being communicated.
+                                    Listening enables an individual to decode the information and if necessary, to
+                                    initiate the action required. </p>
+                                    <p>
+                                    In the beginner level, listening would involve hearing out basic letters or words.
+                                </p>
+                                <ul class="list space" style="list-style: lower-roman;">
+                                <li><b> Letter:</b> Beginner level starts with hearing all the 26 Letters like A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y and Z .</li>
+                                <li><b> Numbers: </b>All numbers from 0, 1, 2, 3, 4, 5 ,6,7, 8, 9 are included here</li>
+                                <li> <b> Words: </b>    It can be names of Places like “Delhi”, “Kolkata”, “Bengaluru”, “Mumbai”,  Chennai”. It can be Person names like “Abhishek”, “Poornima”, “Akshay”, “Leena”. </li>
+
+                               </ul>
+                               
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

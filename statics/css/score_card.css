@@ -1,0 +1,30 @@
+
+  .container1 {
+    z-index: 1;
+    width: 200px;
+    position: relative;
+    height:40%;
+    left: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+  .button{
+    font-family: 'Century Gothic';
+    background-color: orange;
+    border: none;
+    color: black;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      outline: none;
+    }

@@ -1,0 +1,67 @@
+{% extends '../../base/base.html' %}
+{% block content %}
+
+<br><br>
+<div class="row">
+  <div class="col-md-12">
+  <br>
+  <table class="table" align="center" style="width:80%;font-family: Montserrat; width: 50%;">
+    <tr>
+      <th>NAME</th>
+      <th>CONTACT</th>
+      <th>ACTION</th>
+    </tr>
+      {% for s1 in p %}
+    <tr>
+      <td class="col-md-4">{{s1.first_name}} {{s1.last_name}}</td>
+      <td class="col-md-4">{{s1.mobile_number}}</td>
+      <td class="col-md-4"  ><a href="{% url 'edit_facilitator' s1.facilitator_id %}"data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> &nbsp; &nbsp; <a href="{% url 'view_facilitator' s1.facilitator_id %}"data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a></td>
+    </tr>
+      {% endfor %}
+  </table>
+</div>
+</div>
+  <br>
+<div class="row">
+  <div class="col-md-12">
+
+  <div class="pagination" style="width:20%;position:absolute;left:40%">
+  <ul style="position:absolute;left:10%">
+    {% if p.has_previous %}
+    <li><a href="?page={{p.previous_page_number}}">Previous</a></li>
+   {% endif %}
+   {% for pg in p.paginator.page_range %}
+   {% if p.number == pg %}
+   <li class="active" style="background-color:orange;color:white;"><a href="?page={{pg}}">{{pg}}</a></li>
+  {% elif pg > p.number|add:'-2' and pg < p.number|add:'2' %}
+  <li><a href="?page={{ pg }}">{{pg}}</a></li>
+  {% endif %}
+  {% endfor %}
+
+  {% if p.has_next %}
+  <li><a href="?page={{p.next_page_number}}">Next</a></li>
+  {% endif %}
+  </ul>
+
+  </div>
+  
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+
+
+  <br>
+  <br><br>
+  <a class="button" style="margin-left:350px;color:black;"    href="{% url 'add_facilitator' %}">ADD FACILITATOR</a>
+  <button style="margin-left: 5px;"
+  type="button"
+  class="button"
+  onclick="back()"
+>
+  Go Back
+</button>
+  <br>
+</div>
+</div>
+{% endblock content %}

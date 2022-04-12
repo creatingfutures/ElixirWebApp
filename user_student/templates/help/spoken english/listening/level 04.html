@@ -1,0 +1,55 @@
+﻿
+{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 4 LESSON</a></li>
+        
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Listening – Level 4 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    This level mainly covers pronunciation of sentences. A sentence is a group of words
+                                    that are put together to mean something.
+                                </p>
+                                <h2 class="bg-white boxspace fonth2">Example </h2>
+                                <p>“My name is Abhishek”,  <br>
+                                    “I stay in Bangalore” <br>
+                                    “I study in Bangalore University”<br>
+                                    “Where are you from?”<br>
+                                    “Where do you stay?”<br>
+                                    “What’s the cost of this shirt?”<br>
+                                    “How far is the marketplace from here?”<br>
+                                    
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

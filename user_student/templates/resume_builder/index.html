@@ -1,0 +1,1454 @@
+{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+    <title>RESUME BUILDER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'components/jsGrid/jsgrid.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'components/jsGrid/jsgrid-theme.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'components/jquery-ui-1.12.1/jquery-ui.css' %}" />
+    <link rel="stylesheet" href="/static/components/select2/select2.min.css">
+    <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+
+    <script src="/static/components/jquery/jquery3.6.0.min.js" ></script>
+    <script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="/static/components/select2/select2.min.js"></script>
+     <script src="{% static 'components/jquery-ui-1.12.1/jquery-ui.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'components/jsGrid/jsgrid.js' %}"></script>
+    <script type="text/javascript" src="{% static 'components/html-docx-js/FileSaver.js' %}"></script>
+    <script type="text/javascript" src="{% static 'components/html-docx-js/html-docx.js' %}"></script>
+    <script type="text/javascript" src="{% static 'components/tinymce/js/tinymce.min.js' %}"></script>
+
+
+
+
+    <script type="text/javascript">
+
+
+        function onResumePreview() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = $("#frmResumeEntry");
+            if (forms.length > 0) {
+                if (forms[0].checkValidity() == true) {
+                    ShowPreview();
+                }
+                forms[0].classList.add('was-validated');
+            }
+
+        }
+
+        function downloadResume() {
+            $(".container").wordExport();
+        }
+
+        function showEditResume() {
+            $("#frmResumeEntry").show();
+            $("#frmPreview").hide();
+
+
+        }
+
+        //function called to reset all entries to empty
+        function ResetForm() {
+            $("#divEducation").jsGrid("option", "data", []);
+            $("divAcademicProjects").jsGrid("option", "data", []);
+            $("divWorkProjects").jsGrid("option", "data", []);
+            $("divInternshipProjects").jsGrid("option", "data", []);
+            $("divVolunteeringProjects").jsGrid("option", "data", []);
+            $("divCertifications").jsGrid("option", "data", []);
+        }
+
+        //function called to show resume preview
+        function ShowPreview() {
+            var frmPreview = $("#frmPreview");
+            var frmResumeEntry = $("#frmResumeEntry");
+
+            var textboxes = $(frmResumeEntry).find("input[type='text'],input[type='email'], input[type='tel']");
+            //populate the preview form with values from each textbox and text area
+            $.each(textboxes, function (index, textbox) {
+                var id = $(this).attr("id");
+                var text = $(this).val();
+                if (id != undefined) {
+                    id = id.replace("txt", "lbl");
+                    var label = $(frmPreview).find("#" + id);
+                    label.text(text);
+
+
+                }
+            });
+            var textAreas = $(frmResumeEntry).find("textarea");
+            $.each(textAreas, function (index, textArea) {
+                var id = $(this).attr("id");
+                var text = $(this).val();
+                if (id != undefined) {
+                    id = id.replace("txt", "lbl");
+                    var label = $(frmPreview).find("#" + id);
+                    label.text(text);
+                }
+            });
+            //populate the tables from resume editing section into the preview section
+            var tables = $(frmResumeEntry).find(".jsgrid");
+            $.each(tables, function (index, table) {
+                var id = $(this).attr("id");
+                var html = $(this).html();
+                var previewTbl = $(frmPreview).find("#" + id);
+                var gridData = $("#" + id).jsGrid("option", "data");
+                var gridFields = $("#" + id).jsGrid("option", "fields");
+
+                var tblHtml = "<table style= 'border:1px solid rgb(187,187,187);'> ";
+                //construct the headers of the table
+                tblHtml = tblHtml.concat("<thead>");
+                tblHtml = tblHtml.concat("<tr>");
+
+                $.each(gridFields, function (i, v) {
+                    if (typeof v != "undefined" && typeof v.title != "undefined" && v.title != "" && v.title != null) {
+                        tblHtml = tblHtml.concat("<th  style= 'border:1px solid rgb(187,187,187);'>");
+                        tblHtml = tblHtml.concat(v.title);
+                        tblHtml = tblHtml.concat("</th>");
+                    }
+                });
+                tblHtml = tblHtml.concat("</tr>");
+                tblHtml = tblHtml.concat("</thead>");
+
+                //then construct the body
+                tblHtml = tblHtml.concat("<tbody>");
+
+                $.each(gridData, function (i, v) {
+                    tblHtml = tblHtml.concat("<tr>");
+                    $.each(gridFields, function (i, fieldName) {
+                        if (typeof fieldName != "undefined" && typeof fieldName.name != "undefined" && fieldName.name != "" && fieldName.name != null) {
+                            tblHtml = tblHtml.concat("<td  style= 'border:1px solid rgb(187,187,187);'>");
+                            if (v[fieldName.name] != null) {
+                                tblHtml = tblHtml.concat(v[fieldName.name]);
+                            }
+                            tblHtml = tblHtml.concat("</td>");
+                        }
+                    });
+                    tblHtml = tblHtml.concat("</tr>");
+
+                });
+                $(previewTbl).append(tblHtml);
+            });
+
+            tinymce.init({
+                selector: "#frmPreview > #divExport",
+                content_css: "{% static 'css/wordstyles.css' %}",
+                toolbar: 'saveToDocx',
+                setup: function (editor) {
+                    editor.ui.registry.addButton('saveToDocx', {
+                        text: 'Save to Docx',
+                        onAction: function (_) {
+                            var contentDocument = tinymce.activeEditor.getDoc();
+                            var content = '<!DOCTYPE html>' + contentDocument.documentElement.outerHTML;
+                            var converted = htmlDocx.asBlob(content);
+                            saveAs(converted, 'resume.docx');
+                        }
+                    });
+                }
+            });
+            frmPreview.show();
+            frmResumeEntry.hide();
+
+            /*    $("#btnSubmit").hide();
+            $("#btnDownload").show();
+            $("#btnClear").hide();
+            $("#btnBack").show();
+            var textboxes = $("input[type='text'],input[type='email'], input[type='tel']");
+            //hide the textboxes and show the readonly labels containing values during preview
+            $.each(textboxes, function (index, textbox) {
+            var id = $(this).attr("id");
+            var text = $(this).val();
+            if (id != undefined) {
+            id = id.replace("txt", "lbl");
+            var label = $("#" + id);
+            label.text(text);
+            // label.html(text);
+            label.show();
+            $(this).hide();
+            }
+            });
+            var textAreas = $("textarea");
+            $.each(textAreas, function (index, textArea) {
+            var id = $(this).attr("id");
+            var text = $(this).val();
+            if (id != undefined) {
+            id = id.replace("txt", "lbl");
+            var label = $("#" + id);
+            label.text(text);
+            label.html(text);
+            label.show();
+            $(this).hide();
+            }
+            });
+            var tables = $(".jsgrid-table");
+            $.each(tables, function (index, table) {
+            $(this).find("tr th:last-child").hide();
+            $(this).find("tr td:last-child").hide();
+            }
+            );*/
+
+
+        }
+
+
+
+
+
+
+        // A $( document ).ready() block.
+        $(document).ready(function () {
+            console.log("ready!");
+            //functions for the grids custom date time picker
+            var DateField = function (config) {
+                jsGrid.Field.call(this, config);
+            };
+
+            DateField.prototype = new jsGrid.Field({
+                sorter: function (date1, date2) {
+                    console.log('on sorting fild ' + date1 + ' ' + date2);
+                    return new Date(date1) - new Date(date2);
+                },
+
+                itemTemplate: function (value) {
+                    console.log('on init item template');
+                    if (value === null) {
+                        return '';
+                    }
+                    else {
+                        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        return new Date(value).toLocaleDateString("en-US", options);
+                    }
+                },
+
+                insertTemplate: function (value) {
+
+                    console.log('on init insert template ');
+                    var currentDate = new Date();
+                    this._insertPicker = $('<input>').datepicker({
+                        defaultDate: currentDate,
+                        dateFormat: "dd-M-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        widgetPositioning: {
+                            horizontal: 'auto',
+                            vertical: 'bottom'
+                        }
+                    });
+                    console.log('insert template created')
+                    this._insertPicker.datepicker("setDate", currentDate);
+                    return this._insertPicker;
+                },
+
+                editTemplate: function (value) {
+                    console.log('on init edit template');
+                    var currentDate = new Date();
+                    this._editPicker = $('<input>').datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd-M-yy",
+                        widgetPositioning: {
+                            horizontal: 'auto',
+                            vertical: 'bottom'
+                        }
+                    });
+
+                    if (value !== null) {
+                        this._editPicker.datepicker("option", "defaultDate", currentDate);
+                        this._editPicker.datepicker("setDate", currentDate);
+                    }
+                    return this._editPicker;
+                },
+
+                insertValue: function () {
+                    console.log('on get insert value');
+                    //var currentDate = new Date();
+                    var insertDate = this._insertPicker.datepicker("getDate");
+                    console.log('value: ' + insertDate);
+                    if (typeof insertDate !== 'undefined' && insertDate !== null) {
+                        //return insertDate.format('L LTS');
+                        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        return insertDate.toLocaleDateString("en-US", options);
+                    } else {
+                        return null;
+                    }
+                },
+
+                editValue: function () {
+                    console.log('on get edit value');
+                    var editDate = this._editPicker.datepicker("getDate");
+                    if (typeof editDate !== 'undefined' && editDate !== null) {
+                        //return editValue.format('L LTS');
+                        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        return editDate.toLocaleDateString("en-US", options);
+                    } else {
+                        return null;
+                    }
+                }
+            });
+
+
+
+            jsGrid.fields.DateField = DateField;
+
+            //this will contain the data of the education details
+            var eduData = [];
+            var eduQualificationData = [{ name: "" }, { name: "Post Graduation" }, { name: "Under Graduation" }, { name: "Diploma" }, { name: "ITI" }, { name: "Polytechnic" }, { name: "12th Standard" }, { name: "10th Standard" }, { name: "Less than 10th" }, { name: "Other" }];
+            var eduColumns =
+                [
+                    { title: "Qualification", name: "qualification", type: "select", validate: "required", items: eduQualificationData, valueField: "name", textField: "name" },
+                    { title: "School/College", name: "institute", type: "text", validate: "required" },
+                    { title: "University/Board", name: "university", type: "text" },
+                    { name: "year", title: "Year", type: "number", validate: { validator: "range", message: "year should be 1950 or greater", param: [1950, 2022] } },
+                    { title: "Stream/Degree Specialization", name: "stream", type: "text", validate: "required" },
+                    { title: "Score (%)", name: "score", type: "number" },
+                    { type: "control" }
+                ];
+
+            //academic project details
+            var academicData = [];
+            //work experience details
+            var workExData = [];
+            //internship details
+            var internshipData = [];
+            //certification details
+            var certificationData = [];
+            //volunteering data
+            var volunteeringData = [];
+
+            //academic project columns
+            var academicCols =
+                [
+                    { title: "Project Name", name: "projectname", type: "text", validate: "required" },
+                    {
+                        title: "From Date", name: "fromdate", type: "DateField", validate: "required"
+                        /*validate: [
+                        function (value, item) {
+                        return item != null;
+                        }
+                        ]*/
+                    },
+                    {
+                        title: "To Date", name: "todate", type: "DateField"
+                        /*validate: [
+                        function (value, item) {
+                        return item != null;
+                        }
+                        ]*/
+                    },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //internship columns
+            var internshipColumns =
+                [
+                    { title: "Company Name", name: "companyname", type: "text", validate: "required" },
+                    { title: "From Date", name: "fromdate", type: "DateField", validate: "required" },
+                    { title: "To Date", name: "todate", type: "DateField" },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //work experience columns
+            var workExColumns =
+                [
+                    { title: "Company Name", name: "companyname", type: "text", validate: "required" },
+                    { title: "From Date", name: "fromdate", type: "DateField", validate: "required" },
+                    { title: "To Date", name: "todate", type: "DateField" },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //volunteering columns
+            var volunteeringCols =
+                [
+                    { title: "Company Name", name: "companyname", type: "text", validate: "required" },
+                    { title: "From Date", name: "fromdate", type: "DateField", validate: "required" },
+                    { title: "To Date", name: "todate", type: "DateField" },
+                    { title: "Description", name: "description", type: "textarea", validate: "required" },
+                    { type: "control" }
+                ];
+            //certification columns
+            var certificationColumns =
+                [
+                    { title: "Certification Name", name: "certificationname", type: "text", validate: "required" },
+                    { type: "control" }
+                ];
+
+            //and finally create a table using the jsGrid component
+            var eduTable = $("#divEducation").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: eduData,
+                fields: eduColumns,
+                noDataContent: "No data added",
+
+
+            });
+
+            //initializing the academic projects table
+            var academicTable = $("#divAcademicProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: academicData,
+                fields: academicCols,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the internship projects table
+            var internshipTable = $("#divInternshipProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: internshipData,
+                fields: internshipColumns,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the Work Experience projects table
+            var workExTable = $("#divWorkProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: workExData,
+                fields: workExColumns,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the volunteering projects table
+            var volunteeringTable = $("#divVolunteeringProjects").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: volunteeringData,
+                fields: volunteeringCols,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+            //initializing the certifications  table
+            var certificationsTable = $("#divCertifications").jsGrid({
+                width: "100%",
+                inserting: true,
+                editing: true,
+                data: certificationData,
+                fields: certificationColumns,
+                noDataContent: "No data added",
+                // rowRenderer: renderAcademicViewRow,
+                // insertRowRenderer: renderAcademicEditRow,
+                //editRowRenderer: renderAcademicEditRow
+
+            });
+
+
+
+        });
+        $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            title: 'More information <a class="close" data-dismiss="alert">&times;</a>',
+            content:function(){
+                var popoverElementId = $(this).attr("popovercontentid");
+                return $(popoverElementId).html();
+        }
+        });
+        $(document).on("click", ".popover .close", function () {
+            $(this).parents(".popover").popover('hide');
+        });
+    });
+    </script>
+    <style>
+
+        .popover {
+            max-width:700px !important;
+        }
+
+        .popovercontent {
+           display:none;
+          
+        }
+
+        /* #btnSubmit{
+        margin-right:20px;
+        }*/
+        #btnClear {
+            margin-right: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .th {
+            color: rgb(33, 37, 41);
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .tg td {
+            border-color: #ccc;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+        }
+
+        .tg th {
+            border-color: #ccc;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+        }
+
+        .tg .tg-0lax {
+            text-align: left;
+            vertical-align: top
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .select2-selection__choice{
+            margin: 5px 10px;
+            background: #fcb040 !important;
+        }
+
+        .select2-container{
+            width:100%!important;
+        }
+
+        .select2-selection__choice__remove{
+            font-size: 1.1rem !important;
+        }
+
+        .select2-results__option[aria-selected=true] {
+            display: none;
+        }
+
+        /* Clear floats after the columns */
+        /*   .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }*/
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        /*  @media screen and (max-width: 600px) {
+        .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+        }
+        }*/
+    </style>
+{% endblock page_specific_htmlhead%}
+  
+    
+
+
+
+{% block content %} 
+    <ul class="breadcrumb">
+    <li> <a href="{% url 'spoken_english' pk pk1 'education to employability' %}" >MODULES</a></li>
+    <li><a href="#">RESUME BUILDER</a></li>
+    </ul>
+    <form onreset="ResetForm()" class="needs-validation" novalidate id="frmResumeEntry">
+
+        <h2> Resume Builder</h2>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-1">
+                    <label for="txtFname">NAME</label>
+                </div>
+
+                <div class="col-md-3">
+                    <input type="text" id="txtFName" name="txtFName" class="form-control editResume"
+                        placeholder="Enter your full name.." required>
+                    <label id="lblFName" class="viewResume"></label>
+                    <div class="invalid-feedback">
+                        Please enter a name.
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="txtNumber">MOBILE NUMBER</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="tel" class="form-control editResume" id="txtNumber" name="txtNumber"
+                        placeholder="Enter your mobile number.." required pattern="[0-9]{10}">
+                    <label id="lblNumber" class="viewResume"></label>
+                    <div class="invalid-feedback">
+                        Please enter a number.
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="txtEmail">EMAIL</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="email" id="txtEmail" name="txtEmail" placeholder="Enter your email id.." required
+                        class="form-control editResume">
+                    <label id="lblEmail" class="viewResume"></label>
+                    <div class="invalid-feedback">
+                        Please enter a valid e-mail id.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class=" col-md-2">
+                    <label for="txtAddress">ADDRESS</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtAddress" name="txtAddress" placeholder="Enter your address..." style="height:100px"
+                        maxlength="500" class="form-control editResume" required></textarea>
+                    <p id="lblAddress" class="viewResume"></p>
+                </div>
+                <div class="invalid-feedback">
+                    Please enter your address.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="txtObjective">OBJECTIVE</label>
+                    <a data-toggle="popover" popovercontentid="#objectivepopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+                    
+
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtObjective" name="txtObjective" placeholder="Enter objective..."
+                        style="height:100px" maxlength="250" required spellcheck="true"
+                        class="form-control editResume"></textarea>
+                    <p id="lblObjective" class="viewResume"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="tblEducation">EDUCATION DETAILS</label>
+                    <a data-toggle="popover" popovercontentid="#educationpopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="divEducation"></div>
+                </div>
+            </div>
+
+            <!--<div class="row">
+                <button type="button" id="but_add">Add New Row</button>
+            </div>-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtTechnicalStrengths">STRENGTHS - TECHNICAL </label> 
+                    
+                    <a data-toggle="popover" popovercontentid="#techstrengthspopovercontent">
+                        <i class="fa fa-question-circle"></i>
+                    </a>
+                    <button id="myBtn" class="button" onclick="hardskills(event)">Add Strengths</button>
+                    <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="card">
+                                <div class="card-header ">Hard Skills(Job Skills)</div>
+                                <div class="card-body ">
+                                    <select name="sel" multiple="multiple" class="mul-select hs" multiple="true">
+                                        {% for x in allskills %}
+                                            {% if x.skilltype == 'hardskills' %}
+                                                <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <button class="button" id="appndbtn" >Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtTechnicalStrengths" name="txtTechnicalStrengths"
+                        placeholder="From a technical perspective, what skills do you have that will help effetively perform this job?"
+                        style="height:100px" required spellcheck="true"></textarea>
+                    <p id="lblTechnicalStrengths" class="viewResume"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtNonTechStrengths">STRENGTHS - NON TECHNICAL (DOMAIN /MANAGEMENT SKILLS)</label>
+                    <a data-toggle="popover" popovercontentid="#nontechstrengthspopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtNonTechStrengths" name="txtDomainStrengths"
+                        placeholder="From a domain perspectives, what skills do you have theditResumeat will help effetively perform this job?"
+                        style="height:100px" required spellcheck="true"></textarea>
+                    <p id="lblDomainStrengths" class="viewResume"></p>
+                </div>
+            </div>
+
+
+            <!--<div class="row">
+                <div class="col-md-12">
+                    <label for="txtStrengths">STRENGTHS - MANAGEMENT </label>
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtManagementStrengths" name="txtManagementStrengths" placeholder="From a management perspective, what skills do you have that will help effetively perform this job?" style="height:100px" required spellcheck="true"></textarea>
+                    <p id="lblManagementStrengths" class="viewResume"></p>
+                </div>
+            </div>-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtQualities"> QUALITIES & SOFT SKILLS</label> 
+                    <a data-toggle="popover" popovercontentid="#qualitiesandsoftskillspopovercontent">
+                        <i class="fa fa-question-circle"></i>
+                    </a>
+                    <button id="myBtn1" class="button" onclick="qualities(event)">Add Qualities</button>
+                    <div id="myModal1" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="card" data-toggle="popover">
+                                <div class="card-header ">Qualities</div>
+                                <div class="card-body ">
+                                    <select name="sel" multiple="multiple" class="mul-select qq" multiple="true">
+                                        {% for x in allskills %}
+                                            {% if x.skilltype == 'quality' %}
+                                                <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <button class="button" id="appndbtn1">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button id="myBtn2" class="button" onclick="softskills(event)">Add Soft-Skills</button>
+                        <div id="myModal2" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <div class="card" data-toggle="popover">
+                                    <div class="card-header ">Soft-Skills</div>
+                                    <div class="card-body ">
+                                        <select name="sel" multiple="multiple" class="mul-select ss" multiple="true">
+                                            {% for x in allskills %}
+                                                {% if x.skilltype == 'softskills' %}
+                                                    <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <button class="button" id="appndbtn2">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-12">
+                    <textarea class="form-control editResume" id="txtQualities" name="txtQualities"
+                        placeholder="Describe your softskills and qualities in a sentence here" style="height:100px"
+                        required spellcheck="true"></textarea>
+                    <p id="lblQualities"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtTechProjects"> ACADEMIC/TECHNICAL PROJECTS</label>
+                    <a data-toggle="popover" popovercontentid="#academictechprojectpopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+
+                <!--<div class="col-50">
+                    <textarea id="txtTechProjects" name="txtTechProjects" placeholder="Enter academic / college project details" style="height:100px"></textarea>
+                </div>-->
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="divAcademicProjects"></div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtInternships"> INTERNSHIP EXPERIENCE </label>
+                    <a data-toggle="popover" popovercontentid="#internshippopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+                <div class="col-50">
+                    <div class="col-md-12">
+                        <!-- <textarea id="txtInternships" name="txtInternships" placeholder="Enter internship details.." style="height:100px"></textarea>-->
+                        <div id="divInternshipProjects"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtVolunteering">VOLUNTEERING EXPERIENCE</label>
+                    <a data-toggle="popover" popovercontentid="#volunteeringpopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+                <div class="col-50">
+                    <!-- <textarea id="txtVolunteering" name="txtVolunteering" placeholder="Enter Volunteering Experience (if any)" style="height:100px"></textarea>-->
+                    <div class="col-md-12">
+                        <div id="divVolunteeringProjects"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtWorkEx">WORK EXPERIENCE</label>
+                    <a data-toggle="popover" popovercontentid="#workexperiencepopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+                <div class="col-50">
+                    <!--<textarea id="txtWorkEx" name="txtWorkEx" placeholder="Enter Work Experience.." style="height:100px"></textarea>-->
+                    <div class="col-md-12">
+                        <div id="divWorkProjects"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtCertifications">CERTIFICATIONS</label>
+                    <a data-toggle="popover" popovercontentid="#certificationpopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+                <div class="col-md-12">
+                    <!--<textarea id="txtCertifications" name="txtCertifications" placeholder="Enter Certifications" style="height:100px"></textarea>-->
+
+                    <div id="divCertifications"></div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtWebPresence"> WEB PRESENCE (IF ANY)</label>
+                    <a data-toggle="popover" popovercontentid="#webpresencepopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtWebPresence" class="editResume" name="txtWebPresence"
+                        placeholder="If you have professional accounts in the web, enter those details (example - LinkedIn)"
+                        style="height:100px"></textarea>
+                    <p id="lblWebPresence" class="viewResume" name="lblWebPresence"></p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtInterests">INTERESTS</label>
+                    <a data-toggle="popover" popovercontentid="#interestspopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtInterests" name="txtInterests"
+                        placeholder="Enter details about your hobbies and interests apart from work"
+                        style="height:100px" class="editResume"></textarea>
+                    <p id="lblInterests" name="lblInterests" class="viewResume"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtAwards"> AWARDS AND ACHIEVEMENTS </label>
+                    <a data-toggle="popover" popovercontentid="#awardspopovercontent">
+                        <i class="fa fa-question-circle"></i></a>
+
+                </div>
+
+                <div class="col-md-12">
+                    <textarea id="txtAwards" name="txtAwards"
+                        placeholder="Describe any/all of your awards and achievements briefly" style="height:100px"
+                        class="editResume"></textarea>
+                    <p id="lblAwards" name="lblAwards" class="viewResume"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-9"></div>
+                <div class="col-md-1">
+                    <button type="button" id="btnSubmit" class="button" style="width:90px;margin:10px"
+                        onclick="onResumePreview();">Preview</button>
+                    <button type="button" id="btnDownload" class="btn btn-success" style="display:none"
+                        onclick="downloadResume();">Download Resume</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="reset" id="btnClear" class="button" style="width:90px;margin:10px;">Clear</button>
+                    <button type="button" id="btnBack" class="btn-light" style="display:none"
+                        onclick="showEditResume();">Back</button>
+                </div>
+                <div class="col-md-1">
+                    <button class="button" id="btnCancel" style="width:90px;margin:10px;">
+                        <a href="{% url 'spoken_english' pk pk1 'education to employability'%}" style="color:black;">Cancel</a>
+                        
+                    </button>
+                   
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </form>
+
+    <form id="frmPreview" style="display:none">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/wordstyles.css' %}" />
+        <div id="divExport">
+            <header>
+                <div class="container" id="divResumePreview">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <label id="lblFName"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label id="lblNumber"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <label id="lblEmail"></label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <p id="lblAddress"></p>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </header>
+            <article>
+                <div class="container">
+                    <section>
+
+                        <div class="row">
+                            <!--<div class="col-md-12">
+                            <h3>OBJECTIVE</h3>
+                        </div>-->
+                            <div class="col-md-12">
+                                <p id="lblObjective"></p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>EDUCATION</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divEducation">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>TECHNICAL STRENGTHS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblTechnicalStrengths"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>NON TECHNICAL STRENGTHS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblNonTechStrengths"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>QUALITIES & SOFT SKILLS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblQualities"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>PROJECTS-ACADEMIC</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divAcademicProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>INTERNSHIP EXPERIENCE</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divInternshipProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>VOLUNTEERING EXPERIENCE</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divVolunteeringProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>WORK EXPERIENCE</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divWorkProjects"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label id="lblPreviewHdrCertifications">CERTIFICATIONS</label>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div id="divCertifications"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>INTERESTS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblInterests"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>AWARDS & ACHIEVEMENTS</h3>
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <p id="lblAwards"></p>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+
+            </article>
+        </div>
+        <div id="popovers">
+                <div id="objectivepopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                          The purpose of the Objective is to convey to your employer what your goal is. It should be aimed towards getting a particular position in a specific industry<br/>
+                          Your objective should include the following:
+                        <ul>
+                            <li>
+                                Position wanted
+                            </li>
+                            <li>
+                                Functional area
+                            </li>
+                            <li>
+                                Industry wanted
+                            </li>
+                        </ul>
+                        <br/>
+                        Be specific and crisp. Restrict it to 15 words. Your objective will be different for each role you apply to. Keep the Employer's requirement in mind while writing the objective!
+                      </p>
+                    </div>
+                
+               <div id="educationpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                         The Purpose of this section is for the employer to know if you have the basic qualification for the job/internship you are applying for. <br/>
+                         Write all educational qualifications from class 10 till present. your past and present qualifications, from class 10 till present <br/>
+                         Write all your qualifications in a reverse chronological order. i.e. the latest qualifications on top
+                      </p>
+               </div>
+
+               <div id="techstrengthspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                        This includes the computer (e.g., Tally, Adobe, Network) and non-computer skills (e.g video creation, Digital photography, Fabrication).
+                        If you do not have any technical skills, skip this section
+
+                      </p>
+               </div>
+               <div id="nontechstrengthspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                       This section includes all domain or management skills that you have. Examples include Marketing, Project Management, Event Management, Payroll, Accounting, Tax, etc.
+
+                      </p>
+               </div>
+                <div id="qualitiesandsoftskillspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                       Qualities are attributes that define WHO YOU ARE! These include attributes like Hardworking, Calm, Patient, etc.
+
+                      </p>
+                       <p>
+                          Soft skills are non-technical skills that impact your performance in the workplace. These are character traits and interpersonal skills that characterize your relationships
+                          with other people. Examples include Communication Skill, Presentation Skill, Negotiation skill, etc
+                      </p>
+               </div>
+                <div id="academictechprojectpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                            This is a critical component of your resume, as your hands-on work and the initiatives you have done as part of your curriculum (or beyond) is what will reflect your real 
+                            potential as well as differentiate your resume from your peers'.
+
+                      </p>
+                      <p>
+                          This includes all the academic Projects and the technical projects that you may have done as part of your education.
+                      </p>
+                       <p>
+                          Example: <br/>
+			               Modelled a recycling system to treat Kitchen wastes( Jan 2008 - April 2008).<br/>
+                           This model of Liquid waste recycling system will treat and completely re- use the liquid wastes from the kitchens for irrigation in the nearby agricultural land. Volume:10000 lit/day.
+                      </p>
+                      
+               </div>
+                <div id="internshippopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                      This includes the Internships activities with companies (both paid and non-paid). Ensure that you have the right records or certificate for these
+                        <br />
+                           <b>The Hindu - Reporter Intern. April 2008-May 2008 ( 2 Months )</b>
+                      </p>
+                      <p>
+                          As a reporter for Hindu's daily supplementary "Metro Plus", I received 5 bylines for the articles I contributed in the technology section.
+                      </p>
+                      
+               </div>
+                <div id="volunteeringpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                     Describe all the volunteering activities, social work, initiatives for a cause or initiatives to help others (example teaching) here.
+                      </p>
+                     
+                      
+               </div>
+               <div id="workexperiencepopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                    List all the Part-time jobs, freelance work, starting up a company / business and other work related initiatives you have taken.
+                      </p>
+                     
+                      
+               </div>
+                <div id="certificationpopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                    List all the certifications that you have. This includes both online and offline certifications
+                      </p>
+                     
+                      
+               </div>
+               <div id="webpresencepopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                           Do you have a great LinkedIn profile? A meaningful blog or a website? Are you into professional photography and have displayed your photos on Flickr?
+                           If so, add them here and it'll  definitely give you an edge when an employer screens it.
+                           
+                      </p>
+                     
+                      
+               </div>
+               <div id="interestspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                           Interest relates to Feeling, Hobby relates to "Action". Interests can include Hobbies. 
+                           Basically, an interest is something one likes to do or something that one has a feeling for. For example, she has an interest in poetry, or he is interested in watching the game.
+                      </p>
+                     
+                      
+               </div>
+                <div id="awardspopovercontent" style="display:none;" class="popovercontent"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                       <p>
+                  List all awards and achievements that you may have received over the years
+                      </p>
+                     
+                      
+               </div>
+
+        </div>
+
+       
+        <footer>
+            <button type="button" id="btnBack" class="button" onclick="showEditResume();">Back</button>
+        </footer>
+
+    </form>
+
+
+
+
+    <script>
+        $(document).ready(function(){
+            $(".mul-select").select2({
+                placeholder: "Select options",
+                tags: true,
+                closeOnSelect: false
+
+            })
+        });
+
+
+        function hardskills() {
+            event.preventDefault();
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal
+                modal.style.display = "block";
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var appndbtn = document.getElementById("appndbtn")
+            var menu = document.getElementById("txtTechnicalStrengths")
+
+            appndbtn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "none";
+                let ans = []
+                $(".hs > option:selected").each(function () {
+                    ans.push(this.text)
+                });
+                console.log(ans.join("\n"))
+                menu.value = ans.join("\n");
+            }
+        }
+
+        function qualities(e) {
+            e.preventDefault();
+            var modal = document.getElementById("myModal1");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn1");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[1];
+
+            // When the user clicks the button, open the modal
+
+                modal.style.display = "block";
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var appndbtn = document.getElementById("appndbtn1")
+            var menu = document.getElementById("txtQualities")
+
+            appndbtn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "none";
+                let ans = []
+                $(".qq > option:selected").each(function () {
+                    ans.push(this.text)
+                });
+
+                menu.value += ans.join("\n");
+                menu.value += "\n";
+            }
+        }
+
+        function softskills(e) {
+            e.preventDefault();
+            var modal = document.getElementById("myModal2");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn2");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[2];
+
+            // When the user clicks the button, open the modal
+                modal.style.display = "block";
+
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var appndbtn = document.getElementById("appndbtn2")
+            var menu = document.getElementById("txtQualities")
+
+            appndbtn.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "none";
+                let ans = []
+                $(".ss > option:selected").each(function () {
+                    ans.push(this.text)
+                });
+
+                menu.value += ans.join("\n");
+                menu.value += "\n";
+            }
+        }
+    </script>
+
+{% endblock content %} 

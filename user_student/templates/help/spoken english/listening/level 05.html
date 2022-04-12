@@ -1,0 +1,61 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block content %}
+
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 5 LESSON</a></li>
+
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Listening –
+                                    Level 5 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    This level would involve hearing paragraphs/stories/poems/notes
+                                </p>
+                                <h2 class="bg-white boxspace fonth2">Example </h2>
+                                <ul class="list space" style="list-style: lower-roman;">
+                                    <li>You may write me down in history <br> With your bitter, twisted lies, <br>You
+                                        may tread
+                                        me in the very dirt <br>But still, like dust, I’ll rise</li>
+
+                                        <li>I shall be telling this with a sigh <br> Somewhere ages and ages hence:</li>
+                                        <p>Two roads diverged in a wood, and I— <br>
+                                        I took the one less traveled by, <br>
+                                        And that has made all the difference. <br>
+                                    </p>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load student_tag %}
+
+
+
+
+{% block page_specific_htmlhead %}
+
+    <link rel="stylesheet" href="/static/components/select2/select2.min.css">
+    <link rel="stylesheet" href="/static/components/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/strengths.css">
+
+
+    <title>My Strengths</title>
+
+{% endblock %}
+
+
+{% block page_specific_styles %}
+.card{
+width: 90%;
+
+}
+.mul-select,.select-container{
+width: 100%;
+}
+.select2-results__option[aria-selected=true] {
+display: none;
+}
+
+.select2-selection__choice__remove {
+float: right;
+margin-left: 5px
+}
+
+.select2-selection__rendered{
+display: grid !important;
+grid-template-columns: repeat(2,1fr) !important;
+
+padding: 20px 40px !important;
+
+}
+
+
+.select2-selection__choice{
+
+background: #fcb040 !important;
+width: 150px;
+max-width: 250px;
+padding: 8px 6px !important;
+
+text-align: center;
+font-size: 1em;
+background: rgba(217, 216, 216,0.6);
+color: #4f4848 !important;
+border-radius: 8px;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px !important;
+white-space: pre-line;
+}
+
+.select2-selection__choice__remove{
+
+    font-size: 1.5em;
+    padding: auto 5px;
+
+}
+
+.select2-selection__choice__remove:hover{
+
+    color:black;
+
+}
+
+.select2-container{
+    width:100% !important;
+}
+
+.select2-selection__choice:hover{
+opacity: 1;
+transform: scale(1.05);
+
+}
+
+::placeholder{
+font-size: 1.2em;
+}
+
+
+
+
+.navig{
+
+   width:auto !important;
+}
+
+.container{
+
+color: #4f4848 !important;
+}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<ul class="breadcrumb m-3">
+    <li><a href="{% url 'spoken_english' pk pk1 program %}">MODULES</a></li>.
+    <li><a href="#">My Strengths</a></li>
+</ul>
+
+<div class="container mt-5">
+
+
+    <h2 class="mb-5 ml-2">
+        My Strengths
+    </h2>
+        {% if messages %}
+        {% for m in messages %}
+    {%  if forloop.first  %}
+
+    <h4 style="background: #10b910" class="p-2 text-white">{{m}}</h4>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+
+
+    <h4 class="ml-2">Select any 5 skills from below.</h4>
+    <div class="container p-5 m-auto">
+        <form method="post" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="row ">
+
+                    <div class=" col-md-6 sm-12 grid-item mb-4 ">
+                        <div class="card">
+                            <div class="card-header ">Soft Skills</div>
+                            <div class="card-body ">
+
+                                <select name="sel" multiple="multiple" class="mul-select ss" multiple="true" >
+                                    {% for x in allskills %}
+                                    {% if x.skilltype == 'softskills'  %}
+                                    <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class=" col-md-6 sm-12 grid-item mb-4">
+                        <div class="card">
+                            <div class="card-header ">Qualities</div>
+                            <div class="card-body ">
+
+                                <select name="sel" multiple="multiple" class="mul-select qq" multiple="true" >
+                                    {% for x in allskills %}
+                                    {% if x.skilltype == 'quality' %}
+                                    <option value="{{x.skillid}}">{{ x.skillname }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row ">
+
+                    <div class=" col-md-6 sm-12 grid-item mb-4">
+                        <div class="card">
+                            <div class="card-header ">Talents</div>
+                            <div class="card-body ">
+
+                                <select name="sel" multiple="multiple" class="mul-select tt" multiple="true">
+                                    {% for x in allskills %}
+                                    {% if x.skilltype == 'Talents' %}
+                                    <option value="{{x.skillid}}">{{ x.skillname }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class=" col-md-6 sm-12 grid-item mb-4">
+                        <div class="card">
+                            <div class="card-header ">Hard Skills(Job Skills)</div>
+                            <div class="card-body ">
+
+                                <select name="sel" multiple="multiple" class="mul-select hs" multiple="true">
+                                {% for x in allskills %}
+                                    {% if x.skilltype == 'hardskills' %}
+                                <option value="{{x.skillid}}" >{{ x.skillname }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col grid-item mb-4 d-flex justify-content-center">
+                    <button  class="button" id="sub-btn" onclick="fun()">Submit</button>
+                     </div>
+                    <div class="col grid-item mb-4 d-flex justify-content-center">
+                    <a href="{% url 'spoken_english' pk pk1 program %}"><button  type="button" class="button">Cancel</button></a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+
+<script src="/static/components/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+<script src="/static/components/jquery/jquery3.6.0.min.js" ></script>
+<script src="/static/components/select2/select2.min.js"></script>
+
+<script type="text/javascript">
+    my_data = {{ old|safe }};
+    console.log(my_data)
+</script>
+
+<script>
+
+
+    $(document).ready(function(){
+        $(".mul-select").select2({
+            placeholder: "Select options",
+            tags: true,
+            closeOnSelect: false
+
+        })
+    });
+
+
+
+    function prev(tt){
+        $(`${tt} > option`).each(function (){
+
+            my_data.forEach(data => {
+
+                if(data === this.text){
+                    $(this).attr('selected', 'selected')
+                }
+            })
+
+
+        })
+    }
+    const a1 = ".ss",a2 = ".qq",a3=".tt",a4=".hs";
+
+    window.onload = prev(a1)
+    window.onload = prev(a2)
+    window.onload = prev(a3)
+    window.onload = prev(a4)
+
+    function fun(){
+        const ssOptions = $('.ss option:selected').length;
+        const qqOptions = $('.qq option:selected').length;
+        const ttOptions = $('.tt option:selected').length;
+        const hsOptions = $('.hs option:selected').length;
+
+
+
+
+
+        if((ssOptions >5 || ssOptions <1) || (qqOptions >5 || qqOptions <1) || (ttOptions >5 || ttOptions <1) || (hsOptions >5 || hsOptions <1) ){
+
+            console.log(ssOptions,qqOptions,ttOptions,hsOptions)
+            $('.form').submit(false)
+            alert("Select Maximum 5 and Minimum 1 from each Category")
+
+
+        }
+        else{
+            console.log(ssOptions,qqOptions,ttOptions,hsOptions)
+            $('.form').unbind('submit').submit()
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+</script>
+
+{% endblock %}

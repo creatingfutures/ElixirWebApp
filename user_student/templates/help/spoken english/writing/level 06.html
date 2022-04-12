@@ -1,0 +1,88 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block content %}
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 6 LESSON</a></li>
+
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Writing –
+                                    Level 6 </h1>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    In Level 5, we would focus on writing reports. A report is a document that presents
+                                    information in an organized format for a specific audience and purpose. In modern
+                                    business scenario, reports play a major role in the progress of business. Reports
+                                    are the backbone to the thinking process of the establishment, and they are
+                                    responsible, to a great extent, in evolving an efficient or inefficient work
+                                    environment.
+                                </p>
+                                <p>
+                                    A typical report would include the following sections in it Title, Introduction,
+                                    Discussion or Body & Conclusion
+                                </p>
+                                
+                                <h2 class="boxspace bg-white">
+                                    Example
+                                </h2>
+                                <p><b>Improvements to Main Dormitory</b></p>
+
+                                <p><b> <u> Introduction</u></b></p>  
+                             <p>   This report aims to describe problems in the Main Dormitory of Residence and discuss
+                                 possible maintenance work to solve them. The two biggest issues were discussed at a
+                                 meeting on 12th May, which was attended by 165 of the 250 students who live in the
+                                building.</p>
+                                <p><b> <u> Issue 1: temperature in rooms</u></b></p>  
+                              <p> A number of students complained that the second-floor bedrooms are too hot. Concerns
+                                  were raised about lack of sleep and the students finding it hard to study in their
+                                  rooms. Air conditioning was suggested as a possible solution. </p> 
+                              <p>  However, there is no budget left for installing air conditioning in this academic year.
+                                  Also, installation can only be carried out during holidays as students cannot be present
+                                in the building while the work takes place.</p>
+                                <p><b> <u> Issue 2: Improving wheelchair access to Cafeteria </u></b></p> 
+                               <p> It was noted that wheelchair users can only access the cafeteria from the back and not
+                                   the front entrance nearer the lifts. This makes access to the cafeteria difficult for
+                                   wheelchair users. The university is looking to improve its wheelchair access in general
+                                   by installing ramps in key areas and work can take place during term time with no issues
+                                   for staff or students. </p>
+                                   <p> <b> <u> Conclusion and recommendations </u></b></p> 
+                                   <p> Taking the factors mentioned into account, August would be the best time for the
+                                       installation of air conditioning. Until then, the university could consider supplying
+                                fans to each second-floor room so students can sleep and study comfortably. </p>
+                                <p>  The front of the cafeteria is recommended as an ideal place to install a wheelchair
+                                ramp. This work can take place immediately and should be a priority.</p>
+                                
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

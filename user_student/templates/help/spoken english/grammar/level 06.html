@@ -1,0 +1,74 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+  <div class="StudentModuleClass">
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a>
+      </li>
+      <li>
+            <a href="#">LEVEL 6 LESSON</a>
+      </li>
+    </ul>
+        
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                        <th scope="col" ><h2 class="bg-white boxspace fonth2">Grammar - Level 6 Lesson</h2></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td > 
+                            <h1  style="font-weight: bold !important; " class="bg-white boxspace" >Adverbs  </h1>
+                            <p>
+                              An adverb is a word that is used to change, modify or qualify several types of words including an adjective, a verb, a clause, another adverb, or any other type of word or phrase. <br> 
+                              A good way to understand adverbs is to think about them as the words that provide context. Specifically, adverbs provide a description of how, where, when, in what manner and to  <br> what extent something is done or happens. Normally, we can spot an adverb by that it often ends in –ly, but there are lots of adverbs that don’t end in this way. </p>
+                      
+                              <ul class="list">
+                                <li>When? She always arrives early.</li>
+                                <li>How? He drives carefully.</li>
+                                <li>Where? They go everywhere together.</li>
+                                <li>In what way? She eats slowly.</li>
+                                <li>To what extent? It is terribly hot.</li>
+                              </ul>
+                         <img src="/static/adverb.jpg" alt="" style="height: 300px ; width: 600px;">
+                         <br> <br>
+                        <h1 class="bg-white boxspace">Preposition </h2>
+                          <p>
+                            A preposition is a word used to link nouns, pronouns, or phrases to other words within a sentence. <br> They act to connect the people, objects, time and locations of a sentence.  Prepositions are usually short words, and they are normally placed directly in front of nouns. 
+                          </p>
+                        <ul class="list">
+                            <li>I tried to hit the nail but hit my thumb instead.</li>
+                            <li>I have two goldfish and a cat.</li>
+                            <li>I’d like a bike for commuting to work.</li>
+                            <li>You can have peach ice cream or a brownie sundae.</li>
+                            <li>Neither the black dress nor the grey one looks right on me.</li>
+                            <li>My dad always worked hard so we could afford the things we wanted.</li>
+                            <li>I try very hard in school yet I am not receiving good marks.</li>
+                          </ul>
+
+                          <img src="/static/pre.jpg" alt="" style="height: 900px ; width: 400px;" >
+                         <br> <br>
+                         <h2 class="bg-white boxspace">List of Prepositions </h2>
+                        <br><br>
+                        <img src="/static/prelist.jpg" alt="" style="height: 600px ; width: 500px;">
+                    </tbody>
+            </div>
+          </div>
+    </div>
+  </div>
+  
+{% endblock content %} 

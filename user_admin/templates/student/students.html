@@ -1,0 +1,129 @@
+{% extends 'base/base.html' %} {% block content %}
+
+<div class="row">
+  <div class="form-group col-md-10" style="margin-left: 10%">
+    <div class="search">
+      <input
+        id="student"
+        type="text"
+        class="searchTerm"
+        style="height: 50px"
+        placeholder="STUDENT"
+      />
+      <button
+        id="student1"
+        type="submit"
+        class="searchButton"
+        style="height: 50px"
+      >
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<br />
+
+<div id="stud_done"></div>
+<br /><br />
+<div class="row">
+  <div class="col-md-12 table-responsive">
+    <table
+      class="table"
+      align="center"
+      style="width: 90%; font-family: Montserrat"
+    >
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>MOBILE NUMBER</th>
+        <th>EMAIL</th>
+        <th>ENROLLENT DATE</th>
+        <th>ACTION</th>
+      </tr>
+      {% for s1 in p %}
+      <tr>
+        <td class="col-md-1">{{s1.pk}}</td>
+        <td class="col-md-2">{{s1.first_name}} {{s1.last_name}}</td>
+        <td class="col-md-2">{{s1.mobile_number}}</td>
+        <td class="col-md-2">{{s1.email_id}}</td>
+        <td class="col-md-2">{{s1.enroll_date}}</td>
+        <td class="col-md-2">
+          <a
+            href="{% url 'view_student' s1.student_id %}"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="View"
+            ><span class="glyphicon glyphicon-eye-open actionview"></span></a
+          >&nbsp; &nbsp;
+          <a
+            href="{% url 'edit_student' s1.student_id %}"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Edit"
+            ><span class="glyphicon glyphicon-pencil actionedit"></span
+          ></a>
+          &nbsp; &nbsp;
+          <a
+            href="{% url 'delete_student' s1.student_id %}"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Delete"
+            ><span class="glyphicon glyphicon-remove actionremove"></span
+          ></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 15px"> 
+     {% include  'base/pagination.html' %} 
+</div>
+<br />
+<br />
+<br />
+<div class="row" style="margin-top: 15px">
+  <div class="col-md-12">
+    <a style="margin-left: 150px" class="button" href="{% url 'add_student' %}"
+      >ADD STUDENT</a
+    >
+    <a
+      style="margin-left: 30px"
+      href="{% url 'student_export' %}"
+      onClick="func()"
+      class="button"
+      >EXPORT STUDENTS</a
+    >
+  </div>
+</div>
+<script>
+  function func() {
+    alert("CSV File will Begin Downloading");
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+  $("#student1").click(function () {
+    //var url = $("#form1").attr("data-modules-url");
+
+    var facId = $("#student").val();
+    console.log(facId); // get the selected country ID from the HTML input
+
+    $.ajax({
+      // initialize an AJAX request
+      url: "/ajax/student_search/",
+      type: "GET", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+      data: {
+        student_id: facId, // add the country id to the GET parameters
+      },
+      success: function (data) {
+        // `data` is the return of the `load_cities` view function
+        $("#stud_done").html(data); // replace the contents of the city input with the data that came from the server
+      },
+    });
+  });
+</script>
+
+{% endblock content %}

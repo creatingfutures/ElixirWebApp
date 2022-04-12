@@ -1,12 +1,24 @@
 {% load student_tag %}
 
 
-<div style="marting:10px;padding:10px">
-<p style="font-size:200%"><b>Fill The Blanks</b></p>
-<p style="font-size:150%">{{q|index:i}}</p>
-<ol type="A">
-    <li>  <input id="ans" type="text"></li><br>
-</ol>
+<div style="margin:10px;padding:10px">
+  <p><b id="questiontype">Fill The Blanks</b>&nbsp;</p>
+
+
+    <div style="text-align: center"><h1 id="timer" style="padding: 1rem; display: inline;background: orange;">15</h1></div>
+
+  <br />
+   <i id="narrative">{{request.session.questions|index_narrative:i}}</i>
+  <br/><br/>
+   <i id="question">{{request.session.questions|index:i}}</i>
+    
+    <b><i id='hint' style="display:none;" onclick="alert('{{request.session.questions|get_hint:i}}'); ">&nbsp; <a href='#' style="color: orange;" >Hint</a> </i></b>
+
+  
+
+  <ol type="A">
+    <li> <input id="ans" type="text"></li><br>
+  </ol>
 </div>
 
 <br>
@@ -15,85 +27,90 @@
 
 <br>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
-
+<script src="/static/js/timer.js"></script>
 <script>
 
  // '/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/test'
 
 var done=0;
-
-$("#submit").click(function() {
-  //var url = $("#form1").attr("data-modules-url");
-  if($("#ans").val()==undefined)
-  {
-    alert("Please Select An option");
-  }
-
-  else {
-    var count = $(this).data("count") || 0;
-    $(this).data("count",++count)
-    console.log(count)
-
-    var question = $("#ques").html();
-    var option = $("#ans").val();
-    var answer = "{{q|index5:i}}"
+ var time = {{ settings.GEN_ASSNMT_TIME }};
 
 
-    if(option.toString().toLowerCase().trim()==answer)
-    {
-      alert("Right Answer");
-      if($(this).data("count")==1)
-      {
-        var str="True"
-        var score="{{score}}"
-        $.ajax({ // initialize an AJAX request
-          url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/standard_test/ajax/test/',
-          type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-          data: {
-            correct:str,
-            id:"{{i}}",
-            "score":score
-          },
-          success: function(data) {
-            $("#container").html(data) // `data` is the return of the `load_cities` view function
-          }
-        });
+ $("#submit").click(function () {
 
-      }
+    //var url = $("#form1").attr("data-modules-url");
+    if ($("#ans").val() === undefined) {
+      alert("Please Select An option");
+    }
 
-      else {
-        {
-          var str="False"
-          var score="{{score}}"
+    else {
+      let count = $(this).data("count") || 0;
+      $(this).data("count", ++count)
+      console.log(count)
+
+      let question = $("#ques").html();
+      let option = $("#ans").val();
+      let answer = "{{request.session.questions|index5:i}}"
+      console.log(answer)
+      option=option.toString().toLowerCase();
+      answer = answer.toString().toLowerCase();
+      // alert(answer);
+      // alert(option);
+      console.log(option.toLowerCase().trim(),answer.toLowerCase().trim());
+      if (option.toLowerCase().trim() == answer.toLowerCase().trim()) {
+        alert("Right Answer");
+        if ($(this).data("count") == 1) {
+          let str = "True"
+          let score = "{{score}}"
           $.ajax({ // initialize an AJAX request
-            url:'/s_home/'+{{pk}}+'/batch/'+{{pk1}}+'/program/'+{{pk2}}+'/module/'+{{pk3}}+'/level/'+{{pk4}}+'/standard_test/ajax/test/',
+            url:'/s_home/'+"{{pk}}"+'/batch/'+"{{pk1}}"+'/program/'+"{{pk2}}"+'/module/'+"{{pk3}}"+'/level/'+"{{pk4}}"+'/standard_test/ajax/test/',
             type:'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
             data: {
-              correct:str,
-              id:"{{i}}",
-              "score":score
+              correct: str,
+              id: "{{i}}",
+              "score": score
             },
-            success: function(data) {
+            success: function (data) {
               $("#container").html(data) // `data` is the return of the `load_cities` view function
             }
           });
 
         }
+
+        else {
+          {
+            let str = "False"
+            let score = "{{score}}"
+            $.ajax({ // initialize an AJAX request
+              url: '/s_home/' + "{{pk}}" + '/batch/' + "{{pk1}}" + '/program/' + "{{pk2}}" + '/module/' + "{{pk3}}" + '/level/' + "{{pk4}}" + '/standard_test/ajax/test/',
+              type: 'GET', // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+              data: {
+                correct: str,
+                id: "{{i}}",
+                "score": score
+              },
+              success: function (data) {
+                $("#container").html(data) // `data` is the return of the `load_cities` view function
+              }
+            });
+
+          }
+        }
+
+      }
+
+      else {
+        {
+            if(time ===0){alert("Time Up");time=1;}
+            else
+          alert("Incorrect Answer, Please Try Again");
+
+          document.getElementById('hint').style.display='block';
+        }
       }
 
     }
 
-    else {
-      {
-        alert("Incorrect Answer, Please Try Again");
-      }
-    }
-
-  }
-
-
-});
+  });
 
 </script>

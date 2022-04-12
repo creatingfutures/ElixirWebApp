@@ -1,0 +1,31 @@
+
+    <div class="row" style="margin: auto;text-align: center;">
+        <ul class="pagination">
+        {% if p.has_previous %}  
+        <li class="page-item">
+            <a class="page-link" href="{% url 'questions_search' %}?progname={{request.GET.progname}}&modulename={{request.GET.modulename}}&levelname={{request.GET.levelname}}&questiontype={{request.GET.questiontype}}&searchtext={{request.GET.searchtext}}&page={{p.previous_page_number}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for pg in p.paginator.page_range %} 
+        {% if p.number == pg%}
+        <li class="page-item"><a class="active" href="{% url 'questions_search' %}?progname={{request.GET.progname}}&modulename={{request.GET.modulename}}&levelname={{request.GET.levelname}}&questiontype={{request.GET.questiontype}}&searchtext={{request.GET.searchtext}}&page={{pg}}">{{pg}}</a></li>
+        {% elif pg > p.number|add:'-5' and pg < p.number|add:'5' %}
+        <li class="page-item"> <a class="page-link" href="{% url 'questions_search' %}?progname={{request.GET.progname}}&modulename={{request.GET.modulename}}&levelname={{request.GET.levelname}}&questiontype={{request.GET.questiontype}}&searchtext={{request.GET.searchtext}}&page={{pg}}"><span>{{pg}}</span></a>
+          </li>
+        {% endif %}
+      {% endfor %}
+        {% if p.has_next %}
+            <li class="page-item">
+        
+                <a class="page-link" href="{% url 'questions_search' %}?progname={{request.GET.progname}}&modulename={{request.GET.modulename}}&levelname={{request.GET.levelname}}&questiontype={{request.GET.questiontype}}&searchtext={{request.GET.searchtext}}&page={{p.next_page_number}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+                </a>
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+

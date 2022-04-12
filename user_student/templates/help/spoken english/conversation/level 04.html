@@ -1,0 +1,87 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li style="font-family: Montserrat;"><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+            <li style="font-family: Montserrat;"><a href="#">LEVEL 4 LESSON</a></li>
+            
+        </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <h1 class="bg-white boxspace fonth2" style="font-weight: bold !important;">Conversation  – Level 4 </h1>
+                                </th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h2 class="bg-white boxspace fonth2">  Giving a Speech</h2>
+                                <p>
+                                    Some use the terms ‘speech’ and ‘presentation’ interchangeably. However, for the purposes of this page, a speech is assumed to consist of speaking only. There is little or no interaction, and no slides or other visual aids.
+                                </p>
+                                
+                                
+                                
+                                <h3 class="bg-white boxspace fonth2"> Preparing for your speech</h3>
+                                <ul class="list boxspace">
+                                    <li>
+                                        As with a presentation, so with a speech: prior preparation and planning prevents poor performance.
+                                    </li>
+                                    <li>
+                                        One of the best ways to do this is to use stories.
+                                    </li>
+                                </ul>
+                                
+                                <h3 class="bg-white boxspace fonth2"> Writing your Speech</h3>
+                                <ul class="list boxspace">
+                                    <li>
+                                        Once you have gathered your material, the next step is to put it together.
+                                    </li>
+                                    <li>
+                                        Keep it simple
+                                    </li>
+                                </ul>
+                                
+                                <h3 class="bg-white boxspace fonth2"> Practising your Speech in Advance</h3>
+                                <ul class="list boxspace">
+                                    <li>Practice</li>
+                                    <li>Practice</li>
+                                    <li>Practice</li>
+                                </ul>
+                                
+                                <h3 class="bg-white boxspace fonth2"> Giving your Speech: On the Day</h3>
+                                <ul class="list boxspace">
+                                    <li>Gather your thoughts</li>
+                                    <li>Don’t Read, but speak</li>
+                                    <li>Speak Slowly and Clearly</li>
+                                    <li>Focus on the Topic</li>
+                                </ul>
+                                
+                                
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

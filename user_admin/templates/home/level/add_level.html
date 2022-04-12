@@ -1,0 +1,34 @@
+{% extends '../../base/base.html' %}
+{% block content %}
+
+
+  <div id="box">
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <p>
+        <label>Level description <span style="color:red">*</span> :</label>
+        {{form.level_description}}{{form.level_description.errors}}
+      </p>
+
+      <div class="form-group">
+        <br>
+        <input style="margin-left:120px" type="submit" class="button" value="Submit">&ensp;
+        <button
+        type="button"
+        class="button"
+        onclick="back()"
+      >
+        Cancel
+      </button>
+      </div>
+
+    </form>
+
+    <br><br><br><br><br>
+    <div id="container">
+    </div>
+  </div>
+
+ {% endblock content %}

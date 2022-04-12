@@ -1,0 +1,73 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+  <div class="StudentModuleClass">
+
+    <ul class="breadcrumb">
+        <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+        <li><a href="#">LEVEL 1 LESSON</a></li>
+        
+    </ul>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col"><h2 class="bg-white boxspace fonth2">Questions  – Level 1 </h2></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td > 
+                            <h1  style="font-weight: bold !important; " class="bg-white boxspace" >What are Questions? This itself is a Question! </h1>
+                    
+                            <p>
+                              A question is a sentence that seeks an answer for information, collection, tests and research.
+                              One of the most important tasks in speaking any language is asking questions. When you ask questions, you receive information.                                   
+                            </p>
+                      <p>
+                        There are different types of questions in English: questions that can be answered with a simple yes or no, questions that can be answered using prior knowledge and questions that require more detailed analysis. 
+                      </p>  
+                      <p>One type of Questions are those with 5W and 1H. These are WHY, WHO, WHAT, WHEN, WHERE and HOW</p>
+                    </td>
+                      </tr>
+
+                      <tr>
+                          <td>
+                            
+                              <h2 class="bg-white boxspace">Examples </h2>
+                              
+                              <ul class="list space">
+                                <li>
+                                  What is your name? 
+                                </li>
+                                <li>How are you? </li>
+                                <li>Who is this? </li>
+                                <li>Where are you?</li>
+                                <li>When will you play? </li>
+                                <li>Why did you go? </li>
+                                <li>What are the colours in the rainbow? </li>
+                              </ul>
+                              <p>Apart from this, we can also ask questions as below</p>
+                              <li>Do you sing? </li>
+                              <li>Will you play a game of badminton with me? </li>
+                              <li>	Are you hungry? </li>
+                              <li>  Can you run? </li>
+                            </td>
+                      </tr>
+                    
+                    </tbody>
+                  </table>
+                </div>
+        </div>
+      </div>
+  </div>
+   
+ {% endblock content %} 

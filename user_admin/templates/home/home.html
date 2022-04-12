@@ -1,0 +1,237 @@
+{% extends '../base/base.html' %} {% block content %}
+<!doctype html>
+{% load user_tags %}
+{% load static %}
+
+
+<html lang="en">
+  <title>HOME</title>
+
+
+<div class="container-fluid">
+<div class="row">
+  <div class="col-md-12">
+  <h2 class="ml-3">Home</h2>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <p >PROGRAMS</p>
+  </div>
+</div>
+<br>
+ 
+<div class="row">
+  <div class="col-md-12">
+  <table class="table" align="left">
+
+    <tr>
+      <th>PROGRAM NAME</th>
+      <th>PREREQUISITES</th>
+      <th>ACTION</th>
+    </tr>
+    {% for p1 in p %}
+    <tr>
+      <td class="col-md-4">{{p1.program_name}}</td>
+      <td class="col-md-4">{{p1.prerequisite}}</td>
+
+      <td class="col-md-4"><a href="{% url 'edit_program' p1.program_id %}" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> </td>
+      <!-- <a href="{% url 'delete_program' p1.program_id %}">Delete</a> -->
+      {% endfor %}
+    </tr>
+
+  </table>
+</div>
+</div>
+<br>
+
+<div class="row">
+     <div class="row" style="margin-top: 15px"> 
+     {% include  'base/pagination.html' %} 
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+  <br><br> <br> <br>
+  <a class="button" href="{% url 'add_program' %}">ADD PROGRAM</a>
+</div>
+</div>
+
+  <br><br>
+<div class="row">
+  <div class="col-md-12">
+     <p>MODULES</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group col-md-3 ">
+      <p>Choose a program</p>
+      <form method="GET">
+    
+        <select name="module" id="module" class="form-control">
+          <option value="-------">-------</option>
+          {% for p11 in p1 %}
+          <option value="{{ p11.pk }}">{{p11}}</option>
+          {% endfor %}
+        </select>
+    
+      </form>
+    </div>
+</div>
+</div>
+  
+
+  <div id="modulesnotdone">
+    <div class="row">
+      <div class="col-md-12">
+      
+    <table class="table" align="left">
+      <tr>
+        <th>MODULE NAME</th>
+        <th>PROGRAM NAME</th>
+        <th>ACTION</th>
+      </tr>
+      {% for s1 in m %}
+      <tr>
+        <td>{{s1}}</td>
+        <td>{{s1.program}}</td>
+        <td><a href="{% url 'view_module' s1.program_id s1.module_id %}" data-toggle="tooltip" data-placement="bottom" title="Edit" ><span class="glyphicon glyphicon-pencil actionedit"></span></a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+    <br>
+<div class="row">
+  <div class="col-md-6"> </div>
+  <div class="col-md-6"> 
+     <div style="width:20%;left:40%">
+      <ul class="pagination"  style="left:10%">
+        {% if m.has_previous %}
+        <li><a href="?page3={{m.previous_page_number}}">Prev</a></li>
+        {% endif %}
+        {% for pg in m.paginator.page_range %}
+        {% if m.number == pg %}
+        <li ><a class="active" href="?page3={{pg}}">{{pg}}</a></li>
+        {% elif pg > m.number|add:'-2' and pg < m.number|add:'2' %}
+        <li><a href="?page3={{ pg }}">{{pg}}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if m.has_next %}
+        <li><a href="?page3={{m.next_page_number}}">Next</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</div>
+ 
+  </div>
+
+
+
+
+  <div id="modulesDone">
+
+  </div>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+
+  
+
+  <br><br>
+
+  <p>FACILITATORS</p>
+</div>
+</div>
+
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group col-md-8 ">
+    <div class="search">
+      <input id="facilitator" type="text" class="searchTerm" placeholder="FACILITATOR" style="height: 50px; ">
+      <button id="facilitator1" type="submit" class="searchButton" style="height: 50px; ">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+        
+  </div>
+</div>
+    <br>
+    
+    <br><br>
+
+    <div id="facnotdone">
+      <div class="row">
+        <div class="col-md-12">
+     
+      <table class="table" align="center" style="width:78%;font-family: 'Century Gothic'">
+        <tr>
+          <th>NAME</th>
+          <th>CONTACT</th>
+          <th>ACTION</th>
+        </tr>
+        {% for s1 in f %}
+        <tr>
+          <td>{{s1.first_name}} {{s1.last_name}}</td>
+          <td>{{s1.mobile_number}}</td>
+          <td>
+            <a href="{% url 'view_facilitator' s1.facilitator_id %}" data-toggle="tooltip" data-placement="bottom" title="View"><span class="glyphicon glyphicon-eye-open actionview"></span></a>&nbsp; &nbsp; 
+            <a href="{% url 'edit_facilitator' s1.facilitator_id %}" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-pencil actionedit"></span></a> </td>
+            
+        </tr>
+        {% endfor %}
+      </table>
+           
+    </div>
+  </div>
+      <br>
+<div class="row">
+<div class="col-md-6"> </div>
+  <div class="col-md-6">
+      <div  style="width:20%;align:center; left:40%">
+        <ul class="pagination" style=";left:10%">
+          {% if f.has_previous %}
+          <li><a href="?page2={{f.previous_page_number}}">Previous</a></li>
+          {% endif %}
+          {% for pg in f.paginator.page_range %}
+          {% if f.number == pg %}
+          <li  ><a class="active" href="?page2={{pg}}">{{pg}}</a></li>
+          {% elif pg > f.number|add:'-2' and pg < f.number|add:'2' %}
+          <li><a href="?page2={{ pg }}">{{pg}}</a></li>
+          {% endif %}
+          {% endfor %}
+
+          {% if f.has_next %}
+          <li><a href="?page2={{f.next_page_number}}">Next</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+      </div>
+
+    </div>
+    <br><br>
+    <div id="facdone">
+    </div>
+<div class="row">
+  <div class="col-md-12" style="margin-left: 100px;">
+    <br><br>
+    <a class="button"  href="{% url 'add_facilitator' %}">ADD FACILITATOR</a>
+    <a class="button" href="{% url 'facilitators' %}">VIEW ALL FACILITATORS</a>   
+  </div>
+</div>
+</div>
+
+</div>
+{% endblock content %}

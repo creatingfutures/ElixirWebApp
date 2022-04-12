@@ -1,0 +1,75 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 pk2 %}">MODULES</a></li>
+        <li><a href="#">LEVEL 3 LESSON</a></li>
+        
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Reading – Level 3 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+
+
+                                <p>This level is for students who are confident to read stories on their own. This will
+                                    give you an understanding about the phonics by reading complex words. You are
+                                    advised to read out loud. </p>
+                                    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=" mleft">
+                                <h2 class="bg-white boxspace"><b> Examples </b></h2>
+                                <p>Understanding that same sound can be made by different letter patterns for example
+                                    sound like ai in : r-a-i-n and d-a-y. </p>
+                                <p>It was a pleasant day. I stared outside my window watching the rain.
+                                    
+                                </p>
+                                <h3 class="bg-white boxspace"><b> The House of Mirrors </b></h3>
+                                <p>Long ago in a small, far away village, there was a place known as the house of 1000
+                                    Mirrors. A small, happy little Dog learned of this place and decided to visit the
+                                    house. When he arrived, he bounced happily up the stairs to the Doorway of the
+                                    house. It looked through the doorway with his ears lifted high and his tail wagging.
+                                    To his great surprise, he found himself staring at 1000 other happy little dogs with
+                                    their tails wagging, just as fast as his. He smiled a great smile, and was answered
+                                    with 1000 great smiles just as warm and friendly. As he left the house, he thought
+                                    to himself, “ This is a wonderful place. I will come back and visit it often.”</p>
+                                    <br>
+                                    <p>
+                                    In the same village, another little dog, who was not quite as happy as the first
+                                    one, decided to visit the stairs and hung his head low as he looked into the door.
+                                    When he saw 1000 unfriendly looking dogs staring back at him, he growled at them and
+                                    was horrified to see 1000 little dogs growing back at him. As he left, he thought to
+                                    himself. “ That is a horrible place, and I will never go back there again.”
+                                </p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

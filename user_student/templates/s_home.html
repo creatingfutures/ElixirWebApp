@@ -1,281 +1,94 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
-<style>
-  ul {
-list-style-type: none;
-margin-right: 0;
-padding: 0;
-overflow: hidden;
-background-color: white;
-font-size:16px;
 
 
-}
-li {
-float:left;
-}
-li a {
-display: block;
-color: BLACK;
-text-align: right;
-padding: 18px 14px;
-text-decoration: none;
-  float: right;
 
-}
-li a:hover {
-background-color: white;
-}
+{% block page_specific_htmlhead%}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock page_specific_htmlhead%}
+{% block page_specific_styles%}
 
-.container
-{
-position: relative;
-  bottom:420;
-  left:460 ;
-  font-family: "Montserrat";
-  width: 600;
+  .nav {
+    background:url("{% static 'IMG_20191019_123545.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:50% !important;
+    display:grid !important;
+  }
 
 
-}
-
-body
-{
-  background-color: lightgray;
-  overflow-x: hidden;
-}
-
-#box{
-  z-index: 1;
-  width:220px;
-  height:270px;
-  margin-top:20px;
-  margin-right:auto;
-  margin-left:auto;
-  margin-bottom:10px;
-  background-color: white;
-  /* top: 350;
+  #box {
+    z-index: 1;
+    width:calc(20% - 10px);
+    height: 270px;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    background-color: white;
+    /* top: 350;
   left: 160; */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .container1 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  @media screen and (max-width: 768px) {
 
-#box1{
-  z-index: 1;
-  width:220px;
-  height:270px;
-  margin:auto;
-  position: absolute;
-
-  background-color: white;
-  top: 450;
-  left: 280;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-#box2{
-  z-index: 1;
-  width:220px;
-  height:270px;
-  margin:auto;
-  position: absolute;
-
-  background-color: white;
-  top: 450;
-  left: 530;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-#box3{
-  z-index: 1;
-  width:220px;
-  height:270px;
-  margin:auto;
-  position: absolute;
-
-  background-color: white;
-  top: 450;
-  left: 780;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-#box4{
-  z-index: 1;
-  width:220px;
-  height:270px;
-  margin:auto;
-  position: absolute;
-
-  background-color: white;
-  top: 450;
-  left: 1030;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-#box5{
-  z-index: 1;
-  width:220px;
-  height:270px;
-  margin:auto;
-  position: absolute;
-
-  background-color: white;
-  top: 450;
-  left: 1280;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-h3{
-  font-family: "Montserrat";
-  font-weight: 100;
-}
-h1{
-  font-family: "Montserrat";
-  font-weight: 100;
-  position: relative;
-  bottom: 250;
-  left: 700;
-}
-.button{
-font-family: 'Montserrat';
-background-color: orange;
-border: none;
-color: black;
-padding: 12px 22px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 14px;
-margin: 4px 2px;
-cursor: pointer;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  outline: none;
-
-}
-hr{
-  background-color: orange;
-  width: 10%;
-  align-content: center;
-  height: 1px;
-  color: orange;
-  border: none;
-}
-*{transition:all 0.3s ease-in-out;}
-
-.container{
-clear:both;
-overflow:auto;
-background: white;
-
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  position: relative;
-  width: 1300;
-  bottom:400;
-  left:85;
-
-}
-
-.container1{
-display:flex;
-flex-direction:row;
-flex-wrap:wrap;
-}
+    #box{
+      width:100%;
+      margin: 0px 50px 20px 50px;
+    }
+      
+  }
+  
 
 
+{% endblock page_specific_styles%}
 
-ul li{
-display: inline-block; padding:10px;
-font-size:20px; font-family:"Montserrat";
-}
-
-ul li:hover{
-color:orange;
-
-}
-
-.nav
-{
-  background:url("{% static 'IMG_20191019_123545.jpg' %}");
-  background-size:cover;
-   background-repeat: no-repeat;
-  height:50%;
-  display:grid;
-  grid-template-rows:auto auto auto;
-  justify-content:center;
-  align-items:center;
-}
-
-.navig
-{
-  grid-row:2/3;
-  display:flex;
-  flex-wrap:nowrap;
-  background-color:white;
-  flex-direction:row;
-}
-
-.navv
-{
-  width:80%;
-  display:flex;
-  flex-direction:row;
-  justify-content:center;
-  align-items:center;
-  margin:10px;
-}
-
-</style>
-
-
-<html>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-    <link rel="stylesheet" href="home.css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-
-    <body>
-
-<div class="nav">
-  <div class="navig">
-    <div>
-  <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;"/>
-  </div>
-  <div class="navv">
-  <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
-  <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
-  <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-      <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
-  </div>
-  </div>
+{%block welcome %}
     <div style="grid-row:3/4;justify-items:center;align-items:center;text-align:center">
-      <p style="font-size:200%;margin:10px;color:white">WELCOME {{s.first_name|allcaps}}</p></div>
-</div>
+      <p style="font-size:200%;margin:10px;color:white">WELCOME {{s.first_name|allcaps}}</p>
+    </div>
+{% endblock welcome%}
+{% block content %}
+  <br>
+   <br>
+  <div class="col-md-8">
 
-            <!-- <h1> COURSES</h1> -->
-<br><br>
-<div class="col-md-8">
+    {% if messages %}
+    {% for message in messages %}
 
-  {% if messages %}
-  {% for message in messages %}
+    <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
 
-  <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
+      {{message}}
+    </div>
 
-    {{message}}
+    {% endfor %}
+    {% endif %}
   </div>
+  <br>
 
-  {% endfor %}
-  {% endif %}
-</div>
-<br>
-
-<div class="container1">
+  <div class="container1">
 
   {% for p in p1 %}
         <div id="box">
-            <center><h3>{{p.program_name|allcaps}}</h3></center>
-            <center><img src="{% static p.program_name|str1 %}" width="200" height="90"></center><br><br>
-            <center><a href="{% url 'spoken_english' pk pk1 p.program_id %}" class="button">GO TO COURSE</a></center>
+           
+            <center><h4><font>{{p.program_name|allcaps}}</font></h4></center>
+            <center><img src="{% static p.program_name|str1 %}" width="200" height="90"></center>
+            <br><br>
+            <center><a href="{% url 'spoken_english' pk pk1 p.program_name %}" class="button">GO TO COURSE</a></center>
+          
 
-        </div>
-        {% endfor %}
+         </div>
+            
 
-        </div>
+    {% endfor %}
+
+  </div>
 
 
-
-    </body>
-</head>
-</html>
+{% endblock%}

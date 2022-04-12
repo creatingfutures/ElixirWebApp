@@ -1,0 +1,83 @@
+﻿{% extends 'bootstrap_base.html' %}
+{% load static %}
+{% load student_tag %}
+
+
+{% block page_specific_htmlhead%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="/static/css/StudentModuleHelpStyle.css" />
+{% endblock page_specific_htmlhead%}
+
+{% block content %}
+    <div class="StudentModuleClass">
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'spoken_english' pk pk1 'spoken english' %}">MODULES</a></li>
+            <li><a href="#">LEVEL 4 LESSON</a></li>
+            
+        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <h2 class="bg-white boxspace fonth2">Reading – Level 4 </h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    This level is for students who can use their phonics knowledge and read more complex
+                                    words.
+                                    In this level you may choose to read silently or read out loud.
+
+                                </td>
+                            </tr>
+                            <tr>
+                            <td class=" mleft">
+                                <h2 class="bg-white boxspace"><b> Examples </b></h2>
+                                <p>Some words ending with -ing, -er which might be tricky to read. </p>
+                                <ul class="list space">
+                                    <li>Quick-er
+                                    </li>
+                                    <li> Fast-er</li>
+                                    <li>Eat-ing </li>
+                                    <li>
+                                        I'll instead of I will
+                                    </li>
+                                    <li>I'm instead of I am<< /li>
+                                    </ul>
+                                    <p>
+                                        Few tricky words, for example knife (k is silent).
+                                    </p>
+                                <h3 class="bg-white boxspace">Stolen Wallet </h3>
+                                <p>
+                                    It is interval time in your school. Everyone is out on the <b><i> playing</i></b> fields, including
+                                    the teacher. You had to go to the toilet. On the way to the toilet, you pass your
+                                    class and notice that there is someone in the room. You stop and <b><i>peek</i></b> in out of
+                                    <b><i>curiosity</i></b>. Just as you do, you see one of your best friends reach into another
+                                    person’s desk and take something out of it. You <b><i>quickly</i></b> move past the door before
+                                    you are seen.
+
+                                </p>
+                                <p>Just before the lunch bell<b><i> rings</i></b>, the students whose desk you saw your friend reach
+                                    into, walks up to the teacher. A moment later the teacher announces that this
+                                    student’s entire wallet with money, cards and other aspects in it has been stolen.
+                                    What do you do?
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,190 +1,217 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load student_tag %}
-<html>
-<head>
-    <link rel="stylesheet" href="course.css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="serachbar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {background-color: lightgrey;}
-
-    #top {
-    top: 0;
-    background-color: orange;
-    height: 100px;
-}
-body{
-  background: lightgrey;
-  font-family:Montserrat;
-  font-size:12px;
-}
-
-*{transition:all 0.3s ease-in-out;}
-
-.container{
-  clear:both;
-  overflow:auto;
-  background: white;
-
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    position: relative;
-    width: 1300;
-    top:45;
-    left:95;
-
-}
-
-nav{float:right;}
-
-.logo img{float:left; padding:8px;}
-
-ul li{
-  display: inline-block; padding:10px;
-  font-size:20px; font-family:"Montserrat";
-}
-
-ul li:hover{
-  color:orange;
-
-}
-.outer{
-    background: orange;
-    position: relative;
-    height: 150px;
-}
-hr{
-    background-color: orange;
-    width: 8%;
-
-    align-content: center;
-    height: 1px;
-    color: orange;
-    border: none;
-}
-h1{
-    font-family: "Montserrat";
-    font-weight: 100;
-
-   }
-
-#box{
-  z-index: 1;
-  width:320px;
-  height:370px;
-  margin-top:20px;
-  margin-right:auto;
-  margin-left:auto;
-  margin-bottom:10px;
-  background-color: white;
-  /* top: 350;
-  left: 160; */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
 
-.container1{
+{% block page_specific_htmlhead%}
+    <link rel="stylesheet" href="/static/css/Programs.css" />
+{% endblock%}
 
-display:flex;
-flex-direction:row;
-flex-wrap:wrap;
-}
-
-
-.button{
-  font-family: 'Montserrat';
-  background-color: orange;
-  border: none;
-  color: black;
-  padding: 12px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    outline: none;
-}
-
-
-.nav
-{
-  background-color:orange;
-  height:30%;
-  display:grid;
-  grid-template-rows:auto auto auto;
-  justify-content:center;
-  align-items:center;
-}
-
-.navig
-{
-  grid-row:2/3;
-  display:flex;
-  flex-wrap:nowrap;
-  background-color:white;
-  flex-direction:row;
-}
-
-.navv
-{
-  width:80%;
-  display:flex;
-  flex-direction:row;
-  justify-content:center;
-  align-items:center;
-  margin:10px;
-}
-
-
-</style>
-<body>
-
-  <div class="nav">
-    <div class="navig">
-      <div>
-    <img src="{% static 'elixir_logo.PNG' %}" alt="" style="width:20%;height:100%;margin:0;"/>
-    </div>
-    <div class="navv">
-    <a href="{% url 's_home' pk pk1 %}" style="font-size:150%;margin:10px;">HOME</a>
-    <a href="" style="font-size:150%;margin:10px;">ABOUT US</a>
-    <a href="" style="font-size:150%;margin:10px;">REPORTS</a>
-        <a href="{% url 'student_login' %}" style="font-size:150%;margin:10px;">LOGOOUT</a>
-    </div>
-    </div>
-  </div>
-
-    <center><h1> {{p.program_name|allcaps}}</h1></center>
-
-    <div class="col-md-8">
-
-      {% if messages %}
-      {% for message in messages %}
-
-      <div class="" style="background-color:rgb(50, 221, 110);padding:20px;margin:20px" role="alert">
-
-        {{message}}
-      </div>
-
-      {% endfor %}
-      {% endif %}
-    </div>
     
-<div class="container1">
-  {% for i in m %}
-   <div id="box">
-            <center><h3>{{i.module_name|allcaps}}</h3></center>
-            <center><img src="{% static i.module_name|str1 %}" width="200" height="90"></center><br><br>
-       <center><p style="font-size: 13">{{i.comments}}</p></center>
-            <center><a href="{% url 'module_view' pk pk1 pk2 i.module_id %}" class="button">GO TO MODULE</a></center>
+
+{% block content %} 
+  
+  <ul class="breadcrumb">
+    <li><a href="#" >MODULES</a></li>
+    
+  </ul>
+  
+    <center>
+        <h1> {{p.program_name|allcaps}}</h1>
+    </center>
+    
+    {% for i in m %}
+        {% with modulename=i.module_name %}
+         <button class="collapsible">
+                <b>{{modulename|allcaps}} </b>
+         </button>
+        <div class="content">
+
+       {% for j in l %}
+        {% if j.module == i %}
+         {% with levelname=j.level_description levelkey=i.module_name|add_str:j.level_description %}
+              {% if levelname|lower != 'resume builder' and levelname|lower != 'multiple intelligence' and levelname|lower != 'listening skill' and levelname|lower != 'my strengths' and levelname|lower != 'vision board' and levelname|lower != 'career path'%}
+                  <button class="collapsible1">
+                      <h4>
+                          <div class="col-three">
+                                <label class="lvlName">{{levelname|allcaps}}</label>
+                           </div>
+                          <div class="col-three">
+                            <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}" class="gotolesson">Go To Lesson </a>  
+                           </div>
+                          <div class="col-three">
+                          
+                            <b id='score-{{modulename}}-{{levelname}}' class="scores" style=";" data-score='{{scores|get_dictionary_item:levelkey}}'>
+                                Score : {{scores|get_dictionary_item:levelkey}}%
+                            </b>
+                          </div>
+                          
+                      </h4>
+                  </button>    
+                  <div class="content1"> 
+                    <table class="myTable">
+                      {% for b in j.level_id|prefix %}
+                        {% with assesmentname=b.assessment_type assesmentkey=levelkey|add_str:b.assessment_type %}
+                            {% if assesmentname == "General Assessment" %}
+                            <tr>
+                              <td>
+                                <a href="{% url 'standard_test' pk pk1 pk2 i.pk j.pk %}">General Assessment</a> 
+                              </td>
+                              {% with assesmentscore=scores|get_dictionary_item:assesmentkey %}
+                              <td id='score-{{assesmentKey}}' data-score='{{assesmentscore}}'>
+                                {{assesmentscore}} %
+                              </td>
+                              {% endwith %}
+                            </tr>
+                            {% else %}
+                            <tr>      
+                              <td><a href="{% url 'list_narrative' pk pk1 pk2 i.pk j.pk b.assessment_type_id %}">{{b.assessment_type}}</a></td>
+                             {% with assesmentscore=scores|get_dictionary_item:assesmentkey %}
+                              <td id='score-{{assesmentKey}}'data-score='{{assesmentscore}}'>
+                                {{assesmentscore}} %
+                              </td>
+                              {% endwith %}
+                              </tr>
+                            {% endif %}
+                        {% endwith %}
+                      {% endfor %}
+                    </table>
+                 </div> 
+               {% else %}
+                  {% if levelname|lower == 'resume builder' %}
+                      <button class="clickableLvl">
+                           <h4>
+                                  
+                                  <div class="col-three">
+                                     <a href="{% url 'resumebuilder' pk pk1 pk2 i.pk j.pk  %}" class="lvlName">{{levelname|allcaps}}</a>
+                                  </div>
+                                  <div class="col-three">
+                                    <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}" class="gotolesson">Go To Lesson </a> 
+                                  </div>
+                              
+                          </h4>
+                      </button>
+                   {% else %}
+                        {% if levelname|lower == 'multiple intelligence' %}
+                            <button class="clickableLvl">
+                               <h4>
+                                      <div class="col-three">
+                                        <a href="{% url 'Mi' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
+                                      </div>
+                                      <div class="col-three">
+                                         <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"class="gotolesson">Go To Lesson </a>  
+                                       </div>
+                              
+                              </h4>
+                            </button>
+                    {% else %}
+                        {% if levelname|lower == 'my strengths' %}
+                            <button class="clickableLvl">
+                                <h4>
+                                    <div class="col-three">
+                                        <a href="{% url 'MyStrengths' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
+                                    </div>
 
 
+                                </h4>
+                            </button>
+                            {% else %}
+                            {% if levelname|lower == 'listening skill' %}
+                                <button class="clickableLvl">
+                                   <h4>
+                                       {# {{p.program_name}}#}
+                                          <div class="col-three">
+                                            <a href="{% url 'LT' pk pk1 p.program_name %}" class="lvlName">{{levelname|allcaps}}</a>
+                                          </div>
+                                          <div class="col-three">
+                                             <a href="{% url 'lesson' pk pk1 pk2 i.pk j.pk %}"class="gotolesson">Go To Lesson </a> 
+                                           </div>
+                              
+                                  </h4>
+                                </button>
+                                {% else %}
+                        {% if levelname|lower == 'vision board' %}
+                            <button class="clickableLvl">
+                                <h4>
+                                    <a href="{% url 'VisionBoard' pk pk1 p.program_name %}" style="color:white;">{{levelname|allcaps}}</a>
+                                </h4>
+                            </button>
+                         {% else %}
+                              {% if levelname|lower == 'career path' %}
+
+                              <button class="clickableLvl">
+                                <h4>
+                                    <div class="col-three">
+                                      <a href="{% url 'Careerpath' pk pk1 p.program_name %}" class="lvlName">{{levelname|allcaps}}</a>
+                                    </div>
+                                </h4>
+                            </button>
+                            
+                            {% endif %}
+                         {% endif %}
+                                {% endif %}
+                     {% endif %}
+                {% endif %}
+             {% endif %}
+            {% endif %}
+            
+         {% endwith %}
+        {% endif %}
+     {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-
-
-    </body>
-</head>
-</html>
+     {% endwith %}
+    {% endfor %}
+      
+  
+  
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('[id^=score]').each(function(index,val){
+                var score=parseInt($(this).attr('data-score'));
+                if (score >80){
+                    $(this).addClass("green")
+                     $(this).removeClass("red")
+                }
+                else{
+                     $(this).addClass("red")
+                     $(this).removeClass("green")
+                }
+            });
+    });
+    
+  
+      
+      var coll=document.getElementsByClassName("collapsible");
+          var i;
+     for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+         var content1 = this.nextElementSibling;
+          if (content1.style.maxHeight){
+            content1.style.maxHeight = null;
+          } else {
+            content1.style.maxHeight = content1.scrollHeight + 1000 + "px";
+          }
+   });
+      }
+      
+      
+        var coll = document.getElementsByClassName("collapsible1");
+        //alert(coll.length);
+             
+          for(var i=0;i<coll.length;i++){
+          coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content1 = this.nextElementSibling;         
+          if (content1.style.maxHeight){
+            content1.style.maxHeight = null;
+          } else {
+            content1.style.maxHeight = content1.scrollHeight + "px";
+          } 
+        });
+          }
+        
+      </script>
+          
+   
+{% endblock content %} 
