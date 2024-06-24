@@ -2,6 +2,8 @@
 
 Python >3.6 [3.7.6 preferred]
 
+Run below commands as Administrator
+
 django [ Install command in cmd : pip install django ]
 
 crispy forms [ Install commmand in cmd : pip install django-crispy-forms ]
